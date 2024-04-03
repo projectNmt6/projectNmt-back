@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.projectnmt.projectnmt.repository.DonationMapper">
+
+    <resultMap id="DonationPageResultMap" type="com.projectnmt.projectnmt.entity.DonationPage"   >
+        <id property="donationPageId" column="donation_page_id" />
+        <result property="teamId" column="team_id" />
+        <result property="mainCategoryId" column="main_category_id" />
+        <result property="donationCategoryId" column="donation_category_id" />
+        <result property="donationName" column="donation_name" />
+        <result property="createDate" column="create_date" />
+        <result property="endDate" column="end_date" />
+        <result property="goalAmount" column="goal_amount" />
+        <result property="storyTitle" column="story_title" />
+        <result property="storyContent" column="story_content" />
+        <result property="mainImgUrl" column="main_img_url" />
+        <result property="donationTagId" column="donation_tag_id" />
+        <result property="donationPageShow" column="donation_page_show" />
+    </resultMap>
+
+    <insert id="saveDonationPage" parameterType="com.projectnmt.projectnmt.entity.DonationPage">
+        INSERT INTO DonationPage
+            (team_id,
+            main_category_id,
+            donation_category_id,
+            donation_name,
+            create_date,
+            end_date,
+            goal_amount,
+            story_title,
+            story_content,
+            main_img_url,
+            donation_tag_id,
+            donation_page_show)
+        VALUES
+            (#{teamId},
+            #{mainCategoryId},
+            #{donationCategoryId},
+            #{donationName},
+            now(),
+            now(),
+            #{goalAmount},
+            #{storyTitle},
+            #{storyContent},
+            #{mainImgUrl},
+            #{donationTagId},
+            #{donationPageShow})
+
+    </insert>
+
+</mapper>
