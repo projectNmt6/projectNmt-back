@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
-
+    // 제바로디라
     @PostMapping("/signup")
     public ResponseEntity<?> signup(BindingResult bindingResult) {
         return ResponseEntity.ok(null);
