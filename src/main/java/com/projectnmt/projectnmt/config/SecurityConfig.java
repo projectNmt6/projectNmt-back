@@ -21,10 +21,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors();//WebMvcConfig cors 설정을 따라간다.
         http.csrf().disable();
-//        필터 처리후 - 권한확인
+//필터 처리후 - 권한확인
         http.authorizeRequests()
                 .antMatchers("/**")
                 .permitAll();
     }
-
 }
