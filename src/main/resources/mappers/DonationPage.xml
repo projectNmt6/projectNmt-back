@@ -22,7 +22,7 @@
     </resultMap>
 
     <insert id="saveDonationPage" parameterType="com.projectnmt.projectnmt.entity.DonationPage">
-        INSERT INTO DonationPage
+        INSERT INTO donation_page_tb
             (team_id,
             main_category_id,
             donation_category_id,
