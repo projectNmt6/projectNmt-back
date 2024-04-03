@@ -18,7 +18,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
     @Override
-    //add
     protected void configure(HttpSecurity http) throws Exception {
         http.cors();//WebMvcConfig cors 설정을 따라간다.
         http.csrf().disable();
