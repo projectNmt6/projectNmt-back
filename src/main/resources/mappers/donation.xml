@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.projectnmt.projectnmt.repository.DonationMapper">
+    <resultMap id="DonationResultMap" type="com.projectnmt.projectnmt.entity.Donation">
+        <id property="donationPageId" column="donation_page_id" />
+        <result property="teamId" column="team_id" />
+        <result property="mainCategoryId" column="main_category_id" />
+        <result property="donationName" column="donation_name" />
+        <result property="createDate" column="create_date" />
+        <result property="endDate" column="end_date" />
+        <result property="goalAmount" column="goal_amount" />
+        <result property="main_img_url" column="main_img_url" />
+        <result property="donation_tag_id" column="donation_tag_id" />
+        <!-- Assuming the existence of fields in the database for team name, main category name, and donation tag name -->
+        <association property="team" resultMap="TeamResultMap" />
+        <association property="mainCategory" resultMap="MainCategoryResultMap" />
+        <association property="donationTag" resultMap="DonationTagResultMap" />
+    </resultMap>
+    <resultMap id="TeamResultMap" type="com.projectnmt.projectnmt.entity.Team">
+        <id property="teamId" column="team_id" />
+        <result property="teamName" column="team_name" />
+        <result property="teamType" column="team_type" />
+        <result property="teamPhone" column="team_phone" />
+        <result property="teamEmail" column="team_email" />
+        <result property="teamAccountNumber" column="team_account_number" />
+        <result property="teamAccountName" column="team_account_name" />
+        <result property="companyRegisterNumber" column="company_register_number" />
+        <result property="teamHomepage" column="team_homepage" />
+        <result property="teamInfoText" column="team_info_text" />
+    </resultMap>
+    <resultMap id="MainCategoryResultMap" type="com.projectnmt.projectnmt.entity.MainCategory">
+        <id property="mainCategoryId" column="main_category_id"/>
+        <result property="mainCategoryName" column="main_category_name"/>
+    </resultMap>
+    <resultMap id="DonationTagResultMap" type="com.projectnmt.projectnmt.entity.DonationTag">
+        <id property="donationTagId" column="donation_tag_id"/>
+        <result property="donationTagName" column="donation_tag_name"/>
+    </resultMap>
+
+
+    <select id="getDonationList" resultMap="DonationResultMap">
+        SELECT
+            dp.donation_page_id,
+            dp.team_id,
+            dp.main_category_id,
+            dp.donation_name,
+            dp.create_date,
+            dp.end_date,
+            dp.goal_amount,
+            dp.main_img_url,
+            dp.donation_tag_id,
+            mc.main_category_name,
+            dt.donation_tag_name,
+            t.team_name
+        FROM
+            donation_page_tb dp
+        LEFT OUTER JOIN main_category_tb mc ON dp.main_category_id = mc.main_category_id
+        LEFT OUTER JOIN donation_tag_tb dt ON dp.donation_tag_id = dt.donation_tag_id
+        LEFT OUTER JOIN team_tb t ON dp.team_id = t.team_id;
+    </select>
+</mapper>
