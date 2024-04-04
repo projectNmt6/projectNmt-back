@@ -25,5 +25,17 @@
         insert into user_tb
         values(0, #{username}, #{password}, #{name}, #{phoneNumber}, #{email}, #{gender}, #{age}, #{profileImg})
     </insert>
+    <select
+        id="findUserByUsername"
+        resultType="com.projectnmt.projectnmt.entity.User"
+    >
+        select
+            *
+        from
+            user_tb
+        where
+            username = #{username}
+
+    </select>
 
 </mapper>

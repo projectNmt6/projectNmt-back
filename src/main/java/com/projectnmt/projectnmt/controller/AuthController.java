@@ -22,13 +22,12 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@Valid @RequestBody SignUpReqDto signUpReqDto, BindingResult bindingResult) {
-        authService.signup(signUpReqDto);
         System.out.println(signUpReqDto);
         return ResponseEntity.created(null).body(true);
     }
 
     @PostMapping("/signin")
     public ResponseEntity<?> signin(@RequestBody SignInReqDto signInReqDto) {
-        return ResponseEntity.ok(signInReqDto);
+        return ResponseEntity.ok(authService.signin(signInReqDto));
     }
 }
