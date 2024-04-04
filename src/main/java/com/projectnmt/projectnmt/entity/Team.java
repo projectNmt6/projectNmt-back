@@ -5,11 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Team {
+    private int teamTypeCategory;
+    private String companyRegisterNumberUrl;
+    private String teamLogoImgUrl;
     private int teamId;
     private String teamName;
     private int teamType;

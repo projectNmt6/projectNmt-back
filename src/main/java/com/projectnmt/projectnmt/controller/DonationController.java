@@ -29,6 +29,11 @@ public class DonationController {
             @Valid @RequestBody DonationPageReqDto donationPageReqDto,
             BindingResult bindingResult) {
 
+        if (bindingResult.hasErrors()) {
+            // 바인딩 결과에 에러가 있는 경우 처리
+            return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
+        }
+
         donationPageService.saveDonationPage(donationPageReqDto);
 
         return ResponseEntity.created(null).body(donationPageReqDto);
