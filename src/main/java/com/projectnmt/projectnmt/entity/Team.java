@@ -10,15 +10,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Team {
-    int teamId;
-    String teamName;
-    int teamType;
-    int teamTypeCategory;
-    String teamPhoneNumber;
-    String teamEmail;
-    String companyRegisterNumber;
-    String companyRegisterNumberUrl;
-    String teamHomepage;
-    String teamInfoText;
-    String teamLogoImgUrl;
+    private int teamTypeCategory;
+    private String companyRegisterNumberUrl;
+    private String teamLogoImgUrl;
+    private int teamId;
+    private String teamName;
+    private int teamType;
+    private String teamPhone;
+    private String teamEmail;
+    private int teamAccountNumber;
+    private String teamAccountName;
+    private String companyRegisterNumber;
+    private String teamHomepage;
+    private String teamInfoText;
 }
