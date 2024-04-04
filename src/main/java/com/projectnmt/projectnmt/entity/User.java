@@ -1,16 +1,20 @@
 package com.projectnmt.projectnmt.entity;
 
+import com.projectnmt.projectnmt.dto.PrincipalUserRespDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Year;
 
-@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Data
 public class User {
     private int userId;
     //유저아이디
@@ -29,4 +33,20 @@ public class User {
     private String age;
     //프로필 이미지
     private String profileImg;
-}
+    public PrincipalUserRespDto toDto() {
+        LocalDate now = LocalDate.now();
+        String[] arr = age.split("-");
+        int now_age = now.getYear() - Integer.parseInt(arr[0]) + 1;
+        return PrincipalUserRespDto.builder()
+                .userId(user_id)
+                .username(username)
+                .name(name)
+                .email(email)
+                .phone_number(phone_number)
+                .gender(gender)
+                .age(now_age)
+                .img(profile_img)
+                .build();
+    }
+
+
