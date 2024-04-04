@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.projectnmt.projectnmt.repository.TeamMapper">
+
+
+    <insert id="saveTeam"
+            parameterType="com.projectnmt.projectnmt.entity.Team"
+            keyProperty="teamId"
+            useGeneratedKeys="true"
+    >
+        insert into team_tb
+        values (
+            0,
+            #{teamName},
+            #{teamType},
+            #{teamPhoneNumber},
+            #{teamEmail},
+            #{companyRegisterNumber},
+            #{companyRegisterNumberUrl},
+            #{teamHomepage},
+            #{teamInfoText},
+            #{teamLogoImgUrl},
+            #{teamTypeCategory}
+        )
+    </insert>
+    <insert id="saveLeader">
+        insert into team_member_tb
+        values (
+        0,
+        #{teamId},
+        #{userId},
+        1
+        )
+    </insert>
+</mapper>
