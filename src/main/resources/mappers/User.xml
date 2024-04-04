@@ -9,7 +9,7 @@
         <result property="username" column="username" />
         <result property="password" column="password" />
         <result property="name" column="name" />
-        <result property="phonenumber" column="phone_number" />
+        <result property="phoneNumber" column="phone_number" />
         <result property="email" column="email" />
         <result property="gender" column="gender" />
         <result property="age" column="age" />
@@ -23,7 +23,7 @@
             useGeneratedKeys="true"
     >
         insert into user_tb
-        values(0, #{username}, #{password}, #{name}, #{phone_number}, #{email}, #{gender}, #{age}, #{profile_img})
+        values(0, #{username}, #{password}, #{name}, #{phoneNumber}, #{email}, #{gender}, #{age}, #{profileImg})
     </insert>
 
 </mapper>

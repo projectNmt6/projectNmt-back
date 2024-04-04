@@ -6,6 +6,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 public class SignUpReqDto {
@@ -15,18 +18,25 @@ public class SignUpReqDto {
     private String password;    // 1q2w3e4r!
     @Pattern(regexp = "^[a-zA-z0-9가-힇]{2,10}$", message = "2~10자 사이의 형식이어야 합니다(특수문자 X).")
     private String name;
-    @Pattern(regexp = "^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$", message = "숫자 형식이어야 합니다.")
-    private String phonenumber;
+    @Pattern(regexp = "^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$", message = "전화번호 형식이어야 합니다.")
+    private String phoneNumber;
     @Email(regexp = "^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{1,3}$", message = "이메일 형식이어야 합니다")
     private String email;
+    private String gender;
+    private String age;
+    private String profileImg;
+
 
     public User toEntity(BCryptPasswordEncoder passwordEncoder) {
         return User.builder()
             .username(getUsername())
             .password(getPassword())
             .name(getName())
-            .phonenumber(getPhonenumber())
+            .phoneNumber(getPhoneNumber())
             .email(getEmail())
+            .gender(getGender())
+            .age(getAge())
+            .profileImg(getProfileImg())
             .build();
     }
 }

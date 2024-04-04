@@ -18,13 +18,14 @@ public class AuthService {
 
     @Transactional(rollbackFor = Exception.class)
         public void signup(SignUpReqDto signupReqDto) {
-            int successCount = 0;
-            User user = signupReqDto.toEntity(passwordEncoder);
+        int successCount = 0;
+        System.out.println(signupReqDto);
+        User user = signupReqDto.toEntity(passwordEncoder);
 
         successCount += userMapper.saveUser(user);
-//        successCount += userMapper.saveRole(user.getUserId(), 1);
+//      successCount += userMapper.saveRole(user.getUserId(), 1);
 
-        if(successCount < 2) {
+        if(successCount < 1) {
             throw new SaveException();
         }
     }

@@ -20,13 +20,13 @@ public class User {
     //닉네임
     private String name;
     //휴대폰 번호
-    private String phonenumber;
+    private String phoneNumber;
     //이메일
     private String email;
     //성별
     private String gender;
     //생년월일
-    private Date age;
+    private String age;
     //프로필 이미지
     private String profileImg;
 }
