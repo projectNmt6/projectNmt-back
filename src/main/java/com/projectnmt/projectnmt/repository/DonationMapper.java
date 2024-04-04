@@ -1,10 +1,17 @@
 package com.projectnmt.projectnmt.repository;
 
+import com.projectnmt.projectnmt.entity.DonationPage;
+import com.projectnmt.projectnmt.entity.MainCategory;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import com.projectnmt.projectnmt.entity.Donation;
 import com.projectnmt.projectnmt.entity.DonationTag;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,5 +34,11 @@ public interface DonationMapper {
             @Param("donationTagId") int donationTagId,
             @Param("donationTagName") String donationTagName);
 
-    }
+    public List<MainCategory> getMainCategoryList(
+            @Param("mainCategoryId") int mainCategoryId,
+            @Param("mainCategoryName") String mainCategoryName);
+
+
+}
+
 
