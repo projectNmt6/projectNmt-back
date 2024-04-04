@@ -35,7 +35,6 @@
             user_tb
         where
             username = #{username}
-
     </select>
 
 </mapper>

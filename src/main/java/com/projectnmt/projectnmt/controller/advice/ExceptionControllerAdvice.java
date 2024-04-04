@@ -22,4 +22,8 @@ public class ExceptionControllerAdvice {
     public ResponseEntity<?> badCredentialsException(BadCredentialsException e) {
         return ResponseEntity.badRequest().body(e.getMessage());
     }
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<?> illegalArgumentException(IllegalArgumentException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
 }

@@ -24,13 +24,14 @@ public class AuthService {
     }
     @Transactional(rollbackFor = Exception.class)
         public void signup(SignUpReqDto signupReqDto) {
-        int successCount = 0;
-        System.out.println(signupReqDto);
+        String username = signupReqDto.getUsername();
+        if (isDuplicatedByUsername(username)) {
+            throw new IllegalArgumentException("이미 사용 중인 아이디입니다.");
+        }
         User user = signupReqDto.toEntity(passwordEncoder);
-
+        int successCount = 0;
         successCount += userMapper.saveUser(user);
 //      successCount += userMapper.saveRole(user.getUserId(), 1);
-
         if(successCount < 1) {
             throw new SaveException();
         }
