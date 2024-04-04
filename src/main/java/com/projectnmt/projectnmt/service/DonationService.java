@@ -2,7 +2,10 @@ package com.projectnmt.projectnmt.service;
 
 import com.projectnmt.projectnmt.dto.DonationListReqDto;
 import com.projectnmt.projectnmt.dto.DonationListRespDto;
+import com.projectnmt.projectnmt.dto.DonationTagReqDto;
+import com.projectnmt.projectnmt.dto.DonationTagRespDto;
 import com.projectnmt.projectnmt.entity.Donation;
+import com.projectnmt.projectnmt.entity.DonationTag;
 import com.projectnmt.projectnmt.repository.DonationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,5 +32,14 @@ public class DonationService {
                 );
 
         return donations.stream().map(Donation::toDonationListRespDto).collect(Collectors.toList());
+    }
+    public List<DonationTagRespDto> getDonationTagList(DonationTagReqDto donationTagReqDto) {
+
+        List<DonationTag> donationTag = donationMapper.getDonationTagList(
+                donationTagReqDto.getDonationTagId(),
+                donationTagReqDto.getDonationTagName()
+        );
+
+        return donationTag.stream().map(DonationTag::toDonationTagRespDto).collect(Collectors.toList());
     }
 }

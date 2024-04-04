@@ -19,8 +19,8 @@ public class Donation {
     private LocalDateTime createDate;
     private LocalDateTime endDate;
     private int goalAmount;
-    private String main_img_url;
-    private int donation_tag_id;
+    private String mainImgUrl;
+    private int donationTagId;
 
     // Assuming existence of Team, MainCategory, DonationCategory, and DonationTag entities or enums
     private Team team;
@@ -38,7 +38,7 @@ public class Donation {
                 .createDate(createDate)
                 .endDate(endDate)
                 .goalAmount(goalAmount)
-                .mainImgUrl(main_img_url)
+                .mainImgUrl(mainImgUrl)
                 .donationTagName(donationTag.getDonationTagName())
                 .build();
     }
