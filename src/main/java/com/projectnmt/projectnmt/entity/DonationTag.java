@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class DonationTag {
+
     private int DonationTagId;
     private String DonationTagName;
 

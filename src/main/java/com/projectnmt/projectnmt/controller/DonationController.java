@@ -1,6 +1,7 @@
 package com.projectnmt.projectnmt.controller;
 
 import com.projectnmt.projectnmt.dto.req.DonationPageReqDto;
+import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagReqDto;
 import com.projectnmt.projectnmt.service.DonationPageService;
 import com.projectnmt.projectnmt.dto.DonationListReqDto;
 import com.projectnmt.projectnmt.dto.DonationTagReqDto;
@@ -43,4 +44,9 @@ public class DonationController {
     public ResponseEntity<?> DonationTag(DonationTagReqDto donationTagReqDto) {
         return ResponseEntity.ok(donationService.getDonationTagList(donationTagReqDto));
     };
+
+    @GetMapping("/storytypes")
+    public ResponseEntity<?> getMainType(DonationMainTagReqDto donationMainTagReqDto) {
+        return ResponseEntity.ok(donationService.getMainCategoryList(donationMainTagReqDto));
+    }
 }

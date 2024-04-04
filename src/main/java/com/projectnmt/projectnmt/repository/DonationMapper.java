@@ -1,6 +1,7 @@
 package com.projectnmt.projectnmt.repository;
 
 import com.projectnmt.projectnmt.entity.DonationPage;
+import com.projectnmt.projectnmt.entity.MainCategory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,6 +37,9 @@ public interface DonationMapper {
             @Param("donationTagId") int donationTagId,
             @Param("donationTagName") String donationTagName);
 
+    public List<MainCategory> getMainCategoryList(
+            @Param("mainCategoryId") int mainCategoryId,
+            @Param("mainCategoryName") String mainCategoryName);
 
 
 }

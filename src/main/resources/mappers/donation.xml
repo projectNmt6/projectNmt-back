@@ -112,4 +112,11 @@
         FROM
             donation_tag_tb
     </select>
+
+    <select id="getMainCategoryList" resultMap="MainCategoryResultMap" >
+        SELECT *
+        FROM
+            main_category_tb
+    </select>
+
 </mapper>
