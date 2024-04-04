@@ -16,5 +16,4 @@ public interface DonationMapper {
     public int saveDonationPage(DonationPage donationPage);
 
 
-
 }

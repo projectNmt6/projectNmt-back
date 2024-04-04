@@ -27,11 +27,7 @@ public class DonationPage {
     private int donationTagId;
     private Boolean donationPageShow;
 
-
-    private Category category;
-    private Team team;
     private MainCategory mainCategory;
-    private DonationTag donationTag;
 
     public DonationPageRespDto toSavePost() {
 
