@@ -1,6 +1,6 @@
 package com.projectnmt.projectnmt.entity;
 
-import com.projectnmt.projectnmt.dto.DonationListRespDto;
+import com.projectnmt.projectnmt.dto.resp.DonationListRespDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

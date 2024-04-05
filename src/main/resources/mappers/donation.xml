@@ -85,6 +85,24 @@
 
     </insert>
 
+    <select id="getDonationPageList" resultMap="DonationPageResultMap">
+        SELECT
+            donation_page_id,
+            team_id,
+            main_category_id,
+            donation_category_id,
+            donation_name,
+            create_date,
+            end_date,
+            goal_amount,
+            story_title,
+            story_content,
+            main_img_url,
+            donation_tag_id,
+            donation_page_show
+        FROM
+            donation_page
+    </select>
 
     <select id="getDonationList" resultMap="DonationResultMap">
         SELECT

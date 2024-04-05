@@ -48,6 +48,23 @@ public class DonationPage {
                 .build();
     }
 
+    public DonationPageRespDto toDonationPageListRespDto() {
 
+        return DonationPageRespDto.builder()
+                .donationPageId(donationPageId)
+                .teamId(teamId)
+                .mainCategoryId(mainCategoryId)
+                .donationCategoryId(donationCategoryId)
+                .donationName(donationName)
+                .createDate(createDate)
+                .endDate(endDate)
+                .goalAmount(goalAmount)
+                .storyTitle(storyTitle)
+                .storyContent(storyContent)
+                .mainImgUrl(mainImgUrl)
+                .donationTagId(donationTagId)
+                .donationPageShow(donationPageShow)
+                .build();
+    }
 
 }

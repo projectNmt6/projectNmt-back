@@ -2,8 +2,8 @@ package com.projectnmt.projectnmt.controller;
 
 import com.projectnmt.projectnmt.dto.req.DonationPageReqDto;
 import com.projectnmt.projectnmt.service.DonationPageService;
-import com.projectnmt.projectnmt.dto.DonationListReqDto;
-import com.projectnmt.projectnmt.dto.DonationTagReqDto;
+import com.projectnmt.projectnmt.dto.req.DonationListReqDto;
+import com.projectnmt.projectnmt.dto.req.DonationTagReqDto;
 import com.projectnmt.projectnmt.service.DonationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,5 +42,9 @@ public class DonationController {
     @GetMapping("/donationtag")
     public ResponseEntity<?> DonationTag(DonationTagReqDto donationTagReqDto) {
         return ResponseEntity.ok(donationService.getDonationTagList(donationTagReqDto));
+    };
+    @GetMapping("/donation/*")
+    public ResponseEntity<?> DonationStory(DonationPageReqDto donationPageReqDto) {
+        return ResponseEntity.ok(donationPageService.getDonationPageList(donationPageReqDto));
     };
 }

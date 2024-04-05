@@ -1,4 +1,4 @@
-package com.projectnmt.projectnmt.dto;
+package com.projectnmt.projectnmt.dto.req;
 
 import lombok.Data;
 

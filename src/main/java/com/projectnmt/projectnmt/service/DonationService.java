@@ -1,9 +1,9 @@
 package com.projectnmt.projectnmt.service;
 
-import com.projectnmt.projectnmt.dto.DonationListReqDto;
-import com.projectnmt.projectnmt.dto.DonationListRespDto;
-import com.projectnmt.projectnmt.dto.DonationTagReqDto;
-import com.projectnmt.projectnmt.dto.DonationTagRespDto;
+import com.projectnmt.projectnmt.dto.req.DonationListReqDto;
+import com.projectnmt.projectnmt.dto.resp.DonationListRespDto;
+import com.projectnmt.projectnmt.dto.req.DonationTagReqDto;
+import com.projectnmt.projectnmt.dto.resp.DonationTagRespDto;
 import com.projectnmt.projectnmt.entity.Donation;
 import com.projectnmt.projectnmt.entity.DonationTag;
 import com.projectnmt.projectnmt.repository.DonationMapper;
