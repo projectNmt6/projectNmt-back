@@ -1,4 +1,4 @@
-package com.projectnmt.projectnmt.dto;
+package com.projectnmt.projectnmt.dto.resp;
 
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +12,7 @@ public class DonationListRespDto {
     private int donationPageId;
     private String teamName;
     private String mainCategoryName;
-    private String donationName;
+    private String storyTitle;
     private LocalDateTime createDate;
     private LocalDateTime endDate;
     private int goalAmount;
