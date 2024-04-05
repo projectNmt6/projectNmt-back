@@ -40,6 +40,15 @@ public class DonationController {
     }
 
 
+<<<<<<< HEAD
+=======
+            @Valid
+            @RequestBody
+            DonationPageReqDto donationPageReqDto, BindingResult bindingResult) {
+                donationPageService.saveDonationPage(donationPageReqDto);
+        return ResponseEntity.created(null).body(donationPageReqDto);
+    }
+>>>>>>> b23af363d0b51d0ee2f01244a70aab18685d87fc
     @GetMapping("/donations")
     public ResponseEntity<?> DonationList(DonationListReqDto donationListReqDto) {
         return ResponseEntity.ok(donationService.getDonationList(donationListReqDto));
@@ -54,4 +63,8 @@ public class DonationController {
     public ResponseEntity<?> getMainType(DonationMainTagReqDto donationMainTagReqDto) {
         return ResponseEntity.ok(donationService.getMainCategoryList(donationMainTagReqDto));
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> b23af363d0b51d0ee2f01244a70aab18685d87fc

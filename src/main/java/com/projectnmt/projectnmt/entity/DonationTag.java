@@ -12,7 +12,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class DonationTag {
+<<<<<<< HEAD
 
+=======
+>>>>>>> b23af363d0b51d0ee2f01244a70aab18685d87fc
     private int DonationTagId;
     private String DonationTagName;
 

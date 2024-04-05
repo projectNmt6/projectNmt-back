@@ -40,3 +40,7 @@ public interface DonationMapper {
 
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> b23af363d0b51d0ee2f01244a70aab18685d87fc
