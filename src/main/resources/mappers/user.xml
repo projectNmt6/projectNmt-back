@@ -19,6 +19,7 @@
             user_tb
         where
             user_id = 1;
+
     </select>
 
 
