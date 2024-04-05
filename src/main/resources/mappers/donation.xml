@@ -9,7 +9,6 @@
         <result property="teamId" column="team_id" />
         <result property="mainCategoryId" column="main_category_id" />
         <result property="donationCategoryId" column="donation_category_id" />
-        <result property="donationName" column="donation_name" />
         <result property="createDate" column="create_date" />
         <result property="endDate" column="end_date" />
         <result property="goalAmount" column="goal_amount" />
@@ -23,13 +22,11 @@
         <id property="donationPageId" column="donation_page_id" />
         <result property="teamId" column="team_id" />
         <result property="mainCategoryId" column="main_category_id" />
-        <result property="donationName" column="donation_name" />
         <result property="createDate" column="create_date" />
         <result property="endDate" column="end_date" />
         <result property="goalAmount" column="goal_amount" />
         <result property="mainImgUrl" column="main_img_url" />
         <result property="donationTagId" column="donation_tag_id" />
-        <!-- Assuming the existence of fields in the database for team name, main category name, and donation tag name -->
         <association property="team" resultMap="TeamResultMap" />
         <association property="mainCategory" resultMap="MainCategoryResultMap" />
         <association property="donationTag" resultMap="DonationTagResultMap" />
@@ -60,7 +57,6 @@
         (team_id,
         main_category_id,
         donation_category_id,
-        donation_name,
         create_date,
         end_date,
         goal_amount,
@@ -73,7 +69,6 @@
         (#{teamId},
         #{mainCategoryId},
         #{donationCategoryId},
-        #{donationName},
         now(),
         now(),
         #{goalAmount},
@@ -91,10 +86,10 @@
             dp.donation_page_id,
             dp.team_id,
             dp.main_category_id,
-            dp.donation_name,
             dp.create_date,
             dp.end_date,
             dp.goal_amount,
+        dp.story_title,
             dp.main_img_url,
             dp.donation_tag_id,
             mc.main_category_name,

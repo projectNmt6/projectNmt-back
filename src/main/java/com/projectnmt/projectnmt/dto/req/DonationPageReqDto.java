@@ -27,7 +27,6 @@ public class DonationPageReqDto {
                 .teamId(teamId)
                 .mainCategoryId(mainCategoryId)
                 .donationCategoryId(donationCategoryId)
-                .donationName(donationName)
                 .createDate(createDate)
                 .endDate(endDate)
                 .storyTitle(storyTitle)

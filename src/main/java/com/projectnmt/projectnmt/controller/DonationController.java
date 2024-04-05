@@ -34,6 +34,16 @@ public class DonationController {
         return ResponseEntity.created(null).body(donationPageReqDto);
     }
 
+    @PostMapping("/review")
+    public ResponseEntity<?> saveReviewPage(
+            @Valid @RequestBody DonationPageReqDto donationPageReqDto,
+            BindingResult bindingResult) {
+
+        donationPageService.saveDonationPage(donationPageReqDto);
+
+        return ResponseEntity.created(null).body(donationPageReqDto);
+    }
+
 
 
     @GetMapping("/donations")

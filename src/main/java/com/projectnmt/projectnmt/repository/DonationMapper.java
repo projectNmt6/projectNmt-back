@@ -23,10 +23,10 @@ public interface DonationMapper {
             @Param("donationPageId") int donationPageId,
             @Param("teamId") int teamId,
             @Param("mainCategoryId") int mainCategoryId,
-            @Param("donationName") String donationName,
             @Param("createDate") LocalDateTime createDate,
             @Param("endDate") LocalDateTime endDate,
             @Param("goalAmount") int goalAmount,
+            @Param("storyTitle") String storyTitle,
             @Param("mainImgUrl") String mainImgUrl,
             @Param("donationTagId") int donationTagId);
 
