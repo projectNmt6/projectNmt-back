@@ -25,9 +25,14 @@ public class AuthController {
         authService.signup(signUpReqDto);
         return ResponseEntity.created(null).body(true);
     }
+    @PostMapping("/oauth2/signup")
+    public ResponseEntity<?> oAuth2Signup(BindingResult bindingResult) {
+        return ResponseEntity.created(null).body(null);
+    }
 
     @PostMapping("/signin")
     public ResponseEntity<?> signin(@RequestBody SignInReqDto signInReqDto) {
         return ResponseEntity.ok(authService.signin(signInReqDto));
     }
+
 }

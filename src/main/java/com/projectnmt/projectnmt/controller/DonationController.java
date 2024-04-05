@@ -35,12 +35,6 @@ public class DonationController {
     }
 
 
-            @Valid
-            @RequestBody
-            DonationPageReqDto donationPageReqDto, BindingResult bindingResult) {
-                donationPageService.saveDonationPage(donationPageReqDto);
-        return ResponseEntity.created(null).body(donationPageReqDto);
-    }
     @GetMapping("/donations")
     public ResponseEntity<?> DonationList(DonationListReqDto donationListReqDto) {
         return ResponseEntity.ok(donationService.getDonationList(donationListReqDto));
