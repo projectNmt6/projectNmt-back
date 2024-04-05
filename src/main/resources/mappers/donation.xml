@@ -70,7 +70,7 @@
         #{mainCategoryId},
         #{donationCategoryId},
         now(),
-        now(),
+        #{endDate},
         #{goalAmount},
         #{storyTitle},
         #{storyContent},
@@ -89,7 +89,7 @@
             dp.create_date,
             dp.end_date,
             dp.goal_amount,
-        dp.story_title,
+            dp.story_title,
             dp.main_img_url,
             dp.donation_tag_id,
             mc.main_category_name,
@@ -113,5 +113,7 @@
         FROM
             main_category_tb
     </select>
+
+
 
 </mapper>

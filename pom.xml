@@ -83,6 +83,13 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.27</version> <!-- or any other version you prefer -->
 		</dependency>
+
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>

@@ -15,6 +15,7 @@ public class DonationPageReqDto {
     private String donationName;
     private LocalDateTime createDate;
     private LocalDateTime endDate;
+    private int goalAmount;
     private String storyTitle;
     private String storyContent;
     private String mainImgUrl;
@@ -29,6 +30,7 @@ public class DonationPageReqDto {
                 .donationCategoryId(donationCategoryId)
                 .createDate(createDate)
                 .endDate(endDate)
+                .goalAmount(goalAmount)
                 .storyTitle(storyTitle)
                 .storyContent(storyContent)
                 .mainImgUrl(mainImgUrl)

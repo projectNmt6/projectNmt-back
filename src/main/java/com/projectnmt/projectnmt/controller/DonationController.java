@@ -60,4 +60,5 @@ public class DonationController {
     public ResponseEntity<?> getMainType(DonationMainTagReqDto donationMainTagReqDto) {
         return ResponseEntity.ok(donationService.getMainCategoryList(donationMainTagReqDto));
     }
+
 }
