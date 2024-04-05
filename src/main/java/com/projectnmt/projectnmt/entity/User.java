@@ -33,6 +33,7 @@ public class User {
     private String age;
     //프로필 이미지
     private String profileImg;
+
     public PrincipalUserRespDto toDto() {
         LocalDate now = LocalDate.now();
         String[] arr = age.split("-");
