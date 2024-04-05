@@ -9,7 +9,7 @@ public class RegisterTeamReqDto {
     String teamName;
     boolean teamType;
     int teamTypeCategory;
-    String teamPhoneNumber;
+    String teamPhone;
     String teamEmail;
     String companyRegisterNumber;
     String companyRegisterNumberCopyUrl;
@@ -22,7 +22,7 @@ public class RegisterTeamReqDto {
                 .teamName(teamName)
                 .teamType(teamType ? 1 : 2)
                 .teamTypeCategory(teamTypeCategory)
-                .teamPhone(teamPhoneNumber)
+                .teamPhone(teamPhone)
                 .teamEmail(teamEmail)
                 .companyRegisterNumber(companyRegisterNumber)
                 .companyRegisterNumberUrl(companyRegisterNumberCopyUrl)

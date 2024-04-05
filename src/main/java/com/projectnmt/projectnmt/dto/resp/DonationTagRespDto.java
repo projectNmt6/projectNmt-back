@@ -1,4 +1,4 @@
-package com.projectnmt.projectnmt.dto;
+package com.projectnmt.projectnmt.dto.resp;
 
 import lombok.Builder;
 import lombok.Data;

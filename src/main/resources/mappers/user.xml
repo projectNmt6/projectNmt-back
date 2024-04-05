@@ -4,22 +4,63 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.projectnmt.projectnmt.repository.UserMapper">
 
+        <resultMap id="UserResultMap" type="com.projectnmt.projectnmt.entity.User">
+            <id property="userId" column="user_id" />
+            <result property="username" column="username" />
+            <result property="password" column="password" />
+            <result property="name" column="name" />
+            <result property="phoneNumber" column="phone_number" />
+            <result property="email" column="email" />
+            <result property="gender" column="gender" />
+            <result property="age" column="age" />
+            <result property="profileImg" column="profile_img" />
+        </resultMap>
+
+        <insert
+                id="saveUser"
+                parameterType="com.projectnmt.projectnmt.entity.User"
+                keyProperty="userId"
+                useGeneratedKeys="true"
+        >
+            insert into user_tb
+            values(0,
+            #{username},
+            #{password},
+            #{name},
+            #{phoneNumber},
+            #{email},
+            #{gender},
+            #{age},
+            #{profileImg})
+        </insert>
+
+        <select
+                id="findUserByUsername"
+                resultType="com.projectnmt.projectnmt.entity.User"
+        >
+            select
+            *
+            from
+            user_tb
+            where
+            username = #{username}
+        </select>
+
     <select id="findUserTest" resultType="com.projectnmt.projectnmt.entity.User">
         select
-            user_id,
-            username,
-            password,
-            name,
-            phone_number,
-            email,
-            gender,
-            age,
-            profile_img
+        user_id,
+        username,
+        password,
+        name,
+        phone_number,
+        email,
+        gender,
+        age,
+        profile_img
         from
-            user_tb
+        user_tb
         where
-            user_id = 1;
+        user_id = 1;
+
     </select>
-
-
 </mapper>

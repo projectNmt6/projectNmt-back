@@ -1,19 +1,21 @@
-package com.projectnmt.projectnmt.dto;
+package com.projectnmt.projectnmt.dto.resp;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
+@Builder
 @Data
-public class DonationListReqDto {
+public class DonationListRespDto {
+
     private int donationPageId;
-    private int teamId;
-    private int mainCategoryId;
+    private String teamName;
+    private String mainCategoryName;
     private LocalDateTime createDate;
     private LocalDateTime endDate;
     private int goalAmount;
     private String storyTitle;
     private String mainImgUrl;
-    private int donationTagId;
-
+    private String donationTagName;
 }
