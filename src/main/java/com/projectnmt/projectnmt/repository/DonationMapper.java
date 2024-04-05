@@ -1,6 +1,8 @@
 package com.projectnmt.projectnmt.repository;
 
 import com.projectnmt.projectnmt.entity.DonationPage;
+
+import com.projectnmt.projectnmt.entity.MainCategory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,7 +27,7 @@ public interface DonationMapper {
             @Param("donationPageId") int donationPageId,
             @Param("teamId") int teamId,
             @Param("mainCategoryId") int mainCategoryId,
-            @Param("donationName") String donationName,
+            @Param("storyTitle") String storyTitle,
             @Param("createDate") LocalDateTime createDate,
             @Param("endDate") LocalDateTime endDate,
             @Param("goalAmount") int goalAmount,
@@ -36,12 +38,11 @@ public interface DonationMapper {
             @Param("donationTagId") int donationTagId,
             @Param("donationTagName") String donationTagName);
 
-    public List<DonationPage> getDonationPageList(
+    public DonationPage getDonationPage(
             @Param("donationPageId") Integer donationPageId,
             @Param("teamId") Integer teamId,
             @Param("mainCategoryId") Integer mainCategoryId,
             @Param("donationCategoryId") Integer donationCategoryId,
-            @Param("donationName") String donationName,
             @Param("createDate") LocalDateTime createDate,
             @Param("endDate") LocalDateTime endDate,
             @Param("storyTitle") String storyTitle,
@@ -49,6 +50,10 @@ public interface DonationMapper {
             @Param("mainImgUrl") String mainImgUrl,
             @Param("donationTagId") Integer donationTagId,
             @Param("donationPageShow") Boolean donationPageShow);
+
+    public List<MainCategory> getMainCategoryList(
+            @Param("mainCategoryId") int mainCategoryId,
+            @Param("mainCategoryName") String mainCategoryName);
 
 
 

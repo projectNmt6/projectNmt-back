@@ -6,10 +6,12 @@ import com.projectnmt.projectnmt.dto.req.DonationTagReqDto;
 import com.projectnmt.projectnmt.dto.resp.DonationTagRespDto;
 import com.projectnmt.projectnmt.entity.Donation;
 import com.projectnmt.projectnmt.entity.DonationTag;
+import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagReqDto;
+import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagRespDto;
+import com.projectnmt.projectnmt.entity.MainCategory;
 import com.projectnmt.projectnmt.repository.DonationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
 @Service
@@ -23,7 +25,7 @@ public class DonationService {
                 donationListReqDto.getDonationPageId(),
                 donationListReqDto.getTeamId(),
                 donationListReqDto.getMainCategoryId(),
-                donationListReqDto.getDonationName(),
+                donationListReqDto.getStoryTitle(),
                 donationListReqDto.getCreateDate(),
                 donationListReqDto.getEndDate(),
                 donationListReqDto.getGoalAmount(),
@@ -41,5 +43,13 @@ public class DonationService {
         );
 
         return donationTag.stream().map(DonationTag::toDonationTagRespDto).collect(Collectors.toList());
+    }
+
+    public List<DonationMainTagRespDto> getMainCategoryList(DonationMainTagReqDto donationMainTagReqDto) {
+        List<MainCategory> mainCategories = donationMapper.getMainCategoryList(
+                donationMainTagReqDto.getMainCategoryId(),
+                donationMainTagReqDto.getMainCategoryName()
+        );
+        return mainCategories.stream().map(MainCategory::toDonationMainTagResp).collect(Collectors.toList());
     }
 }

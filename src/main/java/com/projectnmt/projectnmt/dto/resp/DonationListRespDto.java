@@ -12,7 +12,7 @@ public class DonationListRespDto {
     private int donationPageId;
     private String teamName;
     private String mainCategoryName;
-    private String donationName;
+    private String storyTitle;
     private LocalDateTime createDate;
     private LocalDateTime endDate;
     private int goalAmount;

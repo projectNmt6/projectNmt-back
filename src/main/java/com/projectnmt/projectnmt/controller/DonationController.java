@@ -4,12 +4,12 @@ import com.projectnmt.projectnmt.dto.req.DonationPageReqDto;
 import com.projectnmt.projectnmt.service.DonationPageService;
 import com.projectnmt.projectnmt.dto.req.DonationListReqDto;
 import com.projectnmt.projectnmt.dto.req.DonationTagReqDto;
+import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagReqDto;
 import com.projectnmt.projectnmt.service.DonationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 
 @RestController
@@ -18,7 +18,6 @@ public class DonationController {
 
     @Autowired
     private DonationService donationService;
-
 
     @Autowired
     private DonationPageService donationPageService;
@@ -43,8 +42,19 @@ public class DonationController {
     public ResponseEntity<?> DonationTag(DonationTagReqDto donationTagReqDto) {
         return ResponseEntity.ok(donationService.getDonationTagList(donationTagReqDto));
     };
-    @GetMapping("/donation/*")
-    public ResponseEntity<?> DonationStory(DonationPageReqDto donationPageReqDto) {
-        return ResponseEntity.ok(donationPageService.getDonationPageList(donationPageReqDto));
+
+    @GetMapping("/donation")
+    public ResponseEntity<?> DonationStory(@RequestParam(value = "page", defaultValue = "1") int page) {
+        DonationPageReqDto donationPageReqDto = new DonationPageReqDto();
+        donationPageReqDto.setDonationPageId(page);
+        System.out.println("test");
+        System.out.println(page);
+
+        return ResponseEntity.ok(donationPageService.getDonationPage(donationPageReqDto));
     };
+
+    @GetMapping("/storytypes")
+    public ResponseEntity<?> getMainType(DonationMainTagReqDto donationMainTagReqDto) {
+        return ResponseEntity.ok(donationService.getMainCategoryList(donationMainTagReqDto));
+    }
 }
