@@ -36,7 +36,6 @@ public class DonationPage {
                 .teamId(teamId)
                 .mainCategoryId(mainCategoryId)
                 .donationCategoryId(donationCategoryId)
-                .donationName(donationName)
                 .createDate(createDate)
                 .endDate(endDate)
                 .goalAmount(goalAmount)

@@ -26,7 +26,6 @@ public class DonationService {
                 donationListReqDto.getDonationPageId(),
                 donationListReqDto.getTeamId(),
                 donationListReqDto.getMainCategoryId(),
-                donationListReqDto.getDonationName(),
                 donationListReqDto.getCreateDate(),
                 donationListReqDto.getEndDate(),
                 donationListReqDto.getGoalAmount(),
