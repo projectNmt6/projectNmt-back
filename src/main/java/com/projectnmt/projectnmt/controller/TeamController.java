@@ -1,12 +1,10 @@
-package com.projectnmt.projectnmt.service;
+package com.projectnmt.projectnmt.controller;
 
 import com.projectnmt.projectnmt.dto.RegisterTeamReqDto;
+import com.projectnmt.projectnmt.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/team")
@@ -18,4 +16,5 @@ public class TeamController {
         teamService.saveTeam(registerTeamReqDto);
         return ResponseEntity.ok(null);
     }
+
 }

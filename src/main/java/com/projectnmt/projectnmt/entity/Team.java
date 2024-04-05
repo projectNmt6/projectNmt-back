@@ -16,11 +16,12 @@ public class Team {
     private int teamId;
     private String teamName;
     private int teamType;
-    private String teamPhone;
+    private String teamPhoneNumber;
     private String teamEmail;
     private int teamAccountNumber;
     private String teamAccountName;
     private String companyRegisterNumber;
     private String teamHomepage;
     private String teamInfoText;
+    private TeamMember teamMember;
 }
