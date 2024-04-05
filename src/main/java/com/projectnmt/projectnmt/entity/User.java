@@ -39,15 +39,15 @@ public class User {
         String[] arr = age.split("-");
         int now_age = now.getYear() - Integer.parseInt(arr[0]) + 1;
         return PrincipalUserRespDto.builder()
-                .userId(user_id)
+                .userId(userId)
                 .username(username)
                 .name(name)
                 .email(email)
-                .phone_number(phone_number)
+                .phone_number(phoneNumber)
                 .gender(gender)
                 .age(now_age)
-                .img(profile_img)
+                .img(profileImg)
                 .build();
     }
-
+}
 
