@@ -32,9 +32,7 @@ public class DonationController {
     public ResponseEntity<?> saveDonationPage(
             @Valid @RequestBody DonationPageReqDto donationPageReqDto,
             BindingResult bindingResult) {
-
         donationPageService.saveDonationPage(donationPageReqDto);
-
         return ResponseEntity.created(null).body(donationPageReqDto);
     }
 
