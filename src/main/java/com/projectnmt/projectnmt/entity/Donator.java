@@ -1,12 +1,26 @@
 package com.projectnmt.projectnmt.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Donator {
     private int donatorId;
-    private String userId;
-    private LocalDateTime donationdate;
-    private String Amount;
+    private int userId;
+    private LocalDateTime donationDate;
+    private int amount;
     private int donationPageId;
-    private int anonymous;
+    private boolean anonymous;
+
+    private User user;
+    private DonationPage donationPage ;
+    private Comment comment;
+
 }

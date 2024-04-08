@@ -3,6 +3,7 @@ package com.projectnmt.projectnmt.controller;
 import com.projectnmt.projectnmt.dto.DonationGivingReqDto;
 import com.projectnmt.projectnmt.dto.req.DonationPageReqDto;
 import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagReqDto;
+import com.projectnmt.projectnmt.service.DonationGivingService;
 import com.projectnmt.projectnmt.service.DonationPageService;
 import com.projectnmt.projectnmt.dto.DonationListReqDto;
 import com.projectnmt.projectnmt.dto.DonationTagReqDto;
@@ -21,9 +22,11 @@ public class DonationController {
     @Autowired
     private DonationService donationService;
 
-
     @Autowired
     private DonationPageService donationPageService;
+
+    @Autowired
+    private DonationGivingService donationGivingService;
 
     @PostMapping("/write")
     public ResponseEntity<?> saveDonationPage(
@@ -51,6 +54,7 @@ public class DonationController {
     }
     @PostMapping("/test")
     public ResponseEntity<?> givingDonation(@RequestBody DonationGivingReqDto donationGivingReqDto) {
+        donationGivingService.processDonation(donationGivingReqDto);
         return ResponseEntity.created(null).body(donationGivingReqDto);
     }
 }
