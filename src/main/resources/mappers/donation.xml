@@ -136,5 +136,28 @@
             main_category_tb
     </select>
 
+    <update id="updatePageById" parameterType="com.projectnmt.projectnmt.entity.DonationPage">
+        update
+            donation_page_tb
+        set
+            donation_page_id = #{donationPageId},
+            team_id = #{teamId},
+            main_category_id=#{mainCategoryId},
+            donation_category_id=#{donationCategoryId},
+            create_date=now(),
+            end_date=#{endDate},
+            goal_amount=#{goalAmount},
+            story_title=#{storyTitle},
+            story_content=#{storyContent},
+            main_img_url=#{mainImgUrl},
+            donation_tag_id=#{donationTagId},
+            donation_page_show=#{donationPageShow}
+        where
+            donation_page_id = #{donationPageId}
+    </update>
+
+
+
+
 
 </mapper>

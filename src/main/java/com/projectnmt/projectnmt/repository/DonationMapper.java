@@ -53,6 +53,9 @@ public interface DonationMapper {
             @Param("mainCategoryId") int mainCategoryId,
             @Param("mainCategoryName") String mainCategoryName);
 
+    public int updatePageById(DonationPage donationPage);
+
+
 
 }
 

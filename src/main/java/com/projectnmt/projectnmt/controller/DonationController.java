@@ -1,6 +1,8 @@
 package com.projectnmt.projectnmt.controller;
 
 import com.projectnmt.projectnmt.dto.req.DonationPageReqDto;
+import com.projectnmt.projectnmt.dto.req.DonationPageUpdateReqDto;
+import com.projectnmt.projectnmt.dto.resp.DonationPageRespDto;
 import com.projectnmt.projectnmt.service.DonationPageService;
 import com.projectnmt.projectnmt.dto.req.DonationListReqDto;
 import com.projectnmt.projectnmt.dto.req.DonationTagReqDto;
@@ -63,5 +65,22 @@ public class DonationController {
     public ResponseEntity<?> getMainType(DonationMainTagReqDto donationMainTagReqDto) {
         return ResponseEntity.ok(donationService.getMainCategoryList(donationMainTagReqDto));
     }
+
+    @PutMapping("/donation/update/{page}")
+    public ResponseEntity<?> updatePage(@PathVariable("page") int page, @RequestBody DonationPageUpdateReqDto donationPageUpdateReqDto) {
+        donationPageUpdateReqDto.setDonationPageId(page);
+        donationPageService.updatePage(donationPageUpdateReqDto);
+        return ResponseEntity.ok(true);
+    }
+
+    @GetMapping("/donation/update/{page}")
+    public ResponseEntity<?> getPageUpdate(@PathVariable("page") int page) {
+        DonationPageReqDto donationPageReqDto = new DonationPageReqDto();
+        donationPageReqDto.setDonationPageId(page);
+        DonationPageRespDto donationPageRespDto = donationPageService.getDonationPage(donationPageReqDto);
+        return ResponseEntity.ok(donationPageRespDto);
+    }
+
+
 
 }
