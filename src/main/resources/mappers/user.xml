@@ -29,6 +29,7 @@
         <result property="roleName" column="role_name"/>
         <result property="roleNameKor" column="role_name_kor"/>
     </resultMap>
+
         <insert
                 id="saveUser"
                 parameterType="com.projectnmt.projectnmt.entity.User"
@@ -69,19 +70,20 @@
             username = #{username}
         </select>
     <select id="findUserTest" resultMap="UserResultMap">
+
         select
-            user_id,
-            username,
-            password,
-            name,
-            phone_number,
-            email,
-            gender,
-            age,
-            profile_img
+        user_id,
+        username,
+        password,
+        name,
+        phone_number,
+        email,
+        gender,
+        age,
+        profile_img
         from
-            user_tb
+        user_tb
         where
-            user_id = 1;
+        user_id = 1;
     </select>
 </mapper>
