@@ -1,6 +1,7 @@
 package com.projectnmt.projectnmt.service;
 
 import com.projectnmt.projectnmt.dto.RegisterTeamReqDto;
+import com.projectnmt.projectnmt.dto.req.SearchTeamInfoDto;
 import com.projectnmt.projectnmt.dto.req.SearchTeamListDto;
 import com.projectnmt.projectnmt.entity.Account;
 import com.projectnmt.projectnmt.entity.Team;
@@ -19,6 +20,7 @@ public class TeamService {
     TeamMapper teamMapper;
     @Autowired
     UserMapper userMapper;
+
     @Transactional(rollbackFor = Exception.class)
     public void saveTeam(RegisterTeamReqDto registerTeamReqDto) {
         Team team = registerTeamReqDto.toEntity();
@@ -31,15 +33,17 @@ public class TeamService {
             account.setTeamId(team.getTeamId());
             successCount += teamMapper.saveAccount(account);
         }
-        if(successCount < 3) {
+        if(successCount < 3 + registerTeamReqDto.getAccountInfos().length) {
             throw new UsernameNotFoundException("");
         }
 
     }
     public List<Team> getTeamList(SearchTeamListDto searchTeamListDto) {
-        System.out.println(searchTeamListDto);
         List<Team> teamList = teamMapper.teamList(searchTeamListDto.getUserId());
-        System.out.println(teamList.toString());
         return teamList;
+    }
+    public Team getTeamInfo(SearchTeamInfoDto searchTeamInfoDto) {
+        Team team = teamMapper.teamInfo(searchTeamInfoDto.getTeamId());
+        return team;
     }
 }

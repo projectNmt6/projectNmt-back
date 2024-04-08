@@ -12,4 +12,5 @@ public interface TeamMapper {
     public int saveLeader(int userId, int teamId);
     public int saveAccount(Account account);
     public List<Team> teamList(int userId);
+    public Team teamInfo(int teamId);
 }

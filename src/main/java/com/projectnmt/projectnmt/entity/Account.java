@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class Account {
+    private int accountId;
     private int teamId;
     private String accountUsername;
     private String accountNumber;

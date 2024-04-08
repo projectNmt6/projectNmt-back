@@ -52,6 +52,7 @@
             ut.username,
             ut.password,
             ut.name,
+            ut.phone_number,
             ut.email,
             ut.gender,
             ut.age,

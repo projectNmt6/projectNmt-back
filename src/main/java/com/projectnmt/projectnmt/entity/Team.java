@@ -24,4 +24,5 @@ public class Team {
     private String teamHomepage;
     private String teamInfoText;
     private TeamMember teamMember;
+    private Account account;
 }
