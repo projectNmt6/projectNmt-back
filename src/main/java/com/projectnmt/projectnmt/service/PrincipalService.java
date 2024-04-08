@@ -12,7 +12,6 @@ public class PrincipalService {
     UserMapper userMapper;
     public PrincipalUserRespDto getPrincipal() {
         User user = userMapper.findUserTest();
-        System.out.println(user);
         return user.toDto();
     }
 }
