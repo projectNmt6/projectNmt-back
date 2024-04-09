@@ -4,7 +4,7 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.projectnmt.projectnmt.repository.DonationMapper">
-    <resultMap id="DonationPageResultMap" type="com.projectnmt.projectnmt.entity.DonationPage"   >
+    <resultMap id="DonationPageResultMap" type="com.projectnmt.projectnmt.entity.DonationPage">
         <id property="donationPageId" column="donation_page_id" />
         <result property="teamId" column="team_id" />
         <result property="mainCategoryId" column="main_category_id" />
@@ -36,7 +36,7 @@
         <id property="teamId" column="team_id" />
         <result property="teamName" column="team_name" />
         <result property="teamType" column="team_type" />
-        <result property="teamPhone" column="team_phone" />
+        <result property="teamPhoneNumber" column="team_phone" />
         <result property="teamEmail" column="team_email" />
         <result property="teamAccountNumber" column="team_account_number" />
         <result property="teamAccountName" column="team_account_name" />
@@ -71,6 +71,7 @@
         #{mainCategoryId},
         #{donationCategoryId},
         now(),
+        now(),
         #{endDate},
         #{goalAmount},
         #{storyTitle},
@@ -101,7 +102,6 @@
             donation_page_id = #{donationPageId}
     </select>
 
-
     <select id="getDonationList" resultMap="DonationResultMap">
         SELECT
             dp.donation_page_id,
@@ -123,6 +123,32 @@
         LEFT OUTER JOIN donation_tag_tb dt ON dp.donation_tag_id = dt.donation_tag_id
         LEFT OUTER JOIN team_tb t ON dp.team_id = t.team_id;
     </select>
+
+    <select id="searchDonation" resultMap="DonationResultMap">
+        SELECT
+        dp.donation_page_id,
+        dp.team_id,
+        dp.main_category_id,
+        dp.story_title,
+        dp.create_date,
+        dp.end_date,
+        dp.goal_amount,
+        dp.main_img_url,
+        dp.donation_tag_id,
+        mc.main_category_name,
+        dt.donation_tag_name,
+        t.team_name
+        FROM
+        donation_page_tb dp
+        LEFT OUTER JOIN main_category_tb mc ON dp.main_category_id = mc.main_category_id
+        LEFT OUTER JOIN donation_tag_tb dt ON dp.donation_tag_id = dt.donation_tag_id
+        LEFT OUTER JOIN team_tb t ON dp.team_id = t.team_id
+        WHERE
+        story_title Like concat('%', #{storyTitle}, '%');
+    </select>
+
+
+
     <select id="getDonationTagList" resultMap="DonationTagResultMap">
         SELECT
             *
@@ -168,7 +194,6 @@
                 </foreach>
             )
     </delete>
-
 
 
 </mapper>

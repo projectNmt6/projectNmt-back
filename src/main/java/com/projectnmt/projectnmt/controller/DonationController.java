@@ -9,14 +9,12 @@ import com.projectnmt.projectnmt.dto.resp.DonationPageRespDto;
 import com.projectnmt.projectnmt.service.DonationPageService;
 import com.projectnmt.projectnmt.dto.req.DonationListReqDto;
 import com.projectnmt.projectnmt.dto.req.DonationTagReqDto;
-import com.projectnmt.projectnmt.service.DonationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Path;
 import javax.validation.Valid;
+import com.projectnmt.projectnmt.service.DonationService;
 
 @RestController
 @RequestMapping("/main")
@@ -37,7 +35,6 @@ public class DonationController {
 
         return ResponseEntity.created(null).body(donationPageReqDto);
     }
-
     @PostMapping("/review")
     public ResponseEntity<?> saveReviewPage(
             @Valid @RequestBody DonationPageReqDto donationPageReqDto,
@@ -49,10 +46,16 @@ public class DonationController {
     }
 
 
-
     @GetMapping("/donations")
     public ResponseEntity<?> DonationList(DonationListReqDto donationListReqDto) {
         return ResponseEntity.ok(donationService.getDonationList(donationListReqDto));
+    };
+    @GetMapping("/search")
+    public ResponseEntity<?> searchDonation(
+            @RequestParam(value = "name", defaultValue = "") String name) {
+        DonationListReqDto donationListReqDto1 = new DonationListReqDto();
+        donationListReqDto1.setStoryTitle(name);
+        return ResponseEntity.ok(donationService.searchDonation(donationListReqDto1));
     };
 
     @GetMapping("/donationtag")
@@ -77,12 +80,14 @@ public class DonationController {
         donationGivingService.processDonation(donationGivingReqDto);
         return ResponseEntity.created(null).body(donationGivingReqDto);
     }
+
     @PutMapping("/donation/update/{page}")
     public ResponseEntity<?> updatePage(@PathVariable("page") int page, @RequestBody DonationPageUpdateReqDto donationPageUpdateReqDto) {
         donationPageUpdateReqDto.setDonationPageId(page);
         donationPageService.updatePage(donationPageUpdateReqDto);
         return ResponseEntity.ok(true);
     }
+
 
     @GetMapping("/donation/update/{page}")
     public ResponseEntity<?> getPageUpdate(@PathVariable("page") int page) {

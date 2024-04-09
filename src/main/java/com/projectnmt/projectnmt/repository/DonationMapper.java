@@ -1,6 +1,5 @@
 package com.projectnmt.projectnmt.repository;
 
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.projectnmt.projectnmt.entity.DonationPage;
 
 import com.projectnmt.projectnmt.entity.MainCategory;
@@ -22,6 +21,18 @@ public interface DonationMapper {
     public int saveDonationPage(DonationPage donationPage);
 
     public List<Donation> getDonationList(
+            @Param("donationPageId") int donationPageId,
+            @Param("teamId") int teamId,
+            @Param("mainCategoryId") int mainCategoryId,
+            @Param("createDate") LocalDateTime createDate,
+            @Param("endDate") LocalDateTime endDate,
+            @Param("goalAmount") int goalAmount,
+            @Param("storyTitle") String storyTitle,
+            @Param("mainImgUrl") String mainImgUrl,
+            @Param("donationTagId") int donationTagId);
+
+
+    public List<Donation> searchDonation(
             @Param("donationPageId") int donationPageId,
             @Param("teamId") int teamId,
             @Param("mainCategoryId") int mainCategoryId,
@@ -56,6 +67,7 @@ public interface DonationMapper {
     public int updatePageById(DonationPage donationPage);
 
     public int deletePageById(DonationPage donationPage);
+
 
 
 }

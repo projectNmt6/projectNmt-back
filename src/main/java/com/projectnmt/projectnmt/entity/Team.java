@@ -25,3 +25,4 @@ import lombok.NoArgsConstructor;
         private String teamHomepage;
         private String teamInfoText;
     }
+
