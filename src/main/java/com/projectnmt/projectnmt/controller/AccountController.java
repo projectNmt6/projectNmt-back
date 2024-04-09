@@ -1,6 +1,5 @@
 package com.projectnmt.projectnmt.controller;
 
-import com.projectnmt.projectnmt.dto.RegisterTeamReqDto;
 import com.projectnmt.projectnmt.dto.req.SearchTeamListDto;
 import com.projectnmt.projectnmt.entity.Team;
 import com.projectnmt.projectnmt.security.PrincipalUser;

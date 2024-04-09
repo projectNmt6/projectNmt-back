@@ -4,13 +4,13 @@ import com.projectnmt.projectnmt.dto.RegisterTeamReqDto;
 import com.projectnmt.projectnmt.dto.req.SearchTeamInfoDto;
 import com.projectnmt.projectnmt.dto.req.SearchTeamListDto;
 import com.projectnmt.projectnmt.entity.Account;
-import com.projectnmt.projectnmt.entity.Team;
 import com.projectnmt.projectnmt.repository.TeamMapper;
 import com.projectnmt.projectnmt.repository.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.projectnmt.projectnmt.entity.Team;
 
 import java.util.List;
 

@@ -22,6 +22,7 @@ public class Donation {
     private Team team;
     private MainCategory mainCategory;
     private DonationTag donationTag;
+
     public DonationListRespDto toDonationListRespDto() {
         return DonationListRespDto.builder()
                 .donationPageId(donationPageId)

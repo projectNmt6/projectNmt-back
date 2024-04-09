@@ -1,7 +1,6 @@
 package com.projectnmt.projectnmt.config;
 
 import com.projectnmt.projectnmt.security.exception.AuthEntryPoint;
-import com.projectnmt.projectnmt.security.filter.JwtAuthenticationFilter;
 import com.projectnmt.projectnmt.security.filter.PerminAllfilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
+import com.projectnmt.projectnmt.security.filter.JwtAuthenticationFilter;
 
 @EnableWebSecurity
 @Configuration

@@ -1,8 +1,6 @@
 package com.projectnmt.projectnmt.controller;
 
 
-import com.projectnmt.projectnmt.dto.req.SearchTeamListDto;
-import com.projectnmt.projectnmt.entity.Team;
 import com.projectnmt.projectnmt.entity.User;
 import com.projectnmt.projectnmt.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
