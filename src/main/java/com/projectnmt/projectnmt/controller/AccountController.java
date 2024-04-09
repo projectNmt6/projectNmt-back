@@ -38,8 +38,10 @@ public class AccountController {
     public ResponseEntity<?> accountEdit(@RequestBody EditAccountReqDto editAccountReqDto,
                                          BindingResult bindingResult) {
         System.out.println(editAccountReqDto);
-            accountService.editAccount(editAccountReqDto);
-            return ResponseEntity.ok().build();
+        accountService.editAccount(editAccountReqDto);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/teams")
     public ResponseEntity<?> getTeamList(SearchTeamListDto searchTeamListDto) {
         List<Team> teamList = teamService.getTeamList(searchTeamListDto);
@@ -47,3 +49,4 @@ public class AccountController {
         return ResponseEntity.ok(teamList);
     }
 }
+
