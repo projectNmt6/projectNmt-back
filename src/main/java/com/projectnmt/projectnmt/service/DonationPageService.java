@@ -19,6 +19,7 @@ public class DonationPageService {
         donationMapper.saveDonationPage(donationPageReqDto.toEntity());
     }
 
+
     public DonationPageRespDto getDonationPage(DonationPageReqDto donationPageReqDto) {
 
         DonationPage donationStory = donationMapper.getDonationPage(
@@ -42,6 +43,11 @@ public class DonationPageService {
     @Transactional(rollbackFor = Exception.class)
     public void updatePage(DonationPageUpdateReqDto donationPageUpdateReqDto) {
         donationMapper.updatePageById(donationPageUpdateReqDto.toEntity());
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteDonationPage(int donationPageId) {
+        donationMapper.deletePageById(donationPageId);
     }
 
 }

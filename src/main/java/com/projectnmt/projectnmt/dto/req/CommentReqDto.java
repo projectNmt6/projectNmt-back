@@ -1,16 +1,14 @@
-package com.projectnmt.projectnmt.entity;
+package com.projectnmt.projectnmt.dto.req;
 
-import com.projectnmt.projectnmt.dto.resp.CommentRespDto;
-import lombok.AllArgsConstructor;
+import com.projectnmt.projectnmt.entity.Comment;
+import com.projectnmt.projectnmt.entity.DonationPage;
+import com.projectnmt.projectnmt.entity.User;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class Comment {
+public class CommentReqDto {
+
     private int donationCommentId;
     private String commentText;
     private int donationPageId;
@@ -18,10 +16,8 @@ public class Comment {
     private User user;
     private DonationPage donationPage;
 
-
-    public CommentRespDto toSaveComment() {
-
-        return CommentRespDto.builder()
+    public Comment toEntity() {
+        return Comment.builder()
                 .donationCommentId(donationCommentId)
                 .commentText(commentText)
                 .donationPageId(donationPageId)
