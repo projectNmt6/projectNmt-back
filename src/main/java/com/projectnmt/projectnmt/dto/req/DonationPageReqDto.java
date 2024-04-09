@@ -34,7 +34,5 @@ public class DonationPageReqDto {
                 .donationTagId(donationTagId)
                 .donationPageShow(donationPageShow)
                 .build();
-
     }
-
 }

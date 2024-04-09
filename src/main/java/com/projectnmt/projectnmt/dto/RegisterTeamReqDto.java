@@ -1,5 +1,6 @@
 package com.projectnmt.projectnmt.dto;
 
+import com.projectnmt.projectnmt.entity.Account;
 import com.projectnmt.projectnmt.entity.Team;
 import lombok.Data;
 
@@ -16,13 +17,14 @@ public class RegisterTeamReqDto {
     String teamHomepage;
     String teamInfoText;
     String teamLogoImgUrl;
+    Account[] accountInfos;
 
     public Team toEntity() {
         return Team.builder()
                 .teamName(teamName)
                 .teamType(teamType ? 1 : 2)
                 .teamTypeCategory(teamTypeCategory)
-                .teamPhone(teamPhone)
+                .teamPhoneNumber(teamPhoneNumber)
                 .teamEmail(teamEmail)
                 .companyRegisterNumber(companyRegisterNumber)
                 .companyRegisterNumberUrl(companyRegisterNumberCopyUrl)

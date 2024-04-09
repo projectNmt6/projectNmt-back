@@ -3,7 +3,35 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.projectnmt.projectnmt.repository.TeamMapper">
-
+    <resultMap id="TeamResultMap" type="com.projectnmt.projectnmt.entity.Team">
+        <id property="teamId" column="team_id" />
+        <result property="teamName" column="team_name" />
+        <result property="teamLogoImgUrl" column="team_logo_img_url" />
+        <result property="teamType" column="team_type" />
+        <result property="teamPhoneNumber" column="team_phone" />
+        <result property="teamEmail" column="team_email" />
+        <result property="companyRegisterNumber" column="company_register_number" />
+        <result property="companyRegisterNumberUrl" column="company_register_number_url" />
+        <result property="teamInfoText" column="team_info_text" />
+        <result property="teamHomepage" column="team_homepage" />
+        <result property="teamTypeCategory" column="team_type_category" />
+        <association property="teamMember" resultMap="teamMemberResultMap" />
+        <association property="account" resultMap="accountResultMap" />
+    </resultMap>
+    <resultMap id="teamMemberResultMap" type="com.projectnmt.projectnmt.entity.TeamMember">
+        <id property="teamMemberId" column="team_member_id"/>
+        <result property="teamId" column="team_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="teamRoleId" column="team_role_id"/>
+    </resultMap>
+    <resultMap id="accountResultMap" type="com.projectnmt.projectnmt.entity.Account">
+        <id property="accountId" column="account_id"/>
+        <result property="teamId" column="team_id"/>
+        <result property="accountUsername" column="account_username"/>
+        <result property="bankName" column="bank_name"/>
+        <result property="accountNumber" column="account_number"/>
+        <result property="accountUrl" column="account_url"/>
+    </resultMap>
 
     <insert id="saveTeam"
             parameterType="com.projectnmt.projectnmt.entity.Team"
@@ -31,7 +59,61 @@
         0,
         #{teamId},
         #{userId},
-        1
+        1)
+    </insert>
+    <insert id="saveAccount" parameterType="com.projectnmt.projectnmt.entity.Account">
+        insert into account_info_tb
+        values (
+            0,
+            #{teamId},
+            #{accountUsername},
+            #{bankName},
+            #{accountNumber},
+            #{accountUrl}
         )
     </insert>
+    <select id="teamList" resultMap="TeamResultMap" resultType="list">
+        select
+            tt.team_id,
+            tt.team_name,
+            tt.team_type,
+            tt.team_phone,
+            tt.team_email,
+            tt.company_register_number,
+            tt.company_register_number_url,
+            tt.team_info_text,
+            tt.team_homepage,
+            tt.team_logo_img_url,
+            tt.team_type_category,
+            tmt.user_id,
+            tmt.team_role_id
+        from
+            team_tb tt
+            left outer join team_member_tb tmt on(tmt.team_id = tt.team_id)
+        where
+            tmt.user_id = #{userId}
+    </select>
+    <select id="teamInfo" resultMap="TeamResultMap">
+        select
+            tt.team_id,
+            tt.team_name,
+            tt.team_type,
+            tt.team_phone,
+            tt.team_email,
+            tt.company_register_number,
+            tt.company_register_number_url,
+            tt.team_info_text,
+            tt.team_homepage,
+            tt.team_logo_img_url,
+            tt.team_type_category,
+            ait.account_username,
+            ait.bank_name,
+            ait.account_number,
+            ait.account_url
+        from
+            team_tb tt
+            left outer join account_info_tb ait on(ait.team_id = tt.team_id)
+        where
+            tt.team_id = #{teamId}
+    </select>
 </mapper>
