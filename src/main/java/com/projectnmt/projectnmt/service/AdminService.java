@@ -1,5 +1,6 @@
 package com.projectnmt.projectnmt.service;
 
+import com.projectnmt.projectnmt.entity.AdminUser;
 import com.projectnmt.projectnmt.entity.User;
 import com.projectnmt.projectnmt.repository.AdminMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ public class AdminService {
 
     @Autowired
     AdminMapper adminMapper;
-    public List<User> getUserList() {
+    public List<AdminUser> getUserList() {
         return adminMapper.userList();
     }
 }

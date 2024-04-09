@@ -2,6 +2,7 @@ package com.projectnmt.projectnmt.controller;
 
 
 import com.projectnmt.projectnmt.dto.req.SearchTeamListDto;
+import com.projectnmt.projectnmt.entity.AdminUser;
 import com.projectnmt.projectnmt.entity.Team;
 import com.projectnmt.projectnmt.entity.User;
 import com.projectnmt.projectnmt.service.AdminService;
@@ -21,7 +22,8 @@ public class AdminController {
     AdminService adminService;
     @GetMapping("/user")
     public ResponseEntity<?> getUserList() {
-        List<User> userList = adminService.getUserList();
-        return ResponseEntity.ok(null);
+        List<AdminUser> userList = adminService.getUserList();
+        System.out.println(userList);
+        return ResponseEntity.ok(userList);
     }
 }

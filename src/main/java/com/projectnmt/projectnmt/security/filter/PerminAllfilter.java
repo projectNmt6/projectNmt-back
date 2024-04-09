@@ -15,11 +15,9 @@ public class PerminAllfilter extends GenericFilter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        List<String> antMatchers = List.of("/error", "/server", "/auth", "/mail/authenticate","/oauth2","/login");
+        List<String> antMatchers = List.of("/error", "/auth", "/mail/authenticate","/oauth2","/login");
 
         String url = request.getRequestURI();
-        System.out.println(url);
-
         request.setAttribute("isPermitAll", false);
 
         for(String antMatcher : antMatchers) {

@@ -31,7 +31,6 @@ public class AccountController {
     @GetMapping("/teams")
     public ResponseEntity<?> getTeamList(SearchTeamListDto searchTeamListDto) {
         List<Team> teamList = teamService.getTeamList(searchTeamListDto);
-        System.out.println(teamList.toString());
         return ResponseEntity.ok(teamList);
     }
 }
