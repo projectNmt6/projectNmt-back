@@ -24,7 +24,7 @@ public class RegisterTeamReqDto {
                 .teamName(teamName)
                 .teamType(teamType ? 1 : 2)
                 .teamTypeCategory(teamTypeCategory)
-                .teamPhone(teamPhoneNumber)
+                .teamPhoneNumber(teamPhoneNumber)
                 .teamEmail(teamEmail)
                 .companyRegisterNumber(companyRegisterNumber)
                 .companyRegisterNumberUrl(companyRegisterNumberCopyUrl)
