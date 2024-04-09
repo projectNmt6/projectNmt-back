@@ -24,8 +24,17 @@
                 useGeneratedKeys="true"
         >
             insert into user_tb
-            values(0, #{username}, #{password}, #{name}, #{phoneNumber}, #{email}, #{gender}, #{age}, #{profileImg})
+            values(0,
+            #{username},
+            #{password},
+            #{name},
+            #{phoneNumber},
+            #{email},
+            #{gender},
+            #{age},
+            #{profileImg})
         </insert>
+
         <select
                 id="findUserByUsername"
                 resultType="com.projectnmt.projectnmt.entity.User"
@@ -37,7 +46,7 @@
             where
             username = #{username}
         </select>
-        <select id="findUserTest" resultMap="UserResultMap">        
+        <select id="findUserTest" resultMap="UserResultMap">
           select
             user_id,
             username,
@@ -53,4 +62,6 @@
           where
             user_id = 1;
       </select>
+
+
 </mapper>
