@@ -51,7 +51,8 @@
 
         <select
                 id="findUserByUsername"
-                resultType="com.projectnmt.projectnmt.entity.User">
+                resultMap="UserResultMap"
+        >
             select
             *
             from
@@ -80,6 +81,19 @@
           where
             user_id = 1;
       </select>
-
+        <update id="updateUser" parameterType="com.projectnmt.projectnmt.entity.User">
+            UPDATE
+                user_tb
+            SET
+                password = #{password},
+                name = #{name},
+                email = #{email},
+                age = #{age},
+                gender = #{gender},
+                phone_number = #{phoneNumber},
+                profile_img = #{profileImg}
+            WHERE
+                user_id = #{userId};
+        </update>
 
 </mapper>
