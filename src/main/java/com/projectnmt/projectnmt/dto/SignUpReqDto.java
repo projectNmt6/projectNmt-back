@@ -29,14 +29,14 @@ public class SignUpReqDto {
 
     public User toEntity(BCryptPasswordEncoder passwordEncoder) {
         return User.builder()
-            .username(getUsername())
-            .password(getPassword())
-            .name(getName())
-            .phoneNumber(getPhoneNumber())
-            .email(getEmail())
-            .gender(getGender())
-            .age(getAge())
-            .profileImg(getProfileImg())
+            .username(username)
+            .password(passwordEncoder.encode(password))
+            .name(name)
+            .phoneNumber(phoneNumber)
+            .email(email)
+            .gender(gender)
+            .age(age)
+            .profileImg(profileImg)
             .build();
     }
 }

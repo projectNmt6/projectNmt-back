@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.projectnmt.projectnmt.repository.AdminMapper">
+
+    <resultMap id="UserResultMap" type="com.projectnmt.projectnmt.entity.User">
+        <id property="userId" column="user_id" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="name" column="name" />
+        <result property="phoneNumber" column="phone_number" />
+        <result property="email" column="email" />
+        <result property="gender" column="gender" />
+        <result property="age" column="age" />
+        <result property="profileImg" column="profile_img" />
+        <collection property="roleRegisters" javaType="list" resultMap="RoleRegisterResultMap"/>
+    </resultMap>
+
+    <resultMap id="RoleRegisterResultMap" type="com.projectnmt.projectnmt.entity.Authority">
+        <id property="roleRegisterId" column="user_register_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="roleId" column="role_id"/>
+        <association property="role" resultMap="RoleResultMap"/>
+    </resultMap>
+
+    <resultMap id="RoleResultMap" type="com.projectnmt.projectnmt.entity.Role">
+        <id property="roleId" column="role_id"/>
+        <result property="roleName" column="role_name"/>
+        <result property="roleNameKor" column="role_name_kor"/>
+    </resultMap>
+
+    <select id="userList" resultType="com.projectnmt.projectnmt.entity.User">
+        select
+            ut.user_id,
+            ut.username,
+            ut.password,
+            ut.name,
+            ut.phone_number,
+            ut.email,
+            ut.gender,
+            ut.age,
+            ut.profile_img,
+            aut.authority_id,
+            aut.role_id,
+            rt.role_name,
+            rt.role_name_kor
+        from
+            user_tb ut
+            left outer join authority_tb aut on(aut.user_id = ut.user_id)
+            left outer join role_tb rt on(rt.role_id = aut.role_id);
+    </select>
+</mapper>

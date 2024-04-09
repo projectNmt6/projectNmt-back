@@ -9,4 +9,5 @@ public interface  UserMapper {
     public User findUserByUsername(String username);
     public int saveUser(User user);
     public int updateUser(User user);
+    public int saveRole(int userId, int roleId);
 }

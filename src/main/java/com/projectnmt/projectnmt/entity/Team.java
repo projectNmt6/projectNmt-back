@@ -5,22 +5,24 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class Team {
-    private int teamTypeCategory;
-    private String companyRegisterNumberUrl;
-    private String teamLogoImgUrl;
-    private int teamId;
-    private String teamName;
-    private int teamType;
-    private String teamPhone;
-    private String teamEmail;
-    private int teamAccountNumber;
-    private String teamAccountName;
-    private String companyRegisterNumber;
-    private String teamHomepage;
-    private String teamInfoText;
-}
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public class Team {
+        private int teamTypeCategory;
+        private String companyRegisterNumberUrl;
+        private String teamLogoImgUrl;
+        private int teamId;
+        private String teamName;
+        private int teamType;
+        private String teamPhone;
+        private String teamEmail;
+        private int teamAccountNumber;
+        private String teamAccountName;
+        private String companyRegisterNumber;
+        private String teamHomepage;
+        private String teamInfoText;
+    }
+

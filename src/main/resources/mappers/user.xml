@@ -5,17 +5,31 @@
 <mapper namespace="com.projectnmt.projectnmt.repository.UserMapper">
     
 
-        <resultMap id="UserResultMap" type="com.projectnmt.projectnmt.entity.User">
-            <id property="userId" column="user_id" />
-            <result property="username" column="username" />
-            <result property="password" column="password" />
-            <result property="name" column="name" />
-            <result property="phoneNumber" column="phone_number" />
-            <result property="email" column="email" />
-            <result property="gender" column="gender" />
-            <result property="age" column="age" />
-            <result property="profileImg" column="profile_img" />
-        </resultMap>
+    <resultMap id="UserResultMap" type="com.projectnmt.projectnmt.entity.User">
+        <id property="userId" column="user_id" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="name" column="name" />
+        <result property="phoneNumber" column="phone_number" />
+        <result property="email" column="email" />
+        <result property="gender" column="gender" />
+        <result property="age" column="age" />
+        <result property="profileImg" column="profile_img" />
+        <collection property="roleRegisters" javaType="list" resultMap="RoleRegisterResultMap"/>
+    </resultMap>
+
+    <resultMap id="RoleRegisterResultMap" type="com.projectnmt.projectnmt.entity.Authority">
+        <id property="roleRegisterId" column="user_register_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="roleId" column="role_id"/>
+        <association property="role" resultMap="RoleResultMap"/>
+    </resultMap>
+
+    <resultMap id="RoleResultMap" type="com.projectnmt.projectnmt.entity.Role">
+        <id property="roleId" column="role_id"/>
+        <result property="roleName" column="role_name"/>
+        <result property="roleNameKor" column="role_name_kor"/>
+    </resultMap>
 
         <insert
                 id="saveUser"
@@ -24,8 +38,17 @@
                 useGeneratedKeys="true"
         >
             insert into user_tb
-            values(0, #{username}, #{password}, #{name}, #{phoneNumber}, #{email}, #{gender}, #{age}, #{profileImg})
+            values(0,
+            #{username},
+            #{password},
+            #{name},
+            #{phoneNumber},
+            #{email},
+            #{gender},
+            #{age},
+            #{profileImg})
         </insert>
+
         <select
                 id="findUserByUsername"
                 resultMap="UserResultMap"
@@ -35,9 +58,14 @@
             from
             user_tb
             where
-            username = #{username}
         </select>
-        <select id="findUserTest" resultMap="UserResultMap">        
+
+    <insert id="saveRole">
+        insert into authority_tb
+        values(0, #{userId}, #{roleId});
+    </insert>
+
+        <select id="findUserTest" resultMap="UserResultMap">
           select
             user_id,
             username,
@@ -67,4 +95,5 @@
             WHERE
                 user_id = #{userId};
         </update>
+
 </mapper>

@@ -1,7 +1,8 @@
 package com.projectnmt.projectnmt.dto;
 
-import com.projectnmt.projectnmt.entity.Team;
+import com.projectnmt.projectnmt.entity.Account;
 import lombok.Data;
+import com.projectnmt.projectnmt.entity.Team;
 
 @Data
 public class RegisterTeamReqDto {
@@ -9,20 +10,22 @@ public class RegisterTeamReqDto {
     String teamName;
     boolean teamType;
     int teamTypeCategory;
-    String teamPhoneNumber;
+    String teamPhone;
     String teamEmail;
     String companyRegisterNumber;
     String companyRegisterNumberCopyUrl;
     String teamHomepage;
     String teamInfoText;
     String teamLogoImgUrl;
+    Account[] accountInfos;
 
     public Team toEntity() {
         return Team.builder()
                 .teamName(teamName)
                 .teamType(teamType ? 1 : 2)
                 .teamTypeCategory(teamTypeCategory)
-                .teamPhone(teamPhoneNumber)
+                .teamPhone(teamPhone)
+                .teamPhone(teamPhone)
                 .teamEmail(teamEmail)
                 .companyRegisterNumber(companyRegisterNumber)
                 .companyRegisterNumberUrl(companyRegisterNumberCopyUrl)

@@ -14,9 +14,9 @@ public class PrincipalUserRespDto {
     private String username;
     private String name;
     private String email;
-    private String phone_number;
+    private String phoneNumber;
     private String gender;
     private int age;
-    private String img;
+    private String profileImg;
 
 }
