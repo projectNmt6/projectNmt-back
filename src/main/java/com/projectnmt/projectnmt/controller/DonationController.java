@@ -50,6 +50,7 @@ public class DonationController {
     public ResponseEntity<?> DonationList(DonationListReqDto donationListReqDto) {
         return ResponseEntity.ok(donationService.getDonationList(donationListReqDto));
     };
+
     @GetMapping("/search")
     public ResponseEntity<?> searchDonation(
             @RequestParam(value = "name", defaultValue = "") String name) {

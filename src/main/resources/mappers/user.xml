@@ -2,9 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.projectnmt.projectnmt.repository.UserMapper">
-    
 
+<mapper namespace="com.projectnmt.projectnmt.repository.UserMapper">
     <resultMap id="UserResultMap" type="com.projectnmt.projectnmt.entity.User">
         <id property="userId" column="user_id" />
         <result property="username" column="username" />
@@ -15,71 +14,28 @@
         <result property="gender" column="gender" />
         <result property="age" column="age" />
         <result property="profileImg" column="profile_img" />
-        <collection property="roleRegisters" javaType="list" resultMap="RoleRegisterResultMap"/>
     </resultMap>
 
-    <resultMap id="RoleRegisterResultMap" type="com.projectnmt.projectnmt.entity.Authority">
-        <id property="roleRegisterId" column="user_register_id"/>
-        <result property="userId" column="user_id"/>
-        <result property="roleId" column="role_id"/>
-        <association property="role" resultMap="RoleResultMap"/>
-    </resultMap>
-
-    <resultMap id="RoleResultMap" type="com.projectnmt.projectnmt.entity.Role">
-        <id property="roleId" column="role_id"/>
-        <result property="roleName" column="role_name"/>
-        <result property="roleNameKor" column="role_name_kor"/>
-    </resultMap>
-
-        <insert
-                id="saveUser"
-                parameterType="com.projectnmt.projectnmt.entity.User"
-                keyProperty="userId"
-                useGeneratedKeys="true"
-        >
-            insert into user_tb
-            values(0,
-            #{username},
-            #{password},
-            #{name},
-            #{phoneNumber},
-            #{email},
-            #{gender},
-            #{age},
-            #{profileImg})
-        </insert>
-
-        <select
-                id="findUserByUsername"
-                resultType="com.projectnmt.projectnmt.entity.User">
-            select
-            *
-            from
-            user_tb
-            where
-        </select>
-
-    <insert id="saveRole">
-        insert into authority_tb
-        values(0, #{userId}, #{roleId});
+    <insert
+            id="saveUser"
+            parameterType="com.projectnmt.projectnmt.entity.User"
+            keyProperty="userId"
+            useGeneratedKeys="true"
+    >
+        insert into user_tb
+        values(0, #{username}, #{password}, #{name}, #{phoneNumber}, #{email}, #{gender}, #{age}, #{profileImg})
     </insert>
 
-        <select id="findUserTest" resultMap="UserResultMap">
-          select
-            user_id,
-            username,
-            password,
-            name,
-            phone_number,
-            email,
-            gender,
-            age,
-            profile_img
-          from
+    <select
+            id="findUserByUsername"
+            resultType="com.projectnmt.projectnmt.entity.User"
+    >
+        select
+            *
+        from
             user_tb
-          where
-            user_id = 1;
-      </select>
-
+        where
+            username = #{username}
+    </select>
 
 </mapper>
