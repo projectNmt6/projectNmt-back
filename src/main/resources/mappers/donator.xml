@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.projectnmt.projectnmt.repository.DonatorMapper">
+    <resultMap id="DonatorResultMap" type="com.projectnmt.projectnmt.entity.Donator"   >
+        <id property="donatorId" column="donator_id" />
+        <result property="userId" column="user_id" />
+        <result property="donationDate" column="donate_date" />
+        <result property="amount" column="donation_amount" />
+        <result property="donationPageId" column="donation_page_id" />
+        <result property="anonymous" column="donator_anonymous" />
+        <association property="user" resultMap="UserResultMap" />
+        <association property="donationPage" resultMap="DonationPageResultMap" />
+        <association property="comment" resultMap="CommentResultMap" />
+    </resultMap>
+    <resultMap id="DonationPageResultMap" type="com.projectnmt.projectnmt.entity.DonationPage">
+        <id property="donationPageId" column="donation_page_id" />
+        <result property="teamId" column="team_id" />
+        <result property="mainCategoryId" column="main_category_id" />
+        <result property="donationCategoryId" column="donation_category_id" />
+        <result property="donationName" column="donation_name" />
+        <result property="createDate" column="create_date" />
+        <result property="endDate" column="end_date" />
+        <result property="goalAmount" column="goal_amount" />
+        <result property="storyTitle" column="story_title" />
+        <result property="storyContent" column="story_content" />
+        <result property="mainImgUrl" column="main_img_url" />
+        <result property="donationTagId" column="donation_tag_id" />
+    </resultMap>
+    <resultMap id="UserResultMap" type="com.projectnmt.projectnmt.entity.User">
+        <id property="userId" column="user_id" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="name" column="name" />
+        <result property="phoneNumber" column="phone_number" />
+        <result property="email" column="email" />
+        <result property="gender" column="gender" />
+        <result property="age" column="age" />
+        <result property="profileImg" column="profile_img" />
+    </resultMap>
+    <resultMap id="CommentResultMap" type="com.projectnmt.projectnmt.entity.Comment">
+        <id property="donationCommentId" column="donation_comment_id" />
+        <result property="commentText" column="comment_text" />
+        <result property="donationPageId" column="donation_page_id" />
+        <result property="userId" column="user_id" />
+        <association property="user" resultMap="UserResultMap" />
+        <association property="donationPage" resultMap="DonationPageResultMap" />
+    </resultMap>
+
+    <insert id="saveDonation" parameterType="com.projectnmt.projectnmt.entity.Donator">
+        INSERT INTO donator_tb
+        VALUES
+        (0,
+        #{userId},
+        now(),
+        #{amount},
+        #{donationPageId},
+        #{anonymous}
+        );
+    </insert>
+    <insert id="saveComment" parameterType="com.projectnmt.projectnmt.entity.Comment" >
+    INSERT INTO comment_tb
+    VALUES
+    (
+    0,
+    #{commentText},
+    #{donationPageId},
+    #{userId}
+    );
+    </insert>
+</mapper>

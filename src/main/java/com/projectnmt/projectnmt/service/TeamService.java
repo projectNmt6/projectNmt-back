@@ -24,7 +24,6 @@ public class TeamService {
     @Transactional(rollbackFor = Exception.class)
     public void saveTeam(RegisterTeamReqDto registerTeamReqDto) {
         Team team = registerTeamReqDto.toEntity();
-        System.out.println(registerTeamReqDto);
         int successCount = 0;
         successCount += teamMapper.saveTeam(team);
         successCount += teamMapper.saveLeader(registerTeamReqDto.getUserId(), team.getTeamId());

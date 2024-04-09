@@ -1,5 +1,6 @@
 package com.projectnmt.projectnmt.service;
 
+import com.projectnmt.projectnmt.dto.OAuth2SignupReqDto;
 import com.projectnmt.projectnmt.dto.SignInReqDto;
 import com.projectnmt.projectnmt.dto.SignUpReqDto;
 import com.projectnmt.projectnmt.entity.User;
@@ -32,8 +33,18 @@ public class AuthService {
         if (isDuplicatedByUsername(username)) {
             throw new IllegalArgumentException("이미 사용 중인 아이디입니다.");
         }
-        User user = signupReqDto.toEntity(passwordEncoder);
         int successCount = 0;
+        User user = signupReqDto.toEntity(passwordEncoder);
+        successCount += userMapper.saveUser(user);
+//          successCount += userMapper.saveRole(user.getUserId(), 1);
+            if(successCount < 1) {
+                throw new SaveException();
+        }
+    }
+    @Transactional(rollbackFor = Exception.class)
+    public void oAuth2Signup(OAuth2SignupReqDto oAuth2SignupReqDto) {
+        int successCount = 0;
+        User user = oAuth2SignupReqDto.toEntity(passwordEncoder);
         successCount += userMapper.saveUser(user);
         successCount += userMapper.saveRole(user.getUserId(), 1);
         if(successCount < 2) {
