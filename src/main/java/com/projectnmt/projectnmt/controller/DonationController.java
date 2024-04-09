@@ -31,6 +31,13 @@ public class DonationController {
     public ResponseEntity<?> DonationList(DonationListReqDto donationListReqDto) {
         return ResponseEntity.ok(donationService.getDonationList(donationListReqDto));
     };
+    @GetMapping("/search")
+    public ResponseEntity<?> searchDonation(
+            @RequestParam(value = "name", defaultValue = "") String name) {
+        DonationListReqDto donationListReqDto1 = new DonationListReqDto();
+        donationListReqDto1.setStoryTitle(name);
+        return ResponseEntity.ok(donationService.searchDonation(donationListReqDto1));
+    };
 
     @GetMapping("/donationtag")
     public ResponseEntity<?> DonationTag(DonationTagReqDto donationTagReqDto) {
@@ -41,7 +48,6 @@ public class DonationController {
     public ResponseEntity<?> DonationStory(@RequestParam(value = "page", defaultValue = "1") int page) {
         DonationPageReqDto donationPageReqDto = new DonationPageReqDto();
         donationPageReqDto.setDonationPageId(page);
-        System.out.println(page);
         return ResponseEntity.ok(donationPageService.getDonationPage(donationPageReqDto));
     };
 

@@ -35,6 +35,25 @@
 
             return donations.stream().map(Donation::toDonationListRespDto).collect(Collectors.toList());
         }
+
+        public List<DonationListRespDto> searchDonation(DonationListReqDto donationListReqDto1) {
+
+            List<Donation> donations = donationMapper.searchDonation(
+                    donationListReqDto1.getDonationPageId(),
+                    donationListReqDto1.getTeamId(),
+                    donationListReqDto1.getMainCategoryId(),
+                    donationListReqDto1.getStoryTitle(),
+                    donationListReqDto1.getCreateDate(),
+                    donationListReqDto1.getEndDate(),
+                    donationListReqDto1.getGoalAmount(),
+                    donationListReqDto1.getMainImgUrl(),
+                    donationListReqDto1.getDonationTagId()
+            );
+
+            return donations.stream().map(Donation::toDonationListRespDto).collect(Collectors.toList());
+        }
+
+
         public List<DonationTagRespDto> getDonationTagList(DonationTagReqDto donationTagReqDto) {
 
             List<DonationTag> donationTag = donationMapper.getDonationTagList(

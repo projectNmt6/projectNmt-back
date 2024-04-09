@@ -103,6 +103,8 @@
     </select>
 
 
+
+
     <select id="getDonationList" resultMap="DonationResultMap">
         SELECT
             dp.donation_page_id,
@@ -123,6 +125,32 @@
         LEFT OUTER JOIN donation_tag_tb dt ON dp.donation_tag_id = dt.donation_tag_id
         LEFT OUTER JOIN team_tb t ON dp.team_id = t.team_id;
     </select>
+
+    <select id="searchDonation" resultMap="DonationResultMap">
+        SELECT
+        dp.donation_page_id,
+        dp.team_id,
+        dp.main_category_id,
+        dp.story_title,
+        dp.create_date,
+        dp.end_date,
+        dp.goal_amount,
+        dp.main_img_url,
+        dp.donation_tag_id,
+        mc.main_category_name,
+        dt.donation_tag_name,
+        t.team_name
+        FROM
+        donation_page_tb dp
+        LEFT OUTER JOIN main_category_tb mc ON dp.main_category_id = mc.main_category_id
+        LEFT OUTER JOIN donation_tag_tb dt ON dp.donation_tag_id = dt.donation_tag_id
+        LEFT OUTER JOIN team_tb t ON dp.team_id = t.team_id
+        WHERE
+        story_title Like concat('%', #{storyTitle}, '%');
+    </select>
+
+
+
     <select id="getDonationTagList" resultMap="DonationTagResultMap">
         SELECT
             *

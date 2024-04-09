@@ -34,6 +34,18 @@ public interface DonationMapper {
             @Param("mainImgUrl") String mainImgUrl,
             @Param("donationTagId") int donationTagId);
 
+
+    public List<Donation> searchDonation(
+            @Param("donationPageId") int donationPageId,
+            @Param("teamId") int teamId,
+            @Param("mainCategoryId") int mainCategoryId,
+            @Param("storyTitle") String storyTitle,
+            @Param("createDate") LocalDateTime createDate,
+            @Param("endDate") LocalDateTime endDate,
+            @Param("goalAmount") int goalAmount,
+            @Param("mainImgUrl") String mainImgUrl,
+            @Param("donationTagId") int donationTagId);
+
     public List<DonationTag> getDonationTagList(
             @Param("donationTagId") int donationTagId,
             @Param("donationTagName") String donationTagName);
