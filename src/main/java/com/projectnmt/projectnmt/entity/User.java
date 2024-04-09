@@ -1,15 +1,16 @@
 package com.projectnmt.projectnmt.entity;
 
 import com.projectnmt.projectnmt.dto.PrincipalUserRespDto;
+import com.projectnmt.projectnmt.security.PrincipalUser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Year;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Builder
 @NoArgsConstructor
@@ -34,19 +35,25 @@ public class User {
     //프로필 이미지
     private String profileImg;
 
-    public PrincipalUserRespDto toDto() {
+    private List<Authority> roleRegisters;
+    public List<SimpleGrantedAuthority> getAuthorities() {
+        return roleRegisters.stream().map(roleRegister -> new SimpleGrantedAuthority(roleRegister.getRole().getRoleName())).collect(Collectors.toList());
+    }
+
+    public PrincipalUser toPrincipalUser() {
         LocalDate now = LocalDate.now();
         String[] arr = age.split("-");
         int now_age = now.getYear() - Integer.parseInt(arr[0]) + 1;
-        return PrincipalUserRespDto.builder()
+        return PrincipalUser.builder()
                 .userId(userId)
                 .username(username)
                 .name(name)
                 .email(email)
-                .phone_number(phoneNumber)
+                .phoneNumber(phoneNumber)
                 .gender(gender)
                 .age(now_age)
-                .img(profileImg)
+                .profileImg(profileImg)
+                .authorities(getAuthorities())
                 .build();
     }
 }

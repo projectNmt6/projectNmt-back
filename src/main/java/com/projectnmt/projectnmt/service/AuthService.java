@@ -5,6 +5,7 @@ import com.projectnmt.projectnmt.dto.SignInReqDto;
 import com.projectnmt.projectnmt.dto.SignUpReqDto;
 import com.projectnmt.projectnmt.entity.User;
 import com.projectnmt.projectnmt.exception.SaveException;
+import com.projectnmt.projectnmt.jwt.JwtProvider;
 import com.projectnmt.projectnmt.repository.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -19,10 +20,13 @@ public class AuthService {
     private UserMapper userMapper;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private JwtProvider jwtProvider;
 
     public boolean isDuplicatedByUsername(String username) {
         return userMapper.findUserByUsername(username) != null;
     }
+
     @Transactional(rollbackFor = Exception.class)
     public void signup(SignUpReqDto signupReqDto) {
         String username = signupReqDto.getUsername();
@@ -42,9 +46,8 @@ public class AuthService {
         int successCount = 0;
         User user = oAuth2SignupReqDto.toEntity(passwordEncoder);
         successCount += userMapper.saveUser(user);
-//        successCount += userMapper.saveRole(user.getUserId(), 1);
-//        successCount += userMapper.saveOAuth2(oAuth2SignupReqDto.toOAuth2Entity(user.getUserId()));
-        if(successCount < 1) {
+        successCount += userMapper.saveRole(user.getUserId(), 1);
+        if(successCount < 2) {
             throw new SaveException();
         }
     }
@@ -54,9 +57,9 @@ public class AuthService {
         if(user == null) {
             throw new UsernameNotFoundException("사용자 정보를 확인하세요");
         }
-        if(!signinReqDto.getPassword().equals(user.getPassword())) {
-            throw new BadCredentialsException("사용자 정보를 확인하세요");
+        if (!passwordEncoder.matches(signinReqDto.getPassword(), user.getPassword())) {
+            throw new BadCredentialsException("사용자 정보를 확인하세요.");
         }
-        return "로그인 성공!";
+        return jwtProvider.generateToken(user);
     }
 }

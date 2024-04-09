@@ -2,8 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.projectnmt.projectnmt.repository.UserMapper">
-    
+<mapper namespace="com.projectnmt.projectnmt.repository.AdminMapper">
 
     <resultMap id="UserResultMap" type="com.projectnmt.projectnmt.entity.User">
         <id property="userId" column="user_id" />
@@ -31,24 +30,7 @@
         <result property="roleNameKor" column="role_name_kor"/>
     </resultMap>
 
-        <insert
-                id="saveUser"
-                parameterType="com.projectnmt.projectnmt.entity.User"
-                keyProperty="userId"
-                useGeneratedKeys="true"
-        >
-            insert into user_tb
-            values(0, #{username}, #{password}, #{name}, #{phoneNumber}, #{email}, #{gender}, #{age}, #{profileImg})
-        </insert>
-    <insert id="saveRole">
-        insert into authority_tb
-        values(0, #{userId}, #{roleId});
-    </insert>
-    <select
-            id="findUserByUsername"
-            parameterType="string"
-            resultMap="UserResultMap"
-    >
+    <select id="userList" resultType="com.projectnmt.projectnmt.entity.User">
         select
             ut.user_id,
             ut.username,
@@ -66,24 +48,6 @@
         from
             user_tb ut
             left outer join authority_tb aut on(aut.user_id = ut.user_id)
-            left outer join role_tb rt on(rt.role_id = aut.role_id)
-        where
-            username = #{username}
-        </select>
-        <select id="findUserTest" resultMap="UserResultMap">        
-          select
-            user_id,
-            username,
-            password,
-            name,
-            phone_number,
-            email,
-            gender,
-            age,
-            profile_img
-          from
-            user_tb
-          where
-            user_id = 1;
-      </select>
+            left outer join role_tb rt on(rt.role_id = aut.role_id);
+    </select>
 </mapper>
