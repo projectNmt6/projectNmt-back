@@ -29,4 +29,39 @@ public class CommentController {
     public ResponseEntity<?> CommentList(CommentReqDto commentReqDto) {
         return ResponseEntity.ok(commentService.getComment(commentReqDto));
     }
+
+//     // 코멘트 작성
+//    @PostMapping
+//    public ResponseEntity<?> createComment(@Valid @RequestBody CommentReqDto commentReqDto, BindingResult bindingResult) {
+//        CommentResDto createdComment = commentService.saveComment(commentReqDto);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(createdComment);
+//    }
+//
+//    // 모든 코멘트 조회 또는 특정 조건에 맞는 코멘트 조회
+//    @GetMapping
+//    public ResponseEntity<List<CommentResDto>> getAllComments(CommentReqDto commentReqDto) {
+//        List<CommentResDto> comments = commentService.getComments(commentReqDto);
+//        return ResponseEntity.ok(comments);
+//    }
+//
+//    // 특정 코멘트 조회
+//    @GetMapping("/{commentId}")
+//    public ResponseEntity<CommentResDto> getComment(@PathVariable Long commentId) {
+//        CommentResDto comment = commentService.getCommentById(commentId);
+//        return ResponseEntity.ok(comment);
+//    }
+//
+//    // 코멘트 수정
+//    @PutMapping("/{commentId}")
+//    public ResponseEntity<?> updateComment(@PathVariable Long commentId, @Valid @RequestBody CommentReqDto commentReqDto) {
+//        CommentResDto updatedComment = commentService.updateComment(commentId, commentReqDto);
+//        return ResponseEntity.ok(updatedComment);
+//    }
+//
+//    // 코멘트 삭제
+//    @DeleteMapping("/{commentId}")
+//    public ResponseEntity<?> deleteComment(@PathVariable Long commentId) {
+//        commentService.deleteComment(commentId);
+//        return ResponseEntity.noContent().build();
+//    }
 }
