@@ -16,16 +16,18 @@ import java.util.List;
 @RestController
 @RequestMapping("/account")
 public class AccountController {
-    @Autowired
-    PrincipalService getPrincipalService;
+//    @Autowired
+//    PrincipalService getPrincipalService;
     @Autowired
     TeamService teamService;
-    @GetMapping("/principal")
-    public ResponseEntity<?> getPrincipal() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        PrincipalUser principalUser = (PrincipalUser) authentication.getPrincipal();
-        return ResponseEntity.ok(principalUser);
-    }
+
+
+//    @GetMapping("/principal")
+//    public ResponseEntity<?> getPrincipal() {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        PrincipalUser principalUser = (PrincipalUser) authentication.getPrincipal();
+//        return ResponseEntity.ok(principalUser);
+//    }
 
     @GetMapping("/teams")
     public ResponseEntity<?> getTeamList(SearchTeamListDto searchTeamListDto) {

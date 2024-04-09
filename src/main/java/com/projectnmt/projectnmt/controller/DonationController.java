@@ -76,6 +76,7 @@ public class DonationController {
     public ResponseEntity<?> getMainType(DonationMainTagReqDto donationMainTagReqDto) {
         return ResponseEntity.ok(donationService.getMainCategoryList(donationMainTagReqDto));
     }
+
     @PostMapping("/test")
     public ResponseEntity<?> givingDonation(@RequestBody DonationGivingReqDto donationGivingReqDto) {
         donationGivingService.processDonation(donationGivingReqDto);
@@ -98,9 +99,9 @@ public class DonationController {
         return ResponseEntity.ok(donationPageRespDto);
     }
 
-    @DeleteMapping("/donation/{page}")
-    public ResponseEntity<?> getDeletePage(@PathVariable("page") int page) {
-        return ResponseEntity.ok(null);
+    @DeleteMapping("/donation/{id}")
+    public ResponseEntity<?> deleteDonationPage(@PathVariable("id") int donationPageId) {
+        donationPageService.deleteDonationPage(donationPageId);
+        return ResponseEntity.ok().build();
     }
-
 }

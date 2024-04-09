@@ -183,16 +183,11 @@
     </update>
 
 
-    <delete id="deletePageById" parameterType="com.projectnmt.projectnmt.repository.DonationMapper" >
+    <delete id="deletePageById" parameterType="int">
         delete
         from
-            donation_page
-        where
-            donation_page_id (
-                <foreach collection="donationPageIds" item="donationPageId" separator=",">
-                         #{donationPageId}
-                </foreach>
-            )
+        donation_page_tb
+        where donation_page_id = #{donationPageId}
     </delete>
 
 
