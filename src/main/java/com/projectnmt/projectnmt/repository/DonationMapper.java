@@ -55,6 +55,7 @@ public interface DonationMapper {
 
     public int updatePageById(DonationPage donationPage);
 
+    public int deletePageById(DonationPage donationPage);
 
 
 }

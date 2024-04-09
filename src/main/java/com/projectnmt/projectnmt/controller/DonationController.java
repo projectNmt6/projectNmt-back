@@ -1,5 +1,6 @@
 package com.projectnmt.projectnmt.controller;
 
+import com.projectnmt.projectnmt.dto.PrincipalUserRespDto;
 import com.projectnmt.projectnmt.dto.req.DonationPageReqDto;
 import com.projectnmt.projectnmt.dto.req.DonationPageUpdateReqDto;
 import com.projectnmt.projectnmt.dto.resp.DonationPageRespDto;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Path;
 import javax.validation.Valid;
 
 @RestController
@@ -81,6 +84,12 @@ public class DonationController {
         return ResponseEntity.ok(donationPageRespDto);
     }
 
+
+
+    @DeleteMapping("/donation/{page}")
+    public ResponseEntity<?> getDeletePage(@PathVariable("page") int page) {
+        return ResponseEntity.ok(null);
+    }
 
 
 }
