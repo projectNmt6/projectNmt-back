@@ -185,7 +185,7 @@
     </update>
 
     <delete id="deletePageById" parameterType="int">
-        delete from donation_page
+        delete from donation_page_tb
         where donation_page_id = #{donationPageId}
     </delete>
 
