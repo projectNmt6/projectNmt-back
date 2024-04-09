@@ -1,19 +1,21 @@
     package com.projectnmt.projectnmt.service;
 
     import com.projectnmt.projectnmt.dto.req.DonationListReqDto;
-    import com.projectnmt.projectnmt.dto.resp.DonationListRespDto;
     import com.projectnmt.projectnmt.dto.req.DonationTagReqDto;
+    import com.projectnmt.projectnmt.dto.resp.DonationListRespDto;
+    import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagReqDto;
+    import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagRespDto;
     import com.projectnmt.projectnmt.dto.resp.DonationTagRespDto;
     import com.projectnmt.projectnmt.entity.Donation;
     import com.projectnmt.projectnmt.entity.DonationTag;
-    import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagReqDto;
-    import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagRespDto;
     import com.projectnmt.projectnmt.entity.MainCategory;
     import com.projectnmt.projectnmt.repository.DonationMapper;
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.stereotype.Service;
+
     import java.util.List;
     import java.util.stream.Collectors;
+
     @Service
     public class DonationService {
 
@@ -25,10 +27,10 @@
                     donationListReqDto.getDonationPageId(),
                     donationListReqDto.getTeamId(),
                     donationListReqDto.getMainCategoryId(),
-                    donationListReqDto.getStoryTitle(),
                     donationListReqDto.getCreateDate(),
                     donationListReqDto.getEndDate(),
                     donationListReqDto.getGoalAmount(),
+                    donationListReqDto.getStoryTitle(),
                     donationListReqDto.getMainImgUrl(),
                     donationListReqDto.getDonationTagId()
                     );
@@ -42,10 +44,10 @@
                     donationListReqDto1.getDonationPageId(),
                     donationListReqDto1.getTeamId(),
                     donationListReqDto1.getMainCategoryId(),
-                    donationListReqDto1.getStoryTitle(),
                     donationListReqDto1.getCreateDate(),
                     donationListReqDto1.getEndDate(),
                     donationListReqDto1.getGoalAmount(),
+                    donationListReqDto1.getStoryTitle(),
                     donationListReqDto1.getMainImgUrl(),
                     donationListReqDto1.getDonationTagId()
             );
