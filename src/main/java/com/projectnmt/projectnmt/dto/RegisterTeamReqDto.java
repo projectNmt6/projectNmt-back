@@ -10,7 +10,7 @@ public class RegisterTeamReqDto {
     String teamName;
     boolean teamType;
     int teamTypeCategory;
-    String teamPhoneNumber;
+    String teamPhone;
     String teamEmail;
     String companyRegisterNumber;
     String companyRegisterNumberCopyUrl;

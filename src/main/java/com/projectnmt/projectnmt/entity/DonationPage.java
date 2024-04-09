@@ -26,7 +26,6 @@ public class DonationPage {
     private String mainImgUrl;
     private int donationTagId;
     private Boolean donationPageShow;
-
     private MainCategory mainCategory;
 
     public DonationPageRespDto toSavePost() {
@@ -36,7 +35,6 @@ public class DonationPage {
                 .teamId(teamId)
                 .mainCategoryId(mainCategoryId)
                 .donationCategoryId(donationCategoryId)
-                .donationName(donationName)
                 .createDate(createDate)
                 .endDate(endDate)
                 .goalAmount(goalAmount)
@@ -48,6 +46,22 @@ public class DonationPage {
                 .build();
     }
 
+    public DonationPageRespDto toDonationPageRespDto() {
 
+        return DonationPageRespDto.builder()
+                .donationPageId(donationPageId)
+                .teamId(teamId)
+                .mainCategoryId(mainCategoryId)
+                .donationCategoryId(donationCategoryId)
+                .createDate(createDate)
+                .endDate(endDate)
+                .goalAmount(goalAmount)
+                .storyTitle(storyTitle)
+                .storyContent(storyContent)
+                .mainImgUrl(mainImgUrl)
+                .donationTagId(donationTagId)
+                .donationPageShow(donationPageShow)
+                .build();
+    }
 
 }
