@@ -15,5 +15,6 @@ public class DonationListReqDto {
     private String storyTitle;
     private String mainImgUrl;
     private int donationTagId;
+    private Boolean donationPageShow;
 
 }

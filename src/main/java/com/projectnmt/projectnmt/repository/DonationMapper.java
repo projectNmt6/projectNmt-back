@@ -29,7 +29,8 @@ public interface DonationMapper {
             @Param("goalAmount") int goalAmount,
             @Param("storyTitle") String storyTitle,
             @Param("mainImgUrl") String mainImgUrl,
-            @Param("donationTagId") int donationTagId);
+            @Param("donationTagId") int donationTagId,
+            @Param("donationPageShow") Boolean donationPageShow);
 
 
     public List<Donation> searchDonation(
@@ -41,7 +42,8 @@ public interface DonationMapper {
             @Param("goalAmount") int goalAmount,
             @Param("storyTitle") String storyTitle,
             @Param("mainImgUrl") String mainImgUrl,
-            @Param("donationTagId") int donationTagId);
+            @Param("donationTagId") int donationTagId,
+            @Param("donationPageShow") Boolean donationPageShow);
 
     public List<DonationTag> getDonationTagList(
             @Param("donationTagId") int donationTagId,

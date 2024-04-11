@@ -1,7 +1,7 @@
 package com.projectnmt.projectnmt.entity;
 
 import com.projectnmt.projectnmt.dto.PrincipalUserRespDto;
-import com.projectnmt.projectnmt.security.PrincipalUser;
+//import com.projectnmt.projectnmt.security.PrincipalUser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -40,21 +40,21 @@ public class User {
         return roleRegisters.stream().map(roleRegister -> new SimpleGrantedAuthority(roleRegister.getRole().getRoleName())).collect(Collectors.toList());
     }
 
-    public PrincipalUser toPrincipalUser() {
-        LocalDate now = LocalDate.now();
-        String[] arr = age.split("-");
-        int now_age = now.getYear() - Integer.parseInt(arr[0]) + 1;
-        return PrincipalUser.builder()
-                .userId(userId)
-                .username(username)
-                .name(name)
-                .email(email)
-                .phoneNumber(phoneNumber)
-                .gender(gender)
-                .age(now_age)
-                .profileImg(profileImg)
-                .authorities(getAuthorities())
-                .build();
-    }
+//    public PrincipalUser toPrincipalUser() {
+//        LocalDate now = LocalDate.now();
+//        String[] arr = age.split("-");
+//        int now_age = now.getYear() - Integer.parseInt(arr[0]) + 1;
+//        return PrincipalUser.builder()
+//                .userId(userId)
+//                .username(username)
+//                .name(name)
+//                .email(email)
+//                .phoneNumber(phoneNumber)
+//                .gender(gender)
+//                .age(now_age)
+//                .profileImg(profileImg)
+//                .authorities(getAuthorities())
+//                .build();
+//    }
 }
 

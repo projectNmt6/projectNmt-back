@@ -28,6 +28,7 @@
         <result property="goalAmount" column="goal_amount" />
         <result property="mainImgUrl" column="main_img_url" />
         <result property="donationTagId" column="donation_tag_id" />
+        <result property="donationPageShow" column="donation_page_show" />
         <association property="team" resultMap="TeamResultMap" />
         <association property="mainCategory" resultMap="MainCategoryResultMap" />
         <association property="donationTag" resultMap="DonationTagResultMap" />
@@ -36,7 +37,7 @@
         <id property="teamId" column="team_id" />
         <result property="teamName" column="team_name" />
         <result property="teamType" column="team_type" />
-        <result property="teamPhoneNumber" column="team_phone" />
+        <result property="teamPhone" column="team_phone" />
         <result property="teamEmail" column="team_email" />
         <result property="teamAccountNumber" column="team_account_number" />
         <result property="teamAccountName" column="team_account_name" />
@@ -114,6 +115,7 @@
             dp.story_title,
             dp.main_img_url,
             dp.donation_tag_id,
+            dp.donation_page_show,
             mc.main_category_name,
             dt.donation_tag_name,
             t.team_name
@@ -135,6 +137,7 @@
         dp.goal_amount,
         dp.main_img_url,
         dp.donation_tag_id,
+        dp.donation_page_show,
         mc.main_category_name,
         dt.donation_tag_name,
         t.team_name

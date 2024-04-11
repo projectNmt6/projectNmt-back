@@ -5,7 +5,7 @@ import com.projectnmt.projectnmt.dto.SignInReqDto;
 import com.projectnmt.projectnmt.dto.SignUpReqDto;
 import com.projectnmt.projectnmt.entity.User;
 import com.projectnmt.projectnmt.exception.SaveException;
-import com.projectnmt.projectnmt.jwt.JwtProvider;
+//import com.projectnmt.projectnmt.jwt.JwtProvider;
 import com.projectnmt.projectnmt.repository.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -20,8 +20,8 @@ public class AuthService {
     private UserMapper userMapper;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
-    @Autowired
-    private JwtProvider jwtProvider;
+//    @Autowired
+//    private JwtProvider jwtProvider;
 
     public boolean isDuplicatedByUsername(String username) {
         return userMapper.findUserByUsername(username) != null;
@@ -52,14 +52,14 @@ public class AuthService {
         }
     }
 
-    public String signin(SignInReqDto signinReqDto) {
-        User user = userMapper.findUserByUsername(signinReqDto.getUsername());
-        if(user == null) {
-            throw new UsernameNotFoundException("사용자 정보를 확인하세요");
-        }
-        if (!passwordEncoder.matches(signinReqDto.getPassword(), user.getPassword())) {
-            throw new BadCredentialsException("사용자 정보를 확인하세요.");
-        }
-        return jwtProvider.generateToken(user);
-    }
+//    public String signin(SignInReqDto signinReqDto) {
+//        User user = userMapper.findUserByUsername(signinReqDto.getUsername());
+//        if(user == null) {
+//            throw new UsernameNotFoundException("사용자 정보를 확인하세요");
+//        }
+//        if (!passwordEncoder.matches(signinReqDto.getPassword(), user.getPassword())) {
+//            throw new BadCredentialsException("사용자 정보를 확인하세요.");
+//        }
+//        return jwtProvider.generateToken(user);
+//    }
 }

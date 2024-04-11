@@ -20,13 +20,16 @@ public class PerminAllfilter extends GenericFilter {
         String url = request.getRequestURI();
         System.out.println(url);
 
-        request.setAttribute("isPermitAll", false);
+        boolean isPermitAll = false;
 
         for(String antMatcher : antMatchers) {
             if(url.contains(antMatcher)) {
-                request.setAttribute("isPermitAll", true);
+                isPermitAll = true;
+                break;
             }
         }
+
+        request.setAttribute("isPermitAll", isPermitAll);
 
         filterChain.doFilter(request, response);
     }

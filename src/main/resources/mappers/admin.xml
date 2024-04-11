@@ -30,6 +30,11 @@
         <result property="roleNameKor" column="role_name_kor"/>
     </resultMap>
 
+    <resultMap id="DonationResultMap" type="com.projectnmt.projectnmt.entity.Donation">
+        <id property="donationPageId" column="donation_page_id" />
+        <result property="donationPageShow" column="donation_page_show" />
+    </resultMap>
+
     <select id="userList" resultType="com.projectnmt.projectnmt.entity.User">
         select
             ut.user_id,
@@ -50,4 +55,15 @@
             left outer join authority_tb aut on(aut.user_id = ut.user_id)
             left outer join role_tb rt on(rt.role_id = aut.role_id);
     </select>
+
+    <update id="updatePageShow"  parameterType = "com.projectnmt.projectnmt.entity.Donation">
+        UPDATE
+            donation_page_tb
+        SET
+            donation_page_show = NOT donation_page_show
+        WHERE
+            donation_page_id = #{donationPageId}
+    </update>
+
+
 </mapper>

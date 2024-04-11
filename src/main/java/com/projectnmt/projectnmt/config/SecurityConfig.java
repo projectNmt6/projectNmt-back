@@ -11,7 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
-import com.projectnmt.projectnmt.security.filter.JwtAuthenticationFilter;
+//import com.projectnmt.projectnmt.security.filter.JwtAuthenticationFilter;
 
 @EnableWebSecurity
 @Configuration
@@ -22,8 +22,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Autowired
     private PerminAllfilter perminAllfilter;
-    @Autowired
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
+//    @Autowired
+//    private JwtAuthenticationFilter jwtAuthenticationFilter;
     @Autowired
     private AuthEntryPoint authEntryPoint;
     @Override
@@ -31,19 +31,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors();//WebMvcConfig의 cors 설정을 따라간다.
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/server/**", "/auth/**")
-                .permitAll()
-                .antMatchers("/mail/authenticate")
-                .permitAll()
-                .antMatchers("/admin/**")
-                .hasRole("admin")
-                .anyRequest()
-                .authenticated()
-                .and()
-                .addFilterAfter(perminAllfilter, LogoutFilter.class)
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling()
-                .authenticationEntryPoint(authEntryPoint);
+                .antMatchers("/**")
+                .permitAll();
+//                .antMatchers("/mail/authenticate")
+//                .permitAll()
+//                .antMatchers("/admin/**")
+//                .hasRole("admin")
+//                .anyRequest()
+//                .authenticated()
+//                .and()
+//                .addFilterAfter(perminAllfilter, LogoutFilter.class)
+//                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+//                .exceptionHandling()
+//                .authenticationEntryPoint(authEntryPoint);
     }
 
 }
