@@ -40,6 +40,26 @@ public class DonationPageService {
         return donationPageRespDto;
     }
 
+    public DonationPageRespDto getChallengeList(DonationPageReqDto donationPageReqDto) {
+
+        DonationPage donationStory = donationMapper.getDonationPage(
+                donationPageReqDto.getDonationPageId(),
+                donationPageReqDto.getTeamId(),
+                donationPageReqDto.getMainCategoryId(),
+                donationPageReqDto.getDonationCategoryId(),
+                donationPageReqDto.getCreateDate(),
+                donationPageReqDto.getEndDate(),
+                donationPageReqDto.getStoryTitle(),
+                donationPageReqDto.getStoryContent(),
+                donationPageReqDto.getMainImgUrl(),
+                donationPageReqDto.getDonationTagId(),
+                donationPageReqDto.getDonationPageShow()
+        );
+
+        DonationPageRespDto donationPageRespDto = donationStory.toDonationPageRespDto();
+        return donationPageRespDto;
+    }
+
     @Transactional(rollbackFor = Exception.class)
     public void updatePage(DonationPageUpdateReqDto donationPageUpdateReqDto) {
         donationMapper.updatePageById(donationPageUpdateReqDto.toEntity());
@@ -49,5 +69,7 @@ public class DonationPageService {
     public void deleteDonationPage(int donationPageId) {
         donationMapper.deletePageById(donationPageId);
     }
+
+
 
 }

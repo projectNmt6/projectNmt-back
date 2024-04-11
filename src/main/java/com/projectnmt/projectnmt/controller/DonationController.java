@@ -1,14 +1,11 @@
 package com.projectnmt.projectnmt.controller;
 
 import com.projectnmt.projectnmt.dto.DonationGivingReqDto;
-import com.projectnmt.projectnmt.dto.req.DonationPageReqDto;
+import com.projectnmt.projectnmt.dto.req.*;
 import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagReqDto;
 import com.projectnmt.projectnmt.service.DonationGivingService;
-import com.projectnmt.projectnmt.dto.req.DonationPageUpdateReqDto;
 import com.projectnmt.projectnmt.dto.resp.DonationPageRespDto;
 import com.projectnmt.projectnmt.service.DonationPageService;
-import com.projectnmt.projectnmt.dto.req.DonationListReqDto;
-import com.projectnmt.projectnmt.dto.req.DonationTagReqDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -35,6 +32,8 @@ public class DonationController {
 
         return ResponseEntity.created(null).body(donationPageReqDto);
     }
+
+
     @PostMapping("/review")
     public ResponseEntity<?> saveReviewPage(
             @Valid @RequestBody DonationPageReqDto donationPageReqDto,
@@ -49,6 +48,12 @@ public class DonationController {
     @GetMapping("/donations")
     public ResponseEntity<?> DonationList(DonationListReqDto donationListReqDto) {
         return ResponseEntity.ok(donationService.getDonationList(donationListReqDto));
+    };
+
+    @GetMapping("/donations/challenge")
+    public ResponseEntity<?> ChallengeList(DonationListReqDto donationListReqDto) {
+        System.out.println(donationListReqDto);
+        return ResponseEntity.ok(donationService.getChallengeList(donationListReqDto));
     };
 
     @GetMapping("/search")
@@ -104,4 +109,5 @@ public class DonationController {
         donationPageService.deleteDonationPage(donationPageId);
         return ResponseEntity.ok().build();
     }
+
 }

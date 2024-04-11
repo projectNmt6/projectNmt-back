@@ -1,12 +1,15 @@
     package com.projectnmt.projectnmt.service;
 
     import com.projectnmt.projectnmt.dto.req.DonationListReqDto;
+    import com.projectnmt.projectnmt.dto.req.DonationPageReqDto;
     import com.projectnmt.projectnmt.dto.req.DonationTagReqDto;
     import com.projectnmt.projectnmt.dto.resp.DonationListRespDto;
     import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagReqDto;
     import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagRespDto;
+    import com.projectnmt.projectnmt.dto.resp.DonationPageRespDto;
     import com.projectnmt.projectnmt.dto.resp.DonationTagRespDto;
     import com.projectnmt.projectnmt.entity.Donation;
+    import com.projectnmt.projectnmt.entity.DonationPage;
     import com.projectnmt.projectnmt.entity.DonationTag;
     import com.projectnmt.projectnmt.entity.MainCategory;
     import com.projectnmt.projectnmt.repository.DonationMapper;
@@ -34,6 +37,23 @@
                     donationListReqDto.getMainImgUrl(),
                     donationListReqDto.getDonationTagId()
                     );
+
+            return donations.stream().map(Donation::toDonationListRespDto).collect(Collectors.toList());
+        }
+
+        public List<DonationListRespDto> getChallengeList(DonationListReqDto donationListReqDto) {
+
+            List<Donation> donations = donationMapper.getChallengeList(
+                    donationListReqDto.getDonationPageId(),
+                    donationListReqDto.getTeamId(),
+                    donationListReqDto.getMainCategoryId(),
+                    donationListReqDto.getCreateDate(),
+                    donationListReqDto.getEndDate(),
+                    donationListReqDto.getGoalAmount(),
+                    donationListReqDto.getStoryTitle(),
+                    donationListReqDto.getMainImgUrl(),
+                    donationListReqDto.getDonationTagId()
+            );
 
             return donations.stream().map(Donation::toDonationListRespDto).collect(Collectors.toList());
         }
@@ -73,4 +93,6 @@
             );
             return mainCategories.stream().map(MainCategory::toDonationMainTagResp).collect(Collectors.toList());
         }
+
+
     }
