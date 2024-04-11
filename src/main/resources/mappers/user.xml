@@ -3,7 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.projectnmt.projectnmt.repository.UserMapper">
-    
 
     <resultMap id="UserResultMap" type="com.projectnmt.projectnmt.entity.User">
         <id property="userId" column="user_id" />
@@ -31,69 +30,88 @@
         <result property="roleNameKor" column="role_name_kor"/>
     </resultMap>
 
-        <insert
-                id="saveUser"
-                parameterType="com.projectnmt.projectnmt.entity.User"
-                keyProperty="userId"
-                useGeneratedKeys="true"
-        >
-            insert into user_tb
-            values(0,
-            #{username},
-            #{password},
-            #{name},
-            #{phoneNumber},
-            #{email},
-            #{gender},
-            #{age},
-            #{profileImg})
-        </insert>
-
-        <select
-                id="findUserByUsername"
-                resultMap="UserResultMap"
-        >
-            select
-            *
-            from
-            user_tb
-            where
-        </select>
-
-    <insert id="saveRole">
-        insert into authority_tb
-        values(0, #{userId}, #{roleId});
+    <insert
+            id="saveUser"
+            parameterType="com.projectnmt.projectnmt.entity.User"
+            keyProperty="userId"
+            useGeneratedKeys="true"
+    >
+        insert into
+        user_tb
+        values
+        (
+        0,
+        #{username},
+        #{password},
+        #{name},
+        #{phoneNumber},
+        #{email},
+        #{gender},
+        #{age},
+        #{profileImg})
     </insert>
-
-        <select id="findUserTest" resultMap="UserResultMap">
-          select
-            user_id,
-            username,
-            password,
-            name,
-            phone_number,
-            email,
-            gender,
-            age,
-            profile_img
-          from
-            user_tb
-          where
-            user_id = 1;
-      </select>
-        <update id="updateUser" parameterType="com.projectnmt.projectnmt.entity.User">
-            UPDATE
-                user_tb
-            SET
-                password = #{password},
-                name = #{name},
-                email = #{email},
-                age = #{age},
-                gender = #{gender},
-                phone_number = #{phoneNumber},
-                profile_img = #{profileImg}
-            WHERE
-                user_id = #{userId};
-        </update>
-
+    <insert id="saveRole">
+        insert into
+        authority_tb
+        values
+        (
+        0,
+        #{userId},
+        #{roleId});
+    </insert>
+    <select
+            id="findUserByUsername"
+            parameterType="string"
+            resultMap="UserResultMap"
+    >
+        select
+        ut.user_id,
+        ut.username,
+        ut.password,
+        ut.name,
+        ut.phone_number,
+        ut.email,
+        ut.gender,
+        ut.age,
+        ut.profile_img,
+        aut.authority_id,
+        aut.role_id,
+        rt.role_name,
+        rt.role_name_kor
+        from
+        user_tb ut
+        left outer join authority_tb aut on(aut.user_id = ut.user_id)
+        left outer join role_tb rt on(rt.role_id = aut.role_id)
+        where
+        username = #{username}
+    </select>
+    <select id="findUserTest" resultMap="UserResultMap">
+        select
+        user_id,
+        username,
+        password,
+        name,
+        phone_number,
+        email,
+        gender,
+        age,
+        profile_img
+        from
+        user_tb
+        where
+        user_id = 1;
+    </select>
+    <update id="updateUser" parameterType="com.projectnmt.projectnmt.entity.User">
+        UPDATE
+        user_tb
+        SET
+        password = #{password},
+        name = #{name},
+        email = #{email},
+        age = #{age},
+        gender = #{gender},
+        phone_number = #{phoneNumber}
+        WHERE
+        user_id = #{userId}
+    </update>
 </mapper>

@@ -47,6 +47,7 @@ public class User {
         return PrincipalUser.builder()
                 .userId(userId)
                 .username(username)
+                .password(password)
                 .name(name)
                 .email(email)
                 .phoneNumber(phoneNumber)
