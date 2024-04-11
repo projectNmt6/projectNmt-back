@@ -2,6 +2,7 @@ package com.projectnmt.projectnmt.controller;
 
 
 import com.projectnmt.projectnmt.dto.req.CommentReqDto;
+import com.projectnmt.projectnmt.dto.resp.CommentRespDto;
 import com.projectnmt.projectnmt.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -10,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/comment")
@@ -26,9 +28,12 @@ public class CommentController {
     }
 
     @GetMapping("/getcomment")
-    public ResponseEntity<?> CommentList(CommentReqDto commentReqDto) {
-        return ResponseEntity.ok(commentService.getComment(commentReqDto));
+    public ResponseEntity<List<CommentRespDto>> getAllComments() {
+        List<CommentRespDto> comments = commentService.getComment(new CommentReqDto()); // Assuming an overloaded method or modify existing one
+        return ResponseEntity.ok(comments);
     }
+
+
 
 //     // 코멘트 작성
 //    @PostMapping

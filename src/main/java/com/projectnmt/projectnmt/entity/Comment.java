@@ -18,9 +18,7 @@ public class Comment {
     private User user;
     private DonationPage donationPage;
 
-
     public CommentRespDto toSaveComment() {
-
         return CommentRespDto.builder()
                 .donationCommentId(donationCommentId)
                 .commentText(commentText)
@@ -28,5 +26,7 @@ public class Comment {
                 .userId(userId)
                 .build();
     }
+
+
 
 }

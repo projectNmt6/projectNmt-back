@@ -11,8 +11,9 @@ import java.util.List;
 public interface CommentMapper {
 
     public int saveComment(Comment comment);
+    List<Comment> getCommentList();
 
-    public Comment getCommentList(
+    public List<Comment> getCommentList(
             @Param("donationCommentId") int donationCommentId,
             @Param("commentText") String commentText,
             @Param("donationPageId") int donationPageId,

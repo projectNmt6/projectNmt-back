@@ -30,10 +30,13 @@
         SELECT
             *
         FROM
-            donation_comment_tb
+            comment_tb
 
     </select>
 
+    <select id="getAllComments" resultMap="CommentResultMap">
+        SELECT * FROM comment_tb
+    </select>
 </mapper>
 
 

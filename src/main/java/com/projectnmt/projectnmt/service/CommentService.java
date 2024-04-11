@@ -7,6 +7,9 @@ import com.projectnmt.projectnmt.repository.CommentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class CommentService {
 
@@ -17,19 +20,19 @@ public class CommentService {
         commentMapper.saveComment(commentReqDto.toEntity());
     }
 
-    public CommentRespDto getComment(CommentReqDto commentReqDto) {
+    public List<CommentRespDto> getComment(CommentReqDto commentReqDto) {
 
-        Comment comments = commentMapper.getCommentList(
+        List<Comment> comments = commentMapper.getCommentList(
                 commentReqDto.getDonationCommentId(),
                 commentReqDto.getCommentText(),
                 commentReqDto.getDonationPageId(),
                 commentReqDto.getUserId()
         );
 
-        CommentRespDto commentRespDto = comments.toSaveComment();
-        return commentRespDto;
 
-
+        return comments.stream().map(Comment::toSaveComment).collect(Collectors.toList());
     }
+
+
 
 }
