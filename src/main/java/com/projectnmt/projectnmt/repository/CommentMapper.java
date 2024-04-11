@@ -11,16 +11,14 @@ import java.util.List;
 public interface CommentMapper {
 
     public int saveComment(Comment comment);
+    List<Comment> getCommentList();
 
-
-
-    List<Comment> getCommentList(
+    public List<Comment> getCommentList(
             @Param("donationCommentId") int donationCommentId,
             @Param("commentText") String commentText,
             @Param("donationPageId") int donationPageId,
             @Param("userId") int userId
     );
-
     public int deleteCommentById(@Param("donationCommentId") int donationCommentId);
-
+    List<Comment> getCommentsByDonationPageId(int donationPageId);
 }

@@ -14,34 +14,32 @@
 
     <insert id="saveComment" parameterType="com.projectnmt.projectnmt.entity.Comment" >
         INSERT INTO comment_tb
-            (donation_comment_id,
-            comment_text,
-            donation_page_id,
-            user_id)
+        (donation_comment_id,
+        comment_text,
+        donation_page_id,
+        user_id)
         VALUES
-            (#{donationCommentId},
-            #{commentText},
-            #{donationPageId},
-            #{userId})
+        (#{donationCommentId},
+        #{commentText},
+        #{donationPageId},
+        #{userId})
     </insert>
 
     <select id="getCommentList" resultMap="CommentResultMap" >
+        SELECT * FROM comment_tb
+    </select>
 
-        SELECT
-            *
-        FROM
-            comment_tb
+    <select id="getCommentsByDonationPageId" resultMap="CommentResultMap" >
+        SELECT * FROM comment_tb WHERE donation_page_id = #{donationPageId}
     </select>
 
     <delete id="deleteCommentById" parameterType="int" >
         DELETE
         FROM
-            comment_tb
+        comment_tb
         WHERE
-            donation_comment_id = #{donationCommentId}
+        donation_comment_id = #{donationCommentId}
     </delete>
 
+
 </mapper>
-
-
-
