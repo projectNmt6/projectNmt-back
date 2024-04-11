@@ -12,12 +12,15 @@ public interface CommentMapper {
 
     public int saveComment(Comment comment);
 
-    public Comment getCommentList(
+
+
+    List<Comment> getCommentList(
             @Param("donationCommentId") int donationCommentId,
             @Param("commentText") String commentText,
             @Param("donationPageId") int donationPageId,
             @Param("userId") int userId
     );
 
+    public int deleteCommentById(@Param("donationCommentId") int donationCommentId);
 
 }

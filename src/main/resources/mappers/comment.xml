@@ -30,9 +30,16 @@
         SELECT
             *
         FROM
-            donation_comment_tb
-
+            comment_tb
     </select>
+
+    <delete id="deleteCommentById" parameterType="int" >
+        DELETE
+        FROM
+            comment_tb
+        WHERE
+            donation_comment_id = #{donationCommentId}
+    </delete>
 
 </mapper>
 
