@@ -191,22 +191,22 @@
 
     <select id="getChallengeList" resultMap="DonationResultMap">
         SELECT
-        donation_page_id,
-        team_id,
-        main_category_id,
-        donation_category_id,
-        create_date,
-        end_date,
-        goal_amount,
-        story_title,
-        story_content,
-        main_img_url,
-        donation_tag_id,
-        donation_page_show
+            donation_page_id,
+            team_id,
+            main_category_id,
+            donation_category_id,
+            create_date,
+            end_date,
+            goal_amount,
+            story_title,
+            story_content,
+            main_img_url,
+            donation_tag_id,
+            donation_page_show
         FROM
-        donation_page_tb
+            donation_page_tb
         WHERE
-        main_category_id = #{mainCategoryId}
+            main_category_id = #{mainCategoryId}
     </select>
 
 
