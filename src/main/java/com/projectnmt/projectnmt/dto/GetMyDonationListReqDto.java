@@ -1,13 +1,14 @@
 package com.projectnmt.projectnmt.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
-public class GetMyDonationListReqDtd {
-    public int donationPageId;
-    public int donationAmount;
-    public LocalDate donationDate;
-    public String storyTitle;
+@Builder
+public class GetMyDonationListReqDto {
+    public int userId;
+    public int donationDate;
+    public int mainCategoryId;
 }

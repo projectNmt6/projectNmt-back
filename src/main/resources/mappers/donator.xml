@@ -48,7 +48,6 @@
         <association property="user" resultMap="UserResultMap" />
         <association property="donationPage" resultMap="DonationPageResultMap" />
     </resultMap>
-
     <insert id="saveDonation" parameterType="com.projectnmt.projectnmt.entity.Donator">
         INSERT INTO donator_tb
         VALUES
@@ -70,4 +69,22 @@
     #{userId}
     );
     </insert>
+    <select id="getMyList" resultMap="DonatorResultMap">
+            select
+                dt.donation_page_id,
+                dt.donation_amount,
+                dt.donation_date,
+                dpt.story_title
+            from
+                donator_tb dt
+                left outer join donation_page_tb dpt on(dpt.donation_page_id = dt.donation_page_id)
+            where
+                dt.user_id = #{userId}
+            <if test="donationDate != 0">
+                and year(dt.donation_date) = year(now()) - #{donationDate} + 1
+            </if>
+            <if test="mainCategoryId != 0">
+                and dpt.main_category_id = #{mainCategoryId}
+            </if>
+    </select>
 </mapper>
