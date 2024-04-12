@@ -19,6 +19,7 @@ import java.util.List;
 public interface DonationMapper {
 
     public int saveDonationPage(DonationPage donationPage);
+    public int saveDonationNewsPage(DonationPage donationPage);
 
     public List<Donation> getChallengeList(
             @Param("donationPageId") int donationPageId,
@@ -77,8 +78,8 @@ public interface DonationMapper {
 
     public int updatePageById(DonationPage donationPage);
 
-
     public int deletePageById(@Param("donationPageId") int donationPageId);
+
 
 
 

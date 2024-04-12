@@ -3,8 +3,10 @@ package com.projectnmt.projectnmt.controller;
 import com.projectnmt.projectnmt.dto.DonationGivingReqDto;
 import com.projectnmt.projectnmt.dto.req.*;
 import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagReqDto;
+import com.projectnmt.projectnmt.dto.resp.DonationNewsPageRespDto;
 import com.projectnmt.projectnmt.service.DonationGivingService;
 import com.projectnmt.projectnmt.dto.resp.DonationPageRespDto;
+import com.projectnmt.projectnmt.service.DonationNewsPageService;
 import com.projectnmt.projectnmt.service.DonationPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,9 @@ public class DonationController {
     private DonationPageService donationPageService;
 
     @Autowired
+    private DonationNewsPageService donationNewsPageService;
+
+    @Autowired
     private DonationGivingService donationGivingService;
 
     @PostMapping("/write")
@@ -33,15 +38,49 @@ public class DonationController {
         return ResponseEntity.created(null).body(donationPageReqDto);
     }
 
-
-    @PostMapping("/review")
+    @PostMapping("/donation/review")
     public ResponseEntity<?> saveReviewPage(
             @Valid @RequestBody DonationPageReqDto donationPageReqDto,
             BindingResult bindingResult) {
+        donationPageService.saveDonationPage(donationPageReqDto);
+        return ResponseEntity.created(null).body(donationPageReqDto);
+    }
 
+    @PostMapping("/donation/news/{page}")
+    public ResponseEntity<?> saveDonationNewsPage(@PathVariable("page") int page,
+            @Valid @RequestBody DonationPageReqDto donationPageReqDto,
+            BindingResult bindingResult) {
+        donationPageReqDto.setDonationPageId(page);
         donationPageService.saveDonationPage(donationPageReqDto);
 
         return ResponseEntity.created(null).body(donationPageReqDto);
+    }
+
+    @PostMapping("/donation/donationnews")
+    public ResponseEntity<?> saveDonationNews(@RequestBody DonationNewsPageReqDto donationNewsPageReqDto) {
+        donationNewsPageService.saveDonationNewsPage(donationNewsPageReqDto);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/donation/news/update/{page}")
+    public ResponseEntity<?> UpdateNewsPage(@PathVariable("page") int page, @RequestBody DonationNewsUpdateReqDto donationNewsUpdateReqDto) {
+        donationNewsUpdateReqDto.setDonationPageId(page);
+        donationNewsPageService.updateNewsPage(donationNewsUpdateReqDto);
+        return ResponseEntity.ok(true);
+    }
+
+//    @GetMapping("/donation/news/{id}")
+//    public ResponseEntity<?> getDonationNews(@RequestParam(value = "page") int page) {
+//        DonationNewsPageReqDto donationNewsPageReqDto = new DonationNewsPageReqDto();
+//        donationNewsPageReqDto.setDonationNewsPageId(page);
+//        return ResponseEntity.ok(donationPageService.getDonationPage(donationNewsPageReqDto));
+//    }
+
+    @GetMapping("/donation/news/{page}")
+    public ResponseEntity<?> getDonationNews(@PathVariable("page") int page) {
+        DonationNewsPageReqDto donationNewsPageReqDto = new DonationNewsPageReqDto();
+        donationNewsPageReqDto.setDonationNewsPageId(page);
+        return ResponseEntity.ok(donationNewsPageService.getDonationNews(donationNewsPageReqDto));
     }
 
 
@@ -94,7 +133,6 @@ public class DonationController {
         donationPageService.updatePage(donationPageUpdateReqDto);
         return ResponseEntity.ok(true);
     }
-
 
     @GetMapping("/donation/update/{page}")
     public ResponseEntity<?> getPageUpdate(@PathVariable("page") int page) {

@@ -16,7 +16,7 @@ public class DonationPage {
     private Integer donationPageId;
     private int teamId;
     private int mainCategoryId;
-    private int donationCategoryId;
+    private int pageCategoryId; // 본문(스토리) / 기부현황 / 후기
     private LocalDateTime createDate;
     private LocalDateTime endDate;
     private int goalAmount;
@@ -33,7 +33,7 @@ public class DonationPage {
                 .donationPageId(donationPageId)
                 .teamId(teamId)
                 .mainCategoryId(mainCategoryId)
-                .donationCategoryId(donationCategoryId)
+                .pageCategoryId(pageCategoryId)
                 .createDate(createDate)
                 .endDate(endDate)
                 .goalAmount(goalAmount)
@@ -51,7 +51,7 @@ public class DonationPage {
                 .donationPageId(donationPageId)
                 .teamId(teamId)
                 .mainCategoryId(mainCategoryId)
-                .donationCategoryId(donationCategoryId)
+                .pageCategoryId(pageCategoryId)
                 .createDate(createDate)
                 .endDate(endDate)
                 .goalAmount(goalAmount)

@@ -19,6 +19,9 @@ public class DonationPageService {
         donationMapper.saveDonationPage(donationPageReqDto.toEntity());
     }
 
+    public void saveDonationNewsPage(DonationPageReqDto donationPageReqDto) {
+        donationMapper.saveDonationNewsPage(donationPageReqDto.toEntity());
+    }
 
     public DonationPageRespDto getDonationPage(DonationPageReqDto donationPageReqDto) {
 
@@ -26,7 +29,7 @@ public class DonationPageService {
                 donationPageReqDto.getDonationPageId(),
                 donationPageReqDto.getTeamId(),
                 donationPageReqDto.getMainCategoryId(),
-                donationPageReqDto.getDonationCategoryId(),
+                donationPageReqDto.getPageCategoryId(),
                 donationPageReqDto.getCreateDate(),
                 donationPageReqDto.getEndDate(),
                 donationPageReqDto.getStoryTitle(),
@@ -46,7 +49,7 @@ public class DonationPageService {
                 donationPageReqDto.getDonationPageId(),
                 donationPageReqDto.getTeamId(),
                 donationPageReqDto.getMainCategoryId(),
-                donationPageReqDto.getDonationCategoryId(),
+                donationPageReqDto.getPageCategoryId(),
                 donationPageReqDto.getCreateDate(),
                 donationPageReqDto.getEndDate(),
                 donationPageReqDto.getStoryTitle(),
@@ -56,7 +59,8 @@ public class DonationPageService {
                 donationPageReqDto.getDonationPageShow()
         );
 
-        DonationPageRespDto donationPageRespDto = donationStory.toDonationPageRespDto();
+        DonationPageRespDto donationPageRespDto =
+                donationStory.toDonationPageRespDto();
         return donationPageRespDto;
     }
 

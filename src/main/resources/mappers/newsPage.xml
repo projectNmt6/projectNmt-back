@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.projectnmt.projectnmt.repository.DonationNewsMapper">
+
+    <resultMap id="NewsPageResultMap" type="com.projectnmt.projectnmt.entity.DonationNewsPage" >
+        <id property="donationNewsPageId" column="donation_news_page_id" />
+        <result property="donationPageId" column="donation_page_id" />
+        <result property="pageCategoryId" column="page_category_id" />
+        <result property="newsContent" column="news_content" />
+        <result property="userId" column="user_id" />
+    </resultMap>
+
+    <insert id="saveDonationNewsPage" parameterType="com.projectnmt.projectnmt.entity.DonationNewsPage" >
+        INSERT INTO donation_news_page_tb
+            (donation_news_page_id,
+            donation_page_id,
+            page_category_id,
+            news_content,
+            user_id)
+        VALUES
+            (#{donationNewsPageId},
+            #{donationPageId},
+            #{pageCategoryId},
+            #{newsContent},
+            #{userId})
+    </insert>
+
+    <select id="getNewsPage" resultMap="NewsPageResultMap" >
+        SELECT
+            *
+        FROM
+            donation_news_page_tb
+        where
+            donation_news_page_id = #{donationNewsPageId}
+    </select>
+
+    <update id="updateNewsPageById" parameterType="com.projectnmt.projectnmt.entity.DonationNewsPage">
+        update
+            donation_news_page_tb
+        set
+            donation_news_page_id = #{donationNewsPageId},
+            donation_page_id = #{donationPageId},
+            page_category_id = #{pageCategoryId},
+            news_content = #{newsContent},
+            user_id= = #{userId}
+
+    </update>
+
+
+</mapper>
