@@ -30,7 +30,13 @@
         <result property="roleName" column="role_name"/>
         <result property="roleNameKor" column="role_name_kor"/>
     </resultMap>
-
+    <resultMap id="MessageResultMap" type="com.projectnmt.projectnmt.dto.resp.MessageRespDto">
+        <id property="messageId" column="message_id" />
+        <result property="teamLogoImgUrl" column="team_logo_img_url" />
+        <result property="teamName" column="team_name" />
+        <result property="message" column="message_text"/>
+        <result property="date" column="create_date" />
+    </resultMap>
         <insert
                 id="saveUser"
                 parameterType="com.projectnmt.projectnmt.entity.User"
@@ -44,6 +50,7 @@
         insert into authority_tb
         values(0, #{userId}, #{roleId});
     </insert>
+
     <select
             id="findUserByUsername"
             parameterType="string"
@@ -86,4 +93,17 @@
           where
             user_id = 1;
       </select>
+    <select id="getMessageList" resultMap="MessageResultMap">
+        select
+            mt.message_id,
+            tt.team_logo_img_url,
+            tt.team_name,
+            mt.message_text,
+            mt.create_date
+        from
+            message_tb mt
+            left outer join team_tb tt on(tt.team_id = mt.sender_id)
+        where
+            giver_id = #{userId}
+    </select>
 </mapper>

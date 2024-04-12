@@ -8,7 +8,6 @@
         <id property="donationPageId" column="donation_page_id" />
         <result property="teamId" column="team_id" />
         <result property="mainCategoryId" column="main_category_id" />
-        <result property="donationCategoryId" column="donation_category_id" />
         <result property="createDate" column="create_date" />
         <result property="endDate" column="end_date" />
         <result property="goalAmount" column="goal_amount" />
@@ -58,7 +57,6 @@
         INSERT INTO donation_page_tb
         (team_id,
         main_category_id,
-        donation_category_id,
         create_date,
         end_date,
         goal_amount,
@@ -70,7 +68,6 @@
         VALUES
         (#{teamId},
         #{mainCategoryId},
-        #{donationCategoryId},
         now(),
         now(),
         #{goalAmount},
@@ -87,7 +84,6 @@
             donation_page_id,
             team_id,
             main_category_id,
-            donation_category_id,
             create_date,
             end_date,
             goal_amount,

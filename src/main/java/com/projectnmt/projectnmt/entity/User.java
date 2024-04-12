@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class User {
+public class  User {
     private int userId;
     //유저아이디
     private String username;

@@ -41,8 +41,16 @@
         <result property="roleName" column="role_name"/>
         <result property="roleNameKor" column="role_name_kor"/>
     </resultMap>
+    <insert id="addRole">
+        insert into authority_tb
+        values(0, #{userId}, #{roleId});
+    </insert>
+    <insert id="sendMessage">
+        insert into message_tb
+        values(0, 0, #{userId}, #{message}, now());
+    </insert>
 
-    <select id="userList" resultMap="AdminUserResultMap">
+    <select id="findUserList" resultMap="AdminUserResultMap">
         select
             ut.user_id,
             ut.username,
@@ -60,5 +68,26 @@
             user_tb ut
             left outer join authority_tb aut on(aut.user_id = ut.user_id)
             left outer join role_tb rt on(rt.role_id = aut.role_id);
+    </select>
+    <select id="findUserByUserId" resultMap="AdminUserResultMap">
+        select
+            ut.user_id,
+            ut.username,
+            ut.password,
+            ut.name,
+            ut.phone_number,
+            ut.email,
+            ut.gender,
+            ut.age,
+            ut.profile_img,
+            rt.role_id,
+            rt.role_name,
+            rt.role_name_kor
+        from
+            user_tb ut
+            left outer join authority_tb aut on(aut.user_id = ut.user_id)
+            left outer join role_tb rt on(rt.role_id = aut.role_id)
+        where
+            ut.user_id = #{user_id};
     </select>
 </mapper>

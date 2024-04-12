@@ -2,6 +2,7 @@ package com.projectnmt.projectnmt.repository;
 
 import com.projectnmt.projectnmt.entity.Account;
 import com.projectnmt.projectnmt.entity.Team;
+import com.projectnmt.projectnmt.entity.TeamMember;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -13,4 +14,7 @@ public interface TeamMapper {
     public int saveAccount(Account account);
     public List<Team> teamList(int userId);
     public Team teamInfo(int teamId);
+    public int updateTeam(Team team);
+    public int deleteAccounts(int teamId);
+    public TeamMember findMember(int userId, int teamId);
 }

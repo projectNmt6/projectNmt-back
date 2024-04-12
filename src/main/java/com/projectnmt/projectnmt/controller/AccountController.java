@@ -6,6 +6,7 @@ import com.projectnmt.projectnmt.entity.Team;
 import com.projectnmt.projectnmt.security.PrincipalUser;
 import com.projectnmt.projectnmt.service.PrincipalService;
 import com.projectnmt.projectnmt.service.TeamService;
+import com.projectnmt.projectnmt.service.UserSerive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -21,6 +22,8 @@ public class AccountController {
     PrincipalService getPrincipalService;
     @Autowired
     TeamService teamService;
+    @Autowired
+    UserSerive userSerive;
     @GetMapping("/principal")
     public ResponseEntity<?> getPrincipal() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -32,6 +35,10 @@ public class AccountController {
     public ResponseEntity<?> getTeamList(SearchTeamListDto searchTeamListDto) {
         List<Team> teamList = teamService.getTeamList(searchTeamListDto);
         return ResponseEntity.ok(teamList);
+    }
+    @GetMapping("/message")
+    public ResponseEntity<?> getMessageList(int userId) {
+        return ResponseEntity.ok(userSerive.getMessageList(userId));
     }
 }
 
