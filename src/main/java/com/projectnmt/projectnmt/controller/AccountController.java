@@ -55,5 +55,6 @@ public class AccountController {
     public ResponseEntity<?> getMyList(GetMyDonationListReqDto getMyDonationListReqDto) {
         return ResponseEntity.ok(accountService.GetMyDonation(getMyDonationListReqDto));
     }
+
 }
 

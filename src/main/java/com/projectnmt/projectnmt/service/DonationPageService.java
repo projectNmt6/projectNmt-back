@@ -1,6 +1,8 @@
 package com.projectnmt.projectnmt.service;
 
 import com.projectnmt.projectnmt.dto.AmountRespDto;
+import com.projectnmt.projectnmt.dto.ProgressAmountReqDto;
+import com.projectnmt.projectnmt.dto.ProgressAmountRespDto;
 import com.projectnmt.projectnmt.dto.req.DonationPageReqDto;
 import com.projectnmt.projectnmt.dto.req.DonationPageUpdateReqDto;
 import com.projectnmt.projectnmt.dto.resp.DonationPageRespDto;
@@ -50,5 +52,8 @@ public class DonationPageService {
     }
     public AmountRespDto MainAmount() {
         return donatorMapper.saveAmount();
+    }
+    public ProgressAmountRespDto Homedonation(ProgressAmountReqDto progressAmountReqDto) {
+        return donatorMapper.HomeDonation();
     }
 }

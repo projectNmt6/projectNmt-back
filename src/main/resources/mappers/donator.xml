@@ -93,4 +93,17 @@
         FROM
             donator_tb
     </select>
+    <select id="HomeDonation" resultType="com.projectnmt.projectnmt.dto.ProgressAmountRespDto">
+        SELECT
+            dt.donation_page_id as donationPageId,
+            dt.donation_amount as addAmount,
+            dpt.story_title as storyTitle,
+            dpt.goal_amount as goalAmount,
+            dpt.end_date as endDate
+        From
+            donator_tb dt
+            left outer join donation_page_tb dpt on(dpt.donation_page_id = dt.donation_page_id)
+        where
+            dt.donation_page_id = #{donationId}
+    </select>
 </mapper>
