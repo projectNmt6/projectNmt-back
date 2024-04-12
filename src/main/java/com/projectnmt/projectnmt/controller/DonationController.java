@@ -1,8 +1,10 @@
 package com.projectnmt.projectnmt.controller;
 
+import com.projectnmt.projectnmt.dto.AmountRespDto;
 import com.projectnmt.projectnmt.dto.DonationGivingReqDto;
 import com.projectnmt.projectnmt.dto.req.DonationPageReqDto;
 import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagReqDto;
+import com.projectnmt.projectnmt.entity.Donator;
 import com.projectnmt.projectnmt.service.DonationGivingService;
 import com.projectnmt.projectnmt.dto.req.DonationPageUpdateReqDto;
 import com.projectnmt.projectnmt.dto.resp.DonationPageRespDto;
@@ -102,4 +104,9 @@ public class DonationController {
         return ResponseEntity.ok(null);
     }
 
+    @GetMapping("amount")
+    public ResponseEntity<?> getAmount() {
+        AmountRespDto amountRespDto = donationPageService.MainAmount();
+        return ResponseEntity.ok(amountRespDto);
+    }
 }

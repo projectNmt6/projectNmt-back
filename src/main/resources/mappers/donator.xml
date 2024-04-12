@@ -87,4 +87,10 @@
             and dpt.main_category_id = #{mainCategoryId}
         </if>
     </select>
+    <select id="saveAmount" resultType="com.projectnmt.projectnmt.dto.AmountRespDto">
+        SELECT
+            SUM(donation_amount) AS totalAmount
+        FROM
+            donator_tb
+    </select>
 </mapper>

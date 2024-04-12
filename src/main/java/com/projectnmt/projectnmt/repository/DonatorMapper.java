@@ -1,5 +1,6 @@
 package com.projectnmt.projectnmt.repository;
 
+import com.projectnmt.projectnmt.dto.AmountRespDto;
 import com.projectnmt.projectnmt.dto.DonationGivingReqDto;
 import com.projectnmt.projectnmt.dto.GetMyDonationListReqDto;
 import com.projectnmt.projectnmt.dto.MyDonationListRespDto;
@@ -14,5 +15,5 @@ public interface DonatorMapper {
     public int saveDonation(DonationGivingReqDto donationGivingReqDto);
     public int saveComment(Comment comment);
     public List<MyDonationListRespDto> getMyList (GetMyDonationListReqDto getMyDonationListReqDto);
-
+    public AmountRespDto saveAmount();
 }
