@@ -2,6 +2,7 @@ package com.projectnmt.projectnmt.controller;
 
 import com.projectnmt.projectnmt.dto.EditAccountReqDto;
 import com.projectnmt.projectnmt.dto.GetMyDonationListReqDto;
+import com.projectnmt.projectnmt.dto.MyDonationListRespDto;
 import com.projectnmt.projectnmt.entity.Donator;
 import com.projectnmt.projectnmt.service.AccountService;
 import com.projectnmt.projectnmt.dto.req.SearchTeamListDto;
@@ -52,7 +53,6 @@ public class AccountController {
 
     @GetMapping("/mypage/donation")
     public ResponseEntity<?> getMyList(GetMyDonationListReqDto getMyDonationListReqDto) {
-        System.out.println(accountService.GetMyDonation(getMyDonationListReqDto));
         return ResponseEntity.ok(accountService.GetMyDonation(getMyDonationListReqDto));
     }
 }

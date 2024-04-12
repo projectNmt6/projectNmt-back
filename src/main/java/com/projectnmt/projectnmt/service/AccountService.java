@@ -2,8 +2,7 @@ package com.projectnmt.projectnmt.service;
 
 import com.projectnmt.projectnmt.dto.EditAccountReqDto;
 import com.projectnmt.projectnmt.dto.GetMyDonationListReqDto;
-import com.projectnmt.projectnmt.entity.Donation;
-import com.projectnmt.projectnmt.entity.Donator;
+import com.projectnmt.projectnmt.dto.MyDonationListRespDto;
 import com.projectnmt.projectnmt.entity.User;
 import com.projectnmt.projectnmt.exception.ValidException;
 import com.projectnmt.projectnmt.repository.DonatorMapper;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -50,8 +48,8 @@ public class AccountService {
 
         userMapper.updateUser(updatedUser);
     }
-    public List<GetMyDonationListReqDto> GetMyDonation(GetMyDonationListReqDto getMyDonationListReqDto) {
-        List<GetMyDonationListReqDto> donators = donatorMapper.getMyList(getMyDonationListReqDto);
+    public List<MyDonationListRespDto> GetMyDonation(GetMyDonationListReqDto getMyDonationListReqDto) {
+        List<MyDonationListRespDto> donators = donatorMapper.getMyList(getMyDonationListReqDto);
         return donators;
     }
 }

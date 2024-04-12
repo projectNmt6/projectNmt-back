@@ -61,30 +61,30 @@
     </insert>
     <insert id="saveComment" parameterType="com.projectnmt.projectnmt.entity.Comment" >
     INSERT INTO comment_tb
-    VALUES
-    (
-    0,
-    #{commentText},
-    #{donationPageId},
-    #{userId}
-    );
+        VALUES
+        (
+        0,
+        #{commentText},
+        #{donationPageId},
+        #{userId}
+        );
     </insert>
-    <select id="getMyList" resultMap="DonatorResultMap">
-            select
-                dt.donation_page_id,
-                dt.donation_amount,
-                dt.donation_date,
-                dpt.story_title
-            from
-                donator_tb dt
-                left outer join donation_page_tb dpt on(dpt.donation_page_id = dt.donation_page_id)
-            where
-                dt.user_id = #{userId}
-            <if test="donationDate != 0">
-                and year(dt.donation_date) = year(now()) - #{donationDate} + 1
-            </if>
-            <if test="mainCategoryId != 0">
-                and dpt.main_category_id = #{mainCategoryId}
-            </if>
+    <select id="getMyList" resultType="com.projectnmt.projectnmt.dto.MyDonationListRespDto">
+        select
+            dt.donation_page_id as donationPageId,
+            dt.donation_amount as amount,
+            dt.donation_date as donationDate,
+            dpt.story_title as storyTitle
+        from
+            donator_tb dt
+            left outer join donation_page_tb dpt on(dpt.donation_page_id = dt.donation_page_id)
+        where
+            dt.user_id = #{userId}
+        <if test="donationDate != 0">
+            and year(dt.donation_date) = year(now()) - #{donationDate} + 1
+        </if>
+        <if test="mainCategoryId != 0">
+            and dpt.main_category_id = #{mainCategoryId}
+        </if>
     </select>
 </mapper>

@@ -3,11 +3,12 @@ package com.projectnmt.projectnmt.dto;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
-@Builder
 public class MyDonationListRespDto {
     private int donationPageId;
-    private int donationDate;
+    private String donationDate;
     private String storyTitle;
     private int amount;
 }
