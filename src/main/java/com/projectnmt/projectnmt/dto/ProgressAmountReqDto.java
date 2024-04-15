@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class ProgressAmountReqDto {
-    private int donationId;
+    private int donationPageId;
 }

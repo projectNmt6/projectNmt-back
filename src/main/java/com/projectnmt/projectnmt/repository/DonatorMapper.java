@@ -13,5 +13,5 @@ public interface DonatorMapper {
     public int saveComment(Comment comment);
     public List<MyDonationListRespDto> getMyList (GetMyDonationListReqDto getMyDonationListReqDto);
     public AmountRespDto saveAmount();
-    public ProgressAmountRespDto HomeDonation();
+    public ProgressAmountRespDto HomeDonation(int donationPageId);
 }
