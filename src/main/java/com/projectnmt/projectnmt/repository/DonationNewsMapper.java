@@ -12,12 +12,14 @@ public interface DonationNewsMapper {
     public int saveDonationNewsPage(DonationNewsPage donationNewsPage);
 
     public DonationNewsPage getNewsPage(
-            @Param("donationNewsPageId") Integer donationNewsPageId,
-            @Param("donationPageId") Integer donationPageId,
-            @Param("PageCategoryId") Integer pageCategoryId,
+            @Param("donationNewsPageId") int donationNewsPageId,
+            @Param("donationPageId") int donationPageId,
+            @Param("PageCategoryId") int pageCategoryId,
             @Param("newsContent") String newsContent,
-            @Param("userId") Integer userId
+            @Param("userId") int userId
     );
 
+    List<DonationNewsPage> getAllNewsByDonationPageId(@Param("donationPageId") int donationPageId);
     public int updateNewsPageById(DonationNewsPage donationNewsPage);
+    DonationNewsPage getNewsByDonationPageId(@Param("donationPageId") int donationPageId);
 }

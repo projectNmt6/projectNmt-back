@@ -12,26 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class DonationNewsPageService {
 
     @Autowired
     private DonationNewsMapper donationNewsMapper;
-
-    public DonationNewsPageRespDto getDonationNewsById(DonationNewsPageReqDto donationNewsPageReqDto) {
-        DonationNewsPage donationNewsPage = donationNewsMapper.getNewsPage(
-                donationNewsPageReqDto.getDonationNewsPageId(),
-                donationNewsPageReqDto.getDonationPageId(),
-                donationNewsPageReqDto.getPageCategoryId(),
-                donationNewsPageReqDto.getNewsContent(),
-                donationNewsPageReqDto.getUserId()
-
-        );
-
-        DonationNewsPageRespDto donationNewsPageRespDto =
-                donationNewsPage.toDonationNewsPageRespDto();
-        return donationNewsPageRespDto;
-    }
 
     @Transactional(rollbackFor = Exception.class)
     public void updateNewsPage(DonationNewsUpdateReqDto donationNewsUpdateReqDto) {
@@ -46,14 +34,24 @@ public class DonationNewsPageService {
                 donationNewsPageReqDto.getNewsContent(),
                 donationNewsPageReqDto.getUserId()
         );
-        DonationNewsPageRespDto donationNewsPageRespDto = donationNewsPage.toDonationNewsPageRespDto();
+        DonationNewsPageRespDto donationNewsPageRespDto =
+                donationNewsPage.toDonationNewsPageRespDto();
         return donationNewsPageRespDto;
-    }
 
+    }
+    public DonationNewsPageRespDto getDonationNewsByPageId(int donationPageId) {
+        DonationNewsPage donationNewsPage = donationNewsMapper.getNewsByDonationPageId(donationPageId);
+        return donationNewsPage.toDonationNewsPageRespDto();
+    }
 
     public void saveDonationNewsPage(DonationNewsPageReqDto donationNewsPageReqDto) {
         DonationNewsPage donationNewsPage = donationNewsPageReqDto.toEntity();
         donationNewsMapper.saveDonationNewsPage(donationNewsPage);
     }
+
+//    public List<DonationNewsPageRespDto> getAllNewsByDonationPageId(int donationPageId) {
+//        List<DonationNewsPage> newsPages = donationNewsMapper.getNewsByDonationPageId(donationPageId);
+//        return newsPages.stream().map(DonationNewsPage::toDonationNewsPageRespDto).collect(Collectors.toList());
+//    }
 
 }

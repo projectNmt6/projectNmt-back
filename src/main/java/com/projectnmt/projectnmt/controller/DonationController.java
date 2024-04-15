@@ -2,8 +2,10 @@ package com.projectnmt.projectnmt.controller;
 
 import com.projectnmt.projectnmt.dto.DonationGivingReqDto;
 import com.projectnmt.projectnmt.dto.req.*;
+import com.projectnmt.projectnmt.dto.resp.CommentRespDto;
 import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagReqDto;
 import com.projectnmt.projectnmt.dto.resp.DonationNewsPageRespDto;
+import com.projectnmt.projectnmt.entity.DonationNewsPage;
 import com.projectnmt.projectnmt.service.DonationGivingService;
 import com.projectnmt.projectnmt.dto.resp.DonationPageRespDto;
 import com.projectnmt.projectnmt.service.DonationNewsPageService;
@@ -14,6 +16,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import com.projectnmt.projectnmt.service.DonationService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/main")
@@ -76,13 +80,24 @@ public class DonationController {
 //        return ResponseEntity.ok(donationPageService.getDonationPage(donationNewsPageReqDto));
 //    }
 
+
     @GetMapping("/donation/news/{page}")
     public ResponseEntity<?> getDonationNews(@PathVariable("page") int page) {
-        DonationNewsPageReqDto donationNewsPageReqDto = new DonationNewsPageReqDto();
-        donationNewsPageReqDto.setDonationNewsPageId(page);
-        return ResponseEntity.ok(donationNewsPageService.getDonationNews(donationNewsPageReqDto));
+        DonationNewsPageRespDto response = donationNewsPageService.getDonationNewsByPageId(page);
+        if (response == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(response);
     }
 
+
+    @GetMapping("/donation")
+    public ResponseEntity<?> DonationStory(@RequestParam(value = "page", defaultValue = "1") int page) {
+        DonationPageReqDto donationPageReqDto = new DonationPageReqDto();
+        donationPageReqDto.setDonationPageId(page);
+        System.out.println(page);
+        return ResponseEntity.ok(donationPageService.getDonationPage(donationPageReqDto));
+    };
 
     @GetMapping("/donations")
     public ResponseEntity<?> DonationList(DonationListReqDto donationListReqDto) {
@@ -108,13 +123,6 @@ public class DonationController {
         return ResponseEntity.ok(donationService.getDonationTagList(donationTagReqDto));
     };
 
-    @GetMapping("/donation")
-    public ResponseEntity<?> DonationStory(@RequestParam(value = "page", defaultValue = "1") int page) {
-        DonationPageReqDto donationPageReqDto = new DonationPageReqDto();
-        donationPageReqDto.setDonationPageId(page);
-        System.out.println(page);
-        return ResponseEntity.ok(donationPageService.getDonationPage(donationPageReqDto));
-    };
 
     @GetMapping("/storytypes")
     public ResponseEntity<?> getMainType(DonationMainTagReqDto donationMainTagReqDto) {

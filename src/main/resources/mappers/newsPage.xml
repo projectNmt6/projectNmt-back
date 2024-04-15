@@ -28,26 +28,31 @@
             #{userId})
     </insert>
 
-    <select id="getNewsPage" resultMap="NewsPageResultMap" >
-        SELECT
-            *
-        FROM
-            donation_news_page_tb
-        where
-            donation_news_page_id = #{donationNewsPageId}
+    <select id="getNewsPage" resultMap="NewsPageResultMap">
+        SELECT *
+        FROM donation_news_page_tb
+        WHERE donation_news_page_id = #{donationNewsPageId};
     </select>
 
-    <update id="updateNewsPageById" parameterType="com.projectnmt.projectnmt.entity.DonationNewsPage">
-        update
-            donation_news_page_tb
-        set
-            donation_news_page_id = #{donationNewsPageId},
-            donation_page_id = #{donationPageId},
-            page_category_id = #{pageCategoryId},
-            news_content = #{newsContent},
-            user_id= = #{userId}
 
+
+
+    <update id="updateNewsPageById" parameterType="com.projectnmt.projectnmt.entity.DonationNewsPage">
+        UPDATE donation_news_page_tb
+        SET
+        page_category_id = #{pageCategoryId},
+        news_content = #{newsContent},
+        user_id = #{userId}
+        WHERE
+        donation_news_page_id = #{donationNewsPageId}
     </update>
+
+
+    <select id="getNewsByDonationPageId" resultMap="NewsPageResultMap">
+        SELECT *
+        FROM donation_news_page_tb
+        WHERE donation_page_id = #{donationPageId}
+    </select>
 
 
 </mapper>

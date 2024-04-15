@@ -29,7 +29,6 @@ public class CommentService {
                 commentReqDto.getUserId()
         );
 
-
         return comments.stream().map(Comment::toSaveComment).collect(Collectors.toList());
     }
 
