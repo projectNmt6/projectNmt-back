@@ -90,7 +90,6 @@ public class DonationController {
         return ResponseEntity.ok(response);
     }
 
-
     @GetMapping("/donation")
     public ResponseEntity<?> DonationStory(@RequestParam(value = "page", defaultValue = "1") int page) {
         DonationPageReqDto donationPageReqDto = new DonationPageReqDto();
