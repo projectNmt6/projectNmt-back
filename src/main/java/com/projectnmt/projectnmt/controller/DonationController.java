@@ -66,12 +66,6 @@ public class DonationController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/donation/news/update/{page}")
-    public ResponseEntity<?> UpdateNewsPage(@PathVariable("page") int page, @RequestBody DonationNewsUpdateReqDto donationNewsUpdateReqDto) {
-        donationNewsUpdateReqDto.setDonationPageId(page);
-        donationNewsPageService.updateNewsPage(donationNewsUpdateReqDto);
-        return ResponseEntity.ok(true);
-    }
 
 //    @GetMapping("/donation/news/{id}")
 //    public ResponseEntity<?> getDonationNews(@RequestParam(value = "page") int page) {
@@ -139,6 +133,21 @@ public class DonationController {
         donationPageUpdateReqDto.setDonationPageId(page);
         donationPageService.updatePage(donationPageUpdateReqDto);
         return ResponseEntity.ok(true);
+    }
+
+    @PutMapping("/donation/news/update/{page}")
+    public ResponseEntity<?> updateNewsPage(@PathVariable("page") int page, @RequestBody DonationNewsUpdateReqDto donationNewsUpdateReqDto) {
+        donationNewsUpdateReqDto.setDonationNewsPageId(page);
+        donationNewsPageService.updateNewsPage(donationNewsUpdateReqDto);
+        return ResponseEntity.ok(true);
+    }
+
+    @GetMapping("/donation/news/update/{page}")
+    public ResponseEntity<?> getNewsPageUpdate(@PathVariable("page") int page) {
+        DonationNewsPageReqDto donationNewsPageReqDto = new DonationNewsPageReqDto();
+        donationNewsPageReqDto.setDonationNewsPageId(page);
+        DonationNewsPageRespDto donationNewsPageRespDto = donationNewsPageService.getDonationNews(donationNewsPageReqDto);
+        return ResponseEntity.ok(donationNewsPageRespDto);
     }
 
     @GetMapping("/donation/update/{page}")

@@ -19,7 +19,6 @@ public interface DonationNewsMapper {
             @Param("userId") int userId
     );
 
-    List<DonationNewsPage> getAllNewsByDonationPageId(@Param("donationPageId") int donationPageId);
     public int updateNewsPageById(DonationNewsPage donationNewsPage);
     DonationNewsPage getNewsByDonationPageId(@Param("donationPageId") int donationPageId);
 }

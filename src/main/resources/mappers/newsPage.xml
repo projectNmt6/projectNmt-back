@@ -35,11 +35,10 @@
     </select>
 
 
-
-
     <update id="updateNewsPageById" parameterType="com.projectnmt.projectnmt.entity.DonationNewsPage">
         UPDATE donation_news_page_tb
         SET
+        donation_news_page_id = #{donationNewsPageId},
         page_category_id = #{pageCategoryId},
         news_content = #{newsContent},
         user_id = #{userId}
