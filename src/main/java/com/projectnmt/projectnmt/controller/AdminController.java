@@ -3,6 +3,7 @@ package com.projectnmt.projectnmt.controller;
 
 import com.projectnmt.projectnmt.dto.req.AdminMessageReqDto;
 import com.projectnmt.projectnmt.dto.req.SearchTeamListDto;
+import com.projectnmt.projectnmt.dto.resp.CommentListRespDto;
 import com.projectnmt.projectnmt.entity.AdminUser;
 import com.projectnmt.projectnmt.entity.Authority;
 import com.projectnmt.projectnmt.entity.Team;
@@ -30,6 +31,14 @@ public class AdminController {
         AdminUser findUser = adminService.getUser(userId);
         return ResponseEntity.ok(findUser);
     }
+    @GetMapping("/comment")
+    public ResponseEntity<?> getCommentList(int userId) {
+        List<CommentListRespDto> commentList = adminService.getCommentList(userId);
+        System.out.println(commentList);
+        return ResponseEntity.ok(null);
+    }
+
+
     @PostMapping("/user/role")
     public ResponseEntity<?> postUserRole(@RequestBody Authority authority) {
         adminService.addRole(authority);

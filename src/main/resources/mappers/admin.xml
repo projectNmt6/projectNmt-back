@@ -41,6 +41,26 @@
         <result property="roleName" column="role_name"/>
         <result property="roleNameKor" column="role_name_kor"/>
     </resultMap>
+    <resultMap id="CommentResultMap" type="com.projectnmt.projectnmt.entity.Comment">
+        <id property="donationPageId" column="donation_page_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="donationPageId" column="donation_page_id"/>
+        <result property="commentText" column="comment_text" />
+    </resultMap>
+    <resultMap id="DonationPageResultMap" type="com.projectnmt.projectnmt.entity.DonationPage"   >
+        <id property="donationPageId" column="donation_page_id" />
+        <result property="teamId" column="team_id" />
+        <result property="mainCategoryId" column="main_category_id" />
+        <result property="createDate" column="create_date" />
+        <result property="endDate" column="end_date" />
+        <result property="goalAmount" column="goal_amount" />
+        <result property="storyTitle" column="story_title" />
+        <result property="storyContent" column="story_content" />
+        <result property="mainImgUrl" column="main_img_url" />
+        <result property="donationTagId" column="donation_tag_id" />
+        <result property="donationPageShow" column="donation_page_show" />
+    </resultMap>
+
     <insert id="addRole">
         insert into authority_tb
         values(0, #{userId}, #{roleId});
@@ -89,5 +109,14 @@
             left outer join role_tb rt on(rt.role_id = aut.role_id)
         where
             ut.user_id = #{user_id};
+    </select>
+    <select id="findCommentListByUserId" resultType="com.projectnmt.projectnmt.dto.resp.CommentListRespDto">
+        select
+            *
+        from
+            comment_tb ct
+            left outer join donation_page_tb dpt on (dpt.donation_page_id = ct.donation_page_id)
+        where
+            ct.user_id = #{userId}
     </select>
 </mapper>

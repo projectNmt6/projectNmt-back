@@ -1,6 +1,7 @@
 package com.projectnmt.projectnmt.service;
 
 import com.projectnmt.projectnmt.dto.req.AdminMessageReqDto;
+import com.projectnmt.projectnmt.dto.resp.CommentListRespDto;
 import com.projectnmt.projectnmt.entity.AdminUser;
 import com.projectnmt.projectnmt.entity.Authority;
 import com.projectnmt.projectnmt.entity.User;
@@ -20,6 +21,9 @@ public class AdminService {
     }
     public AdminUser getUser(int userId) {
         return adminMapper.findUserByUserId(userId);
+    }
+    public List<CommentListRespDto> getCommentList(int userId) {
+        return adminMapper.findCommentListByUserId(userId);
     }
     public void addRole(Authority authority) {
         adminMapper.addRole(authority);
