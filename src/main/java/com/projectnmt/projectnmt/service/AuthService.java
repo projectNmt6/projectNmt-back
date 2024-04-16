@@ -36,7 +36,7 @@ public class AuthService {
         int successCount = 0;
         User user = signupReqDto.toEntity(passwordEncoder);
         successCount += userMapper.saveUser(user);
-//          successCount += userMapper.saveRole(user.getUserId(), 1);
+        successCount += userMapper.saveRole(user.getUserId(), 1);
             if(successCount < 1) {
                 throw new SaveException();
         }
@@ -49,11 +49,13 @@ public class AuthService {
         successCount += userMapper.saveRole(user.getUserId(), 1);
         if(successCount < 2) {
             throw new SaveException();
+
         }
     }
 
     public String signin(SignInReqDto signinReqDto) {
         User user = userMapper.findUserByUsername(signinReqDto.getUsername());
+        System.out.println(user);
         if(user == null) {
             throw new UsernameNotFoundException("사용자 정보를 확인하세요");
         }

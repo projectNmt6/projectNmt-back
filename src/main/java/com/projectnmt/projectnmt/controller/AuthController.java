@@ -23,6 +23,7 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@Valid @RequestBody SignUpReqDto signUpReqDto, BindingResult bindingResult) {
         authService.signup(signUpReqDto);
+        System.out.println("work");
         return ResponseEntity.created(null).body(true);
     }
     @PostMapping("/oauth2/signup")
@@ -32,6 +33,7 @@ public class AuthController {
 
     @PostMapping("/signin")
     public ResponseEntity<?> signin(@RequestBody SignInReqDto signInReqDto) {
+        System.out.println(authService.signin(signInReqDto ));
         return ResponseEntity.ok(authService.signin(signInReqDto));
     }
 
