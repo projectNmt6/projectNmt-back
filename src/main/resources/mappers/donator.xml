@@ -95,15 +95,13 @@
     </select>
     <select id="HomeDonation" parameterType="Integer" resultType="com.projectnmt.projectnmt.dto.ProgressAmountRespDto">
         SELECT
-            dt.donation_page_id as donationPageId,
+            dpt.donation_page_id as donationPageId,
             dt.donation_amount as addAmount,
-            dpt.story_title as storyTitle,
-            dpt.goal_amount as goalAmount,
-            dpt.end_date as endDate
+            dpt.goal_amount as goalAmount
         From
-            donator_tb dt
-            left outer join donation_page_tb dpt on(dpt.donation_page_id = dt.donation_page_id)
+            donation_page_tb dpt
+            left outer join donator_tb dt on(dpt.donation_page_id = dt.donation_page_id)
         where
-            dt.donation_page_id = #{donationPageId}
+            dpt.donation_page_id = #{donationPageId}
     </select>
 </mapper>
