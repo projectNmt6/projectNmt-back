@@ -1,5 +1,6 @@
 package com.projectnmt.projectnmt.controller;
 
+import com.projectnmt.projectnmt.dto.AmountRespDto;
 import com.projectnmt.projectnmt.dto.DonationGivingReqDto;
 import com.projectnmt.projectnmt.dto.req.*;
 import com.projectnmt.projectnmt.dto.resp.CommentRespDto;
@@ -7,6 +8,11 @@ import com.projectnmt.projectnmt.dto.resp.DonationListRespDto;
 import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagReqDto;
 import com.projectnmt.projectnmt.dto.resp.DonationNewsPageRespDto;
 import com.projectnmt.projectnmt.entity.DonationNewsPage;
+import com.projectnmt.projectnmt.dto.ProgressAmountReqDto;
+import com.projectnmt.projectnmt.dto.ProgressAmountRespDto;
+import com.projectnmt.projectnmt.dto.req.DonationPageReqDto;
+import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagReqDto;
+import com.projectnmt.projectnmt.entity.Donator;
 import com.projectnmt.projectnmt.service.DonationGivingService;
 import com.projectnmt.projectnmt.dto.resp.DonationPageRespDto;
 import com.projectnmt.projectnmt.service.DonationNewsPageService;
@@ -22,6 +28,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/main")
+
 public class DonationController {
 
     @Autowired
@@ -173,4 +180,15 @@ public class DonationController {
     }
 
 
+    @GetMapping("/amount")
+    public ResponseEntity<?> getAmount() {
+        AmountRespDto amountRespDto = donationPageService.MainAmount();
+        return ResponseEntity.ok(amountRespDto);
+    }
+    @GetMapping("/progress")
+    public ResponseEntity<?> getprogress(ProgressAmountReqDto progressAmountReqDto) {
+        System.out.println(progressAmountReqDto);
+        ProgressAmountRespDto amountRespDto = donationPageService.Homeprogressdonation(progressAmountReqDto);
+        return ResponseEntity.ok(amountRespDto);
+    }
 }

@@ -1,5 +1,6 @@
 package com.projectnmt.projectnmt.entity;
 
+import com.projectnmt.projectnmt.dto.GetMyDonationListReqDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 public class Donator {
     private int donatorId;
     private int userId;
-    private LocalDateTime donationDate;
+    private int donationDate;
     private int amount;
     private int donationPageId;
     private boolean anonymous;
