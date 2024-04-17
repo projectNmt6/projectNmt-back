@@ -34,11 +34,14 @@ public class DonationNewsPageService {
                 donationNewsPageReqDto.getNewsContent(),
                 donationNewsPageReqDto.getUserId()
         );
-        DonationNewsPageRespDto donationNewsPageRespDto =
-                donationNewsPage.toDonationNewsPageRespDto();
+        if (donationNewsPage == null) {
+            // Handle the null case, perhaps by returning null or throwing an exception
+            return null; // Or another appropriate response
+        }
+        DonationNewsPageRespDto donationNewsPageRespDto = donationNewsPage.toDonationNewsPageRespDto();
         return donationNewsPageRespDto;
-
     }
+
     public DonationNewsPageRespDto getDonationNewsByPageId(int donationPageId) {
         DonationNewsPage donationNewsPage = donationNewsMapper.getNewsByDonationPageId(donationPageId);
         return donationNewsPage.toDonationNewsPageRespDto();

@@ -66,15 +66,6 @@ public class DonationController {
         return ResponseEntity.ok().build();
     }
 
-
-//    @GetMapping("/donation/news/{id}")
-//    public ResponseEntity<?> getDonationNews(@RequestParam(value = "page") int page) {
-//        DonationNewsPageReqDto donationNewsPageReqDto = new DonationNewsPageReqDto();
-//        donationNewsPageReqDto.setDonationNewsPageId(page);
-//        return ResponseEntity.ok(donationPageService.getDonationPage(donationNewsPageReqDto));
-//    }
-
-
     @GetMapping("/donation/news/{page}")
     public ResponseEntity<?> getDonationNews(@PathVariable("page") int page) {
         DonationNewsPageRespDto response = donationNewsPageService.getDonationNewsByPageId(page);
@@ -147,8 +138,12 @@ public class DonationController {
         DonationNewsPageReqDto donationNewsPageReqDto = new DonationNewsPageReqDto();
         donationNewsPageReqDto.setDonationNewsPageId(page);
         DonationNewsPageRespDto donationNewsPageRespDto = donationNewsPageService.getDonationNews(donationNewsPageReqDto);
+        if (donationNewsPageRespDto == null) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(donationNewsPageRespDto);
     }
+
 
     @GetMapping("/donation/update/{page}")
     public ResponseEntity<?> getPageUpdate(@PathVariable("page") int page) {

@@ -39,6 +39,7 @@
         UPDATE donation_news_page_tb
         SET
         donation_news_page_id = #{donationNewsPageId},
+        donation_page_id = #{donationPageId},
         page_category_id = #{pageCategoryId},
         news_content = #{newsContent},
         user_id = #{userId}
