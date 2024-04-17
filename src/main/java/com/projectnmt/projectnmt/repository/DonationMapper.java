@@ -80,6 +80,8 @@ public interface DonationMapper {
 
     public int deletePageById(@Param("donationPageId") int donationPageId);
 
+    List<Donation> getCurrentFundraisings();
+    List<Donation> getEndedFundraisings();
 
 
 

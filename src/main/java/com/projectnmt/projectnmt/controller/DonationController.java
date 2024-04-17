@@ -3,6 +3,7 @@ package com.projectnmt.projectnmt.controller;
 import com.projectnmt.projectnmt.dto.DonationGivingReqDto;
 import com.projectnmt.projectnmt.dto.req.*;
 import com.projectnmt.projectnmt.dto.resp.CommentRespDto;
+import com.projectnmt.projectnmt.dto.resp.DonationListRespDto;
 import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagReqDto;
 import com.projectnmt.projectnmt.dto.resp.DonationNewsPageRespDto;
 import com.projectnmt.projectnmt.entity.DonationNewsPage;
@@ -158,5 +159,18 @@ public class DonationController {
         donationPageService.deleteDonationPage(donationPageId);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("donation/fundings/now")
+    public ResponseEntity<List<DonationListRespDto>> getCurrentFundraisings() {
+        List<DonationListRespDto> campaigns = donationService.getCurrentFundings();
+        return ResponseEntity.ok(campaigns);
+    }
+
+    @GetMapping("donation/fundings/end")
+    public ResponseEntity<List<DonationListRespDto>> getEndedFundraisings() {
+        List<DonationListRespDto> campaigns = donationService.getEndedFundings();
+        return ResponseEntity.ok(campaigns);
+    }
+
 
 }

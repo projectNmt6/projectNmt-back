@@ -102,7 +102,7 @@
         (#{donationNewsPageId},
         #{donationPageId},
         #{pageCategoryId},
-        #{newsContend},
+        #{newsContent},
         #{userId})
 
     </insert>
@@ -231,7 +231,49 @@
             main_category_id = #{mainCategoryId}
     </select>
 
+    <!-- 진행 중인 모금 캠페인을 가져오는 쿼리 -->
+    <select id="getCurrentFundraisings" resultMap="DonationResultMap">
+        SELECT
+        dp.donation_page_id,
+        dp.team_id,
+        dp.main_category_id,
+        dp.story_title,
+        dp.create_date,
+        dp.end_date,
+        dp.goal_amount,
+        dp.main_img_url,
+        dp.donation_tag_id,
+        mc.main_category_name,
+        dt.donation_tag_name
+        FROM
+        donation_page_tb dp
+        LEFT JOIN main_category_tb mc ON dp.main_category_id = mc.main_category_id
+        LEFT JOIN donation_tag_tb dt ON dp.donation_tag_id = dt.donation_tag_id
+        WHERE
+        dp.end_date IS NULL OR dp.end_date >= CURDATE()
+    </select>
 
+    <!-- 종료된 모금 캠페인을 가져오는 쿼리 -->
+    <select id="getEndedFundraisings" resultMap="DonationResultMap">
+        SELECT
+        dp.donation_page_id,
+        dp.team_id,
+        dp.main_category_id,
+        dp.story_title,
+        dp.create_date,
+        dp.end_date,
+        dp.goal_amount,
+        dp.main_img_url,
+        dp.donation_tag_id,
+        mc.main_category_name,
+        dt.donation_tag_name
+        FROM
+        donation_page_tb dp
+        LEFT JOIN main_category_tb mc ON dp.main_category_id = mc.main_category_id
+        LEFT JOIN donation_tag_tb dt ON dp.donation_tag_id = dt.donation_tag_id
+        WHERE
+        dp.end_date &lt; CURDATE()
 
+    </select>
 
 </mapper>

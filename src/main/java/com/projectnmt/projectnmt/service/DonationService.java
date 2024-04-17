@@ -16,6 +16,7 @@
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.stereotype.Service;
 
+    import java.time.LocalDate;
     import java.util.List;
     import java.util.stream.Collectors;
 
@@ -94,5 +95,22 @@
             return mainCategories.stream().map(MainCategory::toDonationMainTagResp).collect(Collectors.toList());
         }
 
+        public List<DonationListRespDto> getCurrentFundings() {
+            LocalDate now = LocalDate.now();
+            List<Donation> donations = donationMapper.getCurrentFundraisings().stream()
+                    .filter(donation -> donation.getEndDate() == null || donation.getEndDate().toLocalDate().isEqual(now) || !donation.getEndDate().toLocalDate().isBefore(now)) // 종료 날짜가 없거나 현재 날짜와 같거나 이후인 경우
+                    .collect(Collectors.toList());
 
+            return donations.stream().map(Donation::toDonationListRespDto).collect(Collectors.toList());
+        }
+
+
+        public List<DonationListRespDto> getEndedFundings() {
+            LocalDate now = LocalDate.now();
+            List<Donation> donations = donationMapper.getEndedFundraisings().stream()
+                    .filter(donation -> donation.getEndDate() != null && donation.getEndDate().toLocalDate().isBefore(now)) // 종료 날짜가 현재 날짜 이전인 경우
+                    .collect(Collectors.toList());
+
+            return donations.stream().map(Donation::toDonationListRespDto).collect(Collectors.toList());
+        }
     }
