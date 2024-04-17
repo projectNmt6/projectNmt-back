@@ -27,6 +27,7 @@ public class AccountController {
     AccountService accountService;
     @Autowired
     TeamService teamService;
+
     @GetMapping("/principal")
     public ResponseEntity<?> getPrincipal() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -38,12 +39,14 @@ public class AccountController {
     public ResponseEntity<?> accountEdit(@RequestBody EditAccountReqDto editAccountReqDto,
                                          BindingResult bindingResult) {
         System.out.println(editAccountReqDto);
-            accountService.editAccount(editAccountReqDto);
-            return ResponseEntity.ok().build();
-    @GetMapping("/teams")
-    public ResponseEntity<?> getTeamList(SearchTeamListDto searchTeamListDto) {
-        List<Team> teamList = teamService.getTeamList(searchTeamListDto);
-        System.out.println(teamList.toString());
-        return ResponseEntity.ok(teamList);
+        accountService.editAccount(editAccountReqDto);
+        return ResponseEntity.ok().build();
     }
-}
+        @GetMapping("/teams")
+        public ResponseEntity<?> getTeamList (SearchTeamListDto searchTeamListDto){
+            List<Team> teamList = teamService.getTeamList(searchTeamListDto);
+            System.out.println(teamList.toString());
+            return ResponseEntity.ok(teamList);
+        }
+    }
+
