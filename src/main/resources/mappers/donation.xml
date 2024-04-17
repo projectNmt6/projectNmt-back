@@ -87,7 +87,6 @@
             donation_page_id,
             team_id,
             main_category_id,
-            donation_category_id,
             create_date,
             end_date,
             goal_amount,
