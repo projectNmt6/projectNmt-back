@@ -1,8 +1,8 @@
 package com.projectnmt.projectnmt.dto;
 
 import com.projectnmt.projectnmt.entity.Account;
-import com.projectnmt.projectnmt.entity.Team;
 import lombok.Data;
+import com.projectnmt.projectnmt.entity.Team;
 
 @Data
 public class RegisterTeamReqDto {
@@ -24,7 +24,7 @@ public class RegisterTeamReqDto {
                 .teamName(teamName)
                 .teamType(teamType ? 1 : 2)
                 .teamTypeCategory(teamTypeCategory)
-                .teamPhoneNumber(teamPhoneNumber)
+                .teamPhoneNumber(teamPhone)
                 .teamEmail(teamEmail)
                 .companyRegisterNumber(companyRegisterNumber)
                 .companyRegisterNumberUrl(companyRegisterNumberCopyUrl)

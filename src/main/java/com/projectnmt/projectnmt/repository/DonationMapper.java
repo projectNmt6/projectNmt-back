@@ -12,9 +12,6 @@ import org.apache.ibatis.annotations.Param;
 
 import com.projectnmt.projectnmt.entity.Donation;
 import com.projectnmt.projectnmt.entity.DonationTag;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,15 +19,27 @@ import java.util.List;
 public interface DonationMapper {
 
     public int saveDonationPage(DonationPage donationPage);
+    public int saveDonationNewsPage(DonationPage donationPage);
+
+    public List<Donation> getChallengeList(
+            @Param("donationPageId") int donationPageId,
+            @Param("teamId") int teamId,
+            @Param("mainCategoryId") int mainCategoryId,
+            @Param("createDate") LocalDateTime createDate,
+            @Param("endDate") LocalDateTime endDate,
+            @Param("goalAmount") int goalAmount,
+            @Param("storyTitle") String storyTitle,
+            @Param("mainImgUrl") String mainImgUrl,
+            @Param("donationTagId") int donationTagId);
 
     public List<Donation> getDonationList(
             @Param("donationPageId") int donationPageId,
             @Param("teamId") int teamId,
             @Param("mainCategoryId") int mainCategoryId,
-            @Param("storyTitle") String storyTitle,
             @Param("createDate") LocalDateTime createDate,
             @Param("endDate") LocalDateTime endDate,
             @Param("goalAmount") int goalAmount,
+            @Param("storyTitle") String storyTitle,
             @Param("mainImgUrl") String mainImgUrl,
             @Param("donationTagId") int donationTagId);
 
@@ -39,10 +48,10 @@ public interface DonationMapper {
             @Param("donationPageId") int donationPageId,
             @Param("teamId") int teamId,
             @Param("mainCategoryId") int mainCategoryId,
-            @Param("storyTitle") String storyTitle,
             @Param("createDate") LocalDateTime createDate,
             @Param("endDate") LocalDateTime endDate,
             @Param("goalAmount") int goalAmount,
+            @Param("storyTitle") String storyTitle,
             @Param("mainImgUrl") String mainImgUrl,
             @Param("donationTagId") int donationTagId);
 
@@ -65,6 +74,13 @@ public interface DonationMapper {
     public List<MainCategory> getMainCategoryList(
             @Param("mainCategoryId") int mainCategoryId,
             @Param("mainCategoryName") String mainCategoryName);
+
+    public int updatePageById(DonationPage donationPage);
+
+    public int deletePageById(@Param("donationPageId") int donationPageId);
+
+    List<Donation> getCurrentFundraisings();
+    List<Donation> getEndedFundraisings();
 
 
 

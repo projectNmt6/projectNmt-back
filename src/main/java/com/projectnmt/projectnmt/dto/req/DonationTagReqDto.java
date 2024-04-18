@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class DonationTagReqDto {
-    private int DonationTagId;
+    private int donationTagId;
     private String DonationTagName;
 }

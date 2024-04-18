@@ -1,3 +1,4 @@
+
 package com.projectnmt.projectnmt.service;
 
 import com.projectnmt.projectnmt.dto.OAuth2SignupReqDto;
@@ -54,6 +55,7 @@ public class AuthService {
         User oauth2user = userMapper.findUserByOAuth2name(user.getUsername());
         if(successCount < 3) {
             throw new SaveException();
+
         }
 
         return jwtProvider.generateToken(oauth2user);

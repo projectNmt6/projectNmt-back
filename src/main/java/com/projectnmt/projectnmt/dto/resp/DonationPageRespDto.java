@@ -12,7 +12,7 @@ public class DonationPageRespDto {
     private int donationPageId;
     private int teamId;
     private int mainCategoryId;
-    private int donationCategoryId;
+    private int pageCategoryId;
     private LocalDateTime createDate;
     private LocalDateTime endDate;
     private int goalAmount;

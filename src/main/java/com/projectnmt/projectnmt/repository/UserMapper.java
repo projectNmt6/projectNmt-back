@@ -9,10 +9,11 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 @Mapper
-public interface UserMapper {
+public interface  UserMapper {
     public User findUserTest();
     public User findUserByUsername(String username);
     public int saveUser(User user);
+    public int updateUser(User user);
     public int saveRole(int userId, int roleId);
     public int deleteAuthority(int userId);
     public List<MessageRespDto> getMessageList(int userId);

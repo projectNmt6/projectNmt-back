@@ -1,3 +1,4 @@
+
 package com.projectnmt.projectnmt.security.handler;
 
 import com.projectnmt.projectnmt.entity.User;
@@ -46,3 +47,4 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
     }
 }
+

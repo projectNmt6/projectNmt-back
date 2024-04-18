@@ -6,7 +6,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class DonationPageReqDto {
+public class DonationPageUpdateReqDto {
 
     private int donationPageId;
     private int teamId;
@@ -36,6 +36,6 @@ public class DonationPageReqDto {
                 .donationTagId(donationTagId)
                 .donationPageShow(donationPageShow)
                 .build();
-    }
 
+    }
 }
