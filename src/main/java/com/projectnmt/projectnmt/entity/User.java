@@ -36,6 +36,7 @@ public class  User {
     private String profileImg;
 
     private List<Authority> roleRegisters;
+    private List<OAuth2> oAuth2s;
     public List<SimpleGrantedAuthority> getAuthorities() {
         return roleRegisters.stream().map(roleRegister -> new SimpleGrantedAuthority(roleRegister.getRole().getRoleName())).collect(Collectors.toList());
     }

@@ -25,9 +25,15 @@ public class AdminService {
     public List<CommentListRespDto> getCommentList(int userId) {
         return adminMapper.findCommentListByUserId(userId);
     }
+    public void deleteCommemt(List<Integer> commentIds) {
+        for(int commentId : commentIds) {
+            adminMapper.deleteCommemt(commentId);
+        }
+    }
     public void addRole(Authority authority) {
         adminMapper.addRole(authority);
     }
+
     public void sendMessage(AdminMessageReqDto adminMessageReqDto) {
         for(int userId : adminMessageReqDto.getUserId()) {
             adminMapper.sendMessage(userId, adminMessageReqDto.getMessage());

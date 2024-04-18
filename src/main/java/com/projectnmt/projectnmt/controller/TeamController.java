@@ -39,4 +39,9 @@ public class TeamController {
     public ResponseEntity<?> getTeamMemberList(TeamMemberListReqDto teamMemberListReqDto) {
         return ResponseEntity.ok(teamService.getMemberInfo(teamMemberListReqDto));
     }
+
+    @GetMapping("/donations")
+    public ResponseEntity<?> getDonationList(int teamId) {
+        return ResponseEntity.ok( teamService.getDonationList(teamId));
+    }
 }

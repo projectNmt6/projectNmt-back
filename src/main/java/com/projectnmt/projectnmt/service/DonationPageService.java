@@ -23,7 +23,6 @@ public class DonationPageService {
                 donationPageReqDto.getDonationPageId(),
                 donationPageReqDto.getTeamId(),
                 donationPageReqDto.getMainCategoryId(),
-                donationPageReqDto.getDonationCategoryId(),
                 donationPageReqDto.getCreateDate(),
                 donationPageReqDto.getEndDate(),
                 donationPageReqDto.getStoryTitle(),

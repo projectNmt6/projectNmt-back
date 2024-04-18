@@ -69,6 +69,13 @@
         insert into message_tb
         values(0, 0, #{userId}, #{message}, now());
     </insert>
+    <delete id="deleteCommemt">
+        delete
+        from
+            comment_tb
+        where
+        donation_comment_id = #{donationCommentId}
+    </delete>
 
     <select id="findUserList" resultMap="AdminUserResultMap">
         select
@@ -112,7 +119,9 @@
     </select>
     <select id="findCommentListByUserId" resultType="com.projectnmt.projectnmt.dto.resp.CommentListRespDto">
         select
-            *
+            ct.donation_comment_id as donationCommentId,
+            ct.comment_text as commentText,
+            dpt.story_title as storyTitle
         from
             comment_tb ct
             left outer join donation_page_tb dpt on (dpt.donation_page_id = ct.donation_page_id)

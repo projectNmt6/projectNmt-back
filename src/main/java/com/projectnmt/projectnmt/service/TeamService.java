@@ -6,6 +6,7 @@ import com.projectnmt.projectnmt.dto.req.SearchTeamListDto;
 import com.projectnmt.projectnmt.dto.req.TeamMemberListReqDto;
 import com.projectnmt.projectnmt.dto.req.UpdateTeamReqDto;
 import com.projectnmt.projectnmt.entity.Account;
+import com.projectnmt.projectnmt.entity.Donation;
 import com.projectnmt.projectnmt.entity.Team;
 import com.projectnmt.projectnmt.entity.TeamMember;
 import com.projectnmt.projectnmt.repository.TeamMapper;
@@ -65,5 +66,8 @@ public class TeamService {
             teamMembers.add(teamMapper.findMember(userId, teamMemberListReqDto.getTeamId()));
         }
         return teamMembers;
+    }
+    public List<Donation> getDonationList(int teamId) {
+        return  teamMapper.getDonationListByTeamId(teamId);
     }
 }

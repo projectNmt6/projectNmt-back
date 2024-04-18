@@ -3,6 +3,8 @@ package com.projectnmt.projectnmt.config;
 import com.projectnmt.projectnmt.security.exception.AuthEntryPoint;
 import com.projectnmt.projectnmt.security.filter.JwtAuthenticationFilter;
 import com.projectnmt.projectnmt.security.filter.PerminAllfilter;
+import com.projectnmt.projectnmt.security.handler.OAuth2SuccessHandler;
+import com.projectnmt.projectnmt.service.OAuth2PrincipalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,24 +28,40 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private JwtAuthenticationFilter jwtAuthenticationFilter;
     @Autowired
     private AuthEntryPoint authEntryPoint;
+    @Autowired
+    private OAuth2SuccessHandler oAuth2SuccessHandler;
+    @Autowired
+    private OAuth2PrincipalUserService oAuth2PrincipalUserService;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors();//WebMvcConfig의 cors 설정을 따라간다.
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/main/**", "/auth/**")
+                .antMatchers("/main/**","/donation/**", "/auth/**")
                 .permitAll()
+                .antMatchers("/main/write")
+                .not().permitAll()
                 .antMatchers("/mail/authenticate")
                 .permitAll()
                 .antMatchers("/admin/**")
                 .hasRole("ADMIN")
+                .antMatchers("/main/write")
+                .hasRole("TEAM")
+                .antMatchers("/main/write")
+                .not().hasRole("BANNED_USER")
                 .anyRequest()
                 .authenticated()
                 .and()
                 .addFilterAfter(perminAllfilter, LogoutFilter.class)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling()
-                .authenticationEntryPoint(authEntryPoint);
+                .authenticationEntryPoint(authEntryPoint)
+                .and()
+                .oauth2Login()
+                .successHandler(oAuth2SuccessHandler)
+                .userInfoEndpoint()
+                //정보를 구해서  userService로 이동
+                .userService(oAuth2PrincipalUserService);
     }
 
 }

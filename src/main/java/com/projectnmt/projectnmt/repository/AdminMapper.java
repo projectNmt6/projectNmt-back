@@ -15,5 +15,6 @@ public interface AdminMapper {
     public AdminUser findUserByUserId(int userId);
     public List<CommentListRespDto> findCommentListByUserId(int userId);
     public void addRole(Authority authority);
+    public void deleteCommemt(int commentId);
     public void sendMessage(int userId, String message);
 }

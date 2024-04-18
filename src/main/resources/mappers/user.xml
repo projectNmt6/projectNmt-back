@@ -37,6 +37,12 @@
         <result property="message" column="message_text"/>
         <result property="date" column="create_date" />
     </resultMap>
+    <resultMap id="teamMemberResultMap" type="com.projectnmt.projectnmt.entity.TeamMember">
+        <id property="teamMemberId" column="team_member_tb_id"/>
+        <result property="teamId" column="team_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="teamRoleId" column="team_role_id"/>
+    </resultMap>
         <insert
                 id="saveUser"
                 parameterType="com.projectnmt.projectnmt.entity.User"
@@ -50,7 +56,48 @@
         insert into authority_tb
         values(0, #{userId}, #{roleId});
     </insert>
-
+    <delete id="deleteUserByUserId">
+        delete
+        from
+        user_tb
+        where
+        user_id = #{userId}
+    </delete>
+    <delete id="deleteAuthority">
+        delete
+        from
+        authority_tb
+        where
+        user_id = #{userId}
+    </delete>
+    <delete id="deleteTeamByTeamId">
+        delete
+        from
+            team_tb
+        where
+            team_id = #{teamId}
+    </delete>
+    <delete id="deleteTeamMemberByTeamId">
+        delete
+        from
+            team_member_tb
+        where
+            team_id = #{teamId}
+    </delete>
+    <delete id="deleteTeamMemberByUserId">
+        delete
+        from
+            team_member_tb
+        where
+            user_id = #{userId}
+    </delete>
+    <delete id="deleteOAuth2ByUserId">
+        delete
+        from
+            oauth2_tb
+        where
+            user_id = #{userId}
+    </delete>
     <select
             id="findUserByUsername"
             parameterType="string"
@@ -105,5 +152,78 @@
             left outer join team_tb tt on(tt.team_id = mt.sender_id)
         where
             giver_id = #{userId}
+    </select>
+    <select id="findUserByUserId" resultMap="UserResultMap">
+        select
+        ut.user_id,
+        ut.username,
+        ut.password,
+        ut.name,
+        ut.phone_number,
+        ut.email,
+        ut.gender,
+        ut.age,
+        ut.profile_img,
+        rt.role_id,
+        rt.role_name,
+        rt.role_name_kor
+        from
+        user_tb ut
+        left outer join authority_tb aut on(aut.user_id = ut.user_id)
+        left outer join role_tb rt on(rt.role_id = aut.role_id)
+        where
+        ut.user_id = #{user_id};
+    </select>
+    <select id="findTeamMemberByUserId" resultMap="teamMemberResultMap">
+        select
+            team_id,
+            team_role_id
+        from
+            team_member_tb
+        where
+            user_id = #{userId}
+    </select>
+    <select id="findTeamMemberListByTeamId" resultMap="teamMemberResultMap">
+        select
+            user_id
+        from
+            team_member_tb
+        where
+            team_id = #{teamId};
+    </select>
+    <insert id="sendMessage">
+        insert into message_tb
+        values(0, 0, #{userId}, #{message}, now());
+    </insert>    <insert
+        id="saveOAuth2"
+        parameterType="com.projectnmt.projectnmt.entity.OAuth2"
+        keyProperty="oAuth2Id"
+        useGeneratedKeys="true"
+>
+    insert into oauth2_tb
+    values(0, #{oAuth2Name}, #{userId}, #{providerName}, now(), now())
+</insert>
+    <select id="findUserByOAuth2name" resultMap="UserResultMap">
+        select
+            ut.user_id,
+            ut.username,
+            ut.password,
+            ut.name,
+            ut.email,
+            rrt.authority_id,
+            rrt.role_id,
+            rt.role_name,
+            rt.role_name_kor,
+            oat.oauth2_id,
+            oat.oauth2_name,
+            oat.provider_name
+        from
+            user_tb ut
+            left outer join oauth2_tb oat on(oat.user_id = ut.user_id)
+            left outer join authority_tb rrt on(rrt.user_id = ut.user_id)
+            left outer join role_tb rt on(rt.role_id = rrt.role_id)
+        where
+            oat.oauth2_name = #{oAuth2Name}
+
     </select>
 </mapper>

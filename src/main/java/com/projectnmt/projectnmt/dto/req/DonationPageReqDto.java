@@ -11,7 +11,6 @@ public class DonationPageReqDto {
     private int donationPageId;
     private int teamId;
     private int mainCategoryId;
-    private int donationCategoryId;
     private LocalDateTime createDate;
     private LocalDateTime endDate;
     private String storyTitle;
@@ -25,7 +24,6 @@ public class DonationPageReqDto {
                 .donationPageId(donationPageId)
                 .teamId(teamId)
                 .mainCategoryId(mainCategoryId)
-                .donationCategoryId(donationCategoryId)
                 .createDate(createDate)
                 .endDate(endDate)
                 .storyTitle(storyTitle)

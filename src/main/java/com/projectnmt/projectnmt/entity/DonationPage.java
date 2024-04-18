@@ -16,7 +16,6 @@ public class DonationPage {
     private Integer donationPageId;
     private int teamId;
     private int mainCategoryId;
-    private int donationCategoryId;
     private String donationName;
     private LocalDateTime createDate;
     private LocalDateTime endDate;
@@ -34,7 +33,6 @@ public class DonationPage {
                 .donationPageId(donationPageId)
                 .teamId(teamId)
                 .mainCategoryId(mainCategoryId)
-                .donationCategoryId(donationCategoryId)
                 .createDate(createDate)
                 .endDate(endDate)
                 .goalAmount(goalAmount)
@@ -52,7 +50,6 @@ public class DonationPage {
                 .donationPageId(donationPageId)
                 .teamId(teamId)
                 .mainCategoryId(mainCategoryId)
-                .donationCategoryId(donationCategoryId)
                 .createDate(createDate)
                 .endDate(endDate)
                 .goalAmount(goalAmount)

@@ -34,10 +34,13 @@ public class AdminController {
     @GetMapping("/comment")
     public ResponseEntity<?> getCommentList(int userId) {
         List<CommentListRespDto> commentList = adminService.getCommentList(userId);
-        System.out.println(commentList);
+        return ResponseEntity.ok(commentList);
+    }
+    @DeleteMapping("/comment/delete")
+    public ResponseEntity<?> deleteCommentList(@RequestBody List<Integer> deleteComments) {
+        adminService.deleteCommemt(deleteComments);
         return ResponseEntity.ok(null);
     }
-
 
     @PostMapping("/user/role")
     public ResponseEntity<?> postUserRole(@RequestBody Authority authority) {

@@ -32,7 +32,19 @@
         <result property="accountNumber" column="account_number"/>
         <result property="accountUrl" column="account_url"/>
     </resultMap>
-
+    <resultMap id="DonationPageResultMap" type="com.projectnmt.projectnmt.entity.DonationPage"   >
+        <id property="donationPageId" column="donation_page_id" />
+        <result property="teamId" column="team_id" />
+        <result property="mainCategoryId" column="main_category_id" />
+        <result property="createDate" column="create_date" />
+        <result property="endDate" column="end_date" />
+        <result property="goalAmount" column="goal_amount" />
+        <result property="storyTitle" column="story_title" />
+        <result property="storyContent" column="story_content" />
+        <result property="mainImgUrl" column="main_img_url" />
+        <result property="donationTagId" column="donation_tag_id" />
+        <result property="donationPageShow" column="donation_page_show" />
+    </resultMap>
     <insert id="saveTeam"
             parameterType="com.projectnmt.projectnmt.entity.Team"
             keyProperty="teamId"
@@ -147,5 +159,23 @@
             user_id = #{userId}
         and
             team_id = #{teamId};
+    </select>
+    <select id="getDonationListByTeamId" resultMap="DonationPageResultMap">
+        SELECT
+            donation_page_id,
+            team_id,
+            main_category_id,
+            create_date,
+            end_date,
+            goal_amount,
+            story_title,
+            story_content,
+            main_img_url,
+            donation_tag_id,
+        donation_page_show
+        FROM
+            donation_page_tb
+        where
+            team_id = #{teamId}
     </select>
 </mapper>

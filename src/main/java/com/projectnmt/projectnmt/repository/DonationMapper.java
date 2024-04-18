@@ -54,7 +54,6 @@ public interface DonationMapper {
             @Param("donationPageId") Integer donationPageId,
             @Param("teamId") Integer teamId,
             @Param("mainCategoryId") Integer mainCategoryId,
-            @Param("donationCategoryId") Integer donationCategoryId,
             @Param("createDate") LocalDateTime createDate,
             @Param("endDate") LocalDateTime endDate,
             @Param("storyTitle") String storyTitle,
