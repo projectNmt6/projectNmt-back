@@ -36,7 +36,6 @@ public class DonationPageService {
                 donationPageReqDto.getDonationPageId(),
                 donationPageReqDto.getTeamId(),
                 donationPageReqDto.getMainCategoryId(),
-                donationPageReqDto.getPageCategoryId(),
                 donationPageReqDto.getCreateDate(),
                 donationPageReqDto.getEndDate(),
                 donationPageReqDto.getStoryTitle(),
@@ -56,7 +55,6 @@ public class DonationPageService {
                 donationPageReqDto.getDonationPageId(),
                 donationPageReqDto.getTeamId(),
                 donationPageReqDto.getMainCategoryId(),
-                donationPageReqDto.getPageCategoryId(),
                 donationPageReqDto.getCreateDate(),
                 donationPageReqDto.getEndDate(),
                 donationPageReqDto.getStoryTitle(),
@@ -80,7 +78,6 @@ public class DonationPageService {
     public void deleteDonationPage(int donationPageId) {
         donationMapper.deletePageById(donationPageId);
     }
-
 
     public AmountRespDto MainAmount() {
         return donatorMapper.saveAmount();
