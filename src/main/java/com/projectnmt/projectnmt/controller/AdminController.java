@@ -25,12 +25,12 @@ public class AdminController {
             return ResponseEntity.ok(userList);
     }
     @GetMapping("/user")
-    public ResponseEntity<?> getUser(int userId) {
+    public ResponseEntity<?> getUser(Integer userId) {
         AdminUser findUser = adminService.getUser(userId);
         return ResponseEntity.ok(findUser);
     }
     @GetMapping("/comment")
-    public ResponseEntity<?> getCommentList(int userId) {
+    public ResponseEntity<?> getCommentList(Integer userId) {
         List<CommentListRespDto> commentList = adminService.getCommentList(userId);
         return ResponseEntity.ok(commentList);
     }

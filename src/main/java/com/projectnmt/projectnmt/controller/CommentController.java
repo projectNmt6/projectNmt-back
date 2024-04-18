@@ -26,13 +26,6 @@ public class CommentController {
         return ResponseEntity.created(null).body(commentReqDto);
     }
 
-
-//    @GetMapping("/getcomment")
-//    public ResponseEntity<List<CommentRespDto>> getAllComments() {
-//        List<CommentRespDto> comments = commentService.getComment(new CommentReqDto()); // Assuming an overloaded method or modify existing one
-//        return ResponseEntity.ok(comments);
-//    }
-
     @GetMapping("/getcomment/{donationPageId}")
     public ResponseEntity<List<CommentRespDto>> getCommentListByDonationPageId(@PathVariable int donationPageId) {
         List<CommentRespDto> commentList = commentService.getCommentsByDonationPageId(donationPageId);

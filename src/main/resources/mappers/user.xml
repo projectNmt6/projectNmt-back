@@ -251,8 +251,7 @@
         left outer join authority_tb rrt on(rrt.user_id = ut.user_id)
         left outer join role_tb rt on(rt.role_id = rrt.role_id)
         where
-        oat.oauth2_name = #{oAuth2Name},
-            user_id = 1;
+        oat.oauth2_name = #{oAuth2Name};
 </select>
 
     <update id="updateUser" parameterType="com.projectnmt.projectnmt.entity.User">
