@@ -19,7 +19,6 @@
         <id property="donationPageId" column="donation_page_id" />
         <result property="teamId" column="team_id" />
         <result property="mainCategoryId" column="main_category_id" />
-        <result property="donationCategoryId" column="donation_category_id" />
         <result property="donationName" column="donation_name" />
         <result property="createDate" column="create_date" />
         <result property="endDate" column="end_date" />
@@ -96,7 +95,7 @@
     <select id="HomeDonation" parameterType="Integer" resultType="com.projectnmt.projectnmt.dto.ProgressAmountRespDto">
         SELECT
             dpt.donation_page_id as donationPageId,
-            dt.donation_amount as addAmount,
+            sum(dt.donation_amount) as addAmount,
             dpt.goal_amount as goalAmount
         From
             donation_page_tb dpt

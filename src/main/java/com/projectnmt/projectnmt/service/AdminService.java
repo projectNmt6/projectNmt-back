@@ -49,4 +49,20 @@ public class AdminService {
             adminMapper.deleteTeamListByTeamIds(teamId);
         }
     }
+
+
+    public Boolean updatePageShow(int donationPageId) {
+
+        try {
+            adminMapper.updatePageShow(donationPageId);
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+
 }
