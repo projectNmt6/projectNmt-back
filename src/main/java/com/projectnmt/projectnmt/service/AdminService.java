@@ -4,6 +4,7 @@ import com.projectnmt.projectnmt.dto.req.AdminMessageReqDto;
 import com.projectnmt.projectnmt.dto.resp.CommentListRespDto;
 import com.projectnmt.projectnmt.entity.AdminUser;
 import com.projectnmt.projectnmt.entity.Authority;
+import com.projectnmt.projectnmt.entity.Team;
 import com.projectnmt.projectnmt.entity.User;
 import com.projectnmt.projectnmt.repository.AdminMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,15 @@ public class AdminService {
     public void sendMessage(AdminMessageReqDto adminMessageReqDto) {
         for(int userId : adminMessageReqDto.getUserId()) {
             adminMapper.sendMessage(userId, adminMessageReqDto.getMessage());
+        }
+    }
+
+    public List<Team> getTeamList() {
+        return adminMapper.getTeamList();
+    }
+    public void deleteTeams(List<Integer> teamIds) {
+        for(int teamId : teamIds) {
+            adminMapper.deleteTeamListByTeamIds(teamId);
         }
     }
 }

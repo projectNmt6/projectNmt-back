@@ -40,5 +40,12 @@ public class AccountController {
     public ResponseEntity<?> getMessageList(int userId) {
         return ResponseEntity.ok(userSerive.getMessageList(userId));
     }
+
+    @DeleteMapping("/message/delete/{userId}")
+    public ResponseEntity<?> deleteMessageList(@PathVariable int userId) {
+        System.out.println(userId);
+        userSerive.deleteMessageByUserId(userId);
+        return ResponseEntity.ok(null);
+    }
 }
 

@@ -4,6 +4,7 @@ import com.projectnmt.projectnmt.dto.req.AdminMessageReqDto;
 import com.projectnmt.projectnmt.dto.resp.CommentListRespDto;
 import com.projectnmt.projectnmt.entity.AdminUser;
 import com.projectnmt.projectnmt.entity.Authority;
+import com.projectnmt.projectnmt.entity.Team;
 import com.projectnmt.projectnmt.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -17,4 +18,6 @@ public interface AdminMapper {
     public void addRole(Authority authority);
     public void deleteCommemt(int commentId);
     public void sendMessage(int userId, String message);
+    public List<Team> getTeamList();
+    public int deleteTeamListByTeamIds(int teamId);
 }

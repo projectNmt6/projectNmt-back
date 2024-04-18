@@ -4,10 +4,7 @@ package com.projectnmt.projectnmt.controller;
 import com.projectnmt.projectnmt.dto.req.AdminMessageReqDto;
 import com.projectnmt.projectnmt.dto.req.SearchTeamListDto;
 import com.projectnmt.projectnmt.dto.resp.CommentListRespDto;
-import com.projectnmt.projectnmt.entity.AdminUser;
-import com.projectnmt.projectnmt.entity.Authority;
-import com.projectnmt.projectnmt.entity.Team;
-import com.projectnmt.projectnmt.entity.User;
+import com.projectnmt.projectnmt.entity.*;
 import com.projectnmt.projectnmt.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -51,6 +48,16 @@ public class AdminController {
     public ResponseEntity<?> postMessage(@RequestBody AdminMessageReqDto adminMessageReqDto) {
         System.out.println(adminMessageReqDto);
         adminService.sendMessage(adminMessageReqDto);
+        return ResponseEntity.ok(null);
+    }
+    @GetMapping("/teams")
+    public ResponseEntity<?> getTeamList() {
+        return ResponseEntity.ok(adminService.getTeamList());
+    }
+
+    @DeleteMapping("/team/delete")
+    public ResponseEntity<?> deleteTeamList(@RequestBody List<Integer> teamIds) {
+        adminService.deleteTeams(teamIds);
         return ResponseEntity.ok(null);
     }
 }

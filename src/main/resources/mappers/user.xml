@@ -98,6 +98,13 @@
         where
             user_id = #{userId}
     </delete>
+    <delete id="deleteMessageByUserId">
+        delete
+        from
+            message_tb
+        where
+            getter_id = #{user_id}
+    </delete>
     <select
             id="findUserByUsername"
             parameterType="string"
@@ -151,7 +158,7 @@
             message_tb mt
             left outer join team_tb tt on(tt.team_id = mt.sender_id)
         where
-            giver_id = #{userId}
+            getter_id = #{userId}
     </select>
     <select id="findUserByUserId" resultMap="UserResultMap">
         select

@@ -14,4 +14,7 @@ public class UserSerive {
     public List<MessageRespDto> getMessageList(int userId) {
         return userMapper.getMessageList(userId);
     }
+    public void deleteMessageByUserId(int userId) {
+        userMapper.deleteMessageByUserId(userId);
+    }
 }
