@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -18,11 +20,9 @@ public class Team {
     private int teamType;
     private String teamPhoneNumber;
     private String teamEmail;
-    private int teamAccountNumber;
-    private String teamAccountName;
     private String companyRegisterNumber;
     private String teamHomepage;
     private String teamInfoText;
-    private TeamMember teamMember;
-    private Account account;
+    private List<TeamMember> teamMembers;
+    private List<Account> accounts;
 }

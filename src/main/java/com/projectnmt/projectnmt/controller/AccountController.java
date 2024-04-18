@@ -10,6 +10,7 @@ import com.projectnmt.projectnmt.service.AccountService;
 import com.projectnmt.projectnmt.service.AuthService;
 import com.projectnmt.projectnmt.service.PrincipalService;
 import com.projectnmt.projectnmt.service.TeamService;
+import com.projectnmt.projectnmt.service.UserSerive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
@@ -25,10 +26,12 @@ import java.util.List;
 @RequestMapping("/account")
 public class AccountController {
 
-        @Autowired
+    @Autowired
     PrincipalService getPrincipalService;
     @Autowired
     TeamService teamService;
+    @Autowired
+    UserSerive userSerive;
     @Autowired
     AccountService accountService;
 
@@ -51,8 +54,19 @@ public class AccountController {
     @GetMapping("/teams")
     public ResponseEntity<?> getTeamList(SearchTeamListDto searchTeamListDto) {
         List<Team> teamList = teamService.getTeamList(searchTeamListDto);
-        System.out.println(teamList.toString());
         return ResponseEntity.ok(teamList);
+    }
+
+    @GetMapping("/message")
+    public ResponseEntity<?> getMessageList(int userId) {
+        return ResponseEntity.ok(userSerive.getMessageList(userId));
+    }
+
+    @DeleteMapping("/message/delete/{userId}")
+    public ResponseEntity<?> deleteMessageList(@PathVariable int userId) {
+        System.out.println(userId);
+        userSerive.deleteMessageByUserId(userId);
+        return ResponseEntity.ok(null);
     }
 
     @GetMapping("/mypage/donation")

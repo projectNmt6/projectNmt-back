@@ -40,8 +40,6 @@
         <result property="teamType" column="team_type" />
         <result property="teamPhoneNumber" column="team_phone" />
         <result property="teamEmail" column="team_email" />
-        <result property="teamAccountNumber" column="team_account_number" />
-        <result property="teamAccountName" column="team_account_name" />
         <result property="companyRegisterNumber" column="company_register_number" />
         <result property="teamHomepage" column="team_homepage" />
         <result property="teamInfoText" column="team_info_text" />

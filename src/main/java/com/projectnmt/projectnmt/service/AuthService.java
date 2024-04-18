@@ -4,6 +4,7 @@ package com.projectnmt.projectnmt.service;
 import com.projectnmt.projectnmt.dto.OAuth2SignupReqDto;
 import com.projectnmt.projectnmt.dto.SignInReqDto;
 import com.projectnmt.projectnmt.dto.SignUpReqDto;
+import com.projectnmt.projectnmt.entity.TeamMember;
 import com.projectnmt.projectnmt.entity.User;
 import com.projectnmt.projectnmt.exception.SaveException;
 import com.projectnmt.projectnmt.jwt.JwtProvider;
@@ -14,6 +15,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class AuthService {
@@ -43,15 +46,19 @@ public class AuthService {
         }
     }
     @Transactional(rollbackFor = Exception.class)
-    public void oAuth2Signup(OAuth2SignupReqDto oAuth2SignupReqDto) {
+    public String oAuth2Signup(OAuth2SignupReqDto oAuth2SignupReqDto) {
         int successCount = 0;
         User user = oAuth2SignupReqDto.toEntity(passwordEncoder);
         successCount += userMapper.saveUser(user);
         successCount += userMapper.saveRole(user.getUserId(), 1);
-        if(successCount < 2) {
+        successCount += userMapper.saveOAuth2(oAuth2SignupReqDto.toOAuth2Entity(user.getUserId()));
+        User oauth2user = userMapper.findUserByOAuth2name(user.getUsername());
+        if(successCount < 3) {
             throw new SaveException();
 
         }
+
+        return jwtProvider.generateToken(oauth2user);
     }
 
     public String signin(SignInReqDto signinReqDto) {
@@ -64,5 +71,27 @@ public class AuthService {
             throw new BadCredentialsException("사용자 정보를 확인하세요.");
         }
         return jwtProvider.generateToken(user);
+    }
+
+    public void signout(int userId) {
+        userMapper.deleteUserByUserId(userId);
+        userMapper.deleteAuthority(userId);
+        List<TeamMember> userTeamList = userMapper.findTeamMemberByUserId(userId);
+        userMapper.deleteOAuth2ByUserId(userId);
+        System.out.println(userTeamList);
+        for (TeamMember team : userTeamList) {
+            if(team.getTeamRoleId() == 1) {
+                System.out.println(userMapper.deleteTeamByTeamId(team.getTeamId()));
+                List<TeamMember> teamMembers = userMapper.findTeamMemberListByTeamId(team.getTeamId());
+                userMapper.deleteTeamMemberByTeamId(team.getTeamId());
+                for ( TeamMember mem : teamMembers ) {
+                    if(mem.getUserId() != userId) {
+                        userMapper.sendMessage(mem.getUserId(), "리더의 탈퇴로 팀이 해산되었습니다.");
+                    }
+                }
+            } else {
+                userMapper.deleteTeamMemberByUserId(userId);
+            }
+        }
     }
 }

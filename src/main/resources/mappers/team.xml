@@ -15,11 +15,11 @@
         <result property="teamInfoText" column="team_info_text" />
         <result property="teamHomepage" column="team_homepage" />
         <result property="teamTypeCategory" column="team_type_category" />
-        <association property="teamMember" resultMap="teamMemberResultMap" />
-        <association property="account" resultMap="accountResultMap" />
+        <collection property="teamMembers" javaType="list" resultMap="teamMemberResultMap" />
+        <collection property="accounts" javaType="list" resultMap="accountResultMap" />
     </resultMap>
     <resultMap id="teamMemberResultMap" type="com.projectnmt.projectnmt.entity.TeamMember">
-        <id property="teamMemberId" column="team_member_id"/>
+        <id property="teamMemberId" column="team_member_tb_id"/>
         <result property="teamId" column="team_id"/>
         <result property="userId" column="user_id"/>
         <result property="teamRoleId" column="team_role_id"/>
@@ -32,7 +32,19 @@
         <result property="accountNumber" column="account_number"/>
         <result property="accountUrl" column="account_url"/>
     </resultMap>
-
+    <resultMap id="DonationPageResultMap" type="com.projectnmt.projectnmt.entity.DonationPage"   >
+        <id property="donationPageId" column="donation_page_id" />
+        <result property="teamId" column="team_id" />
+        <result property="mainCategoryId" column="main_category_id" />
+        <result property="createDate" column="create_date" />
+        <result property="endDate" column="end_date" />
+        <result property="goalAmount" column="goal_amount" />
+        <result property="storyTitle" column="story_title" />
+        <result property="storyContent" column="story_content" />
+        <result property="mainImgUrl" column="main_img_url" />
+        <result property="donationTagId" column="donation_tag_id" />
+        <result property="donationPageShow" column="donation_page_show" />
+    </resultMap>
     <insert id="saveTeam"
             parameterType="com.projectnmt.projectnmt.entity.Team"
             keyProperty="teamId"
@@ -72,6 +84,25 @@
         #{accountUrl}
         )
     </insert>
+    <update id="updateTeam" parameterType="com.projectnmt.projectnmt.entity.Team">
+        update
+            team_tb
+        set
+            team_phone = #{teamPhoneNumber},
+            team_email = #{teamEmail},
+            team_homepage = #{teamHomepage},
+            team_info_text = #{teamInfoText},
+            team_logo_img_url = #{teamLogoImgUrl}
+        where
+            team_id = #{teamId}
+    </update>
+    <delete id="deleteAccounts" parameterType="integer">
+        delete
+        from
+            account_info_tb
+        where
+            team_id in (#{teamId})
+    </delete>
     <select id="teamList" resultMap="TeamResultMap" resultType="list">
         select
         tt.team_id,
@@ -95,25 +126,56 @@
     </select>
     <select id="teamInfo" resultMap="TeamResultMap">
         select
-        tt.team_id,
-        tt.team_name,
-        tt.team_type,
-        tt.team_phone,
-        tt.team_email,
-        tt.company_register_number,
-        tt.company_register_number_url,
-        tt.team_info_text,
-        tt.team_homepage,
-        tt.team_logo_img_url,
-        tt.team_type_category,
-        ait.account_username,
-        ait.bank_name,
-        ait.account_number,
-        ait.account_url
+            tt.team_id,
+            tt.team_name,
+            tt.team_type,
+            tt.team_phone,
+            tt.team_email,
+            tt.company_register_number,
+            tt.company_register_number_url,
+            tt.team_info_text,
+            tt.team_homepage,
+            tt.team_logo_img_url,
+            tt.team_type_category,
+            tmt.team_role_id,
+            tmt.user_id,
+            ait.account_username,
+            ait.bank_name,
+            ait.account_number,
+            ait.account_url
         from
-        team_tb tt
-        left outer join account_info_tb ait on(ait.team_id = tt.team_id)
+            team_tb tt
+            left outer join team_member_tb tmt on(tmt.team_id = tt.team_id)
+            left outer join account_info_tb ait on(ait.team_id = tt.team_id)
         where
-        tt.team_id = #{teamId}
+            tt.team_id = #{teamId}
+    </select>
+    <select id="findMember" resultMap="teamMemberResultMap">
+        select
+            *
+        from
+            team_member_tb
+        where
+            user_id = #{userId}
+        and
+            team_id = #{teamId};
+    </select>
+    <select id="getDonationListByTeamId" resultMap="DonationPageResultMap">
+        SELECT
+            donation_page_id,
+            team_id,
+            main_category_id,
+            create_date,
+            end_date,
+            goal_amount,
+            story_title,
+            story_content,
+            main_img_url,
+            donation_tag_id,
+        donation_page_show
+        FROM
+            donation_page_tb
+        where
+            team_id = #{teamId}
     </select>
 </mapper>

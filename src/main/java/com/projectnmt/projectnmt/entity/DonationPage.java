@@ -16,6 +16,7 @@ public class DonationPage {
     private Integer donationPageId;
     private int teamId;
     private int mainCategoryId;
+    private String donationName;
     private int pageCategoryId; // 본문(스토리) / 기부현황 / 후기
     private LocalDateTime createDate;
     private LocalDateTime endDate;
