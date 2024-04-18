@@ -30,4 +30,3 @@ public class PerminAllfilter extends GenericFilter {
         filterChain.doFilter(request, response);
     }
 }
-

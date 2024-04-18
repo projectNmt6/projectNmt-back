@@ -47,4 +47,3 @@ public class    JwtAuthenticationFilter extends GenericFilter {
         //후처리
     }
 }
-

@@ -42,15 +42,7 @@
         <result property="userId" column="user_id"/>
         <result property="teamRoleId" column="team_role_id"/>
     </resultMap>
-        <insert
-                id="saveUser"
-                parameterType="com.projectnmt.projectnmt.entity.User"
-                keyProperty="userId"
-                useGeneratedKeys="true"
-        >
-            insert into user_tb
-            values(0, #{username}, #{password}, #{name}, #{phoneNumber}, #{email}, #{gender}, #{age}, #{profileImg})
-        </insert>
+
 
     <insert
             id="saveUser"
@@ -98,37 +90,37 @@
     <delete id="deleteTeamByTeamId">
         delete
         from
-            team_tb
+        team_tb
         where
-            team_id = #{teamId}
+        team_id = #{teamId}
     </delete>
     <delete id="deleteTeamMemberByTeamId">
         delete
         from
-            team_member_tb
+        team_member_tb
         where
-            team_id = #{teamId}
+        team_id = #{teamId}
     </delete>
     <delete id="deleteTeamMemberByUserId">
         delete
         from
-            team_member_tb
+        team_member_tb
         where
-            user_id = #{userId}
+        user_id = #{userId}
     </delete>
     <delete id="deleteOAuth2ByUserId">
         delete
         from
-            oauth2_tb
+        oauth2_tb
         where
-            user_id = #{userId}
+        user_id = #{userId}
     </delete>
     <delete id="deleteMessageByUserId">
         delete
         from
-            message_tb
+        message_tb
         where
-            getter_id = #{user_id}
+        getter_id = #{user_id}
     </delete>
     <select
             id="findUserByUsername"
@@ -156,6 +148,7 @@
         where
         username = #{username}
     </select>
+
     <select id="findUserTest" resultMap="UserResultMap">
         select
         user_id,
@@ -170,36 +163,20 @@
         from
         user_tb
         where
-            username = #{username}
-        </select>
-        <select id="findUserTest" resultMap="UserResultMap">        
-          select
-            user_id,
-            username,
-            password,
-            name,
-            phone_number,
-            email,
-            gender,
-            age,
-            profile_img
-          from
-            user_tb
-          where
-            user_id = 1;
-      </select>
+        user_id = 1;
+    </select>
     <select id="getMessageList" resultMap="MessageResultMap">
         select
-            mt.message_id,
-            tt.team_logo_img_url,
-            tt.team_name,
-            mt.message_text,
-            mt.create_date
+        mt.message_id,
+        tt.team_logo_img_url,
+        tt.team_name,
+        mt.message_text,
+        mt.create_date
         from
-            message_tb mt
-            left outer join team_tb tt on(tt.team_id = mt.sender_id)
+        message_tb mt
+        left outer join team_tb tt on(tt.team_id = mt.sender_id)
         where
-            getter_id = #{userId}
+        getter_id = #{userId}
     </select>
     <select id="findUserByUserId" resultMap="UserResultMap">
         select
@@ -224,58 +201,60 @@
     </select>
     <select id="findTeamMemberByUserId" resultMap="teamMemberResultMap">
         select
-            team_id,
-            team_role_id
+        team_id,
+        team_role_id
         from
-            team_member_tb
+        team_member_tb
         where
-            user_id = #{userId}
+        user_id = #{userId}
     </select>
     <select id="findTeamMemberListByTeamId" resultMap="teamMemberResultMap">
         select
-            user_id
+        user_id
         from
-            team_member_tb
+        team_member_tb
         where
-            team_id = #{teamId};
+        team_id = #{teamId};
     </select>
     <insert id="sendMessage">
         insert into message_tb
         values(0, 0, #{userId}, #{message}, now());
-    </insert>    <insert
-        id="saveOAuth2"
-        parameterType="com.projectnmt.projectnmt.entity.OAuth2"
-        keyProperty="oAuth2Id"
-        useGeneratedKeys="true"
->
-    insert into oauth2_tb
-    values(0, #{oAuth2Name}, #{userId}, #{providerName}, now(), now())
-</insert>
+    </insert>
+
+    <insert
+            id="saveOAuth2"
+            parameterType="com.projectnmt.projectnmt.entity.OAuth2"
+            keyProperty="oAuth2Id"
+            useGeneratedKeys="true"
+    >
+        insert into oauth2_tb
+        values(0, #{oAuth2Name}, #{userId}, #{providerName}, now(), now())
+    </insert>
+
     <select id="findUserByOAuth2name" resultMap="UserResultMap">
         select
-            ut.user_id,
-            ut.username,
-            ut.password,
-            ut.name,
-            ut.email,
-            rrt.authority_id,
-            rrt.role_id,
-            rt.role_name,
-            rt.role_name_kor,
-            oat.oauth2_id,
-            oat.oauth2_name,
-            oat.provider_name
+        ut.user_id,
+        ut.username,
+        ut.password,
+        ut.name,
+        ut.email,
+        rrt.authority_id,
+        rrt.role_id,
+        rt.role_name,
+        rt.role_name_kor,
+        oat.oauth2_id,
+        oat.oauth2_name,
+        oat.provider_name
         from
-            user_tb ut
-            left outer join oauth2_tb oat on(oat.user_id = ut.user_id)
-            left outer join authority_tb rrt on(rrt.user_id = ut.user_id)
-            left outer join role_tb rt on(rt.role_id = rrt.role_id)
+        user_tb ut
+        left outer join oauth2_tb oat on(oat.user_id = ut.user_id)
+        left outer join authority_tb rrt on(rrt.user_id = ut.user_id)
+        left outer join role_tb rt on(rt.role_id = rrt.role_id)
         where
-            oat.oauth2_name = #{oAuth2Name}
-
-    </select>
+        oat.oauth2_name = #{oAuth2Name},
         user_id = 1;
     </select>
+
     <update id="updateUser" parameterType="com.projectnmt.projectnmt.entity.User">
         UPDATE
         user_tb
