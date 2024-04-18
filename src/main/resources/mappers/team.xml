@@ -40,17 +40,17 @@
     >
         insert into team_tb
         values (
-            0,
-            #{teamName},
-            #{teamType},
-            #{teamPhoneNumber},
-            #{teamEmail},
-            #{companyRegisterNumber},
-            #{companyRegisterNumberUrl},
-            #{teamHomepage},
-            #{teamInfoText},
-            #{teamLogoImgUrl},
-            #{teamTypeCategory}
+        0,
+        #{teamName},
+        #{teamType},
+        #{teamPhoneNumber},
+        #{teamEmail},
+        #{companyRegisterNumber},
+        #{companyRegisterNumberUrl},
+        #{teamHomepage},
+        #{teamInfoText},
+        #{teamLogoImgUrl},
+        #{teamTypeCategory}
         )
     </insert>
     <insert id="saveLeader">
@@ -64,56 +64,56 @@
     <insert id="saveAccount" parameterType="com.projectnmt.projectnmt.entity.Account">
         insert into account_info_tb
         values (
-            0,
-            #{teamId},
-            #{accountUsername},
-            #{bankName},
-            #{accountNumber},
-            #{accountUrl}
+        0,
+        #{teamId},
+        #{accountUsername},
+        #{bankName},
+        #{accountNumber},
+        #{accountUrl}
         )
     </insert>
     <select id="teamList" resultMap="TeamResultMap" resultType="list">
         select
-            tt.team_id,
-            tt.team_name,
-            tt.team_type,
-            tt.team_phone,
-            tt.team_email,
-            tt.company_register_number,
-            tt.company_register_number_url,
-            tt.team_info_text,
-            tt.team_homepage,
-            tt.team_logo_img_url,
-            tt.team_type_category,
-            tmt.user_id,
-            tmt.team_role_id
+        tt.team_id,
+        tt.team_name,
+        tt.team_type,
+        tt.team_phone,
+        tt.team_email,
+        tt.company_register_number,
+        tt.company_register_number_url,
+        tt.team_info_text,
+        tt.team_homepage,
+        tt.team_logo_img_url,
+        tt.team_type_category,
+        tmt.user_id,
+        tmt.team_role_id
         from
-            team_tb tt
-            left outer join team_member_tb tmt on(tmt.team_id = tt.team_id)
+        team_tb tt
+        left outer join team_member_tb tmt on(tmt.team_id = tt.team_id)
         where
-            tmt.user_id = #{userId}
+        tmt.user_id = #{userId}
     </select>
     <select id="teamInfo" resultMap="TeamResultMap">
         select
-            tt.team_id,
-            tt.team_name,
-            tt.team_type,
-            tt.team_phone,
-            tt.team_email,
-            tt.company_register_number,
-            tt.company_register_number_url,
-            tt.team_info_text,
-            tt.team_homepage,
-            tt.team_logo_img_url,
-            tt.team_type_category,
-            ait.account_username,
-            ait.bank_name,
-            ait.account_number,
-            ait.account_url
+        tt.team_id,
+        tt.team_name,
+        tt.team_type,
+        tt.team_phone,
+        tt.team_email,
+        tt.company_register_number,
+        tt.company_register_number_url,
+        tt.team_info_text,
+        tt.team_homepage,
+        tt.team_logo_img_url,
+        tt.team_type_category,
+        ait.account_username,
+        ait.bank_name,
+        ait.account_number,
+        ait.account_url
         from
-            team_tb tt
-            left outer join account_info_tb ait on(ait.team_id = tt.team_id)
+        team_tb tt
+        left outer join account_info_tb ait on(ait.team_id = tt.team_id)
         where
-            tt.team_id = #{teamId}
+        tt.team_id = #{teamId}
     </select>
 </mapper>

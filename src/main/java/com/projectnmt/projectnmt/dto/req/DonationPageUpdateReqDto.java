@@ -11,7 +11,7 @@ public class DonationPageUpdateReqDto {
     private int donationPageId;
     private int teamId;
     private int mainCategoryId;
-    private int donationCategoryId;
+    private int pageCategoryId;
     private LocalDateTime createDate;
     private LocalDateTime endDate;
     private int goalAmount;
@@ -26,7 +26,7 @@ public class DonationPageUpdateReqDto {
                 .donationPageId(donationPageId)
                 .teamId(teamId)
                 .mainCategoryId(mainCategoryId)
-                .donationCategoryId(donationCategoryId)
+                .pageCategoryId(pageCategoryId)
                 .createDate(createDate)
                 .endDate(endDate)
                 .goalAmount(goalAmount)

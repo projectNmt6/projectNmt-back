@@ -1,18 +1,22 @@
     package com.projectnmt.projectnmt.service;
 
     import com.projectnmt.projectnmt.dto.req.DonationListReqDto;
+    import com.projectnmt.projectnmt.dto.req.DonationPageReqDto;
     import com.projectnmt.projectnmt.dto.req.DonationTagReqDto;
     import com.projectnmt.projectnmt.dto.resp.DonationListRespDto;
     import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagReqDto;
     import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagRespDto;
+    import com.projectnmt.projectnmt.dto.resp.DonationPageRespDto;
     import com.projectnmt.projectnmt.dto.resp.DonationTagRespDto;
     import com.projectnmt.projectnmt.entity.Donation;
+    import com.projectnmt.projectnmt.entity.DonationPage;
     import com.projectnmt.projectnmt.entity.DonationTag;
     import com.projectnmt.projectnmt.entity.MainCategory;
     import com.projectnmt.projectnmt.repository.DonationMapper;
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.stereotype.Service;
 
+    import java.time.LocalDate;
     import java.util.List;
     import java.util.stream.Collectors;
 
@@ -34,6 +38,23 @@
                     donationListReqDto.getMainImgUrl(),
                     donationListReqDto.getDonationTagId()
                     );
+
+            return donations.stream().map(Donation::toDonationListRespDto).collect(Collectors.toList());
+        }
+
+        public List<DonationListRespDto> getChallengeList(DonationListReqDto donationListReqDto) {
+
+            List<Donation> donations = donationMapper.getChallengeList(
+                    donationListReqDto.getDonationPageId(),
+                    donationListReqDto.getTeamId(),
+                    donationListReqDto.getMainCategoryId(),
+                    donationListReqDto.getCreateDate(),
+                    donationListReqDto.getEndDate(),
+                    donationListReqDto.getGoalAmount(),
+                    donationListReqDto.getStoryTitle(),
+                    donationListReqDto.getMainImgUrl(),
+                    donationListReqDto.getDonationTagId()
+            );
 
             return donations.stream().map(Donation::toDonationListRespDto).collect(Collectors.toList());
         }
@@ -72,5 +93,24 @@
                     donationMainTagReqDto.getMainCategoryName()
             );
             return mainCategories.stream().map(MainCategory::toDonationMainTagResp).collect(Collectors.toList());
+        }
+
+        public List<DonationListRespDto> getCurrentFundings() {
+            LocalDate now = LocalDate.now();
+            List<Donation> donations = donationMapper.getCurrentFundraisings().stream()
+                    .filter(donation -> donation.getEndDate() == null || donation.getEndDate().toLocalDate().isEqual(now) || !donation.getEndDate().toLocalDate().isBefore(now)) // 종료 날짜가 없거나 현재 날짜와 같거나 이후인 경우
+                    .collect(Collectors.toList());
+
+            return donations.stream().map(Donation::toDonationListRespDto).collect(Collectors.toList());
+        }
+
+
+        public List<DonationListRespDto> getEndedFundings() {
+            LocalDate now = LocalDate.now();
+            List<Donation> donations = donationMapper.getEndedFundraisings().stream()
+                    .filter(donation -> donation.getEndDate() != null && donation.getEndDate().toLocalDate().isBefore(now)) // 종료 날짜가 현재 날짜 이전인 경우
+                    .collect(Collectors.toList());
+
+            return donations.stream().map(Donation::toDonationListRespDto).collect(Collectors.toList());
         }
     }
