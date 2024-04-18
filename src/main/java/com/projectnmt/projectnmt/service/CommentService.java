@@ -39,6 +39,19 @@ public class CommentService {
 
     @Transactional(rollbackFor = Exception.class)
     public void deleteComment(int donationCommentId) {
+
         commentMapper.deleteCommentById(donationCommentId);
     }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteComment(int donationCommentId, int userId) {
+        Comment comment = commentMapper.findCommentById(donationCommentId);
+        if (comment != null && comment.getUserId() == userId) {
+            commentMapper.deleteCommentById(donationCommentId);
+        } else {
+            throw new IllegalStateException("삭제할 권한이 없습니다.");
+        }
+    }
+
+
 }

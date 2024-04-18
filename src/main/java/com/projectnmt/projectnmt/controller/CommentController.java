@@ -3,14 +3,18 @@ package com.projectnmt.projectnmt.controller;
 
 import com.projectnmt.projectnmt.dto.req.CommentReqDto;
 import com.projectnmt.projectnmt.dto.resp.CommentRespDto;
+import com.projectnmt.projectnmt.security.PrincipalUser;
 import com.projectnmt.projectnmt.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.nio.file.attribute.UserPrincipal;
 import java.util.List;
 
 @RestController
@@ -33,8 +37,12 @@ public class CommentController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteComment(@PathVariable("id") int donationCommentId) {
-        commentService.deleteComment(donationCommentId);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<?> deleteComment(@PathVariable("id") int donationCommentId, @AuthenticationPrincipal PrincipalUser currentUser) {
+        try {
+            commentService.deleteComment(donationCommentId, currentUser.getUserId());
+            return ResponseEntity.ok().build();
+        } catch (IllegalStateException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+        }
     }
 }

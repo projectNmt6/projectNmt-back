@@ -21,4 +21,5 @@ public interface CommentMapper {
     );
     public int deleteCommentById(@Param("donationCommentId") int donationCommentId);
     List<Comment> getCommentsByDonationPageId(int donationPageId);
+    Comment findCommentById(@Param("donationCommentId") int donationCommentId);
 }

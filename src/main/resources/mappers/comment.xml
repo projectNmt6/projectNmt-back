@@ -40,6 +40,10 @@
         WHERE
         donation_comment_id = #{donationCommentId}
     </delete>
-
+    <select id="findCommentById" parameterType="int" resultMap="CommentResultMap">
+        SELECT *
+        FROM comment_tb
+        WHERE donation_comment_id = #{donationCommentId}
+    </select>
 
 </mapper>
