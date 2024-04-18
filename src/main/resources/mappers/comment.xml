@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.projectnmt.projectnmt.repository.CommentMapper">
+
+    <resultMap id="CommentResultMap" type="com.projectnmt.projectnmt.entity.Comment" >
+        <id property="donationCommentId" column="donation_comment_id" />
+        <result property="commentText" column="comment_text" />
+        <result property="donationPageId" column="donation_page_id" />
+        <result property="userId" column="user_id" />
+    </resultMap>
+
+    <insert id="saveComment" parameterType="com.projectnmt.projectnmt.entity.Comment" >
+        INSERT INTO comment_tb
+        (donation_comment_id,
+        comment_text,
+        donation_page_id,
+        user_id)
+        VALUES
+        (#{donationCommentId},
+        #{commentText},
+        #{donationPageId},
+        #{userId})
+    </insert>
+
+    <select id="getCommentList" resultMap="CommentResultMap" >
+        SELECT * FROM comment_tb
+    </select>
+
+    <select id="getCommentsByDonationPageId" resultMap="CommentResultMap" >
+        SELECT * FROM comment_tb WHERE donation_page_id = #{donationPageId}
+    </select>
+
+    <delete id="deleteCommentById" parameterType="int" >
+        DELETE
+        FROM
+        comment_tb
+        WHERE
+        donation_comment_id = #{donationCommentId}
+    </delete>
+
+
+</mapper>

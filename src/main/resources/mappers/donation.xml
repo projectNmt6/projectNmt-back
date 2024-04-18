@@ -4,6 +4,7 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.projectnmt.projectnmt.repository.DonationMapper">
+
     <resultMap id="DonationPageResultMap" type="com.projectnmt.projectnmt.entity.DonationPage">
         <id property="donationPageId" column="donation_page_id" />
         <result property="teamId" column="team_id" />
@@ -31,18 +32,18 @@
         <association property="mainCategory" resultMap="MainCategoryResultMap" />
         <association property="donationTag" resultMap="DonationTagResultMap" />
     </resultMap>
+
     <resultMap id="TeamResultMap" type="com.projectnmt.projectnmt.entity.Team">
         <id property="teamId" column="team_id" />
         <result property="teamName" column="team_name" />
         <result property="teamType" column="team_type" />
         <result property="teamPhone" column="team_phone" />
         <result property="teamEmail" column="team_email" />
-        <result property="teamAccountNumber" column="team_account_number" />
-        <result property="teamAccountName" column="team_account_name" />
         <result property="companyRegisterNumber" column="company_register_number" />
         <result property="teamHomepage" column="team_homepage" />
         <result property="teamInfoText" column="team_info_text" />
     </resultMap>
+
     <resultMap id="MainCategoryResultMap" type="com.projectnmt.projectnmt.entity.MainCategory">
         <id property="mainCategoryId" column="main_category_id"/>
         <result property="mainCategoryName" column="main_category_name"/>
@@ -50,6 +51,11 @@
     <resultMap id="DonationTagResultMap" type="com.projectnmt.projectnmt.entity.DonationTag">
         <id property="donationTagId" column="donation_tag_id"/>
         <result property="donationTagName" column="donation_tag_name"/>
+    </resultMap>
+
+    <resultMap id="PageCategoryResultMap" type="com.projectnmt.projectnmt.entity.PageCategory">
+        <id property="PageCategoryId" column="page_category_id" />
+        <result property="PageCategoryName" column="page_category_name" />
     </resultMap>
 
     <insert id="saveDonationPage" parameterType="com.projectnmt.projectnmt.entity.DonationPage">
@@ -64,22 +70,39 @@
         main_img_url,
         donation_tag_id,
         donation_page_show)
+
         VALUES
-        (#{teamId},
-        #{mainCategoryId},
-        #{donationCategoryId},
-        now(),
-        now(),
-        #{endDate},
-        #{goalAmount},
-        #{storyTitle},
-        #{storyContent},
-        #{mainImgUrl},
-        #{donationTagId},
-        #{donationPageShow})
+            (#{teamId},
+            #{mainCategoryId},
+            #{pageCategoryId},
+            #{createDate},
+            #{endDate},
+            #{goalAmount},
+            #{storyTitle},
+            #{storyContent},
+            #{mainImgUrl},
+            #{donationTagId},
+            #{donationPageShow})
 
     </insert>
 
+    <insert id="saveDonationNewsPage" parameterType="com.projectnmt.projectnmt.entity.DonationNewsPage">
+        INSERT INTO donation_news_page_tb
+        (donation_news_page_id,
+         donation_page_id,
+         page_category_id,
+         news_content,
+         user_id)
+
+        VALUES
+
+        (#{donationNewsPageId},
+        #{donationPageId},
+        #{pageCategoryId},
+        #{newsContent},
+        #{userId})
+
+    </insert>
     <select id="getDonationPage" resultMap="DonationPageResultMap">
         SELECT
             donation_page_id,
@@ -178,18 +201,74 @@
             donation_page_id = #{donationPageId}
     </update>
 
-
-    <delete id="deletePageById" parameterType="com.projectnmt.projectnmt.repository.DonationMapper" >
-        delete
-        from
-            donation_page
-        where
-            donation_page_id (
-                <foreach collection="donationPageIds" item="donationPageId" separator=",">
-                         #{donationPageId}
-                </foreach>
-            )
+    <delete id="deletePageById" parameterType="int">
+        delete from donation_page_tb
+        where donation_page_id = #{donationPageId}
     </delete>
 
+    <select id="getChallengeList" resultMap="DonationResultMap">
+        SELECT
+            donation_page_id,
+            team_id,
+            main_category_id,
+            page_category_id,
+            create_date,
+            end_date,
+            goal_amount,
+            story_title,
+            story_content,
+            main_img_url,
+            donation_tag_id,
+            donation_page_show
+        FROM
+            donation_page_tb
+        WHERE
+            main_category_id = #{mainCategoryId}
+    </select>
+
+    <!-- 진행 중인 모금 캠페인을 가져오는 쿼리 -->
+    <select id="getCurrentFundraisings" resultMap="DonationResultMap">
+        SELECT
+        dp.donation_page_id,
+        dp.team_id,
+        dp.main_category_id,
+        dp.story_title,
+        dp.create_date,
+        dp.end_date,
+        dp.goal_amount,
+        dp.main_img_url,
+        dp.donation_tag_id,
+        mc.main_category_name,
+        dt.donation_tag_name
+        FROM
+        donation_page_tb dp
+        LEFT JOIN main_category_tb mc ON dp.main_category_id = mc.main_category_id
+        LEFT JOIN donation_tag_tb dt ON dp.donation_tag_id = dt.donation_tag_id
+        WHERE
+        dp.end_date IS NULL OR dp.end_date >= CURDATE()
+    </select>
+
+    <!-- 종료된 모금 캠페인을 가져오는 쿼리 -->
+    <select id="getEndedFundraisings" resultMap="DonationResultMap">
+        SELECT
+        dp.donation_page_id,
+        dp.team_id,
+        dp.main_category_id,
+        dp.story_title,
+        dp.create_date,
+        dp.end_date,
+        dp.goal_amount,
+        dp.main_img_url,
+        dp.donation_tag_id,
+        mc.main_category_name,
+        dt.donation_tag_name
+        FROM
+        donation_page_tb dp
+        LEFT JOIN main_category_tb mc ON dp.main_category_id = mc.main_category_id
+        LEFT JOIN donation_tag_tb dt ON dp.donation_tag_id = dt.donation_tag_id
+        WHERE
+        dp.end_date &lt; CURDATE()
+
+    </select>
 
 </mapper>

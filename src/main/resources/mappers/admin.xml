@@ -16,6 +16,18 @@
         <result property="profileImg" column="profile_img" />
         <collection property="roleRegisters" javaType="list" resultMap="RoleRegisterResultMap"/>
     </resultMap>
+    <resultMap id="AdminUserResultMap" type="com.projectnmt.projectnmt.entity.AdminUser">
+        <id property="userId" column="user_id" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="name" column="name" />
+        <result property="phoneNumber" column="phone_number" />
+        <result property="email" column="email" />
+        <result property="gender" column="gender" />
+        <result property="age" column="age" />
+        <result property="profileImg" column="profile_img" />
+        <association property="role" resultMap="RoleResultMap" />
+    </resultMap>
 
     <resultMap id="RoleRegisterResultMap" type="com.projectnmt.projectnmt.entity.Authority">
         <id property="roleRegisterId" column="user_register_id"/>
@@ -29,8 +41,77 @@
         <result property="roleName" column="role_name"/>
         <result property="roleNameKor" column="role_name_kor"/>
     </resultMap>
+    <resultMap id="CommentResultMap" type="com.projectnmt.projectnmt.entity.Comment">
+        <id property="donationPageId" column="donation_page_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="donationPageId" column="donation_page_id"/>
+        <result property="commentText" column="comment_text" />
+    </resultMap>
+    <resultMap id="DonationPageResultMap" type="com.projectnmt.projectnmt.entity.DonationPage"   >
+        <id property="donationPageId" column="donation_page_id" />
+        <result property="teamId" column="team_id" />
+        <result property="mainCategoryId" column="main_category_id" />
+        <result property="createDate" column="create_date" />
+        <result property="endDate" column="end_date" />
+        <result property="goalAmount" column="goal_amount" />
+        <result property="storyTitle" column="story_title" />
+        <result property="storyContent" column="story_content" />
+        <result property="mainImgUrl" column="main_img_url" />
+        <result property="donationTagId" column="donation_tag_id" />
+        <result property="donationPageShow" column="donation_page_show" />
+    </resultMap>
+    <resultMap id="TeamResultMap" type="com.projectnmt.projectnmt.entity.Team">
+        <id property="teamId" column="team_id" />
+        <result property="teamName" column="team_name" />
+        <result property="teamLogoImgUrl" column="team_logo_img_url" />
+        <result property="teamType" column="team_type" />
+        <result property="teamPhoneNumber" column="team_phone" />
+        <result property="teamEmail" column="team_email" />
+        <result property="companyRegisterNumber" column="company_register_number" />
+        <result property="companyRegisterNumberUrl" column="company_register_number_url" />
+        <result property="teamInfoText" column="team_info_text" />
+        <result property="teamHomepage" column="team_homepage" />
+        <result property="teamTypeCategory" column="team_type_category" />
+        <collection property="teamMembers" javaType="list" resultMap="teamMemberResultMap" />
+        <collection property="accounts" javaType="list" resultMap="accountResultMap" />
+    </resultMap>
+    <resultMap id="teamMemberResultMap" type="com.projectnmt.projectnmt.entity.TeamMember">
+        <id property="teamMemberId" column="team_member_tb_id"/>
+        <result property="teamId" column="team_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="teamRoleId" column="team_role_id"/>
+    </resultMap>
+    <resultMap id="accountResultMap" type="com.projectnmt.projectnmt.entity.Account">
+        <id property="accountId" column="account_id"/>
+        <result property="teamId" column="team_id"/>
+        <result property="accountUsername" column="account_username"/>
+        <result property="bankName" column="bank_name"/>
+        <result property="accountNumber" column="account_number"/>
+        <result property="accountUrl" column="account_url"/>
+    </resultMap>
+    <insert id="addRole">
+        insert into authority_tb
+        values(0, #{userId}, #{roleId});
+    </insert>
+    <insert id="sendMessage">
+        insert into message_tb
+        values(0, 0, #{userId}, #{message}, now());
+    </insert>
+    <delete id="deleteCommemt">
+        delete
+        from
+            comment_tb
+        where
+        donation_comment_id = #{donationCommentId}
+    </delete>
+    <delete id="deleteTeamListByTeamIds">
+        delete
+        from
+            team_tb
 
-    <select id="userList" resultType="com.projectnmt.projectnmt.entity.User">
+    </delete>
+
+    <select id="findUserList" resultMap="AdminUserResultMap">
         select
             ut.user_id,
             ut.username,
@@ -41,13 +122,64 @@
             ut.gender,
             ut.age,
             ut.profile_img,
-            aut.authority_id,
-            aut.role_id,
+            rt.role_id,
             rt.role_name,
             rt.role_name_kor
         from
             user_tb ut
             left outer join authority_tb aut on(aut.user_id = ut.user_id)
             left outer join role_tb rt on(rt.role_id = aut.role_id);
+    </select>
+    <select id="findUserByUserId" resultMap="AdminUserResultMap">
+        select
+            ut.user_id,
+            ut.username,
+            ut.password,
+            ut.name,
+            ut.phone_number,
+            ut.email,
+            ut.gender,
+            ut.age,
+            ut.profile_img,
+            rt.role_id,
+            rt.role_name,
+            rt.role_name_kor
+        from
+            user_tb ut
+            left outer join authority_tb aut on(aut.user_id = ut.user_id)
+            left outer join role_tb rt on(rt.role_id = aut.role_id)
+        where
+            ut.user_id = #{user_id};
+    </select>
+    <select id="findCommentListByUserId" resultType="com.projectnmt.projectnmt.dto.resp.CommentListRespDto">
+        select
+            ct.donation_comment_id as donationCommentId,
+            ct.comment_text as commentText,
+            dpt.story_title as storyTitle
+        from
+            comment_tb ct
+            left outer join donation_page_tb dpt on (dpt.donation_page_id = ct.donation_page_id)
+        where
+            ct.user_id = #{userId}
+    </select>
+    <select id="getTeamList" resultMap="TeamResultMap" resultType="list">
+        select
+            tt.team_id,
+            tt.team_name,
+            tt.team_type,
+            tt.team_phone,
+            tt.team_email,
+            tt.company_register_number,
+            tt.company_register_number_url,
+            tt.team_info_text,
+            tt.team_homepage,
+            tt.team_logo_img_url,
+            tt.team_type_category,
+            tmt.user_id,
+            tmt.team_role_id
+        from
+            team_tb tt
+            left outer join team_member_tb tmt on(tmt.team_id = tt.team_id)
+
     </select>
 </mapper>

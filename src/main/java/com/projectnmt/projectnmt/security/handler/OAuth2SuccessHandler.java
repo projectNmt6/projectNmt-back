@@ -1,3 +1,4 @@
+
 package com.projectnmt.projectnmt.security.handler;
 
 import com.projectnmt.projectnmt.entity.User;
@@ -30,13 +31,12 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         String name = authentication.getName();
-//        User user = userMapper.findUserByOAuth2name(name);
-        User user = null;
+        User user = userMapper.findUserByOAuth2name(name);
         if(user == null) {
         //oauth2 로그인을 통해 회원가입을 진행한 기록이 없는 상태
             DefaultOAuth2User oAuth2User = (DefaultOAuth2User) authentication.getPrincipal();
             String providerName = oAuth2User.getAttribute("provider").toString();
-            response.sendRedirect("http://"+ clientAddress + "/auth/oauth2?name=" + name + "&provider=" + providerName);
+            response.sendRedirect("http://"+ clientAddress + "/auth/oauth2/signup?name=" + name + "&provider=" + providerName);
             return;
         }
         //oauth2 로그인을 통해 회원가입을 진행한 기록이 있는 상태
@@ -47,3 +47,4 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
     }
 }
+

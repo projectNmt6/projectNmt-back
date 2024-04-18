@@ -16,6 +16,21 @@ import java.util.List;
 public interface DonationMapper {
 
     public int saveDonationPage(DonationPage donationPage);
+
+    public int saveDonationNewsPage(DonationPage donationPage);
+
+    public List<Donation> getChallengeList(
+            @Param("donationPageId") int donationPageId,
+            @Param("teamId") int teamId,
+            @Param("mainCategoryId") int mainCategoryId,
+            @Param("createDate") LocalDateTime createDate,
+            @Param("endDate") LocalDateTime endDate,
+            @Param("goalAmount") int goalAmount,
+            @Param("storyTitle") String storyTitle,
+            @Param("mainImgUrl") String mainImgUrl,
+            @Param("donationTagId") int donationTagId);
+
+
     public List<Donation> getDonationList(
             @Param("donationPageId") int donationPageId,
             @Param("teamId") int teamId,
@@ -47,7 +62,6 @@ public interface DonationMapper {
             @Param("donationPageId") Integer donationPageId,
             @Param("teamId") Integer teamId,
             @Param("mainCategoryId") Integer mainCategoryId,
-            @Param("donationCategoryId") Integer donationCategoryId,
             @Param("createDate") LocalDateTime createDate,
             @Param("endDate") LocalDateTime endDate,
             @Param("storyTitle") String storyTitle,
@@ -62,7 +76,10 @@ public interface DonationMapper {
 
     public int updatePageById(DonationPage donationPage);
 
-    public int deletePageById(DonationPage donationPage);
+    public int deletePageById(@Param("donationPageId") int donationPageId);
+
+    List<Donation> getCurrentFundraisings();
+    List<Donation> getEndedFundraisings();
 
     public int findById(@Param("donationPageId") int donationPageId);
 }
