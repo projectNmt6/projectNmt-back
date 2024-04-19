@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class ChallengePageReqDto {
     private Integer challengePageId;
     private int teamId;
-    private MainCategory mainCategoryId;     //1.donation, 2.challenge
+    private int mainCategoryId;     //1.donation, 2.challenge
     private int pageCategoryId;    // mission, action, news
     private LocalDateTime createDate;
     private String challengeTitle;

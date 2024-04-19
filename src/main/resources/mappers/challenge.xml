@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.projectnmt.projectnmt.repository.ChallengeMapper">
+
+    <resultMap id="ChallengeResultMap" type="com.projectnmt.projectnmt.entity.ChallengePage" >
+        <id property="challengePageId" column="challenge_page_id" />
+        <result property="teamId" column="team_id" />
+        <result property="mainCategoryId" column="main_category_id" />
+        <result property="pageCategoryId" column="page_category_id" />
+        <result property="createDate" column="create_date" />
+        <result property="challengeTitle" column="challenge_page_title" />
+        <result property="challengeOverview" column="challenge_overview" />
+        <result property="challengeContent" column="challenge_page_content" />
+        <result property="challengeMainImg" column="challenge_main_img" />
+        <result property="challengePageShow" column="challenge_page_show" />
+    </resultMap>
+
+    <insert id="saveChallengePage" parameterType="com.projectnmt.projectnmt.entity.ChallengePage" >
+        INSERT INTO challenge_page_tb
+        (challenge_page_id,
+        team_id,
+        main_category_id,
+        page_category_id,
+        create_date,
+        challenge_page_title,
+        challenge_overview,
+        challenge_page_content,
+        challenge_main_img,
+        challenge_page_show)
+        VALUES
+        (#{challengePageId},
+        #{teamId},
+        #{mainCategoryId},
+        #{pageCategoryId},
+        #{createDate},
+        #{challengeTitle},
+        #{challengeOverview},
+        #{challengeContent},
+        #{challengeMainImg},
+        #{challengePageShow}
+    </insert>
+
+</mapper>
