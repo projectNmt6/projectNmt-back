@@ -1,6 +1,7 @@
 package com.projectnmt.projectnmt.service;
 
 import com.projectnmt.projectnmt.dto.DonationGivingReqDto;
+import com.projectnmt.projectnmt.dto.resp.DonationGivingRespDto;
 import com.projectnmt.projectnmt.entity.Comment;
 import com.projectnmt.projectnmt.entity.Donator;
 import com.projectnmt.projectnmt.repository.DonationMapper;
@@ -8,7 +9,10 @@ import com.projectnmt.projectnmt.repository.DonatorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-    @Service
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
     public class DonationGivingService {
 
         @Autowired
@@ -26,4 +30,27 @@ import org.springframework.stereotype.Service;
                     .userId(donationGivingReqDto.getUserId())
                     .build());
         }
+
+        public List<DonationGivingRespDto> getGivings(DonationGivingReqDto donationGivingReqDto) {
+
+            List<Donator> donators = donatorMapper.getDonatorList(
+                    donationGivingReqDto.getDonatorId(),
+                    donationGivingReqDto.getUserId(),
+                    donationGivingReqDto.getDonationDate(),
+                    donationGivingReqDto.getAmount(),
+                    donationGivingReqDto.getDonationPageId(),
+                    donationGivingReqDto.isAnonymous()
+            );
+
+            return donators.stream().map(Donator::toSaveGivings).collect(Collectors.toList());
+        }
+
+        public List<DonationGivingRespDto> getDonationGivingByDonationPageId(int donationPageId) {
+            List<Donator> donators = donatorMapper.getDonationGivingByDonationPageId(donationPageId);
+            return donators.stream().map(Donator::toSaveGivings).collect(Collectors.toList());
+        }
+
+
+
+
     }

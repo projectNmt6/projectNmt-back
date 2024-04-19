@@ -3,10 +3,8 @@ package com.projectnmt.projectnmt.controller;
 import com.projectnmt.projectnmt.dto.AmountRespDto;
 import com.projectnmt.projectnmt.dto.DonationGivingReqDto;
 import com.projectnmt.projectnmt.dto.req.*;
-import com.projectnmt.projectnmt.dto.resp.CommentRespDto;
-import com.projectnmt.projectnmt.dto.resp.DonationListRespDto;
+import com.projectnmt.projectnmt.dto.resp.*;
 import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagReqDto;
-import com.projectnmt.projectnmt.dto.resp.DonationNewsPageRespDto;
 import com.projectnmt.projectnmt.entity.DonationNewsPage;
 import com.projectnmt.projectnmt.dto.ProgressAmountReqDto;
 import com.projectnmt.projectnmt.dto.ProgressAmountRespDto;
@@ -14,7 +12,6 @@ import com.projectnmt.projectnmt.dto.req.DonationPageReqDto;
 import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagReqDto;
 import com.projectnmt.projectnmt.entity.Donator;
 import com.projectnmt.projectnmt.service.DonationGivingService;
-import com.projectnmt.projectnmt.dto.resp.DonationPageRespDto;
 import com.projectnmt.projectnmt.service.DonationNewsPageService;
 import com.projectnmt.projectnmt.service.DonationPageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -191,4 +188,12 @@ public class DonationController {
         ProgressAmountRespDto amountRespDto = donationPageService.Homeprogressdonation(progressAmountReqDto);
         return ResponseEntity.ok(amountRespDto);
     }
+
+    @GetMapping("/donators/{donationPageId}")
+    public ResponseEntity<List<DonationGivingRespDto>> getDonatorGivingListByDonationPageId(@PathVariable int donationPageId) {
+        List<DonationGivingRespDto> givingList = donationGivingService.getDonationGivingByDonationPageId(donationPageId);
+        return ResponseEntity.ok(givingList);
+    }
+
+
 }

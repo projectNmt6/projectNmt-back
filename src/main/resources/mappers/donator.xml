@@ -96,12 +96,33 @@
     <select id="HomeDonation" parameterType="Integer" resultType="com.projectnmt.projectnmt.dto.ProgressAmountRespDto">
         SELECT
             dpt.donation_page_id as donationPageId,
-            dt.donation_amount as addAmount,
+            sum(dt.donation_amount)
+        as addAmount,
             dpt.goal_amount as goalAmount
         From
             donation_page_tb dpt
             left outer join donator_tb dt on(dpt.donation_page_id = dt.donation_page_id)
         where
             dpt.donation_page_id = #{donationPageId}
+    </select>
+    <select id="getDonatorList" resultMap="DonatorResultMap">
+        SELECT
+            dt.user_id,
+            dt.donation_date,
+            dt.donation_amount,
+            dpt.donation_page_id as donationPageId,
+            dt.donation_anonymous
+        FROM
+            donation_page_tb dpt
+            left outer join donator_tb dt on(dpt.donation_page_id = dt.donation_page_id)
+        WHERE
+            dpt.donation_page_id = #{donationPageId}
+    </select>
+
+    <select id="getDonationGivingByDonationPageId" parameterType="int" resultMap="DonatorResultMap">
+        SELECT *
+        FROM
+        donator_tb
+        WHERE donation_page_id = #{donationPageId}
     </select>
 </mapper>
