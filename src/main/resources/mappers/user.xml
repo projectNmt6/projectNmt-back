@@ -43,6 +43,34 @@
         <result property="teamRoleId" column="team_role_id"/>
     </resultMap>
 
+<<<<<<< HEAD
+=======
+        <select
+                id="findUserByUsername"
+                resultMap="UserResultMap"
+        >
+            select
+            ut.user_id,
+            ut.username,
+            ut.password,
+            ut.name,
+            ut.phone_number,
+            ut.email,
+            ut.gender,
+            ut.age,
+            ut.profile_img,
+            aut.authority_id,
+            aut.role_id,
+            rt.role_name,
+            rt.role_name_kor
+            from
+            user_tb ut
+            left outer join authority_tb aut on(aut.user_id = ut.user_id)
+            left outer join role_tb rt on(rt.role_id = aut.role_id)
+            where
+            username = #{username}
+        </select>
+>>>>>>> origin
 
     <insert
             id="saveUser"
@@ -64,6 +92,7 @@
         #{age},
         #{profileImg})
     </insert>
+
     <insert id="saveRole">
         insert into
         authority_tb
@@ -222,6 +251,7 @@
     </insert>
 
     <insert
+<<<<<<< HEAD
             id="saveOAuth2"
             parameterType="com.projectnmt.projectnmt.entity.OAuth2"
             keyProperty="oAuth2Id"
@@ -230,6 +260,16 @@
         insert into oauth2_tb
         values(0, #{oAuth2Name}, #{userId}, #{providerName}, now(), now())
     </insert>
+=======
+        id="saveOAuth2"
+        parameterType="com.projectnmt.projectnmt.entity.OAuth2"
+        keyProperty="oAuth2Id"
+        useGeneratedKeys="true"
+>
+    insert into oauth2_tb
+    values(0, #{oAuth2Name}, #{userId}, #{providerName}, now(), now())
+</insert>
+>>>>>>> origin
 
     <select id="findUserByOAuth2name" resultMap="UserResultMap">
         select
@@ -252,20 +292,25 @@
         left outer join role_tb rt on(rt.role_id = rrt.role_id)
         where
         oat.oauth2_name = #{oAuth2Name},
+<<<<<<< HEAD
         user_id = 1;
     </select>
+=======
+            user_id = 1;
+</select>
+>>>>>>> origin
 
     <update id="updateUser" parameterType="com.projectnmt.projectnmt.entity.User">
-        UPDATE
-        user_tb
-        SET
-        password = #{password},
-        name = #{name},
-        email = #{email},
-        age = #{age},
-        gender = #{gender},
-        phone_number = #{phoneNumber}
-        WHERE
-        user_id = #{userId}
+    UPDATE
+    user_tb
+    SET
+    password = #{password},
+    name = #{name},
+    email = #{email},
+    age = #{age},
+    gender = #{gender},
+    phone_number = #{phoneNumber}
+    WHERE
+    user_id = #{userId}
     </update>
 </mapper>

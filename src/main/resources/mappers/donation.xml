@@ -9,7 +9,6 @@
         <id property="donationPageId" column="donation_page_id" />
         <result property="teamId" column="team_id" />
         <result property="mainCategoryId" column="main_category_id" />
-        <result property="pageCategoryId" column="page_category_id" />
         <result property="createDate" column="create_date" />
         <result property="endDate" column="end_date" />
         <result property="goalAmount" column="goal_amount" />
@@ -38,7 +37,7 @@
         <id property="teamId" column="team_id" />
         <result property="teamName" column="team_name" />
         <result property="teamType" column="team_type" />
-        <result property="teamPhoneNumber" column="team_phone" />
+        <result property="teamPhone" column="team_phone" />
         <result property="teamEmail" column="team_email" />
         <result property="companyRegisterNumber" column="company_register_number" />
         <result property="teamHomepage" column="team_homepage" />
@@ -61,17 +60,17 @@
 
     <insert id="saveDonationPage" parameterType="com.projectnmt.projectnmt.entity.DonationPage">
         INSERT INTO donation_page_tb
-            (team_id,
-            main_category_id,
-            page_category_id,
-            create_date,
-            end_date,
-            goal_amount,
-            story_title,
-            story_content,
-            main_img_url,
-            donation_tag_id,
-            donation_page_show)
+        (team_id,
+        main_category_id,
+        create_date,
+        end_date,
+        goal_amount,
+        story_title,
+        story_content,
+        main_img_url,
+        donation_tag_id,
+        donation_page_show)
+
         VALUES
             (#{teamId},
             #{mainCategoryId},
@@ -109,7 +108,6 @@
             donation_page_id,
             team_id,
             main_category_id,
-            page_category_id,
             create_date,
             end_date,
             goal_amount,
@@ -191,7 +189,6 @@
             donation_page_id = #{donationPageId},
             team_id = #{teamId},
             main_category_id=#{mainCategoryId},
-            page_category_id=#{pageCategoryId},
             create_date=now(),
             end_date=#{endDate},
             goal_amount=#{goalAmount},
