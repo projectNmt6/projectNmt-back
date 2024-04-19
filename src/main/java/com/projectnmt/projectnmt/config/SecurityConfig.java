@@ -22,7 +22,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-        @Autowired
+
+
+    @Autowired
     private PerminAllfilter perminAllfilter;
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;

@@ -1,8 +1,7 @@
 package com.projectnmt.projectnmt.repository;
 
-import com.projectnmt.projectnmt.entity.DonationPage;
+import com.projectnmt.projectnmt.entity.*;
 
-import com.projectnmt.projectnmt.entity.MainCategory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,8 +9,6 @@ import lombok.NoArgsConstructor;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.projectnmt.projectnmt.entity.Donation;
-import com.projectnmt.projectnmt.entity.DonationTag;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,6 +16,7 @@ import java.util.List;
 public interface DonationMapper {
 
     public int saveDonationPage(DonationPage donationPage);
+
     public int saveDonationNewsPage(DonationPage donationPage);
 
     public List<Donation> getChallengeList(
@@ -31,6 +29,7 @@ public interface DonationMapper {
             @Param("storyTitle") String storyTitle,
             @Param("mainImgUrl") String mainImgUrl,
             @Param("donationTagId") int donationTagId);
+
 
     public List<Donation> getDonationList(
             @Param("donationPageId") int donationPageId,
@@ -82,8 +81,7 @@ public interface DonationMapper {
     List<Donation> getCurrentFundraisings();
     List<Donation> getEndedFundraisings();
 
-
-
+    public int findById(@Param("donationPageId") int donationPageId);
 }
 
 
