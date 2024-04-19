@@ -1,11 +1,9 @@
 package com.projectnmt.projectnmt.repository;
 
 import com.projectnmt.projectnmt.dto.*;
-import com.projectnmt.projectnmt.dto.resp.DonationGivingRespDto;
+import com.projectnmt.projectnmt.dto.req.DonationGivingReqDto;
 import com.projectnmt.projectnmt.entity.Comment;
-import com.projectnmt.projectnmt.entity.DonationPage;
 import com.projectnmt.projectnmt.entity.Donator;
-import com.projectnmt.projectnmt.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

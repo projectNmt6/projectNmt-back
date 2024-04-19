@@ -1,16 +1,13 @@
 package com.projectnmt.projectnmt.controller;
 
 import com.projectnmt.projectnmt.dto.AmountRespDto;
-import com.projectnmt.projectnmt.dto.DonationGivingReqDto;
+import com.projectnmt.projectnmt.dto.req.DonationGivingReqDto;
 import com.projectnmt.projectnmt.dto.req.*;
 import com.projectnmt.projectnmt.dto.resp.*;
 import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagReqDto;
-import com.projectnmt.projectnmt.entity.DonationNewsPage;
 import com.projectnmt.projectnmt.dto.ProgressAmountReqDto;
 import com.projectnmt.projectnmt.dto.ProgressAmountRespDto;
 import com.projectnmt.projectnmt.dto.req.DonationPageReqDto;
-import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagReqDto;
-import com.projectnmt.projectnmt.entity.Donator;
 import com.projectnmt.projectnmt.service.DonationGivingService;
 import com.projectnmt.projectnmt.service.DonationNewsPageService;
 import com.projectnmt.projectnmt.service.DonationPageService;

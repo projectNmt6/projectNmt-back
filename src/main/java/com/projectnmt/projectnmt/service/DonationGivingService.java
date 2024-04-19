@@ -1,10 +1,9 @@
 package com.projectnmt.projectnmt.service;
 
-import com.projectnmt.projectnmt.dto.DonationGivingReqDto;
+import com.projectnmt.projectnmt.dto.req.DonationGivingReqDto;
 import com.projectnmt.projectnmt.dto.resp.DonationGivingRespDto;
 import com.projectnmt.projectnmt.entity.Comment;
 import com.projectnmt.projectnmt.entity.Donator;
-import com.projectnmt.projectnmt.repository.DonationMapper;
 import com.projectnmt.projectnmt.repository.DonatorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
