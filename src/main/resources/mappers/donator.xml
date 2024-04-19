@@ -8,9 +8,9 @@
         <id property="donatorId" column="donator_id" />
         <result property="userId" column="user_id" />
         <result property="donationDate" column="donate_date" />
-        <result property="amount" column="donation_amount" />
+        <result property="donationAmount" column="donation_amount" />
         <result property="donationPageId" column="donation_page_id" />
-        <result property="anonymous" column="donator_anonymous" />
+        <result property="donatorAnonymous" column="donator_anonymous" />
         <association property="user" resultMap="UserResultMap" />
         <association property="donationPage" resultMap="DonationPageResultMap" />
         <association property="comment" resultMap="CommentResultMap" />
@@ -19,7 +19,6 @@
         <id property="donationPageId" column="donation_page_id" />
         <result property="teamId" column="team_id" />
         <result property="mainCategoryId" column="main_category_id" />
-        <result property="donationCategoryId" column="donation_category_id" />
         <result property="donationName" column="donation_name" />
         <result property="createDate" column="create_date" />
         <result property="endDate" column="end_date" />
@@ -96,12 +95,25 @@
     <select id="HomeDonation" parameterType="Integer" resultType="com.projectnmt.projectnmt.dto.ProgressAmountRespDto">
         SELECT
             dpt.donation_page_id as donationPageId,
-            dt.donation_amount as addAmount,
+            sum(dt.donation_amount) as addAmount,
             dpt.goal_amount as goalAmount
         From
             donation_page_tb dpt
             left outer join donator_tb dt on(dpt.donation_page_id = dt.donation_page_id)
         where
             dpt.donation_page_id = #{donationPageId}
+    </select>
+    <select id="getDonatorList" resultMap="DonatorResultMap">
+        select
+            dt.donator_id,
+            dt.user_id,
+            dt.donation_date,
+            dt.donation_amount,
+            dt.donation_page_id,
+            dt.donator_anonymous
+        from
+            donator_tb dt
+<!--            left outer join user_tb ut on(dt.user_id = ut.user_id)-->
+
     </select>
 </mapper>
