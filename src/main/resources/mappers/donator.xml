@@ -7,7 +7,7 @@
     <resultMap id="DonatorResultMap" type="com.projectnmt.projectnmt.entity.Donator"   >
         <id property="donatorId" column="donator_id" />
         <result property="userId" column="user_id" />
-        <result property="donationDate" column="donate_date" />
+        <result property="donationDate" column="donation_date" />
         <result property="amount" column="donation_amount" />
         <result property="donationPageId" column="donation_page_id" />
         <result property="anonymous" column="donator_anonymous" />
