@@ -187,7 +187,6 @@ public class DonationController {
     }
     @GetMapping("/progress")
     public ResponseEntity<?> getprogress(ProgressAmountReqDto progressAmountReqDto) {
-        System.out.println(progressAmountReqDto);
         ProgressAmountRespDto amountRespDto = donationPageService.Homeprogressdonation(progressAmountReqDto);
         return ResponseEntity.ok(amountRespDto);
     }
