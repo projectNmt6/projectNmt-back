@@ -52,9 +52,5 @@ public class DonationNewsPageService {
         donationNewsMapper.saveDonationNewsPage(donationNewsPage);
     }
 
-//    public List<DonationNewsPageRespDto> getAllNewsByDonationPageId(int donationPageId) {
-//        List<DonationNewsPage> newsPages = donationNewsMapper.getNewsByDonationPageId(donationPageId);
-//        return newsPages.stream().map(DonationNewsPage::toDonationNewsPageRespDto).collect(Collectors.toList());
-//    }
 
 }

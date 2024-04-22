@@ -1,15 +1,11 @@
-package com.projectnmt.projectnmt.dto.resp;
+package com.projectnmt.projectnmt.dto.req;
 
-import com.projectnmt.projectnmt.entity.MainCategory;
-import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Builder
 @Data
-public class ChallengePageRespDto {
-
+public class ChallengePageListReqDto {
     private int challengePageId;
     private int teamId;
     private int mainCategoryId;     //1.donation, 2.challenge
@@ -20,6 +16,5 @@ public class ChallengePageRespDto {
     private String challengeOverview;   //챌린지 요약
     private String challengeContent;
     private String challengeMainImg;
-    private Boolean challengePageShow;
 
 }

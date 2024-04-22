@@ -25,6 +25,9 @@
 
         @Autowired
         private DonationMapper donationMapper;
+
+
+
         public List<DonationListRespDto> getDonationList(DonationListReqDto donationListReqDto) {
 
                  List<Donation> donations = donationMapper.getDonationList(

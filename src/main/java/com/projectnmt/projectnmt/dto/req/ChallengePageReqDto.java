@@ -8,11 +8,12 @@ import java.time.LocalDateTime;
 
 @Data
 public class ChallengePageReqDto {
-    private Integer challengePageId;
+    private int challengePageId;
     private int teamId;
     private int mainCategoryId;     //1.donation, 2.challenge
     private int pageCategoryId;    // mission, action, news
     private LocalDateTime createDate;
+    private LocalDateTime endDate;
     private String challengeTitle;
     private String challengeOverview;   //챌린지 요약
     private String challengeContent;
@@ -26,6 +27,7 @@ public class ChallengePageReqDto {
                 .mainCategoryId(mainCategoryId)
                 .pageCategoryId(pageCategoryId)
                 .createDate(createDate)
+                .endDate(endDate)
                 .challengeTitle(challengeTitle)
                 .challengeOverview(challengeOverview)
                 .challengeContent(challengeContent)

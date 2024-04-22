@@ -1,6 +1,7 @@
 package com.projectnmt.projectnmt.repository;
 
 import com.projectnmt.projectnmt.dto.resp.CommentRespDto;
+import com.projectnmt.projectnmt.entity.ChallengeComment;
 import com.projectnmt.projectnmt.entity.Comment;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -22,4 +23,7 @@ public interface CommentMapper {
     public int deleteCommentById(@Param("donationCommentId") int donationCommentId);
     List<Comment> getCommentsByDonationPageId(int donationPageId);
     Comment findCommentById(@Param("donationCommentId") int donationCommentId);
+
+
+
 }

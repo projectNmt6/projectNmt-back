@@ -17,6 +17,7 @@ public class CommentService {
     private CommentMapper commentMapper;
 
     public void saveComment(CommentReqDto commentReqDto) {
+
         commentMapper.saveComment(commentReqDto.toEntity());
     }
 

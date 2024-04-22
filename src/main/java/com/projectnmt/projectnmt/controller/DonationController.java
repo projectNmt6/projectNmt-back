@@ -8,15 +8,12 @@ import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagReqDto;
 import com.projectnmt.projectnmt.dto.ProgressAmountReqDto;
 import com.projectnmt.projectnmt.dto.ProgressAmountRespDto;
 import com.projectnmt.projectnmt.dto.req.DonationPageReqDto;
-import com.projectnmt.projectnmt.service.DonationGivingService;
-import com.projectnmt.projectnmt.service.DonationNewsPageService;
-import com.projectnmt.projectnmt.service.DonationPageService;
+import com.projectnmt.projectnmt.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
-import com.projectnmt.projectnmt.service.DonationService;
 
 import java.util.List;
 
@@ -31,6 +28,7 @@ public class DonationController {
     @Autowired
     private DonationPageService donationPageService;
 
+
     @Autowired
     private DonationNewsPageService donationNewsPageService;
 
@@ -44,12 +42,6 @@ public class DonationController {
         return ResponseEntity.created(null).body(donationPageReqDto);
     }
 
-    @PostMapping("/challenge/write")
-    public ResponseEntity<?> saveChallengePage(@Valid @RequestBody DonationPageReqDto donationPageReqDto, BindingResult bindingResult) {
-        donationPageService.saveDonationPage(donationPageReqDto);
-
-        return ResponseEntity.created(null).body(donationPageReqDto);
-    }
 
     @PostMapping("/donation/review")
     public ResponseEntity<?> saveReviewPage(
@@ -68,6 +60,7 @@ public class DonationController {
 
         return ResponseEntity.created(null).body(donationPageReqDto);
     }
+
 
     @PostMapping("/donation/donationnews")
     public ResponseEntity<?> saveDonationNews(@RequestBody DonationNewsPageReqDto donationNewsPageReqDto) {

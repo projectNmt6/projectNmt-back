@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.projectnmt.projectnmt.repository.ChallengeCommentMapper">
+
+    <resultMap id="ChallengeCommentResultMap" type="com.projectnmt.projectnmt.entity.ChallengeComment" >
+        <id property="challengeCommentId" column="challenge_comment_id" />
+        <result property="commentText" column="challenge_comment_text" />
+        <result property="challengePageId" column="challenge_page_id" />
+        <result property="userId" column="user_id" />
+    </resultMap>
+
+    <insert id="saveChallengeComment" parameterType="com.projectnmt.projectnmt.entity.ChallengeComment" useGeneratedKeys="true" keyProperty="challengeCommentId">
+        INSERT INTO challenge_comment_tb
+        (challenge_comment_text, challenge_page_id, user_id)
+        VALUES
+        (#{commentText}, #{challengePageId}, #{userId})
+    </insert>
+
+
+    <select id="getChallengeCommentList" resultMap="ChallengeCommentResultMap">
+        SELECT *
+        FROM challenge_comment_tb
+    </select>
+
+    <select id="getChallengeCommentsByChallengePageId" resultMap="ChallengeCommentResultMap">
+        SELECT *
+        FROM challenge_comment_tb
+        WHERE
+            challenge_page_id = #{challengePageId}
+    </select>
+
+    <delete id="deletechallengeCommentById" parameterType="int">
+        DELETE
+        FROM
+            challenge_comment_tb
+        WHERE
+            challenge_comment_id = #{challengeCommentId}
+    </delete>
+
+    <select id="findCommentById" parameterType="int" resultMap="ChallengeCommentResultMap">
+        SELECT *
+        FROM
+            challenge_comment_tb
+        WHERE
+            challenge_comment_id = #{challengeCommentId}
+    </select>
+</mapper>

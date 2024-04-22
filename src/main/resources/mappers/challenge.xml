@@ -5,12 +5,13 @@
 
 <mapper namespace="com.projectnmt.projectnmt.repository.ChallengeMapper">
 
-    <resultMap id="ChallengeResultMap" type="com.projectnmt.projectnmt.entity.ChallengePage" >
+    <resultMap id="ChallengeResultMap" type="com.projectnmt.projectnmt.entity.ChallengePage">
         <id property="challengePageId" column="challenge_page_id" />
         <result property="teamId" column="team_id" />
         <result property="mainCategoryId" column="main_category_id" />
         <result property="pageCategoryId" column="page_category_id" />
         <result property="createDate" column="create_date" />
+        <result property="endDate" column="end_date" />
         <result property="challengeTitle" column="challenge_page_title" />
         <result property="challengeOverview" column="challenge_overview" />
         <result property="challengeContent" column="challenge_page_content" />
@@ -18,29 +19,46 @@
         <result property="challengePageShow" column="challenge_page_show" />
     </resultMap>
 
-    <insert id="saveChallengePage" parameterType="com.projectnmt.projectnmt.entity.ChallengePage" >
+    <insert id="saveChallengePage" parameterType="com.projectnmt.projectnmt.entity.ChallengePage">
         INSERT INTO challenge_page_tb
-        (challenge_page_id,
+        (
         team_id,
         main_category_id,
         page_category_id,
         create_date,
+        end_date,
         challenge_page_title,
         challenge_overview,
         challenge_page_content,
         challenge_main_img,
         challenge_page_show)
         VALUES
-        (#{challengePageId},
+
+        (
         #{teamId},
         #{mainCategoryId},
         #{pageCategoryId},
         #{createDate},
+        #{endDate},
         #{challengeTitle},
         #{challengeOverview},
         #{challengeContent},
         #{challengeMainImg},
-        #{challengePageShow}
+        #{challengePageShow})
     </insert>
 
+    <select id="getChallengePage" resultMap="ChallengeResultMap">
+        SELECT *
+        FROM
+            challenge_page_tb
+        where
+            challenge_page_id = #{challengePageId}
+    </select>
+
+    <select id="getChallengePageList" resultMap="ChallengeResultMap">
+        SELECT *
+
+        FROM challenge_page_tb
+
+    </select>
 </mapper>
