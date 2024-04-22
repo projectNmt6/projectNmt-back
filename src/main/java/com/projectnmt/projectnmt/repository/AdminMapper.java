@@ -7,6 +7,7 @@ import com.projectnmt.projectnmt.entity.Authority;
 import com.projectnmt.projectnmt.entity.Team;
 import com.projectnmt.projectnmt.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,4 +21,5 @@ public interface AdminMapper {
     public void sendMessage(int userId, String message);
     public List<Team> getTeamList();
     public int deleteTeamListByTeamIds(int teamId);
+    public void updatePageShow(@Param("donationPageId") int donationPageId);
 }
