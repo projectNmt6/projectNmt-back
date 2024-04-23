@@ -89,6 +89,12 @@
         <result property="accountNumber" column="account_number"/>
         <result property="accountUrl" column="account_url"/>
     </resultMap>
+    <resultMap id="DonationResultMap" type="com.projectnmt.projectnmt.entity.Donation">
+        <id property="donationPageId" column="donation_page_id" />
+        <result property="donationPageShow" column="donation_page_show" />
+    </resultMap>
+
+
     <insert id="addRole">
         insert into authority_tb
         values(0, #{userId}, #{roleId});
@@ -199,4 +205,6 @@
         where
             team_id = #{teamId}
     </select>
+
+
 </mapper>

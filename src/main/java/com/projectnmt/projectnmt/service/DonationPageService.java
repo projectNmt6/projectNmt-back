@@ -79,7 +79,6 @@ public class DonationPageService {
         donationMapper.deletePageById(donationPageId);
     }
 
-
     public AmountRespDto MainAmount() {
         return donatorMapper.saveAmount();
     }

@@ -42,8 +42,6 @@
         <result property="userId" column="user_id"/>
         <result property="teamRoleId" column="team_role_id"/>
     </resultMap>
-
-
     <insert
             id="saveUser"
             parameterType="com.projectnmt.projectnmt.entity.User"
@@ -62,8 +60,11 @@
         #{email},
         #{gender},
         #{age},
-        #{profileImg})
+        #{profileImg},
+        null
+        )
     </insert>
+
     <insert id="saveRole">
         insert into
         authority_tb
@@ -123,6 +124,7 @@
         getter_id = #{id}
         and is_team = #{isTeam}
     </delete>
+
     <select
             id="findUserByUsername"
             parameterType="string"
@@ -268,15 +270,15 @@
 
     <update id="updateUser" parameterType="com.projectnmt.projectnmt.entity.User">
         UPDATE
-        user_tb
+            user_tb
         SET
-        password = #{password},
-        name = #{name},
-        email = #{email},
-        age = #{age},
-        gender = #{gender},
-        phone_number = #{phoneNumber}
+            password = #{password},
+            name = #{name},
+            email = #{email},
+            age = #{age},
+            gender = #{gender},
+            phone_number = #{phoneNumber}
         WHERE
-        user_id = #{userId}
-    </update>
+            user_id = #{userId}
+        </update>
 </mapper>
