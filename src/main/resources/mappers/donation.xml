@@ -28,6 +28,7 @@
         <result property="goalAmount" column="goal_amount" />
         <result property="mainImgUrl" column="main_img_url" />
         <result property="donationTagId" column="donation_tag_id" />
+        <result property="donationPageShow" column="donation_page_show" />
         <association property="team" resultMap="TeamResultMap" />
         <association property="mainCategory" resultMap="MainCategoryResultMap" />
         <association property="donationTag" resultMap="DonationTagResultMap" />
@@ -146,18 +147,19 @@
 
     <select id="searchDonation" resultMap="DonationResultMap">
         SELECT
-        dp.donation_page_id,
-        dp.team_id,
-        dp.main_category_id,
-        dp.story_title,
-        dp.create_date,
-        dp.end_date,
-        dp.goal_amount,
-        dp.main_img_url,
-        dp.donation_tag_id,
-        mc.main_category_name,
-        dt.donation_tag_name,
-        t.team_name
+            dp.donation_page_id,
+            dp.team_id,
+            dp.main_category_id,
+            dp.story_title,
+            dp.create_date,
+            dp.end_date,
+            dp.goal_amount,
+            dp.main_img_url,
+            dp.donation_tag_id,
+            mc.main_category_name,
+            dt.donation_tag_name,
+            t.team_name,
+            dp.donation_page_show
         FROM
         donation_page_tb dp
         LEFT OUTER JOIN main_category_tb mc ON dp.main_category_id = mc.main_category_id

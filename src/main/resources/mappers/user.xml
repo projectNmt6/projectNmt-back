@@ -116,12 +116,13 @@
         where
         user_id = #{userId}
     </delete>
-    <delete id="deleteMessageByUserId">
+    <delete id="deleteMessageById">
         delete
         from
         message_tb
         where
-        getter_id = #{user_id}
+        getter_id = #{id}
+        and is_team = #{isTeam}
     </delete>
 
     <select
@@ -179,6 +180,7 @@
         left outer join team_tb tt on(tt.team_id = mt.sender_id)
         where
         getter_id = #{userId}
+        and is_team = 0
     </select>
     <select id="findUserByUserId" resultMap="UserResultMap">
         select
@@ -220,18 +222,10 @@
     </select>
     <insert id="sendMessage">
         insert into message_tb
-        values(0, 0, #{userId}, #{message}, now());
+        values(0, 0, 0, #{userId}, #{message}, now());
     </insert>
 
     <insert
-    id="saveOAuth2"
-    parameterType="com.projectnmt.projectnmt.entity.OAuth2"
-    keyProperty="oAuth2Id"
-    useGeneratedKeys="true"
->
-    insert into oauth2_tb
-    values(0, #{oAuth2Name}, #{userId}, #{providerName}, now(), now())
-    </insert>
             id="saveOAuth2"
             parameterType="com.projectnmt.projectnmt.entity.OAuth2"
             keyProperty="oAuth2Id"
@@ -261,8 +255,17 @@
             left outer join authority_tb rrt on(rrt.user_id = ut.user_id)
             left outer join role_tb rt on(rt.role_id = rrt.role_id)
         where
-            oat.oauth2_name = #{oAuth2Name},
-            user_id = 1;
+            oat.oauth2_name = #{oAuth2Name}
+    </select>
+    <select id="getParticipateCountByuserId"
+            resultType="com.projectnmt.projectnmt.dto.resp.ParticipateCountRespDto">
+        select
+            count(user_id) as donationCount,
+            sum(donation_amount) as donationAmount
+        from
+            donator_tb
+        where
+            user_id = #{userId}
     </select>
 
     <update id="updateUser" parameterType="com.projectnmt.projectnmt.entity.User">

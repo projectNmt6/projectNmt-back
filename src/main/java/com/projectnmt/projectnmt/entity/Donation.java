@@ -20,15 +20,17 @@ public class Donation {
     private int goalAmount;
     private String mainImgUrl;
     private int donationTagId;
+    private int donationPageShow;
     private Team team;
     private MainCategory mainCategory;
     private DonationTag donationTag;
     private Boolean donationPageShow;
-
+  
     public DonationListRespDto toDonationListRespDto() {
         return DonationListRespDto.builder()
                 .donationPageId(donationPageId)
                 .teamName(team.getTeamName())
+                .teamId(teamId)
                 .mainCategoryName(mainCategory.getMainCategoryName())
                 .storyTitle(storyTitle)
                 .createDate(createDate)

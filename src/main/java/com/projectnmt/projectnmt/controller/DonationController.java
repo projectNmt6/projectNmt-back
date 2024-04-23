@@ -87,7 +87,6 @@ public class DonationController {
     public ResponseEntity<?> DonationStory(@RequestParam(value = "page", defaultValue = "1") int page) {
         DonationPageReqDto donationPageReqDto = new DonationPageReqDto();
         donationPageReqDto.setDonationPageId(page);
-        System.out.println(page);
         return ResponseEntity.ok(donationPageService.getDonationPage(donationPageReqDto));
     };
 
@@ -98,7 +97,6 @@ public class DonationController {
 
     @GetMapping("/donations/challenge")
     public ResponseEntity<?> ChallengeList(DonationListReqDto donationListReqDto) {
-        System.out.println(donationListReqDto);
         return ResponseEntity.ok(donationService.getChallengeList(donationListReqDto));
     };
 

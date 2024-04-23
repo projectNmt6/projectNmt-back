@@ -82,6 +82,7 @@ public class DonationPageService {
     public AmountRespDto MainAmount() {
         return donatorMapper.saveAmount();
     }
+
     public ProgressAmountRespDto Homeprogressdonation(ProgressAmountReqDto progressAmountReqDto) {
         return donatorMapper.HomeDonation(progressAmountReqDto.getDonationPageId());
     }

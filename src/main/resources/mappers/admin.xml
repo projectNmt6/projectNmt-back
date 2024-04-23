@@ -101,8 +101,16 @@
     </insert>
     <insert id="sendMessage">
         insert into message_tb
-        values(0, 0, #{userId}, #{message}, now());
+        values(0, #{isTeam}, 0, #{userId}, #{message}, now());
     </insert>
+    <update id="updatePageShow">
+        UPDATE
+            donation_page_tb
+        SET
+            donation_page_show = 1
+        WHERE
+            donation_page_id = #{donationPageId}
+    </update>
     <delete id="deleteCommemt">
         delete
         from
@@ -114,7 +122,8 @@
         delete
         from
             team_tb
-
+        where
+            team_id = #{teamId}
     </delete>
 
     <select id="findUserList" resultMap="AdminUserResultMap">
@@ -188,14 +197,14 @@
             left outer join team_member_tb tmt on(tmt.team_id = tt.team_id)
 
     </select>
+    <select id="findTeamMemberListByTeamId" resultMap="teamMemberResultMap">
+        select
+            *
+        from
+            team_member_tb
+        where
+            team_id = #{teamId}
+    </select>
 
-    <update id="updatePageShow"  parameterType = "com.projectnmt.projectnmt.entity.Donation">
-        UPDATE
-        donation_page_tb
-        SET
-        donation_page_show = NOT donation_page_show
-        WHERE
-        donation_page_id = #{donationPageId}
-    </update>
 
 </mapper>
