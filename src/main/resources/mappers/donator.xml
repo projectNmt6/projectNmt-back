@@ -11,6 +11,11 @@
         <result property="donationAmount" column="donation_amount" />
         <result property="donationPageId" column="donation_page_id" />
         <result property="donatorAnonymous" column="donator_anonymous" />
+        <result property="username" column="username" />
+        <result property="storyTitle" column="story_title" />
+        <result property="mainImgUrl" column="main_img_url" />
+        <result property="goalAmount" column="goal_amount" />
+        <result property="addAmount" column="add_amount" />
         <association property="user" resultMap="UserResultMap" />
         <association property="donationPage" resultMap="DonationPageResultMap" />
         <association property="comment" resultMap="CommentResultMap" />
@@ -110,10 +115,25 @@
             dt.donation_date,
             dt.donation_amount,
             dt.donation_page_id,
-            dt.donator_anonymous
+            dt.donator_anonymous,
+            ut.username,
+            dpt.story_title,
+            dpt.main_img_url,
+            dpt.goal_amount,
+            (
+            SELECT
+                SUM(dt2.donation_amount)
+            FROM
+                donator_tb dt2
+            WHERE
+                dt2.donation_page_id = dt.donation_page_id
+            ) AS add_amount
+
         from
             donator_tb dt
-<!--            left outer join user_tb ut on(dt.user_id = ut.user_id)-->
+            left outer join user_tb ut on(ut.user_id = dt.user_id)
+            left outer join donation_page_tb dpt on(dpt.donation_page_id = dt.donation_page_id)
+
 
     </select>
 </mapper>
