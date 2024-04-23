@@ -42,7 +42,7 @@
         <result property="userId" column="user_id"/>
         <result property="teamRoleId" column="team_role_id"/>
     </resultMap>
-  
+
         <select
                 id="findUserByUsername"
                 parameterType="string"
@@ -148,32 +148,6 @@
         where
         getter_id = #{user_id}
     </delete>
-    <select
-            id="findUserByUsername"
-            parameterType="string"
-            resultMap="UserResultMap"
-    >
-        select
-        ut.user_id,
-        ut.username,
-        ut.password,
-        ut.name,
-        ut.phone_number,
-        ut.email,
-        ut.gender,
-        ut.age,
-        ut.profile_img,
-        aut.authority_id,
-        aut.role_id,
-        rt.role_name,
-        rt.role_name_kor
-        from
-        user_tb ut
-        left outer join authority_tb aut on(aut.user_id = ut.user_id)
-        left outer join role_tb rt on(rt.role_id = aut.role_id)
-        where
-        username = #{username}
-    </select>
 
     <select id="findUserTest" resultMap="UserResultMap">
         select
@@ -248,6 +222,14 @@
     </insert>
 
     <insert
+    id="saveOAuth2"
+    parameterType="com.projectnmt.projectnmt.entity.OAuth2"
+    keyProperty="oAuth2Id"
+    useGeneratedKeys="true"
+>
+    insert into oauth2_tb
+    values(0, #{oAuth2Name}, #{userId}, #{providerName}, now(), now())
+    </insert>
             id="saveOAuth2"
             parameterType="com.projectnmt.projectnmt.entity.OAuth2"
             keyProperty="oAuth2Id"
@@ -256,14 +238,7 @@
         insert into oauth2_tb
         values(0, #{oAuth2Name}, #{userId}, #{providerName}, now(), now())
     </insert>
-        id="saveOAuth2"
-        parameterType="com.projectnmt.projectnmt.entity.OAuth2"
-        keyProperty="oAuth2Id"
-        useGeneratedKeys="true"
->
-    insert into oauth2_tb
-    values(0, #{oAuth2Name}, #{userId}, #{providerName}, now(), now())
-</insert>
+
     <select id="findUserByOAuth2name" resultMap="UserResultMap">
         select
         ut.user_id,
@@ -287,6 +262,7 @@
         oat.oauth2_name = #{oAuth2Name},
         user_id = 1;
     </select>
+
     <update id="updateUser" parameterType="com.projectnmt.projectnmt.entity.User">
     UPDATE
     user_tb

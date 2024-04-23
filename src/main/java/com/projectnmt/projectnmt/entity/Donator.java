@@ -21,10 +21,14 @@ public class Donator {
     private int donationAmount;
     private int donationPageId;
     private int donatorAnonymous;
-
+    private String username;
+    private String storyTitle;
+    private String mainImgUrl;
+    private int addAmount;
     private User user;
     private DonationPage donationPage ;
     private Comment comment;
+    private int goalAmount;
 
     public DonatorListRespDto toDonatorListRespDto() {
 
@@ -35,6 +39,11 @@ public class Donator {
                 .donationAmount(donationAmount)
                 .donationPageId(donationPageId)
                 .donatorAnonymous(donatorAnonymous)
+                .username(username)
+                .storyTitle(storyTitle)
+                .mainImgUrl(mainImgUrl)
+                .goalAmount(goalAmount)
+                .addAmount(addAmount)
                 .build();
     }
 
