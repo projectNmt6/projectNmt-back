@@ -1,6 +1,7 @@
 package com.projectnmt.projectnmt.controller.advice;
 
 import com.projectnmt.projectnmt.exception.SaveException;
+import com.projectnmt.projectnmt.exception.ValidException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,5 +26,9 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<?> illegalArgumentException(IllegalArgumentException e) {
         return ResponseEntity.badRequest().body(e.getMessage());
+    }
+    @ExceptionHandler(ValidException.class)
+    public ResponseEntity<?> ValidException(ValidException e) {
+        return ResponseEntity.badRequest().body(e.getErrorMap());
     }
 }

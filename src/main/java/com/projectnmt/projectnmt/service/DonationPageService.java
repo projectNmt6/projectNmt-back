@@ -36,7 +36,6 @@ public class DonationPageService {
                 donationPageReqDto.getDonationPageId(),
                 donationPageReqDto.getTeamId(),
                 donationPageReqDto.getMainCategoryId(),
-                donationPageReqDto.getPageCategoryId(),
                 donationPageReqDto.getCreateDate(),
                 donationPageReqDto.getEndDate(),
                 donationPageReqDto.getStoryTitle(),
@@ -56,7 +55,6 @@ public class DonationPageService {
                 donationPageReqDto.getDonationPageId(),
                 donationPageReqDto.getTeamId(),
                 donationPageReqDto.getMainCategoryId(),
-                donationPageReqDto.getPageCategoryId(),
                 donationPageReqDto.getCreateDate(),
                 donationPageReqDto.getEndDate(),
                 donationPageReqDto.getStoryTitle(),
@@ -85,6 +83,7 @@ public class DonationPageService {
     public AmountRespDto MainAmount() {
         return donatorMapper.saveAmount();
     }
+
     public ProgressAmountRespDto Homeprogressdonation(ProgressAmountReqDto progressAmountReqDto) {
         return donatorMapper.HomeDonation(progressAmountReqDto.getDonationPageId());
     }

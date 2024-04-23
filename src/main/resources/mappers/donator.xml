@@ -96,7 +96,7 @@
     <select id="HomeDonation" parameterType="Integer" resultType="com.projectnmt.projectnmt.dto.ProgressAmountRespDto">
         SELECT
             dpt.donation_page_id as donationPageId,
-            dt.donation_amount as addAmount,
+            sum(dt.donation_amount) as addAmount,
             dpt.goal_amount as goalAmount
         From
             donation_page_tb dpt

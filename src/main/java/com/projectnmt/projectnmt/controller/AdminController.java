@@ -39,6 +39,11 @@ public class AdminController {
         adminService.deleteCommemt(deleteComments);
         return ResponseEntity.ok(null);
     }
+    @DeleteMapping("/user/delete")
+    public ResponseEntity<?> deleteUserList(@RequestBody List<Integer> userId) {
+        adminService.signout(userId);
+        return ResponseEntity.ok(null);
+    }
 
     @PostMapping("/user/role")
     public ResponseEntity<?> postUserRole(@RequestBody Authority authority) {
@@ -47,7 +52,6 @@ public class AdminController {
     }
     @PostMapping("/message")
     public ResponseEntity<?> postMessage(@RequestBody AdminMessageReqDto adminMessageReqDto) {
-        System.out.println(adminMessageReqDto);
         adminService.sendMessage(adminMessageReqDto);
         return ResponseEntity.ok(null);
     }
@@ -57,8 +61,13 @@ public class AdminController {
     }
 
     @DeleteMapping("/team/delete")
-    public ResponseEntity<?> deleteTeamList(@RequestBody List<Integer> teamIds) {
-        adminService.deleteTeams(teamIds);
+    public ResponseEntity<?> deleteTeamList(@RequestBody List<Team> teamList) {
+        adminService.deleteTeams(teamList);
+        return ResponseEntity.ok(null);
+    }
+    @PutMapping("/donation/show")
+    public ResponseEntity<?> updateDonaionPageToShow(@RequestBody List<DonationPage> donationPage) {
+        adminService.updatePageShow(donationPage);
         return ResponseEntity.ok(null);
     }
 }
