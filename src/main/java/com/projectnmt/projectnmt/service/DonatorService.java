@@ -26,7 +26,12 @@ public class DonatorService {
                 donatorListReqDto.getDonationDate(),
                 donatorListReqDto.getDonationAmount(),
                 donatorListReqDto.getDonationPageId(),
-                donatorListReqDto.getDonatorAnonymous()
+                donatorListReqDto.getDonatorAnonymous(),
+                donatorListReqDto.getUsername(),
+                donatorListReqDto.getStoryTitle(),
+                donatorListReqDto.getMainImgUrl(),
+                donatorListReqDto.getGoalAmount(),
+                donatorListReqDto.getAddAmount()
         );
 //        List<DonatorListRespDto> list = new ArrayList<>();
 //        System.out.println(donators);

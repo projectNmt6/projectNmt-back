@@ -14,6 +14,11 @@ public class DonatorListRespDto {
     private int donationAmount;
     private int donationPageId;
     private int donatorAnonymous;
+    private String username;
+    private String storyTitle;
+    private String mainImgUrl;
+    private int goalAmount;
+    private int addAmount;
 }
 
 

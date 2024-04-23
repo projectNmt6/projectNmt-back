@@ -123,6 +123,7 @@
         where
         getter_id = #{user_id}
     </delete>
+
     <select
             id="findUserByUsername"
             parameterType="string"
@@ -223,6 +224,14 @@
     </insert>
 
     <insert
+    id="saveOAuth2"
+    parameterType="com.projectnmt.projectnmt.entity.OAuth2"
+    keyProperty="oAuth2Id"
+    useGeneratedKeys="true"
+>
+    insert into oauth2_tb
+    values(0, #{oAuth2Name}, #{userId}, #{providerName}, now(), now())
+    </insert>
             id="saveOAuth2"
             parameterType="com.projectnmt.projectnmt.entity.OAuth2"
             keyProperty="oAuth2Id"
@@ -231,6 +240,7 @@
         insert into oauth2_tb
         values(0, #{oAuth2Name}, #{userId}, #{providerName}, now(), now())
     </insert>
+
     <select id="findUserByOAuth2name" resultMap="UserResultMap">
         select
             ut.user_id,
@@ -254,6 +264,7 @@
             oat.oauth2_name = #{oAuth2Name},
             user_id = 1;
     </select>
+
     <update id="updateUser" parameterType="com.projectnmt.projectnmt.entity.User">
         UPDATE
             user_tb
