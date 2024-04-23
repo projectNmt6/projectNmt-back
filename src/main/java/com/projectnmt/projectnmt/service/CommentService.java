@@ -38,11 +38,6 @@ public class CommentService {
         return comments.stream().map(Comment::toSaveComment).collect(Collectors.toList());
     }
 
-    @Transactional(rollbackFor = Exception.class)
-    public void deleteComment(int donationCommentId) {
-
-        commentMapper.deleteCommentById(donationCommentId);
-    }
 
     @Transactional(rollbackFor = Exception.class)
     public void deleteComment(int donationCommentId, int userId) {

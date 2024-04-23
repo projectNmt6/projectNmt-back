@@ -1,8 +1,6 @@
 package com.projectnmt.projectnmt.service;
 
-import com.projectnmt.projectnmt.dto.req.ChallengePageListReqDto;
-import com.projectnmt.projectnmt.dto.req.ChallengePageReqDto;
-import com.projectnmt.projectnmt.dto.req.DonationPageReqDto;
+import com.projectnmt.projectnmt.dto.req.*;
 import com.projectnmt.projectnmt.dto.resp.ChallengePageListRespDto;
 import com.projectnmt.projectnmt.dto.resp.ChallengePageRespDto;
 import com.projectnmt.projectnmt.dto.resp.DonationPageRespDto;
@@ -11,6 +9,7 @@ import com.projectnmt.projectnmt.entity.DonationPage;
 import com.projectnmt.projectnmt.repository.ChallengeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
@@ -73,6 +72,16 @@ public class ChallengeService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    public void updateChallengePage(ChallengeUpdatePageReqDto challengeUpdatePageReqDto) {
+        challengeMapper.updatePageById(challengeUpdatePageReqDto.toEntity());
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteChallengePage(int challengePageId) {
+
+        challengeMapper.deletePageById(challengePageId);
+    }
 
 
 }

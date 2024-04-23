@@ -39,5 +39,8 @@ public interface ChallengeMapper {
             @Param("challengeMainImg") String challengeMainImg
     );
 
+    public int updatePageById(ChallengePage challengePage);
+    public int deletePageById(@Param("challengePageId") int challengePageId);
+
 
 }

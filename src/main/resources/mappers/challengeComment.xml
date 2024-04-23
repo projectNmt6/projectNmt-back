@@ -45,6 +45,13 @@
         FROM
             challenge_comment_tb
         WHERE
-            challenge_comment_id = #{challengeCommentId}
+        challenge_comment_id = #{challengeCommentId}
+    </select>
+
+    <select id="getCommentByChallengePageId" resultMap="ChallengeCommentResultMap">
+        SELECT *
+        FROM challenge_comment_tb
+        WHERE
+            challenge_page_id = #{challengePageId}
     </select>
 </mapper>

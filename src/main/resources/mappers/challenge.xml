@@ -51,8 +51,10 @@
         SELECT *
         FROM
             challenge_page_tb
+
         where
             challenge_page_id = #{challengePageId}
+
     </select>
 
     <select id="getChallengePageList" resultMap="ChallengeResultMap">
@@ -61,4 +63,35 @@
         FROM challenge_page_tb
 
     </select>
+
+
+
+    <update id="updatePageById" parameterType="com.projectnmt.projectnmt.entity.ChallengePage">
+        UPDATE
+            challenge_page_tb
+        set
+            challenge_page_id = #{challengePageId},
+            team_id=#{teamId},
+            main_category_id=#{mainCategoryId},
+        page_category_id=#{pageCategoryId},
+        create_date=#{createDate},
+        end_date=#{endDate},
+        challenge_page_title=#{challengeTitle},
+        challenge_overview=#{challengeOverview},
+        challenge_page_content=#{challengeContent},
+        challenge_main_img=#{challengeMainImg},
+        challenge_page_show=#{challengePageShow}
+
+        WHERE
+            challenge_page_id = #{challengePageId}
+    </update>
+
+    <delete id="deletePageById" parameterType="int">
+        DELETE
+        FROM
+            challenge_page_tb
+        WHERE
+            challenge_page_id = #{challengePageId}
+    </delete>
+
 </mapper>

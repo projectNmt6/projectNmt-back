@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.projectnmt.projectnmt.repository.ActionBoardMapper">
+
+    <resultMap id="ActionBoardReultMap" type="com.projectnmt.projectnmt.entity.ActionBoard">
+        <id property="actionBoardId" column="action_board_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="actionContent" column="action_content" />
+        <result property="imageId" column="image_id" />
+        <result property="imageURL" column="image_url" />
+        <result property="createDate" column="create_date" />
+
+    </resultMap>
+
+    <insert id="saveActionBoard" parameterType="com.projectnmt.projectnmt.entity.ActionBoard">
+        INSERT INTO action_board_tb
+
+        (
+        user_id,
+        action_content,
+        image_id,
+        image_url,
+        create_date,
+        challenge_page_id)
+
+        VALUES
+
+        (#{userId},
+        #{actionContent},
+        #{imageId},
+        #{imageURL},
+        #{createDate},
+        #{challengePageId})
+    </insert>
+
+    <delete id="deleteActionBoardById" parameterType="int">
+        DELETE
+        FROM
+            action_board_tb
+        WHERE
+            acton_board_id = #{actionBoardId}
+    </delete>
+
+    <select id="getActionBoardLIst" resultMap="ActionBoardReultMap">
+        SELECT *
+        FROM
+        action_board_tb abt
+
+        LEFT OUTER JOIN challenge_tb ct ON ct.challenge_page_id = abt.challenge_page_id
+    </select>
+
+    <select id="getActionBoardByChallengePageId" parameterType="int" resultMap="ActionBoardReultMap" >
+        SELECT *
+        FROM
+        action_board_tb
+        WHERE
+            challenge_page_id = #{challengePageId}
+    </select>
+
+
+</mapper>

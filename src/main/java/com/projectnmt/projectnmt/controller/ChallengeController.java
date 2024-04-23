@@ -1,9 +1,9 @@
 package com.projectnmt.projectnmt.controller;
 
-import com.projectnmt.projectnmt.dto.req.ChallengePageListReqDto;
-import com.projectnmt.projectnmt.dto.req.ChallengePageReqDto;
-import com.projectnmt.projectnmt.dto.req.DonationPageReqDto;
+import com.projectnmt.projectnmt.dto.req.*;
 import com.projectnmt.projectnmt.dto.resp.ChallengePageListRespDto;
+import com.projectnmt.projectnmt.dto.resp.ChallengePageRespDto;
+import com.projectnmt.projectnmt.dto.resp.DonationPageRespDto;
 import com.projectnmt.projectnmt.service.ChallengeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +39,25 @@ public class ChallengeController {
         return ResponseEntity.ok(challengeService.getChallengePage(challengePageReqDto));
     }
 
+    @PutMapping("/challenge/update/{page}")
+    public ResponseEntity<?> updatePage(@PathVariable("page") int page, @RequestBody ChallengeUpdatePageReqDto challengeUpdatePageReqDto) {
+        challengeUpdatePageReqDto.setChallengePageId(page);
+        challengeService.updateChallengePage(challengeUpdatePageReqDto);
+        return ResponseEntity.ok(true);
+    }
 
+    @GetMapping("/challenge/update/{page}")
+    public ResponseEntity<?> getUpdatePage(@PathVariable("page") int page) {
+        ChallengePageReqDto challengePageReqDto = new ChallengePageReqDto();
+        challengePageReqDto.setChallengePageId(page);
+        ChallengePageRespDto challengePageRespDto = challengeService.getChallengePage(challengePageReqDto);
+        return ResponseEntity.ok(challengePageRespDto);
+    }
+
+    @DeleteMapping("/challenge/{id}")
+    public ResponseEntity<?> deleteChallengePage(@PathVariable("id") int challengePageId) {
+        challengeService.deleteChallengePage(challengePageId);
+        return ResponseEntity.ok().build();
+    }
 
 }

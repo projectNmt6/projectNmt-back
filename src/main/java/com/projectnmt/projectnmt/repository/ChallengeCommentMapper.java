@@ -22,4 +22,5 @@ public interface ChallengeCommentMapper {
 
     public int deletechallengeCommentById(@Param("challengeCommentId") int challengeCommentId);
     ChallengeComment findCommentById(@Param("challengeCommentId") int challengeCommentId);
+    List<ChallengeComment> getCommentByChallengePageId(int challengePageId);
 }
