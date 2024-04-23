@@ -48,6 +48,3 @@ public class    JwtAuthenticationFilter extends GenericFilter {
     }
 
 }
-
-
-

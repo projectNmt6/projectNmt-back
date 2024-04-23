@@ -223,7 +223,6 @@
     </insert>
 
     <insert
-
     id="saveOAuth2"
     parameterType="com.projectnmt.projectnmt.entity.OAuth2"
     keyProperty="oAuth2Id"
