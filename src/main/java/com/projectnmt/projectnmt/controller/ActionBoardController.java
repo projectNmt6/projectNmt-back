@@ -31,7 +31,6 @@ public class ActionBoardController {
     }
 
 
-
     @DeleteMapping("/action-board/{id}")
     public ResponseEntity<?> deleteActionBoard(@PathVariable("id") int actionBoardId){
         actionBoardService.deleteActionBoard(actionBoardId);
