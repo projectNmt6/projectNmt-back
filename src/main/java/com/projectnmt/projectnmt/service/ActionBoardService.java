@@ -41,6 +41,7 @@ public class ActionBoardService {
 
     @Transactional(rollbackFor = Exception.class)
     public void deleteActionBoard(int actionBoardId) {
+
         actionBoardMapper.deleteActionBoardById(actionBoardId);
     }
 

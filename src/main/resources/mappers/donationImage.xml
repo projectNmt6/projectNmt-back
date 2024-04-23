@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.projectnmt.projectnmt.repository.DonationImageMapper">
+
+        <resultMap id="DonationImageResultMap" type="com.projectnmt.projectnmt.entity.DonationImage">
+            <id property="donationImageId" column="donation_image_id" />
+            <result property="donationPageId" column="donation_page_id" />
+            <result property="donationImageNumber" column="donation_image_number" />
+            <result property="donationImageURL" column="donation_image_url" />
+            <result property="userId" column="user_id" />
+            <result property="createDate" column="create_daet" />
+
+        </resultMap>
+
+    <insert id="saveDonationImages" parameterType="com.projectnmt.projectnmt.entity.DonationImage"
+            keyProperty="donationPageId"
+            useGeneratedKeys="true"
+    >
+        INSERT INTO donation_image_tb
+
+        (
+        donation_page_id,
+        donation_image_number,
+        donation_image_url,
+        user_id,
+        create_date)
+
+        VALUES
+
+        (#{donationPageId},
+        #{donationImageNumber},
+        #{donationImageURL},
+        #{userId},
+        #{createDate}
+    </insert>
+
+    <delete id="deleteDonationImageById" parameterType="int">
+        DELETE
+
+        FROM
+            donation_image_tb
+        WHERE
+            donation_image_id = #{donationImageId}
+    </delete>
+
+    <select id="getDonationImageLIst" resultMap="DonationImageResultMap">
+        SELECT *
+        FROM
+            donation_image_tb
+    </select>
+
+    <select id="getDonationImageByDonationPageId" parameterType="int" resultMap="DonationImageResultMap" >
+        SELECT *
+        FROM
+            donation_image_tb
+        WHERE
+            donation_page_id =#{donationPageId}
+    </select>
+
+
+
+</mapper>
