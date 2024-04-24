@@ -37,8 +37,7 @@ public class DonationImageService {
                 donationImageReqDto.getDonationPageId(),
                 donationImageReqDto.getDonationImageNumber(),
                 donationImageReqDto.getDonationImageURL(),
-                donationImageReqDto.getUserId(),
-                donationImageReqDto.getCreateDate()
+                donationImageReqDto.getUserId()
         );
 
         return donationImageList.stream()

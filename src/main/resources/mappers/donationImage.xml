@@ -11,7 +11,6 @@
             <result property="donationImageNumber" column="donation_image_number" />
             <result property="donationImageURL" column="image_url" />
             <result property="userId" column="user_id" />
-            <result property="createDate" column="create_date" />
 
         </resultMap>
 
@@ -22,16 +21,14 @@
         donation_page_id,
         donation_image_number,
         image_url,
-        user_id,
-        create_date
+        user_id
         )
         VALUES
         (
         #{donationPageId},
         #{donationImageNumber},
         #{donationImageURL},
-        #{userId},
-        #{createDate}
+        #{userId}
         )
 
     </insert>

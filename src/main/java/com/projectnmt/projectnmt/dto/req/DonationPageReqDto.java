@@ -23,6 +23,8 @@ public class DonationPageReqDto {
     private int donationTagId;
     private Boolean donationPageShow;
     private List<DonationImage> donationImages;
+
+
     public DonationPage toEntity() {
         return DonationPage.builder()
                 .donationPageId(donationPageId)
@@ -37,6 +39,7 @@ public class DonationPageReqDto {
                 .mainImgUrl(mainImgUrl)
                 .donationTagId(donationTagId)
                 .donationPageShow(donationPageShow)
+                .donationImages(donationImages)
                 .build();
     }
 

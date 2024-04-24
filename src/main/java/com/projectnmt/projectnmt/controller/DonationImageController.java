@@ -26,11 +26,4 @@ public class DonationImageController {
     }
 
 
-    @GetMapping("/image/{donationPageId}")
-    public ResponseEntity<?> getDonationImageListByPageId(@PathVariable int donationPageId) {
-        List<DonationImageRespDto> imageRespDtoList = donationImageService.getDonationImageByDonationPageId(donationPageId);
-        return ResponseEntity.ok(imageRespDtoList);
-    }
-
-
 }

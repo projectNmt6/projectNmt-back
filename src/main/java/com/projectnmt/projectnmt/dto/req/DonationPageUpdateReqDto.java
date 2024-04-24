@@ -1,9 +1,11 @@
 package com.projectnmt.projectnmt.dto.req;
 
+import com.projectnmt.projectnmt.entity.DonationImage;
 import com.projectnmt.projectnmt.entity.DonationPage;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class DonationPageUpdateReqDto {
@@ -20,6 +22,7 @@ public class DonationPageUpdateReqDto {
     private String mainImgUrl;
     private int donationTagId;
     private Boolean donationPageShow;
+    private List<DonationImage> donationImages;
 
     public DonationPage toEntity() {
         return DonationPage.builder()
@@ -35,6 +38,7 @@ public class DonationPageUpdateReqDto {
                 .mainImgUrl(mainImgUrl)
                 .donationTagId(donationTagId)
                 .donationPageShow(donationPageShow)
+                .donationImages(donationImages)
                 .build();
 
     }

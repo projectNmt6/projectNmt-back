@@ -142,6 +142,7 @@ public class DonationController {
         return ResponseEntity.ok(donationPageRespDto);
     }
 
+
     @DeleteMapping("/donation/{id}")
     public ResponseEntity<?> deleteDonationPage(@PathVariable("id") int donationPageId) {
         donationPageService.deleteDonationPage(donationPageId);

@@ -19,8 +19,7 @@ public interface DonationImageMapper {
             @Param("donationPageId") int donationPageId,
             @Param("donationImageNumber") int donationImageNumber,
             @Param("donationImageURL") String donationImageURL,
-            @Param("userId") int userId,
-            @Param("createDate") LocalDateTime createDate
+            @Param("userId") int userId
     );
 
     List<DonationImage> getDonationImageByDonationPageId(int donationPageId);

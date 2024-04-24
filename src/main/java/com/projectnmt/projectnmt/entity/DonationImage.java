@@ -19,7 +19,6 @@ public class DonationImage {
     private int donationImageNumber; // 이미지의 순서
     private String donationImageURL;
     private int userId;
-    private LocalDateTime createDate;
 
     public DonationImageRespDto toDonationImageRespDto() {
         return DonationImageRespDto.builder()
@@ -28,7 +27,6 @@ public class DonationImage {
                 .donationImageNumber(donationImageNumber)
                 .donationImageURL(donationImageURL)
                 .userId(userId)
-                .createDate(createDate)
                 .build();
     }
 

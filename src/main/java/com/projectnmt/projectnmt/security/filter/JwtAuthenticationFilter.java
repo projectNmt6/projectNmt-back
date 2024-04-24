@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-public class    JwtAuthenticationFilter extends GenericFilter {
+public class JwtAuthenticationFilter extends GenericFilter {
     @Autowired
     private JwtProvider jwtProvider;
 

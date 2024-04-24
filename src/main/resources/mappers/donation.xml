@@ -65,7 +65,6 @@
         <result property="donationImageNumber" column="donation_image_number" />
         <result property="donationImageURL" column="image_url" />
         <result property="userId" column="user_id" />
-        <result property="createDate" column="create_date" />
 
     </resultMap>
     <insert id="saveDonationPage" parameterType="com.projectnmt.projectnmt.entity.DonationPage"
