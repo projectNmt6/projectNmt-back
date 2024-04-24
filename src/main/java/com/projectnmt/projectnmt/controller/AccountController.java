@@ -72,7 +72,7 @@ public class AccountController {
         return ResponseEntity.ok(null);
     }
 
-    @GetMapping("/mypage/donation")
+    @GetMapping("/mypage/myDonation")
     public ResponseEntity<?> getMyList(GetMyDonationListReqDto getMyDonationListReqDto) {
         return ResponseEntity.ok(accountService.GetMyDonation(getMyDonationListReqDto));
     }
