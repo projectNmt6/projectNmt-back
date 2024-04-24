@@ -25,6 +25,7 @@ public class DonationImageController {
         return ResponseEntity.created(null).body(donationImageReqDto);
     }
 
+
     @GetMapping("/image/{donationPageId}")
     public ResponseEntity<?> getDonationImageListByPageId(@PathVariable int donationPageId) {
         List<DonationImageRespDto> imageRespDtoList = donationImageService.getDonationImageByDonationPageId(donationPageId);

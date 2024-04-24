@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @NoArgsConstructor
@@ -20,9 +21,11 @@ public class Donation {
     private int goalAmount;
     private String mainImgUrl;
     private int donationTagId;
+    private String donationImage;
     private Team team;
     private MainCategory mainCategory;
     private DonationTag donationTag;
+    private List<DonationImage> donationImages;
 
     public DonationListRespDto toDonationListRespDto() {
         return DonationListRespDto.builder()

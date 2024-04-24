@@ -8,6 +8,7 @@ import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagReqDto;
 import com.projectnmt.projectnmt.dto.ProgressAmountReqDto;
 import com.projectnmt.projectnmt.dto.ProgressAmountRespDto;
 import com.projectnmt.projectnmt.dto.req.DonationPageReqDto;
+import com.projectnmt.projectnmt.entity.DonationImage;
 import com.projectnmt.projectnmt.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -36,17 +38,7 @@ public class DonationController {
     private DonationGivingService donationGivingService;
 
     @PostMapping("/write")
-    public ResponseEntity<?> saveDonationPage(@Valid @RequestBody DonationPageReqDto donationPageReqDto, BindingResult bindingResult) {
-        donationPageService.saveDonationPage(donationPageReqDto);
-
-        return ResponseEntity.created(null).body(donationPageReqDto);
-    }
-
-
-    @PostMapping("/donation/review")
-    public ResponseEntity<?> saveReviewPage(
-            @Valid @RequestBody DonationPageReqDto donationPageReqDto,
-            BindingResult bindingResult) {
+    public ResponseEntity<?> saveDonationPage(@Valid @RequestBody DonationPageReqDto donationPageReqDto,  BindingResult bindingResult) {
         donationPageService.saveDonationPage(donationPageReqDto);
         return ResponseEntity.created(null).body(donationPageReqDto);
     }

@@ -59,7 +59,9 @@
         <result property="PageCategoryName" column="page_category_name" />
     </resultMap>
 
-    <insert id="saveDonationPage" parameterType="com.projectnmt.projectnmt.entity.DonationPage">
+    <insert id="saveDonationPage" parameterType="com.projectnmt.projectnmt.entity.DonationPage"
+            keyProperty="donationPageId"
+            useGeneratedKeys="true">
         INSERT INTO donation_page_tb
             (team_id,
             main_category_id,

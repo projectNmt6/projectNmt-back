@@ -16,26 +16,26 @@
         </resultMap>
 
     <insert id="saveDonationImages" parameterType="com.projectnmt.projectnmt.entity.DonationImage"
-            keyProperty="donationPageId"
-            useGeneratedKeys="true"
-    >
+            >
         INSERT INTO donation_image_tb
-
         (
         donation_page_id,
         donation_image_number,
-        donation_image_url,
+        image_url,
         user_id,
-        create_date)
-
+        create_date
+        )
         VALUES
-
-        (#{donationPageId},
+        (
+        #{donationPageId},
         #{donationImageNumber},
         #{donationImageURL},
         #{userId},
         #{createDate}
+        )
+
     </insert>
+
 
     <delete id="deleteDonationImageById" parameterType="int">
         DELETE
