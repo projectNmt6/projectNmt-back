@@ -1,8 +1,7 @@
 package com.projectnmt.projectnmt.repository;
 
-import com.projectnmt.projectnmt.entity.DonationPage;
+import com.projectnmt.projectnmt.entity.*;
 
-import com.projectnmt.projectnmt.entity.MainCategory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,8 +9,6 @@ import lombok.NoArgsConstructor;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.projectnmt.projectnmt.entity.Donation;
-import com.projectnmt.projectnmt.entity.DonationTag;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -30,7 +27,8 @@ public interface DonationMapper {
             @Param("goalAmount") int goalAmount,
             @Param("storyTitle") String storyTitle,
             @Param("mainImgUrl") String mainImgUrl,
-            @Param("donationTagId") int donationTagId);
+            @Param("donationTagId") int donationTagId,
+            @Param("donationImage")List<DonationImage> donationImages);
 
     public List<Donation> getDonationList(
             @Param("donationPageId") int donationPageId,
@@ -41,7 +39,9 @@ public interface DonationMapper {
             @Param("goalAmount") int goalAmount,
             @Param("storyTitle") String storyTitle,
             @Param("mainImgUrl") String mainImgUrl,
-            @Param("donationTagId") int donationTagId);
+            @Param("donationTagId") int donationTagId,
+            @Param("donationImage")List<DonationImage> donationImages);
+
 
 
     public List<Donation> searchDonation(
@@ -60,16 +60,7 @@ public interface DonationMapper {
             @Param("donationTagName") String donationTagName);
 
     public DonationPage getDonationPage(
-            @Param("donationPageId") Integer donationPageId,
-            @Param("teamId") Integer teamId,
-            @Param("mainCategoryId") Integer mainCategoryId,
-            @Param("createDate") LocalDateTime createDate,
-            @Param("endDate") LocalDateTime endDate,
-            @Param("storyTitle") String storyTitle,
-            @Param("storyContent") String storyContent,
-            @Param("mainImgUrl") String mainImgUrl,
-            @Param("donationTagId") Integer donationTagId,
-            @Param("donationPageShow") Boolean donationPageShow);
+            @Param("donationPageId") Integer donationPageId);
 
     public List<MainCategory> getMainCategoryList(
             @Param("mainCategoryId") int mainCategoryId,

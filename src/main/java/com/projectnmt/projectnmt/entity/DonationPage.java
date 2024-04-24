@@ -63,6 +63,7 @@ public class DonationPage {
                 .mainImgUrl(mainImgUrl)
                 .donationTagId(donationTagId)
                 .donationPageShow(donationPageShow)
+                .donationImages(donationImages)
                 .build();
     }
 

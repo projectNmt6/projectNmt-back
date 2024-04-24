@@ -82,11 +82,6 @@ public class DonationController {
         return ResponseEntity.ok(donationService.getDonationList(donationListReqDto));
     };
 
-    @GetMapping("/donations/challenge")
-    public ResponseEntity<?> ChallengeList(DonationListReqDto donationListReqDto) {
-        System.out.println(donationListReqDto);
-        return ResponseEntity.ok(donationService.getChallengeList(donationListReqDto));
-    };
 
     @GetMapping("/search")
     public ResponseEntity<?> searchDonation(

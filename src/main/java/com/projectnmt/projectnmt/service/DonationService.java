@@ -39,28 +39,14 @@
                     donationListReqDto.getGoalAmount(),
                     donationListReqDto.getStoryTitle(),
                     donationListReqDto.getMainImgUrl(),
-                    donationListReqDto.getDonationTagId()
+                    donationListReqDto.getDonationTagId(),
+                    donationListReqDto.getDonationImages()
                     );
 
             return donations.stream().map(Donation::toDonationListRespDto).collect(Collectors.toList());
         }
 
-        public List<DonationListRespDto> getChallengeList(DonationListReqDto donationListReqDto) {
 
-            List<Donation> donations = donationMapper.getChallengeList(
-                    donationListReqDto.getDonationPageId(),
-                    donationListReqDto.getTeamId(),
-                    donationListReqDto.getMainCategoryId(),
-                    donationListReqDto.getCreateDate(),
-                    donationListReqDto.getEndDate(),
-                    donationListReqDto.getGoalAmount(),
-                    donationListReqDto.getStoryTitle(),
-                    donationListReqDto.getMainImgUrl(),
-                    donationListReqDto.getDonationTagId()
-            );
-
-            return donations.stream().map(Donation::toDonationListRespDto).collect(Collectors.toList());
-        }
 
         public List<DonationListRespDto> searchDonation(DonationListReqDto donationListReqDto1) {
 

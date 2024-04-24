@@ -1,8 +1,10 @@
 package com.projectnmt.projectnmt.dto.req;
 
+import com.projectnmt.projectnmt.entity.DonationImage;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class DonationListReqDto {
@@ -16,4 +18,5 @@ public class DonationListReqDto {
     private String mainImgUrl;
     private int donationTagId;
 
+    private List<DonationImage> donationImages;
 }

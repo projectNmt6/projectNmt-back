@@ -9,9 +9,9 @@
             <id property="donationImageId" column="donation_image_id" />
             <result property="donationPageId" column="donation_page_id" />
             <result property="donationImageNumber" column="donation_image_number" />
-            <result property="donationImageURL" column="donation_image_url" />
+            <result property="donationImageURL" column="image_url" />
             <result property="userId" column="user_id" />
-            <result property="createDate" column="create_daet" />
+            <result property="createDate" column="create_date" />
 
         </resultMap>
 
