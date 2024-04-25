@@ -12,7 +12,7 @@ public interface DonationImageMapper {
 
     public int saveDonationImages(DonationImage donationImage);
 
-    public int deleteDonationImageById(@Param("donationImageId") int donationImageId);
+    public int deleteDonationImageById(@Param("donationPageId") int donationPageId);
 
     public List<DonationImage> getDonationImageLIst(
             @Param("donationImageId") int donationImageId,

@@ -40,7 +40,7 @@
         FROM
             donation_image_tb
         WHERE
-            donation_image_id = #{donationImageId}
+            donation_page_id = #{donationPageId}
     </delete>
 
     <select id="getDonationImageLIst" resultMap="DonationImageResultMap">

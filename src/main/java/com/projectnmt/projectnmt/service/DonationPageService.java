@@ -39,6 +39,8 @@ public class DonationPageService {
         }
     }
 
+
+
     public void saveDonationNewsPage(DonationPageReqDto donationPageReqDto) {
         donationMapper.saveDonationNewsPage(donationPageReqDto.toEntity());
     }
@@ -54,8 +56,23 @@ public class DonationPageService {
 
     @Transactional(rollbackFor = Exception.class)
     public void updatePage(DonationPageUpdateReqDto donationPageUpdateReqDto) {
+        // 페이지 정보 업데이트
         donationMapper.updatePageById(donationPageUpdateReqDto.toEntity());
+
+        // 기존 이미지 삭제
+        donationImageMapper.deleteDonationImageById(donationPageUpdateReqDto.getDonationPageId());
+
+        // 새 이미지 업데이트
+        List<DonationImage> list = donationPageUpdateReqDto.getDonationImages();
+        for (DonationImage donationImage : list) {
+            // 이미지의 페이지 ID 설정
+            donationImage.setDonationPageId(donationPageUpdateReqDto.getDonationPageId());
+            // 이미지 저장
+            donationImageMapper.saveDonationImages(donationImage);
+        }
     }
+
+
 
     @Transactional(rollbackFor = Exception.class)
     public void deleteDonationPage(int donationPageId) {

@@ -185,25 +185,26 @@
             main_category_tb
     </select>
 
-    <update id="updatePageById" parameterType="com.projectnmt.projectnmt.entity.DonationPage">
+    <update id="updatePageById" parameterType="com.projectnmt.projectnmt.entity.DonationPage"
+            keyProperty="donationPageId"
+            useGeneratedKeys="true">
         update
             donation_page_tb
         set
-            donation_page_id = #{donationPageId},
-            team_id = #{teamId},
-            main_category_id=#{mainCategoryId},
-            page_category_id=#{pageCategoryId},
-            create_date=now(),
-            end_date=#{endDate},
-            goal_amount=#{goalAmount},
-            story_title=#{storyTitle},
-            story_content=#{storyContent},
-            main_img_url=#{mainImgUrl},
-            donation_tag_id=#{donationTagId},
-            donation_page_show=#{donationPageShow}
-        where
-            donation_page_id = #{donationPageId}
+        team_id = #{teamId},
+        main_category_id = #{mainCategoryId},
+        page_category_id = #{pageCategoryId},
+        create_date = now(),
+        end_date = #{endDate},
+        goal_amount = #{goalAmount},
+        story_title = #{storyTitle},
+        story_content = #{storyContent},
+        main_img_url = #{mainImgUrl},
+        donation_tag_id = #{donationTagId},
+        donation_page_show = #{donationPageShow}
+        where donation_page_id = #{donationPageId}
     </update>
+
 
     <delete id="deletePageById" parameterType="int">
         delete from donation_page_tb
