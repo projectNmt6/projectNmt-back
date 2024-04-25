@@ -23,4 +23,6 @@ public interface DonationImageMapper {
     );
 
     List<DonationImage> getDonationImageByDonationPageId(int donationPageId);
+
+    public int updatePageById(DonationImage donationImage);
 }

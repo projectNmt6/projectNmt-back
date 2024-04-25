@@ -63,9 +63,7 @@ public class DonationController {
     @GetMapping("/donation/news/{page}")
     public ResponseEntity<?> getDonationNews(@PathVariable("page") int page) {
         DonationNewsPageRespDto response = donationNewsPageService.getDonationNewsByPageId(page);
-        if (response == null) {
-            return ResponseEntity.notFound().build();
-        }
+
         return ResponseEntity.ok(response);
     }
 
@@ -109,7 +107,8 @@ public class DonationController {
     }
 
     @PutMapping("/donation/update/{page}")
-    public ResponseEntity<?> updatePage(@PathVariable("page") int page, @RequestBody DonationPageUpdateReqDto donationPageUpdateReqDto) {
+    public ResponseEntity<?> updatePage(@PathVariable("page") int page,
+                                        @RequestBody DonationPageUpdateReqDto donationPageUpdateReqDto) {
         donationPageUpdateReqDto.setDonationPageId(page);
         donationPageService.updatePage(donationPageUpdateReqDto);
         return ResponseEntity.ok(true);

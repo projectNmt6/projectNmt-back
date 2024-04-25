@@ -57,6 +57,20 @@
             donation_page_id =#{donationPageId}
     </select>
 
+    <update id="updatePageById" parameterType="com.projectnmt.projectnmt.entity.DonationImage">
+        update
+            donation_image_tb
+        set
+            donation_image_id = #{donationImageId},
+            donation_page_id=#{donationPageId},
+            donation_image_number=#{donationImageNumber},
+            image_url=#{donationImageURL},
+            user_id=#{userId}
+
+        WHERE
+            donation_image_id = #{donationImageId}
+
+    </update>
 
 
 </mapper>

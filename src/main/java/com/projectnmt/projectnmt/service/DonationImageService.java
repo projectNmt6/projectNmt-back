@@ -1,6 +1,7 @@
 package com.projectnmt.projectnmt.service;
 
 import com.projectnmt.projectnmt.dto.req.DonationImageReqDto;
+import com.projectnmt.projectnmt.dto.req.DonationPageUpdateReqDto;
 import com.projectnmt.projectnmt.dto.resp.DonationImageRespDto;
 import com.projectnmt.projectnmt.entity.DonationImage;
 import com.projectnmt.projectnmt.repository.DonationImageMapper;
@@ -43,6 +44,11 @@ public class DonationImageService {
         return donationImageList.stream()
                 .map(DonationImage::toDonationImageRespDto)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void updateImage(DonationImageReqDto donationImageReqDto) {
+        donationImageMapper.updatePageById(donationImageReqDto.toEntity());
     }
 
 
