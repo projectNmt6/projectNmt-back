@@ -7,12 +7,11 @@ import com.projectnmt.projectnmt.dto.req.DonationImageReqDto;
 import com.projectnmt.projectnmt.dto.req.DonationPageReqDto;
 import com.projectnmt.projectnmt.dto.req.DonationPageUpdateReqDto;
 import com.projectnmt.projectnmt.dto.resp.DonationPageRespDto;
-import com.projectnmt.projectnmt.entity.DonationImage;
-import com.projectnmt.projectnmt.entity.DonationPage;
-import com.projectnmt.projectnmt.entity.Donator;
+import com.projectnmt.projectnmt.entity.*;
 import com.projectnmt.projectnmt.repository.DonationImageMapper;
 import com.projectnmt.projectnmt.repository.DonationMapper;
 import com.projectnmt.projectnmt.repository.DonatorMapper;
+import com.projectnmt.projectnmt.repository.TeamMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +27,8 @@ public class DonationPageService {
     private DonatorMapper donatorMapper;
     @Autowired
     private DonationImageMapper donationImageMapper;
+    @Autowired
+    private TeamMapper teamMapper;
 
     public void saveDonationPage(DonationPageReqDto donationPageReqDto) {
         DonationPage donationPage = donationPageReqDto.toEntity();
@@ -75,9 +76,24 @@ public class DonationPageService {
 
 
     @Transactional(rollbackFor = Exception.class)
-    public void deleteDonationPage(int donationPageId) {
+    public void deleteDonationPage(int donationPageId, int userId) throws IllegalAccessException, IllegalArgumentException {
+        DonationPage donationPage = donationMapper.findPageById(donationPageId);
+        if (donationPage == null) {
+            throw new IllegalArgumentException("해당 기부 페이지가 존재하지 않습니다.");
+        }
+
+        TeamMember teamMember = teamMapper.findMember(userId, donationPage.getTeamId());
+        if (teamMember == null || teamMember.getUserId() != userId) {
+            throw new IllegalAccessException("이 페이지를 삭제할 권한이 없습니다.");
+        }
+
         donationMapper.deletePageById(donationPageId);
     }
+
+
+
+
+
 
 
     public AmountRespDto MainAmount() {

@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public class DonationPage {
 
-    private Integer donationPageId;
+    private int donationPageId;
     private int teamId;
     private int mainCategoryId;
     private String donationName;

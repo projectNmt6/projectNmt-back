@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserSerive {
+public class UserService {
     @Autowired
     UserMapper userMapper;
     public List<MessageRespDto> getMessageList(int userId) {

@@ -60,7 +60,7 @@ public interface DonationMapper {
             @Param("donationTagName") String donationTagName);
 
     public DonationPage getDonationPage(
-            @Param("donationPageId") Integer donationPageId);
+            @Param("donationPageId") int donationPageId);
 
     public List<MainCategory> getMainCategoryList(
             @Param("mainCategoryId") int mainCategoryId,
@@ -69,6 +69,8 @@ public interface DonationMapper {
     public int updatePageById(DonationPage donationPage);
 
     public int deletePageById(@Param("donationPageId") int donationPageId);
+
+    DonationPage findPageById(@Param("donationPageId") int donationPageId);
 
     List<Donation> getCurrentFundraisings();
     List<Donation> getEndedFundraisings();

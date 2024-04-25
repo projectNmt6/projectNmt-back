@@ -150,16 +150,18 @@
         where
             tt.team_id = #{teamId}
     </select>
-    <select id="findMember" resultMap="teamMemberResultMap">
-        select
-            *
-        from
-            team_member_tb
-        where
-            user_id = #{userId}
-        and
-            team_id = #{teamId};
+    <select id="findMember" parameterType="map" resultMap="teamMemberResultMap">
+        SELECT *
+        FROM team_member_tb
+        WHERE user_id = #{userId} AND team_id = #{teamId}
     </select>
+
+    <select id="findTeamIdByUserId" resultType="int" >
+        SELECT team_id
+        FROM team_member_tb
+        WHERE user_id = #{userId}
+    </select>
+
     <select id="getDonationListByTeamId" resultMap="DonationPageResultMap">
         SELECT
             donation_page_id,

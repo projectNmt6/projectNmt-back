@@ -207,9 +207,18 @@
 
 
     <delete id="deletePageById" parameterType="int">
-        delete from donation_page_tb
-        where donation_page_id = #{donationPageId}
+        delete
+        from
+            donation_page_tb
+        where
+            donation_page_id = #{donationPageId}
     </delete>
+
+    <select id="findPageById" parameterType="int" resultMap="DonationPageResultMap">
+        SELECT *
+        FROM donation_page_tb
+        WHERE donation_page_id = #{donationPageId}
+    </select>
 
     <select id="getChallengeList" resultMap="DonationResultMap">
         SELECT

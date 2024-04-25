@@ -9,13 +9,15 @@ import com.projectnmt.projectnmt.dto.ProgressAmountReqDto;
 import com.projectnmt.projectnmt.dto.ProgressAmountRespDto;
 import com.projectnmt.projectnmt.dto.req.DonationPageReqDto;
 import com.projectnmt.projectnmt.entity.DonationImage;
+import com.projectnmt.projectnmt.security.PrincipalUser;
 import com.projectnmt.projectnmt.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
-
+import org.springframework.http.HttpStatus;
 import java.net.URI;
 import java.util.List;
 
@@ -141,12 +143,22 @@ public class DonationController {
         return ResponseEntity.ok(donationPageRespDto);
     }
 
-
     @DeleteMapping("/donation/{id}")
-    public ResponseEntity<?> deleteDonationPage(@PathVariable("id") int donationPageId) {
-        donationPageService.deleteDonationPage(donationPageId);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<?> deleteDonationPage(@PathVariable("id") int donationPageId, @AuthenticationPrincipal PrincipalUser currentUser) {
+        if (currentUser == null || currentUser.getUserId() == 0) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 인증 정보가 없습니다.");
+        }
+        try {
+            donationPageService.deleteDonationPage(donationPageId, currentUser.getUserId());
+            return ResponseEntity.ok().build();
+        }  catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 페이지를 찾을 수 없습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 내부 오류: " + e.getMessage());
+        }
     }
+
+
 
     @GetMapping("donation/fundings/now")
     public ResponseEntity<List<DonationListRespDto>> getCurrentFundraisings() {
