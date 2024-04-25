@@ -24,6 +24,7 @@ public class DonationImageService {
 
     @Transactional(rollbackFor = Exception.class)
     public void deleteDonationImage(int donationPageId){
+
         donationImageMapper.deleteDonationImageById(donationPageId);
     }
 

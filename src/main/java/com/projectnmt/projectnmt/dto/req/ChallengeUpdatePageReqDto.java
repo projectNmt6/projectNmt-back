@@ -4,6 +4,8 @@ import com.projectnmt.projectnmt.entity.ChallengePage;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Data
 public class ChallengeUpdatePageReqDto {
 

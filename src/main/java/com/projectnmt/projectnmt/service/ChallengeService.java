@@ -3,10 +3,11 @@ package com.projectnmt.projectnmt.service;
 import com.projectnmt.projectnmt.dto.req.*;
 import com.projectnmt.projectnmt.dto.resp.ChallengePageListRespDto;
 import com.projectnmt.projectnmt.dto.resp.ChallengePageRespDto;
-import com.projectnmt.projectnmt.dto.resp.DonationPageRespDto;
 import com.projectnmt.projectnmt.entity.ChallengePage;
-import com.projectnmt.projectnmt.entity.DonationPage;
+import com.projectnmt.projectnmt.entity.TeamMember;
 import com.projectnmt.projectnmt.repository.ChallengeMapper;
+import com.projectnmt.projectnmt.repository.DonatorMapper;
+import com.projectnmt.projectnmt.repository.TeamMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,10 +21,22 @@ public class ChallengeService {
 
     @Autowired
     private ChallengeMapper challengeMapper;
+    @Autowired
+    private DonatorMapper donatorMapper;
+    @Autowired
+    private TeamMapper teamMapper;
+
 
     public void saveChallengePage(ChallengePageReqDto challengePageReqDto) {
-        challengeMapper.saveChallengePage(challengePageReqDto.toEntity());
-    }
+        ChallengePage challengePage = challengePageReqDto.toEntity();
+        challengeMapper.saveChallengePage(challengePage);
+
+        }
+
+
+//    public void saveChallengeNewsPage(ChallengePageReqDto challengePageReqDto) {
+//        challengeMapper.saveChallengeNewsPage(challengePageReqDto.toEntity());
+//    }
 
     public ChallengePageRespDto getChallengePage (ChallengePageReqDto challengePageReqDto) {
 
@@ -72,13 +85,32 @@ public class ChallengeService {
                 .collect(Collectors.toList());
     }
 
+
     @Transactional(rollbackFor = Exception.class)
     public void updateChallengePage(ChallengeUpdatePageReqDto challengeUpdatePageReqDto) {
         challengeMapper.updatePageById(challengeUpdatePageReqDto.toEntity());
+
+//        challengeImageMapper.deleteChallengeImageByPageId(challengeUpdatePageReqDto.getChallengePageId());
+//        List<ChallengeImage> list = challengeUpdatePageReqDto.getChallengeImages();
+//        for(ChallengeImage challengeImage : list) {
+//            challengeImage.setChallengePageId(challengeUpdatePageReqDto.getChallengePageId());
+//            challengeImageMapper.saveChallengeImages(challengeImage);
+//        }
     }
 
+
     @Transactional(rollbackFor = Exception.class)
-    public void deleteChallengePage(int challengePageId) {
+    public void deleteChallengePage(int challengePageId, int userId) throws Exception {
+        ChallengePage challengePage = challengeMapper.findPageById(challengePageId);
+        if (challengePage == null) {
+            throw new IllegalArgumentException("페이지가 존재하지 않습니다.");
+
+        }
+
+        TeamMember teamMember = teamMapper.findMember(userId, challengePage.getTeamId());
+        if(teamMember == null || teamMember.getTeamId() != userId) {
+            throw new IllegalAccessException("페이지를 삭제할 권한이 없습니다.");
+        }
 
         challengeMapper.deletePageById(challengePageId);
     }

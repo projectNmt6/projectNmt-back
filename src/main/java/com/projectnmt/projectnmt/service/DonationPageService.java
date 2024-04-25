@@ -33,11 +33,11 @@ public class DonationPageService {
     public void saveDonationPage(DonationPageReqDto donationPageReqDto) {
         DonationPage donationPage = donationPageReqDto.toEntity();
         donationMapper.saveDonationPage(donationPage);
-        List<DonationImage> list = donationPageReqDto.getDonationImages();
-        for(DonationImage donationImage : list){
-            donationImage.setDonationPageId(donationPage.getDonationPageId());
-            donationImageMapper.saveDonationImages(donationImage);
-        }
+//        List<DonationImage> list = donationPageReqDto.getDonationImages();
+//        for(DonationImage donationImage : list){
+//            donationImage.setDonationPageId(donationPage.getDonationPageId());
+//            donationImageMapper.saveDonationImages(donationImage);
+//        }
     }
 
 
@@ -48,8 +48,7 @@ public class DonationPageService {
 
     public DonationPageRespDto getDonationPage(DonationPageReqDto donationPageReqDto) {
         DonationPage donationStory = donationMapper.getDonationPage(
-                donationPageReqDto.getDonationPageId()
-                        );
+                donationPageReqDto.getDonationPageId());
         System.out.println(donationStory);
         DonationPageRespDto donationPageRespDto = donationStory.toDonationPageRespDto();
         return donationPageRespDto;

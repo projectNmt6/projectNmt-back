@@ -18,8 +18,9 @@
         <result property="mainImgUrl" column="main_img_url" />
         <result property="donationTagId" column="donation_tag_id" />
         <result property="donationPageShow" column="donation_page_show" />
-        <collection property="donationImages" javaType="list" resultMap="DonationImageResultMap"/>
+<!--        <collection property="donationImages" javaType="list" resultMap="DonationImageResultMap"/>-->
     </resultMap>
+
     <resultMap id="DonationResultMap" type="com.projectnmt.projectnmt.entity.Donation">
         <id property="donationPageId" column="donation_page_id" />
         <result property="teamId" column="team_id" />
@@ -55,10 +56,6 @@
         <result property="donationTagName" column="donation_tag_name"/>
     </resultMap>
 
-    <resultMap id="PageCategoryResultMap" type="com.projectnmt.projectnmt.entity.PageCategory">
-        <id property="PageCategoryId" column="page_category_id" />
-        <result property="PageCategoryName" column="page_category_name" />
-    </resultMap>
     <resultMap id="DonationImageResultMap" type="com.projectnmt.projectnmt.entity.DonationImage">
         <id property="donationImageId" column="donation_image_id" />
         <result property="donationPageId" column="donation_page_id" />
@@ -170,8 +167,6 @@
         story_title Like concat('%', #{storyTitle}, '%');
     </select>
 
-
-
     <select id="getDonationTagList" resultMap="DonationTagResultMap">
         SELECT
             *
@@ -202,7 +197,8 @@
         main_img_url = #{mainImgUrl},
         donation_tag_id = #{donationTagId},
         donation_page_show = #{donationPageShow}
-        where donation_page_id = #{donationPageId}
+        where
+        donation_page_id = #{donationPageId}
     </update>
 
 
@@ -220,25 +216,6 @@
         WHERE donation_page_id = #{donationPageId}
     </select>
 
-    <select id="getChallengeList" resultMap="DonationResultMap">
-        SELECT
-            donation_page_id,
-            team_id,
-            main_category_id,
-            page_category_id,
-            create_date,
-            end_date,
-            goal_amount,
-            story_title,
-            story_content,
-            main_img_url,
-            donation_tag_id,
-            donation_page_show
-        FROM
-            donation_page_tb
-        WHERE
-            main_category_id = #{mainCategoryId}
-    </select>
 
     <!-- 진행 중인 모금 캠페인을 가져오는 쿼리 -->
     <select id="getCurrentFundraisings" resultMap="DonationResultMap">

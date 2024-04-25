@@ -19,7 +19,21 @@
         <result property="challengePageShow" column="challenge_page_show" />
     </resultMap>
 
-    <insert id="saveChallengePage" parameterType="com.projectnmt.projectnmt.entity.ChallengePage">
+
+    <resultMap id="TeamResultMap" type="com.projectnmt.projectnmt.entity.Team">
+        <id property="teamId" column="team_id" />
+        <result property="teamName" column="team_name" />
+        <result property="teamType" column="team_type" />
+        <result property="teamPhoneNumber" column="team_phone" />
+        <result property="teamEmail" column="team_email" />
+        <result property="companyRegisterNumber" column="company_register_number" />
+        <result property="teamHomepage" column="team_homepage" />
+        <result property="teamInfoText" column="team_info_text" />
+    </resultMap>
+
+    <insert id="saveChallengePage" parameterType="com.projectnmt.projectnmt.entity.ChallengePage"
+            keyProperty="challengePageId"
+            useGeneratedKeys="true">
         INSERT INTO challenge_page_tb
         (
         team_id,
@@ -59,28 +73,30 @@
 
     <select id="getChallengePageList" resultMap="ChallengeResultMap">
         SELECT *
-
-        FROM challenge_page_tb
-
+        FROM challenge_page_tb cp
+        LEFT OUTER JOIN main_category_tb mc ON cp.main_category_id = mc.main_category_id
+        LEFT OUTER JOIN team_tb t ON cp.team_id = t.team_id;
     </select>
 
 
 
-    <update id="updatePageById" parameterType="com.projectnmt.projectnmt.entity.ChallengePage">
+    <update id="updatePageById" parameterType="com.projectnmt.projectnmt.entity.ChallengePage"
+            keyProperty="challengePageId"
+            useGeneratedKeys="true">
         UPDATE
             challenge_page_tb
         set
             challenge_page_id = #{challengePageId},
             team_id=#{teamId},
             main_category_id=#{mainCategoryId},
-        page_category_id=#{pageCategoryId},
-        create_date=#{createDate},
-        end_date=#{endDate},
-        challenge_page_title=#{challengeTitle},
-        challenge_overview=#{challengeOverview},
-        challenge_page_content=#{challengeContent},
-        challenge_main_img=#{challengeMainImg},
-        challenge_page_show=#{challengePageShow}
+            page_category_id=#{pageCategoryId},
+            create_date=#{createDate},
+            end_date=#{endDate},
+            challenge_page_title=#{challengeTitle},
+            challenge_overview=#{challengeOverview},
+            challenge_page_content=#{challengeContent},
+            challenge_main_img=#{challengeMainImg},
+            challenge_page_show=#{challengePageShow}
 
         WHERE
             challenge_page_id = #{challengePageId}
@@ -93,5 +109,7 @@
         WHERE
             challenge_page_id = #{challengePageId}
     </delete>
+
+
 
 </mapper>

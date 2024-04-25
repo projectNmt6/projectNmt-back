@@ -1,7 +1,6 @@
 package com.projectnmt.projectnmt.dto.req;
 
 import com.projectnmt.projectnmt.entity.ChallengePage;
-import com.projectnmt.projectnmt.entity.MainCategory;
 import lombok.Data;
 
 import java.time.LocalDateTime;

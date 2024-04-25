@@ -1,12 +1,9 @@
 package com.projectnmt.projectnmt.dto.resp;
 
-import com.projectnmt.projectnmt.entity.DonationImage;
-import com.projectnmt.projectnmt.entity.MainCategory;
 import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Builder
 @Data
@@ -24,5 +21,4 @@ public class ChallengePageRespDto {
     private String challengeMainImg;
     private Boolean challengePageShow;
 
-    private List<DonationImage> donationImages;
 }

@@ -11,12 +11,13 @@ import java.util.List;
 public interface ChallengeMapper {
 
     public int saveChallengePage(ChallengePage challengePage);
+    public int saveChallengeNewsPage(ChallengePage challengePage);
 
     public ChallengePage getChallengePage(
-            @Param("challengePageId") Integer challengePageId,
-            @Param("teamId") Integer teamId,
-            @Param("mainCategoryId") Integer mainCategoryId,
-            @Param("pageCategoryId") Integer pageCategoryId,
+            @Param("challengePageId") int challengePageId,
+            @Param("teamId") int teamId,
+            @Param("mainCategoryId") int mainCategoryId,
+            @Param("pageCategoryId") int pageCategoryId,
             @Param("createDate") LocalDateTime createDate,
             @Param("endDate") LocalDateTime endDate,
             @Param("challengePageTitle") String challengePageTitle,
@@ -41,6 +42,9 @@ public interface ChallengeMapper {
 
     public int updatePageById(ChallengePage challengePage);
     public int deletePageById(@Param("challengePageId") int challengePageId);
+
+    ChallengePage findPageById(@Param("challengePageId") int challengePageId);
+
 
 
 }

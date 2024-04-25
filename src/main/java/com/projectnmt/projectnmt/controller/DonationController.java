@@ -91,16 +91,6 @@ public class DonationController {
         return ResponseEntity.ok(donationService.searchDonation(donationListReqDto1));
     };
 
-    @GetMapping("/donationtag")
-    public ResponseEntity<?> DonationTag(DonationTagReqDto donationTagReqDto) {
-        return ResponseEntity.ok(donationService.getDonationTagList(donationTagReqDto));
-    };
-
-
-    @GetMapping("/storytypes")
-    public ResponseEntity<?> getMainType(DonationMainTagReqDto donationMainTagReqDto) {
-        return ResponseEntity.ok(donationService.getMainCategoryList(donationMainTagReqDto));
-    }
 
     @PostMapping("/test")
     public ResponseEntity<?> givingDonation(@RequestBody DonationGivingReqDto donationGivingReqDto) {

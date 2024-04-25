@@ -4,9 +4,13 @@ import com.projectnmt.projectnmt.dto.req.*;
 import com.projectnmt.projectnmt.dto.resp.ChallengePageListRespDto;
 import com.projectnmt.projectnmt.dto.resp.ChallengePageRespDto;
 import com.projectnmt.projectnmt.dto.resp.DonationPageRespDto;
+import com.projectnmt.projectnmt.security.PrincipalUser;
 import com.projectnmt.projectnmt.service.ChallengeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,7 +44,8 @@ public class ChallengeController {
     }
 
     @PutMapping("/challenge/update/{page}")
-    public ResponseEntity<?> updatePage(@PathVariable("page") int page, @RequestBody ChallengeUpdatePageReqDto challengeUpdatePageReqDto) {
+    public ResponseEntity<?> updatePage(@PathVariable("page") int page,
+                                        @RequestBody ChallengeUpdatePageReqDto challengeUpdatePageReqDto) {
         challengeUpdatePageReqDto.setChallengePageId(page);
         challengeService.updateChallengePage(challengeUpdatePageReqDto);
         return ResponseEntity.ok(true);
@@ -55,9 +60,16 @@ public class ChallengeController {
     }
 
     @DeleteMapping("/challenge/{id}")
-    public ResponseEntity<?> deleteChallengePage(@PathVariable("id") int challengePageId) {
-        challengeService.deleteChallengePage(challengePageId);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<?> deleteChallengePage(@PathVariable("id") int challengePageId, @AuthenticationPrincipal PrincipalUser currentUser) {
+        if (currentUser == null || currentUser.getUserId() == 0) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 인증 정보가 없습니다.");
+        }
+        try {
+            challengeService.deleteChallengePage(challengePageId, currentUser.getUserId());
+            return ResponseEntity.ok().build();
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 내부 오류: " + e.getMessage());
+        }
     }
 
 }
