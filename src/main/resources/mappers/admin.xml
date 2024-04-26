@@ -41,7 +41,7 @@
         <result property="roleName" column="role_name"/>
         <result property="roleNameKor" column="role_name_kor"/>
     </resultMap>
-    <resultMap id="CommentResultMap" type="com.projectnmt.projectnmt.entity.Comment">
+    <resultMap id="CommentResultMap" type="com.projectnmt.projectnmt.entity.DonationComment">
         <id property="donationPageId" column="donation_page_id"/>
         <result property="userId" column="user_id"/>
         <result property="donationPageId" column="donation_page_id"/>

@@ -40,7 +40,7 @@
         <result property="age" column="age" />
         <result property="profileImg" column="profile_img" />
     </resultMap>
-    <resultMap id="CommentResultMap" type="com.projectnmt.projectnmt.entity.Comment">
+    <resultMap id="CommentResultMap" type="com.projectnmt.projectnmt.entity.DonationComment">
         <id property="donationCommentId" column="donation_comment_id" />
         <result property="commentText" column="comment_text" />
         <result property="donationPageId" column="donation_page_id" />
@@ -59,7 +59,7 @@
         #{anonymous}
         );
     </insert>
-    <insert id="saveComment" parameterType="com.projectnmt.projectnmt.entity.Comment" >
+    <insert id="saveComment" parameterType="com.projectnmt.projectnmt.entity.DonationComment" >
     INSERT INTO comment_tb
         VALUES
         (

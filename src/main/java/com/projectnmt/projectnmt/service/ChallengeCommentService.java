@@ -1,17 +1,12 @@
 package com.projectnmt.projectnmt.service;
 
 import com.projectnmt.projectnmt.dto.req.ChallengeCommentReqDto;
-import com.projectnmt.projectnmt.dto.req.CommentReqDto;
 import com.projectnmt.projectnmt.dto.resp.ChallengeCommentRespDto;
-import com.projectnmt.projectnmt.dto.resp.CommentRespDto;
 import com.projectnmt.projectnmt.entity.ChallengeComment;
-import com.projectnmt.projectnmt.entity.Comment;
 import com.projectnmt.projectnmt.repository.ChallengeCommentMapper;
-import com.projectnmt.projectnmt.repository.CommentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 import java.util.stream.Collectors;

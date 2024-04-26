@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Comment {
+public class DonationComment {
     private int donationCommentId;
     private String commentText;
     private int donationPageId;

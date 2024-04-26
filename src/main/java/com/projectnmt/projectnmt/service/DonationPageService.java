@@ -55,23 +55,27 @@ public class DonationPageService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void updatePage(DonationPageUpdateReqDto donationPageUpdateReqDto) {
-        // 페이지 정보 업데이트
-        donationMapper.updatePageById(donationPageUpdateReqDto.toEntity());
-
-        // 기존 이미지 삭제
-        donationImageMapper.deleteDonationImageById(donationPageUpdateReqDto.getDonationPageId());
-
-        // 새 이미지 업데이트
-        List<DonationImage> list = donationPageUpdateReqDto.getDonationImages();
-        for (DonationImage donationImage : list) {
-            // 이미지의 페이지 ID 설정
-            donationImage.setDonationPageId(donationPageUpdateReqDto.getDonationPageId());
-            // 이미지 저장
-            donationImageMapper.saveDonationImages(donationImage);
+    public void updatePage(DonationPageUpdateReqDto donationPageUpdateReqDto, int userId) throws IllegalAccessException {
+        if (!isUserPageOwner(donationPageUpdateReqDto.getDonationPageId(), userId)) {
+            throw new IllegalAccessException("이 페이지를 수정할 권한이 없습니다.");
         }
+        TeamMember teamMember = teamMapper.findMemberByTeamIdAndUserId(donationPageUpdateReqDto.getTeamId(), userId);
+        if (teamMember == null || teamMember.getUserId() != userId) {
+            throw new IllegalAccessException("이 페이지를 수정할 권한이 없습니다.");
+        }
+        donationMapper.updatePageById(donationPageUpdateReqDto.toEntity());
     }
 
+    public boolean isUserPageOwner(int donationPageId, int userId) {
+        DonationPage donationPage = donationMapper.findPageById(donationPageId);
+        if (donationPage == null) {
+            throw new IllegalArgumentException("해당 페이지가 존재하지 않습니다.");
+        }
+        // 페이지의 팀 ID를 통해 팀 멤버를 조회
+        TeamMember teamMember = teamMapper.findMemberByTeamIdAndUserId(donationPage.getTeamId(), userId);
+        // 팀 멤버가 존재하며, 조회된 팀 멤버의 팀 ID가 페이지의 팀 ID와 일치하는지 확인
+        return teamMember != null && teamMember.getTeamId() == donationPage.getTeamId();
+    }
 
 
     @Transactional(rollbackFor = Exception.class)

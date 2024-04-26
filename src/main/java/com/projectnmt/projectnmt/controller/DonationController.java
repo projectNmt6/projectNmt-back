@@ -98,13 +98,7 @@ public class DonationController {
         return ResponseEntity.created(null).body(donationGivingReqDto);
     }
 
-    @PutMapping("/donation/update/{page}")
-    public ResponseEntity<?> updatePage(@PathVariable("page") int page,
-                                        @RequestBody DonationPageUpdateReqDto donationPageUpdateReqDto) {
-        donationPageUpdateReqDto.setDonationPageId(page);
-        donationPageService.updatePage(donationPageUpdateReqDto);
-        return ResponseEntity.ok(true);
-    }
+
 
     @PutMapping("/donation/news/update/{page}")
     public ResponseEntity<?> updateNewsPage(@PathVariable("page") int page, @RequestBody DonationNewsUpdateReqDto donationNewsUpdateReqDto) {
@@ -126,11 +120,37 @@ public class DonationController {
 
 
     @GetMapping("/donation/update/{page}")
-    public ResponseEntity<?> getPageUpdate(@PathVariable("page") int page) {
+    public ResponseEntity<?> getPageUpdate(@PathVariable("page") int page, @AuthenticationPrincipal PrincipalUser currentUser) {
+        if (currentUser == null || currentUser.getUserId() == 0) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 인증 정보가 없습니다.");
+        }
+        if (!donationPageService.isUserPageOwner(page, currentUser.getUserId())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("접근 권한이 없습니다.");
+        }
         DonationPageReqDto donationPageReqDto = new DonationPageReqDto();
         donationPageReqDto.setDonationPageId(page);
         DonationPageRespDto donationPageRespDto = donationPageService.getDonationPage(donationPageReqDto);
         return ResponseEntity.ok(donationPageRespDto);
+    }
+
+
+    @PutMapping("/donation/update/{page}")
+    public ResponseEntity<?> updatePage(@PathVariable("page") int page,
+                                        @RequestBody DonationPageUpdateReqDto donationPageUpdateReqDto,
+                                        @AuthenticationPrincipal PrincipalUser currentUser) {
+        donationPageUpdateReqDto.setDonationPageId(page);
+        if (currentUser == null || currentUser.getUserId() == 0) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 인증 정보가 없습니다.");
+        }
+        if (!donationPageService.isUserPageOwner(page, currentUser.getUserId())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("접근 권한이 없습니다.");
+        }
+        try {
+            donationPageService.updatePage(donationPageUpdateReqDto, currentUser.getUserId());
+            return ResponseEntity.ok(true);
+        } catch (IllegalAccessException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("접근 권한이 없습니다.");
+        }
     }
 
     @DeleteMapping("/donation/{id}")

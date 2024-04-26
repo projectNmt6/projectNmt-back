@@ -1,13 +1,12 @@
 package com.projectnmt.projectnmt.dto.req;
 
-import com.projectnmt.projectnmt.entity.Comment;
+import com.projectnmt.projectnmt.entity.DonationComment;
 import com.projectnmt.projectnmt.entity.DonationPage;
 import com.projectnmt.projectnmt.entity.User;
-import lombok.Builder;
 import lombok.Data;
 
 @Data
-public class CommentReqDto {
+public class DonationCommentReqDto {
 
     private int donationCommentId;
     private String commentText;
@@ -16,8 +15,8 @@ public class CommentReqDto {
     private User user;
     private DonationPage donationPage;
 
-    public Comment toEntity() {
-        return Comment.builder()
+    public DonationComment toEntity() {
+        return DonationComment.builder()
                 .donationCommentId(donationCommentId)
                 .commentText(commentText)
                 .donationPageId(donationPageId)

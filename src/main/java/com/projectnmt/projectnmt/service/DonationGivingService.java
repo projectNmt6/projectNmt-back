@@ -2,7 +2,7 @@ package com.projectnmt.projectnmt.service;
 
 import com.projectnmt.projectnmt.dto.req.DonationGivingReqDto;
 import com.projectnmt.projectnmt.dto.resp.DonationGivingRespDto;
-import com.projectnmt.projectnmt.entity.Comment;
+import com.projectnmt.projectnmt.entity.DonationComment;
 import com.projectnmt.projectnmt.entity.Donator;
 import com.projectnmt.projectnmt.repository.DonatorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
                 throw new IllegalArgumentException("기부 금액은 음수일 수 없습니다.");
             }
             donatorMapper.saveDonation(donationGivingReqDto);
-            donatorMapper.saveComment(Comment.builder()
+            donatorMapper.saveComment(DonationComment.builder()
                     .donationPageId(donationGivingReqDto.getDonationPageId())
                     .commentText(donationGivingReqDto.getMessage())
                     .userId(donationGivingReqDto.getUserId())

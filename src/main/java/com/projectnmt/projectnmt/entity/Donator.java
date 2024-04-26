@@ -22,7 +22,7 @@ public class Donator {
 
     private User user;
     private DonationPage donationPage ;
-    private Comment comment;
+    private DonationComment comment;
 
     public DonationGivingRespDto toSaveGivings() {
         return DonationGivingRespDto.builder()

@@ -1,12 +1,11 @@
 package com.projectnmt.projectnmt.controller;
 
 
-import com.projectnmt.projectnmt.dto.req.CommentReqDto;
+import com.projectnmt.projectnmt.dto.req.DonationCommentReqDto;
 import com.projectnmt.projectnmt.dto.resp.CommentRespDto;
 import com.projectnmt.projectnmt.security.PrincipalUser;
-import com.projectnmt.projectnmt.service.CommentService;
+import com.projectnmt.projectnmt.service.DonationCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,18 +13,17 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.nio.file.attribute.UserPrincipal;
 import java.util.List;
 
 @RestController
 @RequestMapping("/comment")
-public class CommentController {
+public class DonationCommentController {
 
     @Autowired
-    private CommentService commentService;
+    private DonationCommentService commentService;
 
     @PostMapping("/upload")
-    public ResponseEntity<CommentReqDto> saveComment(@Valid @RequestBody CommentReqDto commentReqDto, BindingResult bindingResult) {
+    public ResponseEntity<DonationCommentReqDto> saveComment(@Valid @RequestBody DonationCommentReqDto commentReqDto, BindingResult bindingResult) {
         commentService.saveComment(commentReqDto);
         return ResponseEntity.created(null).body(commentReqDto);
     }
