@@ -42,9 +42,8 @@ public class PrincipalUser implements UserDetails {
 
     @Override
     public String getPassword() {
-        return "";
+        return password;
     }
-    
     //계정 사용시간 만료
     @Override
     public boolean isAccountNonExpired() {

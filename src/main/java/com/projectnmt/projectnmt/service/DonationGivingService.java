@@ -12,44 +12,44 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-    public class DonationGivingService {
+public class DonationGivingService {
 
-        @Autowired
-        DonatorMapper donatorMapper;
+    @Autowired
+    DonatorMapper donatorMapper;
 
-        public void processDonation(DonationGivingReqDto donationGivingReqDto) {
-            int amount = donationGivingReqDto.getAmount();
-            if (donationGivingReqDto.getAmount() < 0) {
-                throw new IllegalArgumentException("기부 금액은 음수일 수 없습니다.");
-            }
-            donatorMapper.saveDonation(donationGivingReqDto);
-            donatorMapper.saveComment(DonationComment.builder()
-                    .donationPageId(donationGivingReqDto.getDonationPageId())
-                    .commentText(donationGivingReqDto.getMessage())
-                    .userId(donationGivingReqDto.getUserId())
-                    .build());
+    public void processDonation(DonationGivingReqDto donationGivingReqDto) {
+        int amount = donationGivingReqDto.getAmount();
+        if (donationGivingReqDto.getAmount() < 0) {
+            throw new IllegalArgumentException("기부 금액은 음수일 수 없습니다.");
         }
-
-        public List<DonationGivingRespDto> getGivings(DonationGivingReqDto donationGivingReqDto) {
-
-            List<Donator> donators = donatorMapper.getDonatorList(
-                    donationGivingReqDto.getDonatorId(),
-                    donationGivingReqDto.getUserId(),
-                    donationGivingReqDto.getDonationDate(),
-                    donationGivingReqDto.getAmount(),
-                    donationGivingReqDto.getDonationPageId(),
-                    donationGivingReqDto.isAnonymous()
-            );
-
-            return donators.stream().map(Donator::toSaveGivings).collect(Collectors.toList());
-        }
-
-        public List<DonationGivingRespDto> getDonationGivingByDonationPageId(int donationPageId) {
-            List<Donator> donators = donatorMapper.getDonationGivingByDonationPageId(donationPageId);
-            return donators.stream().map(Donator::toSaveGivings).collect(Collectors.toList());
-        }
-
-
-
-
+        donatorMapper.saveDonation(donationGivingReqDto);
+        donatorMapper.saveComment(DonationComment.builder()
+                .donationPageId(donationGivingReqDto.getDonationPageId())
+                .commentText(donationGivingReqDto.getMessage())
+                .userId(donationGivingReqDto.getUserId())
+                .build());
     }
+
+    public List<DonationGivingRespDto> getGivings(DonationGivingReqDto donationGivingReqDto) {
+
+        List<Donator> donators = donatorMapper.getDonatorList(
+                donationGivingReqDto.getDonatorId(),
+                donationGivingReqDto.getUserId(),
+                donationGivingReqDto.getDonationDate(),
+                donationGivingReqDto.getAmount(),
+                donationGivingReqDto.getDonationPageId(),
+                donationGivingReqDto.isDonatorAnonymous()
+        );
+
+        return donators.stream().map(Donator::toSaveGivings).collect(Collectors.toList());
+    }
+
+    public List<DonationGivingRespDto> getDonationGivingByDonationPageId(int donationPageId) {
+        List<Donator> donators = donatorMapper.getDonationGivingByDonationPageId(donationPageId);
+        return donators.stream().map(Donator::toSaveGivings).collect(Collectors.toList());
+    }
+
+
+
+
+}

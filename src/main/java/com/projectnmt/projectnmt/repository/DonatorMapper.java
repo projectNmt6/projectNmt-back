@@ -27,6 +27,21 @@ public interface DonatorMapper {
             @Param("anonymous") boolean anonymous
     );
 
+    public List<Donator> getDonatorList(
+            @Param("donatorId") int donatorId,
+            @Param("userId") int userId,
+            @Param("donationDate") LocalDateTime donationDate,
+            @Param("donationAmount") int donationAmount,
+            @Param("donationPageId") int donationPageId,
+            @Param("donatorAnonymous") int donatorAnonymous,
+            @Param("username") String username,
+            @Param("storyTitle") String storyTitle,
+            @Param("mainImageUrl") String mainImgUrl,
+            @Param("goalAmount") int goalAmount,
+            @Param("addAmount") int addAmount
+    );
+
+
     List<Donator> getDonationGivingByDonationPageId(int donationPageId);
 
 }

@@ -14,6 +14,6 @@ public class DonationGivingReqDto {
     // 기부시 전송할 메시지
     private int donationPageId;
     // 익명 여부
-    private boolean anonymous;
+    private boolean donatorAnonymous;
     private String message;
 }

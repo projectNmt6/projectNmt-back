@@ -18,4 +18,6 @@ public class DonationListRespDto {
     private String storyTitle;
     private String mainImgUrl;
     private String donationTagName;
+    private int donationPageShow;
+    private int teamId;
 }

@@ -9,8 +9,15 @@
         <result property="userId" column="user_id" />
         <result property="donationDate" column="donation_date" />
         <result property="amount" column="donation_amount" />
+        <result property="donationDate" column="donate_date" />
+        <result property="donationAmount" column="donation_amount" />
         <result property="donationPageId" column="donation_page_id" />
-        <result property="anonymous" column="donator_anonymous" />
+        <result property="donatorAnonymous" column="donator_anonymous" />
+        <result property="username" column="username" />
+        <result property="storyTitle" column="story_title" />
+        <result property="mainImgUrl" column="main_img_url" />
+        <result property="goalAmount" column="goal_amount" />
+        <result property="addAmount" column="add_amount" />
         <association property="user" resultMap="UserResultMap" />
         <association property="donationPage" resultMap="DonationPageResultMap" />
         <association property="comment" resultMap="CommentResultMap" />
@@ -19,7 +26,6 @@
         <id property="donationPageId" column="donation_page_id" />
         <result property="teamId" column="team_id" />
         <result property="mainCategoryId" column="main_category_id" />
-        <result property="donationCategoryId" column="donation_category_id" />
         <result property="donationName" column="donation_name" />
         <result property="createDate" column="create_date" />
         <result property="endDate" column="end_date" />
@@ -98,6 +104,7 @@
             dpt.donation_page_id as donationPageId,
             sum(dt.donation_amount)
         as addAmount,
+            sum(dt.donation_amount) as addAmount,
             dpt.goal_amount as goalAmount
         From
             donation_page_tb dpt
@@ -105,6 +112,7 @@
         where
             dpt.donation_page_id = #{donationPageId}
     </select>
+
     <select id="getDonatorList" resultMap="DonatorResultMap">
         SELECT
             dt.user_id,
@@ -124,5 +132,30 @@
         FROM
         donator_tb
         WHERE donation_page_id = #{donationPageId}
+        select
+            dt.donator_id,
+            dt.user_id,
+            dt.donation_date,
+            dt.donation_amount,
+            dt.donation_page_id,
+            dt.donator_anonymous,
+            ut.username,
+            dpt.story_title,
+            dpt.main_img_url,
+            dpt.goal_amount,
+            (
+            SELECT
+                SUM(dt2.donation_amount)
+            FROM
+                donator_tb dt2
+            WHERE
+                dt2.donation_page_id = dt.donation_page_id
+            ) AS add_amount
+
+        from
+            donator_tb dt
+            left outer join user_tb ut on(ut.user_id = dt.user_id)
+            left outer join donation_page_tb dpt on(dpt.donation_page_id = dt.donation_page_id)
+
     </select>
 </mapper>

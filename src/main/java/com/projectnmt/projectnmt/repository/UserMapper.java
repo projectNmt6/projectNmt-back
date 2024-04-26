@@ -1,6 +1,7 @@
 package com.projectnmt.projectnmt.repository;
 
 import com.projectnmt.projectnmt.dto.resp.MessageRespDto;
+import com.projectnmt.projectnmt.dto.resp.ParticipateCountRespDto;
 import com.projectnmt.projectnmt.entity.OAuth2;
 import com.projectnmt.projectnmt.entity.TeamMember;
 import com.projectnmt.projectnmt.entity.User;
@@ -28,5 +29,6 @@ public interface  UserMapper {
     public void sendMessage(int userId, String message);
     public int saveOAuth2(OAuth2 oAuth2);
     public User findUserByOAuth2name(String name);
-    public int deleteMessageByUserId(int userId);
+    public int deleteMessageById(int id, int isTeam);
+    public ParticipateCountRespDto getParticipateCountByuserId(int userId);
 }

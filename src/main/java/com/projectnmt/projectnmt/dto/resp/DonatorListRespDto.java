@@ -5,18 +5,22 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Builder
 @Data
-public class DonationGivingRespDto {
+@Builder
+public class DonatorListRespDto {
     private int donatorId;
     private int userId;
     private LocalDateTime donationDate;
-    // 기부 금액
-    private int amount;
-    // 기부시 전송할 메시지
+    private int donationAmount;
     private int donationPageId;
-    // 익명 여부
     private boolean donatorAnonymous;
-    private String message;
+    private String username;
+    private String storyTitle;
+    private String mainImgUrl;
+    private int goalAmount;
+    private int addAmount;
+
 
 }
+
+

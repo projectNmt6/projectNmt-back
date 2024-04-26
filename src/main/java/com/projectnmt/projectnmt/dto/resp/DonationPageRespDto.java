@@ -1,6 +1,5 @@
 package com.projectnmt.projectnmt.dto.resp;
 
-import com.projectnmt.projectnmt.entity.DonationImage;
 import lombok.Builder;
 import lombok.Data;
 
@@ -23,5 +22,4 @@ public class DonationPageRespDto {
     private String mainImgUrl;
     private int donationTagId;
     private Boolean donationPageShow;
-    private List<DonationImage> donationImages;
 }

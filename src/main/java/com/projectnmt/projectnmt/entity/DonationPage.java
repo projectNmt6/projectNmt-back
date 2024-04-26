@@ -28,7 +28,6 @@ public class DonationPage {
     private int donationTagId;
     private Boolean donationPageShow;
     private MainCategory mainCategory;
-    private List<DonationImage> donationImages;
 
     public DonationPageRespDto toSavePost() {
 
@@ -63,7 +62,6 @@ public class DonationPage {
                 .mainImgUrl(mainImgUrl)
                 .donationTagId(donationTagId)
                 .donationPageShow(donationPageShow)
-                .donationImages(donationImages)
                 .build();
     }
 

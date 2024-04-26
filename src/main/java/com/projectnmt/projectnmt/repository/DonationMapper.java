@@ -16,19 +16,9 @@ import java.util.List;
 public interface DonationMapper {
 
     public int saveDonationPage(DonationPage donationPage);
+
     public int saveDonationNewsPage(DonationPage donationPage);
 
-    public List<Donation> getChallengeList(
-            @Param("donationPageId") int donationPageId,
-            @Param("teamId") int teamId,
-            @Param("mainCategoryId") int mainCategoryId,
-            @Param("createDate") LocalDateTime createDate,
-            @Param("endDate") LocalDateTime endDate,
-            @Param("goalAmount") int goalAmount,
-            @Param("storyTitle") String storyTitle,
-            @Param("mainImgUrl") String mainImgUrl,
-            @Param("donationTagId") int donationTagId,
-            @Param("donationImage")List<DonationImage> donationImages);
 
     public List<Donation> getDonationList(
             @Param("donationPageId") int donationPageId,
@@ -39,8 +29,7 @@ public interface DonationMapper {
             @Param("goalAmount") int goalAmount,
             @Param("storyTitle") String storyTitle,
             @Param("mainImgUrl") String mainImgUrl,
-            @Param("donationTagId") int donationTagId,
-            @Param("donationImage")List<DonationImage> donationImages);
+            @Param("donationTagId") int donationTagId);
 
 
 
@@ -75,8 +64,7 @@ public interface DonationMapper {
     List<Donation> getCurrentFundraisings();
     List<Donation> getEndedFundraisings();
 
-
-
+    public int findById(@Param("donationPageId") int donationPageId);
 }
 
 

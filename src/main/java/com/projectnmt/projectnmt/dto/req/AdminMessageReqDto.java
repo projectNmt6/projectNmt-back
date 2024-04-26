@@ -6,4 +6,5 @@ import lombok.Data;
 public class AdminMessageReqDto {
     private String message;
     private int[] userId;
+    private int isTeam;
 }

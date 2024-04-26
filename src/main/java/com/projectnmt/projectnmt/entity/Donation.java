@@ -21,16 +21,17 @@ public class Donation {
     private int goalAmount;
     private String mainImgUrl;
     private int donationTagId;
-    private String donationImage;
+
     private Team team;
     private MainCategory mainCategory;
     private DonationTag donationTag;
-    private List<DonationImage> donationImages;
+    private int donationPageShow;
 
     public DonationListRespDto toDonationListRespDto() {
         return DonationListRespDto.builder()
                 .donationPageId(donationPageId)
                 .teamName(team.getTeamName())
+                .teamId(teamId)
                 .mainCategoryName(mainCategory.getMainCategoryName())
                 .storyTitle(storyTitle)
                 .createDate(createDate)
@@ -38,6 +39,7 @@ public class Donation {
                 .goalAmount(goalAmount)
                 .mainImgUrl(mainImgUrl)
                 .donationTagName(donationTag.getDonationTagName())
+                .donationPageShow(donationPageShow)
                 .build();
     }
 

@@ -4,11 +4,9 @@ import com.projectnmt.projectnmt.dto.AmountRespDto;
 import com.projectnmt.projectnmt.dto.req.DonationGivingReqDto;
 import com.projectnmt.projectnmt.dto.req.*;
 import com.projectnmt.projectnmt.dto.resp.*;
-import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagReqDto;
 import com.projectnmt.projectnmt.dto.ProgressAmountReqDto;
 import com.projectnmt.projectnmt.dto.ProgressAmountRespDto;
 import com.projectnmt.projectnmt.dto.req.DonationPageReqDto;
-import com.projectnmt.projectnmt.entity.DonationImage;
 import com.projectnmt.projectnmt.security.PrincipalUser;
 import com.projectnmt.projectnmt.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
-import java.net.URI;
+
 import java.util.List;
 
 @RestController
@@ -73,7 +71,6 @@ public class DonationController {
     public ResponseEntity<?> DonationStory(@RequestParam(value = "page", defaultValue = "1") int page) {
         DonationPageReqDto donationPageReqDto = new DonationPageReqDto();
         donationPageReqDto.setDonationPageId(page);
-        System.out.println(page);
         return ResponseEntity.ok(donationPageService.getDonationPage(donationPageReqDto));
     };
 
@@ -81,7 +78,6 @@ public class DonationController {
     public ResponseEntity<?> DonationList(DonationListReqDto donationListReqDto) {
         return ResponseEntity.ok(donationService.getDonationList(donationListReqDto));
     };
-
 
     @GetMapping("/search")
     public ResponseEntity<?> searchDonation(
@@ -190,7 +186,6 @@ public class DonationController {
     }
     @GetMapping("/progress")
     public ResponseEntity<?> getprogress(ProgressAmountReqDto progressAmountReqDto) {
-        System.out.println(progressAmountReqDto);
         ProgressAmountRespDto amountRespDto = donationPageService.Homeprogressdonation(progressAmountReqDto);
         return ResponseEntity.ok(amountRespDto);
     }

@@ -45,7 +45,6 @@ public class AccountService {
                 .phoneNumber(editAccountReqDto.getPhonenumber())
                 .profileImg(editAccountReqDto.getProfileImg())
                 .build();
-
         userMapper.updateUser(updatedUser);
     }
     public List<MyDonationListRespDto> GetMyDonation(GetMyDonationListReqDto getMyDonationListReqDto) {

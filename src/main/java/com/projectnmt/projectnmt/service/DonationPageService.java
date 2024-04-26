@@ -3,12 +3,10 @@ package com.projectnmt.projectnmt.service;
 import com.projectnmt.projectnmt.dto.AmountRespDto;
 import com.projectnmt.projectnmt.dto.ProgressAmountReqDto;
 import com.projectnmt.projectnmt.dto.ProgressAmountRespDto;
-import com.projectnmt.projectnmt.dto.req.DonationImageReqDto;
 import com.projectnmt.projectnmt.dto.req.DonationPageReqDto;
 import com.projectnmt.projectnmt.dto.req.DonationPageUpdateReqDto;
 import com.projectnmt.projectnmt.dto.resp.DonationPageRespDto;
 import com.projectnmt.projectnmt.entity.*;
-import com.projectnmt.projectnmt.repository.DonationImageMapper;
 import com.projectnmt.projectnmt.repository.DonationMapper;
 import com.projectnmt.projectnmt.repository.DonatorMapper;
 import com.projectnmt.projectnmt.repository.TeamMapper;
@@ -26,20 +24,12 @@ public class DonationPageService {
     @Autowired
     private DonatorMapper donatorMapper;
     @Autowired
-    private DonationImageMapper donationImageMapper;
-    @Autowired
     private TeamMapper teamMapper;
 
     public void saveDonationPage(DonationPageReqDto donationPageReqDto) {
         DonationPage donationPage = donationPageReqDto.toEntity();
         donationMapper.saveDonationPage(donationPage);
-//        List<DonationImage> list = donationPageReqDto.getDonationImages();
-//        for(DonationImage donationImage : list){
-//            donationImage.setDonationPageId(donationPage.getDonationPageId());
-//            donationImageMapper.saveDonationImages(donationImage);
-//        }
     }
-
 
 
     public void saveDonationNewsPage(DonationPageReqDto donationPageReqDto) {
@@ -93,15 +83,10 @@ public class DonationPageService {
         donationMapper.deletePageById(donationPageId);
     }
 
-
-
-
-
-
-
     public AmountRespDto MainAmount() {
         return donatorMapper.saveAmount();
     }
+
     public ProgressAmountRespDto Homeprogressdonation(ProgressAmountReqDto progressAmountReqDto) {
         return donatorMapper.HomeDonation(progressAmountReqDto.getDonationPageId());
 

@@ -18,9 +18,9 @@ public class PerminAllfilter extends GenericFilter {
 
         List<String> antMatchers = List.of("/error", "/auth", "/mail/authenticate","/oauth2","/login"); //,"/main","/donation"
 
+
         String url = request.getRequestURI();
         request.setAttribute("isPermitAll", false);
-
         for(String antMatcher : antMatchers) {
             if(url.contains(antMatcher)) {
                 request.setAttribute("isPermitAll", true);
@@ -30,4 +30,3 @@ public class PerminAllfilter extends GenericFilter {
         filterChain.doFilter(request, response);
     }
 }
-

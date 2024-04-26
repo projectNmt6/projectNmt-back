@@ -1,5 +1,6 @@
 package com.projectnmt.projectnmt.controller;
 
+import com.projectnmt.projectnmt.aop.annotation.ValidAspect;
 import com.projectnmt.projectnmt.dto.EditAccountReqDto;
 import com.projectnmt.projectnmt.dto.GetMyDonationListReqDto;
 
@@ -19,6 +20,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -42,35 +44,40 @@ public class AccountController {
         return ResponseEntity.ok(principalUser);
     }
 
+    @ValidAspect
     @PutMapping("/mypage/edit")
-    public ResponseEntity<?> accountEdit(@RequestBody EditAccountReqDto editAccountReqDto,
+    public ResponseEntity<?> accountEdit(@Valid @RequestBody EditAccountReqDto editAccountReqDto,
                                          BindingResult bindingResult) {
-        System.out.println(editAccountReqDto);
         accountService.editAccount(editAccountReqDto);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/teams")
-    public ResponseEntity<?> getTeamList(SearchTeamListDto searchTeamListDto) {
-        List<Team> teamList = teamService.getTeamList(searchTeamListDto);
-        return ResponseEntity.ok(teamList);
-    }
+
+        @GetMapping("/teams")
+        public ResponseEntity<?> getTeamList (SearchTeamListDto searchTeamListDto){
+            List<Team> teamList = teamService.getTeamList(searchTeamListDto);
+            return ResponseEntity.ok(teamList);
+        }
+
 
     @GetMapping("/message")
     public ResponseEntity<?> getMessageList(int userId) {
         return ResponseEntity.ok(userSerive.getMessageList(userId));
     }
 
-    @DeleteMapping("/message/delete/{userId}")
-    public ResponseEntity<?> deleteMessageList(@PathVariable int userId) {
-        System.out.println(userId);
-        userSerive.deleteMessageByUserId(userId);
+    @DeleteMapping("/message/delete/{id}/{isTeam}")
+    public ResponseEntity<?> deleteMessageList(@PathVariable int id, @PathVariable int isTeam) {
+        userSerive.deleteMessageBYId(id, isTeam);
         return ResponseEntity.ok(null);
     }
 
     @GetMapping("/mypage/donation")
     public ResponseEntity<?> getMyList(GetMyDonationListReqDto getMyDonationListReqDto) {
         return ResponseEntity.ok(accountService.GetMyDonation(getMyDonationListReqDto));
+    }
+    @GetMapping("/mypage/participate")
+    public ResponseEntity<?> getMyPaticipateCount(int userId) {
+        return ResponseEntity.ok(userSerive.getParticipateCount(userId));
     }
 
 }

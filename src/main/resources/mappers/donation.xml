@@ -9,7 +9,6 @@
         <id property="donationPageId" column="donation_page_id" />
         <result property="teamId" column="team_id" />
         <result property="mainCategoryId" column="main_category_id" />
-        <result property="pageCategoryId" column="page_category_id" />
         <result property="createDate" column="create_date" />
         <result property="endDate" column="end_date" />
         <result property="goalAmount" column="goal_amount" />
@@ -18,7 +17,6 @@
         <result property="mainImgUrl" column="main_img_url" />
         <result property="donationTagId" column="donation_tag_id" />
         <result property="donationPageShow" column="donation_page_show" />
-<!--        <collection property="donationImages" javaType="list" resultMap="DonationImageResultMap"/>-->
     </resultMap>
 
     <resultMap id="DonationResultMap" type="com.projectnmt.projectnmt.entity.Donation">
@@ -31,6 +29,7 @@
         <result property="goalAmount" column="goal_amount" />
         <result property="mainImgUrl" column="main_img_url" />
         <result property="donationTagId" column="donation_tag_id" />
+        <result property="donationPageShow" column="donation_page_show" />
         <association property="team" resultMap="TeamResultMap" />
         <association property="mainCategory" resultMap="MainCategoryResultMap" />
         <association property="donationTag" resultMap="DonationTagResultMap" />
@@ -56,29 +55,21 @@
         <result property="donationTagName" column="donation_tag_name"/>
     </resultMap>
 
-    <resultMap id="DonationImageResultMap" type="com.projectnmt.projectnmt.entity.DonationImage">
-        <id property="donationImageId" column="donation_image_id" />
-        <result property="donationPageId" column="donation_page_id" />
-        <result property="donationImageNumber" column="donation_image_number" />
-        <result property="donationImageURL" column="image_url" />
-        <result property="userId" column="user_id" />
-
-    </resultMap>
     <insert id="saveDonationPage" parameterType="com.projectnmt.projectnmt.entity.DonationPage"
             keyProperty="donationPageId"
             useGeneratedKeys="true">
         INSERT INTO donation_page_tb
-            (team_id,
-            main_category_id,
-            page_category_id,
-            create_date,
-            end_date,
-            goal_amount,
-            story_title,
-            story_content,
-            main_img_url,
-            donation_tag_id,
-            donation_page_show)
+        (team_id,
+        main_category_id,
+        create_date,
+        end_date,
+        goal_amount,
+        story_title,
+        story_content,
+        main_img_url,
+        donation_tag_id,
+        donation_page_show)
+
         VALUES
             (#{teamId},
             #{mainCategoryId},
@@ -116,10 +107,9 @@
             *
 
         FROM
-            donation_page_tb dpt
-            LEFT OUTER JOIN donation_image_tb dit on dit.donation_page_id = dpt.donation_page_id
+            donation_page_tb
         where
-            dpt.donation_page_id = #{donationPageId}
+            donation_page_id = #{donationPageId}
     </select>
 
     <select id="getDonationList" resultMap="DonationResultMap">
@@ -146,18 +136,19 @@
 
     <select id="searchDonation" resultMap="DonationResultMap">
         SELECT
-        dp.donation_page_id,
-        dp.team_id,
-        dp.main_category_id,
-        dp.story_title,
-        dp.create_date,
-        dp.end_date,
-        dp.goal_amount,
-        dp.main_img_url,
-        dp.donation_tag_id,
-        mc.main_category_name,
-        dt.donation_tag_name,
-        t.team_name
+            dp.donation_page_id,
+            dp.team_id,
+            dp.main_category_id,
+            dp.story_title,
+            dp.create_date,
+            dp.end_date,
+            dp.goal_amount,
+            dp.main_img_url,
+            dp.donation_tag_id,
+            mc.main_category_name,
+            dt.donation_tag_name,
+            t.team_name,
+            dp.donation_page_show
         FROM
         donation_page_tb dp
         LEFT OUTER JOIN main_category_tb mc ON dp.main_category_id = mc.main_category_id
@@ -197,6 +188,18 @@
         main_img_url = #{mainImgUrl},
         donation_tag_id = #{donationTagId},
         donation_page_show = #{donationPageShow}
+=======
+            donation_page_id = #{donationPageId},
+            team_id = #{teamId},
+            main_category_id=#{mainCategoryId},
+            create_date=now(),
+            end_date=#{endDate},
+            goal_amount=#{goalAmount},
+            story_title=#{storyTitle},
+            story_content=#{storyContent},
+            main_img_url=#{mainImgUrl},
+            donation_tag_id=#{donationTagId},
+            donation_page_show=#{donationPageShow}
         where
         donation_page_id = #{donationPageId}
     </update>

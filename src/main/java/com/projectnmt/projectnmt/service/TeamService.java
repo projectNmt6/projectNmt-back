@@ -5,10 +5,7 @@ import com.projectnmt.projectnmt.dto.req.SearchTeamInfoDto;
 import com.projectnmt.projectnmt.dto.req.SearchTeamListDto;
 import com.projectnmt.projectnmt.dto.req.TeamMemberListReqDto;
 import com.projectnmt.projectnmt.dto.req.UpdateTeamReqDto;
-import com.projectnmt.projectnmt.entity.Account;
-import com.projectnmt.projectnmt.entity.Donation;
-import com.projectnmt.projectnmt.entity.Team;
-import com.projectnmt.projectnmt.entity.TeamMember;
+import com.projectnmt.projectnmt.entity.*;
 import com.projectnmt.projectnmt.repository.TeamMapper;
 import com.projectnmt.projectnmt.repository.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +16,7 @@ import com.projectnmt.projectnmt.entity.Team;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TeamService {
@@ -33,7 +31,12 @@ public class TeamService {
         int successCount = 0;
         successCount += teamMapper.saveTeam(team);
         successCount += teamMapper.saveLeader(registerTeamReqDto.getUserId(), team.getTeamId());
-        successCount += userMapper.saveRole(registerTeamReqDto.getUserId(), 2);
+        User user = userMapper.findUserByUserId(registerTeamReqDto.getUserId());
+        if(user.getRoleRegisters().stream().filter(authority -> authority.getRoleId() == 2).collect(Collectors.toList()).isEmpty()) {
+            successCount += userMapper.saveRole(registerTeamReqDto.getUserId(), 2);
+        } else {
+            successCount++;
+        }
         for(Account account : registerTeamReqDto.getAccountInfos()) {
             account.setTeamId(team.getTeamId());
             successCount += teamMapper.saveAccount(account);
@@ -58,7 +61,9 @@ public class TeamService {
         return teamList;
     }
     public Team getTeamInfo(SearchTeamInfoDto searchTeamInfoDto) {
+        System.out.println(searchTeamInfoDto.getTeamId());
         Team team = teamMapper.teamInfo(searchTeamInfoDto.getTeamId());
+        System.out.println(team);
         return team;
     }
     public List<TeamMember> getMemberInfo(TeamMemberListReqDto teamMemberListReqDto) {
