@@ -61,6 +61,7 @@
         INSERT INTO donation_page_tb
         (team_id,
         main_category_id,
+        page_category_id,
         create_date,
         end_date,
         goal_amount,
@@ -85,23 +86,6 @@
 
     </insert>
 
-    <insert id="saveDonationNewsPage" parameterType="com.projectnmt.projectnmt.entity.DonationNewsPage">
-        INSERT INTO donation_news_page_tb
-        (donation_news_page_id,
-         donation_page_id,
-         page_category_id,
-         news_content,
-         user_id)
-
-        VALUES
-
-        (#{donationNewsPageId},
-        #{donationPageId},
-        #{pageCategoryId},
-        #{newsContent},
-        #{userId})
-
-    </insert>
     <select id="getDonationPage" resultMap="DonationPageResultMap">
         SELECT
             *
@@ -188,18 +172,7 @@
         main_img_url = #{mainImgUrl},
         donation_tag_id = #{donationTagId},
         donation_page_show = #{donationPageShow}
-=======
-            donation_page_id = #{donationPageId},
-            team_id = #{teamId},
-            main_category_id=#{mainCategoryId},
-            create_date=now(),
-            end_date=#{endDate},
-            goal_amount=#{goalAmount},
-            story_title=#{storyTitle},
-            story_content=#{storyContent},
-            main_img_url=#{mainImgUrl},
-            donation_tag_id=#{donationTagId},
-            donation_page_show=#{donationPageShow}
+
         where
         donation_page_id = #{donationPageId}
     </update>

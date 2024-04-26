@@ -26,15 +26,16 @@ public class DonationPageService {
     @Autowired
     private TeamMapper teamMapper;
 
-    public void saveDonationPage(DonationPageReqDto donationPageReqDto) {
+    @Autowired
+    private TeamService teamService;
+
+
+    public void saveDonationPage(DonationPageReqDto donationPageReqDto) throws IllegalAccessException {
+
         DonationPage donationPage = donationPageReqDto.toEntity();
         donationMapper.saveDonationPage(donationPage);
     }
 
-
-    public void saveDonationNewsPage(DonationPageReqDto donationPageReqDto) {
-        donationMapper.saveDonationNewsPage(donationPageReqDto.toEntity());
-    }
 
     public DonationPageRespDto getDonationPage(DonationPageReqDto donationPageReqDto) {
         DonationPage donationStory = donationMapper.getDonationPage(
@@ -46,8 +47,8 @@ public class DonationPageService {
 
     @Transactional(rollbackFor = Exception.class)
     public void updatePage(DonationPageUpdateReqDto donationPageUpdateReqDto, int userId) throws IllegalAccessException {
-        if (!isUserPageOwner(donationPageUpdateReqDto.getDonationPageId(), userId)) {
-            throw new IllegalAccessException("이 페이지를 수정할 권한이 없습니다.");
+        if (!teamService.isTeamMember(donationPageUpdateReqDto.getTeamId(), userId)) {
+            throw new IllegalAccessException("수정 권한이 없습니다.");
         }
         TeamMember teamMember = teamMapper.findMemberByTeamIdAndUserId(donationPageUpdateReqDto.getTeamId(), userId);
         if (teamMember == null || teamMember.getUserId() != userId) {

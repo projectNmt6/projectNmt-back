@@ -4,6 +4,7 @@ import com.projectnmt.projectnmt.dto.req.*;
 import com.projectnmt.projectnmt.dto.resp.ChallengePageListRespDto;
 import com.projectnmt.projectnmt.dto.resp.ChallengePageRespDto;
 import com.projectnmt.projectnmt.entity.ChallengePage;
+import com.projectnmt.projectnmt.entity.DonationPage;
 import com.projectnmt.projectnmt.entity.TeamMember;
 import com.projectnmt.projectnmt.repository.ChallengeMapper;
 import com.projectnmt.projectnmt.repository.DonatorMapper;
@@ -26,6 +27,8 @@ public class ChallengeService {
     @Autowired
     private TeamMapper teamMapper;
 
+    @Autowired
+    private TeamService teamService;
 
     public void saveChallengePage(ChallengePageReqDto challengePageReqDto) {
         ChallengePage challengePage = challengePageReqDto.toEntity();
@@ -33,13 +36,11 @@ public class ChallengeService {
 
         }
 
-
 //    public void saveChallengeNewsPage(ChallengePageReqDto challengePageReqDto) {
 //        challengeMapper.saveChallengeNewsPage(challengePageReqDto.toEntity());
 //    }
 
     public ChallengePageRespDto getChallengePage (ChallengePageReqDto challengePageReqDto) {
-
         ChallengePage challengePage = challengeMapper.getChallengePage(
                 challengePageReqDto.getChallengePageId(),
                 challengePageReqDto.getTeamId(),
@@ -87,33 +88,45 @@ public class ChallengeService {
 
 
     @Transactional(rollbackFor = Exception.class)
-    public void updateChallengePage(ChallengeUpdatePageReqDto challengeUpdatePageReqDto) {
+    public void updateChallengePage(ChallengeUpdatePageReqDto challengeUpdatePageReqDto, int userId) throws IllegalAccessException {
+        if (!teamService.isTeamMember(challengeUpdatePageReqDto.getTeamId(), userId)) {
+            throw new IllegalAccessException("수정 권한이 없습니다.");
+        }
+        TeamMember teamMember = teamMapper.findMemberByTeamIdAndUserId(challengeUpdatePageReqDto.getTeamId(), userId);
+        if (teamMember == null || teamMember.getUserId() != userId) {
+            throw new IllegalAccessException("이 페이지를 수정할 권한이 없습니다.");
+        }
         challengeMapper.updatePageById(challengeUpdatePageReqDto.toEntity());
 
-//        challengeImageMapper.deleteChallengeImageByPageId(challengeUpdatePageReqDto.getChallengePageId());
-//        List<ChallengeImage> list = challengeUpdatePageReqDto.getChallengeImages();
-//        for(ChallengeImage challengeImage : list) {
-//            challengeImage.setChallengePageId(challengeUpdatePageReqDto.getChallengePageId());
-//            challengeImageMapper.saveChallengeImages(challengeImage);
-//        }
+
     }
 
 
-    @Transactional(rollbackFor = Exception.class)
-    public void deleteChallengePage(int challengePageId, int userId) throws Exception {
-        ChallengePage challengePage = challengeMapper.findPageById(challengePageId);
-        if (challengePage == null) {
-            throw new IllegalArgumentException("페이지가 존재하지 않습니다.");
 
-        }
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteChallengePage(int challengePageId, int userId) throws IllegalAccessException, IllegalArgumentException {
+        System.out.println(challengePageId);
+        System.out.println(userId);
+        ChallengePage challengePage = challengeMapper.findPageById(challengePageId);
 
         TeamMember teamMember = teamMapper.findMember(userId, challengePage.getTeamId());
-        if(teamMember == null || teamMember.getTeamId() != userId) {
+        if(teamMember == null || teamMember.getUserId() != userId) {
             throw new IllegalAccessException("페이지를 삭제할 권한이 없습니다.");
-        }
+
+        } System.out.println(teamMember.getTeamId());
 
         challengeMapper.deletePageById(challengePageId);
     }
 
+    public boolean isUserPageOwner(int challengePageId, int userId) {
+        ChallengePage challengePage = challengeMapper.findPageById(challengePageId);
+        if (challengePage == null) {
+            throw new IllegalArgumentException("해당 페이지가 존재하지 않습니다.");
+        }
+        // 페이지의 팀 ID를 통해 팀 멤버를 조회
+        TeamMember teamMember = teamMapper.findMemberByTeamIdAndUserId(challengePage.getTeamId(), userId);
+        // 팀 멤버가 존재하며, 조회된 팀 멤버의 팀 ID가 페이지의 팀 ID와 일치하는지 확인
+        return teamMember != null && teamMember.getTeamId() == challengePage.getTeamId();
+    }
 
 }

@@ -18,7 +18,7 @@ public class DonationNewsPage {
     private int donationPageId;
     private int pageCategoryId;
     private String newsContent;
-    private int userId;
+    private int teamId;
 
     public DonationNewsPageRespDto toDonationNewsPageRespDto() {
         return DonationNewsPageRespDto.builder()
@@ -26,7 +26,7 @@ public class DonationNewsPage {
                 .donationPageId(donationPageId)
                 .pageCategoryId(pageCategoryId)
                 .newsContent(newsContent)
-                .userId(userId)
+                .teamId(teamId)
                 .build();
     }
 }

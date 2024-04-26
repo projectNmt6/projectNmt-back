@@ -17,9 +17,6 @@ public interface DonationMapper {
 
     public int saveDonationPage(DonationPage donationPage);
 
-    public int saveDonationNewsPage(DonationPage donationPage);
-
-
     public List<Donation> getDonationList(
             @Param("donationPageId") int donationPageId,
             @Param("teamId") int teamId,
@@ -64,7 +61,6 @@ public interface DonationMapper {
     List<Donation> getCurrentFundraisings();
     List<Donation> getEndedFundraisings();
 
-    public int findById(@Param("donationPageId") int donationPageId);
 }
 
 

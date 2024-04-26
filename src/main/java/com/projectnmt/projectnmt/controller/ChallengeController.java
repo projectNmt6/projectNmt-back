@@ -45,10 +45,25 @@ public class ChallengeController {
 
     @PutMapping("/challenge/update/{page}")
     public ResponseEntity<?> updatePage(@PathVariable("page") int page,
-                                        @RequestBody ChallengeUpdatePageReqDto challengeUpdatePageReqDto) {
+                                         @RequestBody ChallengeUpdatePageReqDto challengeUpdatePageReqDto,
+                                         @AuthenticationPrincipal PrincipalUser currentUser) {
         challengeUpdatePageReqDto.setChallengePageId(page);
-        challengeService.updateChallengePage(challengeUpdatePageReqDto);
-        return ResponseEntity.ok(true);
+
+        if (currentUser == null || currentUser.getUserId() == 0) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 인증 정보가 없습니다.");
+        }
+
+        if (!challengeService.isUserPageOwner(page, currentUser.getUserId())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("접근 권한이 없습니다.");
+        }
+
+        try {
+            challengeService.updateChallengePage(challengeUpdatePageReqDto, currentUser.getUserId());
+            return ResponseEntity.ok(true);
+        } catch (IllegalAccessException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("접근 권한이 없습니다.");
+        }
+
     }
 
     @GetMapping("/challenge/update/{page}")
@@ -67,9 +82,13 @@ public class ChallengeController {
         try {
             challengeService.deleteChallengePage(challengePageId, currentUser.getUserId());
             return ResponseEntity.ok().build();
-        }catch (Exception e) {
+        }  catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 페이지를 찾을 수 없습니다.");
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 내부 오류: " + e.getMessage());
         }
     }
+
+
 
 }

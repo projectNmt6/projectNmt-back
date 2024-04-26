@@ -71,13 +71,21 @@
 
     </select>
 
+    <select id="findPageById" parameterType="int" resultMap="ChallengeResultMap">
+        SELECT *
+        FROM
+        challenge_page_tb
+
+        where
+        challenge_page_id = #{challengePageId}
+    </select>
+
     <select id="getChallengePageList" resultMap="ChallengeResultMap">
         SELECT *
         FROM challenge_page_tb cp
         LEFT OUTER JOIN main_category_tb mc ON cp.main_category_id = mc.main_category_id
         LEFT OUTER JOIN team_tb t ON cp.team_id = t.team_id;
     </select>
-
 
 
     <update id="updatePageById" parameterType="com.projectnmt.projectnmt.entity.ChallengePage"

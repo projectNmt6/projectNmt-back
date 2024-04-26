@@ -16,7 +16,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -38,27 +40,12 @@ public class DonationController {
     private DonationGivingService donationGivingService;
 
     @PostMapping("/write")
-    public ResponseEntity<?> saveDonationPage(@Valid @RequestBody DonationPageReqDto donationPageReqDto,  BindingResult bindingResult) {
+    public ResponseEntity<?> saveDonationPage(@Valid @RequestBody DonationPageReqDto donationPageReqDto,
+                                              @AuthenticationPrincipal PrincipalUser currentUser, BindingResult bindingResult) throws IllegalAccessException {
         donationPageService.saveDonationPage(donationPageReqDto);
         return ResponseEntity.created(null).body(donationPageReqDto);
     }
 
-    @PostMapping("/donation/news/{page}")
-    public ResponseEntity<?> saveDonationNewsPage(@PathVariable("page") int page,
-            @Valid @RequestBody DonationPageReqDto donationPageReqDto,
-            BindingResult bindingResult) {
-        donationPageReqDto.setDonationPageId(page);
-        donationPageService.saveDonationPage(donationPageReqDto);
-
-        return ResponseEntity.created(null).body(donationPageReqDto);
-    }
-
-
-    @PostMapping("/donation/donationnews")
-    public ResponseEntity<?> saveDonationNews(@RequestBody DonationNewsPageReqDto donationNewsPageReqDto) {
-        donationNewsPageService.saveDonationNewsPage(donationNewsPageReqDto);
-        return ResponseEntity.ok().build();
-    }
 
     @GetMapping("/donation/news/{page}")
     public ResponseEntity<?> getDonationNews(@PathVariable("page") int page) {
@@ -94,19 +81,25 @@ public class DonationController {
         return ResponseEntity.created(null).body(donationGivingReqDto);
     }
 
-
-
     @PutMapping("/donation/news/update/{page}")
-    public ResponseEntity<?> updateNewsPage(@PathVariable("page") int page, @RequestBody DonationNewsUpdateReqDto donationNewsUpdateReqDto) {
+    public ResponseEntity<?> updateNewsPage(@PathVariable("page") int page, @AuthenticationPrincipal PrincipalUser currentUser,
+                                            @RequestBody DonationNewsUpdateReqDto donationNewsUpdateReqDto
+                                            ) throws IllegalAccessException {
+        if (currentUser == null || currentUser.getUserId() == 0) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 인증 정보가 없습니다.");
+        }
         donationNewsUpdateReqDto.setDonationNewsPageId(page);
-        donationNewsPageService.updateNewsPage(donationNewsUpdateReqDto);
+        donationNewsPageService.updateNewsPage(donationNewsUpdateReqDto, currentUser.getUserId());
         return ResponseEntity.ok(true);
     }
 
     @GetMapping("/donation/news/update/{page}")
-    public ResponseEntity<?> getNewsPageUpdate(@PathVariable("page") int page) {
+    public ResponseEntity<?> getNewsPageUpdate(@PathVariable("page") int page, @AuthenticationPrincipal PrincipalUser currentUser) {
+        if (currentUser == null || currentUser.getUserId() == 0) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 인증 정보가 없습니다.");
+        }
         DonationNewsPageReqDto donationNewsPageReqDto = new DonationNewsPageReqDto();
-        donationNewsPageReqDto.setDonationNewsPageId(page);
+        donationNewsPageReqDto.setDonationPageId(page);
         DonationNewsPageRespDto donationNewsPageRespDto = donationNewsPageService.getDonationNews(donationNewsPageReqDto);
         if (donationNewsPageRespDto == null) {
             return ResponseEntity.notFound().build();
@@ -127,6 +120,22 @@ public class DonationController {
         donationPageReqDto.setDonationPageId(page);
         DonationPageRespDto donationPageRespDto = donationPageService.getDonationPage(donationPageReqDto);
         return ResponseEntity.ok(donationPageRespDto);
+    }
+
+    @PostMapping("/donation/news/{page}")
+    public ResponseEntity<?> saveDonationNewsPage(@PathVariable("page") int page,
+                                                  @Valid @RequestBody DonationNewsPageReqDto donationNewsPageReqDto,
+                                                  BindingResult bindingResult,
+                                                  @AuthenticationPrincipal PrincipalUser currentUser) throws IllegalAccessException {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
+        }
+
+        donationNewsPageReqDto.setDonationPageId(page);
+        donationNewsPageService.saveDonationNewsPage(donationNewsPageReqDto, page, currentUser.getUserId());
+
+
+        return ResponseEntity.created(null).body(donationNewsPageReqDto);
     }
 
 
