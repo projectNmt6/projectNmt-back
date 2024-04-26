@@ -56,7 +56,7 @@ public interface DonationMapper {
 
     public int deletePageById(@Param("donationPageId") int donationPageId);
 
-    DonationPage findPageById(@Param("donationPageId") int donationPageId);
+    public DonationPage findPageById(@Param("donationPageId") int donationPageId);
 
     List<Donation> getCurrentFundraisings();
     List<Donation> getEndedFundraisings();

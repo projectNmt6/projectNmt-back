@@ -132,8 +132,8 @@ public class DonationController {
         }
 
         donationNewsPageReqDto.setDonationPageId(page);
+        System.out.println("work");
         donationNewsPageService.saveDonationNewsPage(donationNewsPageReqDto, page, currentUser.getUserId());
-
 
         return ResponseEntity.created(null).body(donationNewsPageReqDto);
     }

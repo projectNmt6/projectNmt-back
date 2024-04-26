@@ -50,7 +50,8 @@ public class DonationNewsPageService {
             throw new IllegalAccessException("이 페이지를 수정할 권한이 없습니다.");
         }
         DonationNewsPage donationNewsPage = donationNewsPageReqDto.toEntity();
-        donationNewsMapper.saveDonationNewsPage(donationNewsPage);
+        int count = donationNewsMapper.saveDonationNewsPage(donationNewsPage);
+        System.out.println("count:" + count);
     }
 
 
@@ -81,16 +82,6 @@ public class DonationNewsPageService {
         return teamMember != null && teamMember.getUserId() == userId;
     }
 
-//    public boolean isUserPageOwner(int donationPageId, int userId) {
-//        DonationNewsPage donationNewsPage = donationNewsMapper.getNewsByDonationPageId(donationPageId);
-//        if (donationNewsPage == null) {
-//            throw new IllegalArgumentException("해당 페이지가 존재하지 않습니다.");
-//        }
-//        // 페이지의 팀 ID를 통해 팀 멤버를 조회
-//        TeamMember teamMember = teamMapper.findMemberByTeamIdAndUserId(donationNewsPage.getTeamId(), userId);
-//        // 팀 멤버가 존재하며, 조회된 팀 멤버의 팀 ID가 페이지의 팀 ID와 일치하는지 확인
-//        return teamMember != null && teamMember.getTeamId() == donationNewsPage.getTeamId();
-//    }
 public boolean isUserPageOwner(int pageId, int userId) {
     DonationPage donationPage = donationMapper.findPageById(pageId);
     if (donationPage == null) {
