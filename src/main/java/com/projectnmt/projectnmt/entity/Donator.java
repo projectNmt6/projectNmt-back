@@ -29,12 +29,12 @@ public class Donator {
     private DonationPage donationPage ;
     private Comment comment;
     private int goalAmount;
-
     public DonatorListRespDto toDonatorListRespDto() {
-
+        System.out.println(user);
         return DonatorListRespDto.builder()
                 .donatorId(donatorId)
                 .userId(userId)
+                .name(user.getName())
                 .donationDate(donationDate)
                 .donationAmount(donationAmount)
                 .donationPageId(donationPageId)

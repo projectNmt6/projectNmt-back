@@ -8,13 +8,14 @@
     <resultMap id="LikeResultMap" type="com.projectnmt.projectnmt.entity.Like" >
         <result property="donationPageId" column="donation_page_id" />
         <result property="userId" column="user_id" />
+        <result property="donation_comment_id" column="donation_comment_id" />
     </resultMap>
 
     <insert id="insert" parameterType="com.projectnmt.projectnmt.entity.Like" >
         INSERT INTO like_tb
-        ( donation_page_id, user_id)
+        ( donation_page_id, user_id, comment_id)
         VALUES
-        ( #{donationPageId}, #{userId})
+        ( #{donationPageId}, #{userId} , #{commentId})
     </insert>
     <delete id="deleteByUserIdAndDonationPageId" parameterType="com.projectnmt.projectnmt.repository.LikeMapper" >
         delete
@@ -28,13 +29,16 @@
     <select id="findByUserIdAndDonationPageId" parameterType="com.projectnmt.projectnmt.dto.req.LikeReqDto" resultMap="LikeResultMap">
         SELECT
         donation_page_id,
-        user_id
+        user_id,
+        comment_id
         FROM
         like_tb
         WHERE
         donation_page_id = #{donationPageId}
         AND
         user_id = #{userId}
+        AND
+        comment_id = #{commentId}
     </select>
 
     <select id="countLikesByDonationPageId" parameterType="com.projectnmt.projectnmt.dto.req.LikeReqDto" resultType="integer">
@@ -44,6 +48,8 @@
         like_tb
         where
         donation_page_id = #{donationPageId}
+        AND
+        comment_id = #{commentId}
     </select>
 
     <select id="existsByUserIdAndDonationPageId" parameterType="com.projectnmt.projectnmt.dto.req.LikeReqDto" resultType="integer">
@@ -52,7 +58,7 @@
         WHEN EXISTS (
         SELECT 1
         FROM like_tb
-        WHERE donation_page_id = #{donationPageId} and user_id=#{userId}
+        WHERE donation_page_id = #{donationPageId} and user_id=#{userId} and comment_id = #{commentId}
         ) THEN 1
         ELSE 0
         END AS result
