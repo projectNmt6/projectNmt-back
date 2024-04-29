@@ -11,7 +11,6 @@ import java.util.List;
 public interface ChallengeMapper {
 
     public int saveChallengePage(ChallengePage challengePage);
-    public int saveChallengeNewsPage(ChallengePage challengePage);
 
     public ChallengePage getChallengePage(
             @Param("challengePageId") int challengePageId,
@@ -24,7 +23,8 @@ public interface ChallengeMapper {
             @Param("challengeOverview") String challengeOverview,
             @Param("challengePageContent") String challengePageContent,
             @Param("challengeMainImg") String challengeMainImg,
-            @Param("challengePageShow") Boolean challengePageShow
+            @Param("challengePageShow") Boolean challengePageShow,
+            @Param("headCount") int headCount
     );
 
     public List<ChallengePage> getChallengePageList(
@@ -37,7 +37,8 @@ public interface ChallengeMapper {
             @Param("challengePageTitle") String challengePageTitle,
             @Param("challengeOverview") String challengeOverview,
             @Param("challengePageContent") String challengePageContent,
-            @Param("challengeMainImg") String challengeMainImg
+            @Param("challengeMainImg") String challengeMainImg,
+            @Param("headCount") int headCount
     );
 
     public int updatePageById(ChallengePage challengePage);

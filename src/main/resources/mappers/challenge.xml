@@ -17,6 +17,7 @@
         <result property="challengeContent" column="challenge_page_content" />
         <result property="challengeMainImg" column="challenge_main_img" />
         <result property="challengePageShow" column="challenge_page_show" />
+        <result property="headCount" column="challenge_headCount" />
     </resultMap>
 
 
@@ -45,7 +46,8 @@
         challenge_overview,
         challenge_page_content,
         challenge_main_img,
-        challenge_page_show)
+        challenge_page_show,
+        challenge_headCount)
         VALUES
 
         (
@@ -58,7 +60,8 @@
         #{challengeOverview},
         #{challengeContent},
         #{challengeMainImg},
-        #{challengePageShow})
+        #{challengePageShow},
+        #{headCount})
     </insert>
 
     <select id="getChallengePage" resultMap="ChallengeResultMap">
@@ -104,7 +107,8 @@
             challenge_overview=#{challengeOverview},
             challenge_page_content=#{challengeContent},
             challenge_main_img=#{challengeMainImg},
-            challenge_page_show=#{challengePageShow}
+            challenge_page_show=#{challengePageShow},
+            challenge_headCount =#{headCount}
 
         WHERE
             challenge_page_id = #{challengePageId}

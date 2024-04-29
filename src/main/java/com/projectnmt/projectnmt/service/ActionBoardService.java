@@ -50,5 +50,9 @@ public class ActionBoardService {
         return actionBoards.stream().map(ActionBoard::toActionBoardListRespDto).collect(Collectors.toList());
     }
 
+    public int getParticipantCount(int challengePageId) {
+        return actionBoardMapper.countByActionBoardPageId(challengePageId);
+    }
+
 
 }

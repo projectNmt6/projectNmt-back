@@ -91,6 +91,13 @@ public class ChallengeController {
         }
     }
 
+    @GetMapping("/challenge/news/{page}")
+    public ResponseEntity<?> getDonationNews(@PathVariable("page") int page) {
+        ChallengeNewsPageRespDto response = challengeNewsService.getChallengeNewsByPageId(page);
+
+        return ResponseEntity.ok(response);
+    }
+
     @PostMapping("/challenge/news/{page}")
     public ResponseEntity<?> saveChallengeNewsPage(@PathVariable("page") int page,
                                                   @Valid @RequestBody ChallengeNewsPageReqDto challengeNewsPageReqDto,

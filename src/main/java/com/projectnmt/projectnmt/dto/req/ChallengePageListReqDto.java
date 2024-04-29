@@ -16,5 +16,6 @@ public class ChallengePageListReqDto {
     private String challengeOverview;   //챌린지 요약
     private String challengeContent;
     private String challengeMainImg;
+    private int headCount;
 
 }

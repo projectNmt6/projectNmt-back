@@ -20,5 +20,6 @@ public class ChallengePageRespDto {
     private String challengeContent;
     private String challengeMainImg;
     private Boolean challengePageShow;
+    private int headCount;
 
 }

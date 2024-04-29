@@ -5,7 +5,7 @@
 
 <mapper namespace="com.projectnmt.projectnmt.repository.ActionBoardMapper">
 
-    <resultMap id="ActionBoardReultMap" type="com.projectnmt.projectnmt.entity.ActionBoard">
+    <resultMap id="ActionBoardResultMap" type="com.projectnmt.projectnmt.entity.ActionBoard">
         <id property="actionBoardId" column="action_board_id"/>
         <result property="userId" column="user_id"/>
         <result property="actionContent" column="action_content" />
@@ -44,7 +44,7 @@
             acton_board_id = #{actionBoardId}
     </delete>
 
-    <select id="getActionBoardLIst" resultMap="ActionBoardReultMap">
+    <select id="getActionBoardLIst" resultMap="ActionBoardResultMap">
         SELECT *
         FROM
         action_board_tb abt
@@ -52,12 +52,18 @@
         LEFT OUTER JOIN challenge_tb ct ON ct.challenge_page_id = abt.challenge_page_id
     </select>
 
-    <select id="getActionBoardByChallengePageId" parameterType="int" resultMap="ActionBoardReultMap" >
+    <select id="getActionBoardByChallengePageId" parameterType="int" resultMap="ActionBoardResultMap" >
         SELECT *
         FROM
         action_board_tb
         WHERE
             challenge_page_id = #{challengePageId}
+    </select>
+
+    <select id="countByActionBoardPageId" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM action_board_tb
+        WHERE challenge_page_id = #{challengePageId}
     </select>
 
 

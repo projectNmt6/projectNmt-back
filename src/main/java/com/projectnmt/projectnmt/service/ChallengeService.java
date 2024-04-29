@@ -52,7 +52,8 @@ public class ChallengeService {
                 challengePageReqDto.getChallengeOverview(),
                 challengePageReqDto.getChallengeContent(),
                 challengePageReqDto.getChallengeMainImg(),
-                challengePageReqDto.getChallengePageShow()
+                challengePageReqDto.getChallengePageShow(),
+                challengePageReqDto.getHeadCount()
         );
 
         ChallengePageRespDto challengePageRespDto =
@@ -72,7 +73,8 @@ public class ChallengeService {
                 challengePageListReqDto.getChallengeTitle(),
                 challengePageListReqDto.getChallengeOverview(),
                 challengePageListReqDto.getChallengeContent(),
-                challengePageListReqDto.getChallengeMainImg()
+                challengePageListReqDto.getChallengeMainImg(),
+                challengePageListReqDto.getHeadCount()
         );
 
         // 결과가 null인 경우, 빈 리스트 반환

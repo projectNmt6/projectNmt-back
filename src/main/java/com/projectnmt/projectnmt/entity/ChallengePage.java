@@ -26,6 +26,7 @@ public class ChallengePage {
     private String challengeContent;
     private String challengeMainImg;
     private Boolean challengePageShow;
+    private int headCount;
 
     public ChallengePageRespDto toChallengePageRespDto() {
         return ChallengePageRespDto.builder()
@@ -40,6 +41,7 @@ public class ChallengePage {
                 .challengeContent(challengeContent)
                 .challengeMainImg(challengeMainImg)
                 .challengePageShow(challengePageShow)
+                .headCount(headCount)
                 .build();
     }
 
@@ -55,6 +57,7 @@ public class ChallengePage {
                 .challengeOverview(challengeOverview)
                 .challengeContent(challengeContent)
                 .challengeMainImg(challengeMainImg)
+                .headCount(headCount)
                 .build();
     }
 }

@@ -31,7 +31,6 @@ public class ActionBoardController {
     }
 
 
-
     @DeleteMapping("/action-board/{id}")
     public ResponseEntity<?> deleteActionBoard(@PathVariable("id") int actionBoardId){
         actionBoardService.deleteActionBoard(actionBoardId);
@@ -43,5 +42,12 @@ public class ActionBoardController {
         actionBoardService.saveActionBoard(actionBoardReqDto);
         return ResponseEntity.created(null).body(actionBoardReqDto);
     }
+
+    @GetMapping("/action-board/count/{challengePageId}")
+    public ResponseEntity<?> getHeadCount(@PathVariable int challengePageId) {
+        int count = actionBoardService.getParticipantCount(challengePageId);
+        return ResponseEntity.ok(count);
+    }
+
 
 }

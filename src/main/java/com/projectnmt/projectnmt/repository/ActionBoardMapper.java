@@ -25,4 +25,6 @@ public interface ActionBoardMapper {
             );
 
     List<ActionBoard> getActionBoardByChallengePageId(int challengePageId);
+
+    public int countByActionBoardPageId(@Param("challengePageId") int challengePageId);
 }

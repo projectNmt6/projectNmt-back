@@ -18,6 +18,7 @@ public class ChallengePageReqDto {
     private String challengeContent;
     private String challengeMainImg;
     private Boolean challengePageShow;
+    private int headCount;
 
     public ChallengePage toEntity() {
         return ChallengePage.builder()
@@ -32,6 +33,7 @@ public class ChallengePageReqDto {
                 .challengeContent(challengeContent)
                 .challengeMainImg(challengeMainImg)
                 .challengePageShow(challengePageShow)
+                .headCount(headCount)
                 .build();
     }
 }
