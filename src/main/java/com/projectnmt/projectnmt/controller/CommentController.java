@@ -32,6 +32,7 @@ public class CommentController {
         return ResponseEntity.created(null).body(null);
     }
 
+
 //    @GetMapping("/getcomment")
 //    public ResponseEntity<List<CommentRespDto>> getAllComments() {
 //        List<CommentRespDto> comments = commentService.getComment(new CommentReqDto()); // Assuming an overloaded method or modify existing one

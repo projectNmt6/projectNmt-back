@@ -51,5 +51,4 @@
         donation_comment_id = #{donationCommentId}
     </delete>
 
-
 </mapper>

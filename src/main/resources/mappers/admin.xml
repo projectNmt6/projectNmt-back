@@ -320,7 +320,6 @@
         where
             team_id = #{teamId}
     </select>
-<<<<<<< HEAD
     <select id="findRoleList" resultMap="RoleResultMap">
         select
             *
@@ -330,8 +329,4 @@
         where
             aut.user_id = #{user_id}
     </select>
-=======
-
-
->>>>>>> 677aa3b8f60d711b1207593b9620d3196ebf6e6e
 </mapper>

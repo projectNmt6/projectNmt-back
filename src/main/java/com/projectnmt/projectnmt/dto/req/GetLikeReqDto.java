@@ -6,5 +6,6 @@ import lombok.Data;
 public class GetLikeReqDto {
     private int donationPageId;
     private int userId;
+    private int commentId;
 }
 

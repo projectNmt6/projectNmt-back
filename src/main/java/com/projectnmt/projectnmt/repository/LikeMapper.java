@@ -17,8 +17,8 @@ public interface LikeMapper {
     // Insert a new like record
     void insert(Like like);
 
-    int countLikesByDonationPageId(int donationPageId);
+    int countLikesByDonationPageId(int donationPageId, int commentId);
 
-    int existsByUserIdAndDonationPageId(int donationPageId, int userId);
+    int existsByUserIdAndDonationPageId(int donationPageId, int userId , int commentId);
 
 }

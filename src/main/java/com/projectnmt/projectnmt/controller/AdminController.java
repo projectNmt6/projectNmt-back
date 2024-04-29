@@ -88,14 +88,4 @@ public class AdminController {
         donationListReqDto1.setStoryTitle(name);
         return ResponseEntity.ok(donationService.searchDonation(donationListReqDto1));
     }
-    @PatchMapping("/updatePageShow")
-    public ResponseEntity<?> updateDonationPageShow(@RequestBody PageShowUpdateReqDto pageShowUpdateReqDto) {
-        boolean updateResult = adminService.updatePageShow(pageShowUpdateReqDto.getDonationPageId());
-
-        if (updateResult) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
-    }
 }
