@@ -24,25 +24,27 @@ public class LikeService {
     @Autowired
     private LikeMapper likeMapper;
 
-    public void changeLike(LikeReqDto likeReqDto) {
-
+    public String  changeLike(LikeReqDto likeReqDto) {
+        System.out.println(likeReqDto);
         Like existingLike = likeMapper.findByUserIdAndDonationPageId(likeReqDto);
-
+        String message;
         if (existingLike != null) {
             likeMapper.deleteByUserIdAndDonationPageId(likeReqDto);
-            System.out.println("좋아요 취소");
+            message = "취소 되었습니다.";
         } else {
             Like newLike = Like.builder()
                     .userId(likeReqDto.getUserId())
                     .donationPageId(likeReqDto.getDonationPageId())
+                    .commentId(likeReqDto.getCommentId())
                     .build();
             likeMapper.insert(newLike);
-            System.out.println("좋아요 성공");
+            message = "따뜻한 마음 감사합니다.";
         }
+        return message;
     }
     public LikeRespDto getLike(GetLikeReqDto getLikeReqDto) {
-        int isLiked = likeMapper.existsByUserIdAndDonationPageId(getLikeReqDto.getDonationPageId(), getLikeReqDto.getUserId());
-        int countLike = likeMapper.countLikesByDonationPageId(getLikeReqDto.getDonationPageId());
+        int isLiked = likeMapper.existsByUserIdAndDonationPageId(getLikeReqDto.getDonationPageId(), getLikeReqDto.getUserId(), getLikeReqDto.getCommentId());
+        int countLike = likeMapper.countLikesByDonationPageId(getLikeReqDto.getDonationPageId(), getLikeReqDto.getCommentId());
         System.out.println("isLiked:"+isLiked);
         System.out.println("isCount:"+countLike);
         return LikeRespDto.builder()
