@@ -14,7 +14,7 @@ public interface DonationNewsMapper {
     public DonationNewsPage getNewsPage(
             @Param("donationNewsPageId") int donationNewsPageId,
             @Param("donationPageId") int donationPageId,
-            @Param("PageCategoryId") int pageCategoryId,
+            @Param("pageCategoryId") int pageCategoryId,
             @Param("newsContent") String newsContent,
             @Param("teamId") int teamId
     );

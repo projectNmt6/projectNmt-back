@@ -1,10 +1,9 @@
 package com.projectnmt.projectnmt.controller;
 
 import com.projectnmt.projectnmt.dto.req.*;
-import com.projectnmt.projectnmt.dto.resp.ChallengePageListRespDto;
-import com.projectnmt.projectnmt.dto.resp.ChallengePageRespDto;
-import com.projectnmt.projectnmt.dto.resp.DonationPageRespDto;
+import com.projectnmt.projectnmt.dto.resp.*;
 import com.projectnmt.projectnmt.security.PrincipalUser;
+import com.projectnmt.projectnmt.service.ChallengeNewsService;
 import com.projectnmt.projectnmt.service.ChallengeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +22,9 @@ public class ChallengeController {
 
     @Autowired
     private ChallengeService challengeService;
+    @Autowired
+    private ChallengeNewsService challengeNewsService;
+
 
     @GetMapping("/challenges")
     public ResponseEntity<?> getChallengeList(ChallengePageListReqDto challengePageListReqDto) {
@@ -89,6 +91,34 @@ public class ChallengeController {
         }
     }
 
+    @PostMapping("/challenge/news/{page}")
+    public ResponseEntity<?> saveChallengeNewsPage(@PathVariable("page") int page,
+                                                  @Valid @RequestBody ChallengeNewsPageReqDto challengeNewsPageReqDto,
+                                                  BindingResult bindingResult,
+                                                  @AuthenticationPrincipal PrincipalUser currentUser) throws IllegalAccessException {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
+        }
 
+        challengeNewsPageReqDto.setChallengePageId(page);
+        System.out.println("work");
+        challengeNewsService.saveChallengeNewsPage(challengeNewsPageReqDto, page, currentUser.getUserId());
+
+        return ResponseEntity.created(null).body(challengeNewsPageReqDto);
+    }
+
+    @GetMapping("/challenge/news/update/{page}")
+    public ResponseEntity<?> getNewsPageUpdate(@PathVariable("page") int page, @AuthenticationPrincipal PrincipalUser currentUser) {
+        if (currentUser == null || currentUser.getUserId() == 0) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 인증 정보가 없습니다.");
+        }
+        ChallengeNewsPageReqDto challengeNewsPageReqDto = new ChallengeNewsPageReqDto();
+        challengeNewsPageReqDto.setChallengePageId(page);
+        ChallengeNewsPageRespDto challengeNewsPageRespDto = challengeNewsService.getChallengeNews((challengeNewsPageReqDto));
+        if (challengeNewsPageRespDto == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(challengeNewsPageRespDto);
+    }
 
 }
