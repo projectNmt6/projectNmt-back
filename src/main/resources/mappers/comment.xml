@@ -24,6 +24,16 @@
         #{donationPageId},
         #{userId})
     </insert>
+    <insert id="reportComment">
+        insert into report_tb
+        values (
+            0,
+            #{donationPageId},
+            #{donationCommentId},
+            #{userId},
+            #{isDonation}
+        )
+    </insert>
 
     <select id="getCommentList" resultMap="CommentResultMap" >
         SELECT * FROM donation_comment_tb
@@ -36,7 +46,7 @@
     <delete id="deleteCommentById" parameterType="int" >
         DELETE
         FROM
-        comment_tb
+        donation_comment_tb
         WHERE
         donation_comment_id = #{donationCommentId}
     </delete>

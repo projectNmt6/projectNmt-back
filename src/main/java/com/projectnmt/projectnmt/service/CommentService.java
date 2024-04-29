@@ -1,5 +1,6 @@
 package com.projectnmt.projectnmt.service;
 
+import com.projectnmt.projectnmt.dto.CommentReportReqDto;
 import com.projectnmt.projectnmt.dto.req.CommentReqDto;
 import com.projectnmt.projectnmt.dto.resp.CommentRespDto;
 import com.projectnmt.projectnmt.entity.Comment;
@@ -35,6 +36,10 @@ public class CommentService {
     public List<CommentRespDto> getCommentsByDonationPageId(int donationPageId) {
         List<Comment> comments = commentMapper.getCommentsByDonationPageId(donationPageId);
         return comments.stream().map(Comment::toSaveComment).collect(Collectors.toList());
+    }
+
+    public void reportComment(CommentReportReqDto commentReportReqDto) {
+        commentMapper.reportComment(commentReportReqDto);
     }
 
     @Transactional(rollbackFor = Exception.class)

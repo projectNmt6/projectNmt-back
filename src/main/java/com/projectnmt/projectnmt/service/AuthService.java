@@ -78,12 +78,13 @@ public class AuthService {
         userMapper.deleteAuthority(userId);
         List<TeamMember> userTeamList = userMapper.findTeamMemberByUserId(userId);
         userMapper.deleteOAuth2ByUserId(userId);
-        System.out.println(userTeamList);
+        // 좋아요 취소기능 사용
         for (TeamMember team : userTeamList) {
             if(team.getTeamRoleId() == 1) {
-                System.out.println(userMapper.deleteTeamByTeamId(team.getTeamId()));
+                userMapper.deleteTeamByTeamId(team.getTeamId());
                 List<TeamMember> teamMembers = userMapper.findTeamMemberListByTeamId(team.getTeamId());
                 userMapper.deleteTeamMemberByTeamId(team.getTeamId());
+                userMapper.deleteMessageById(userId, 0);
                 for ( TeamMember mem : teamMembers ) {
                     if(mem.getUserId() != userId) {
                         userMapper.sendMessage(mem.getUserId(), "리더의 탈퇴로 팀이 해산되었습니다.");

@@ -24,6 +24,7 @@ public class Donation {
     private Team team;
     private MainCategory mainCategory;
     private DonationTag donationTag;
+    private Boolean donationPageShow;
   
     public DonationListRespDto toDonationListRespDto() {
         return DonationListRespDto.builder()

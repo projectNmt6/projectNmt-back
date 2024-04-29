@@ -34,7 +34,7 @@ public class AdminUser {
     //프로필 이미지
     private String profileImg;
 
-    private Role role;
+    private List<Role> role;
 
 }
 

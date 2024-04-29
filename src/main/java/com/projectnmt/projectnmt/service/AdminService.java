@@ -1,5 +1,7 @@
 package com.projectnmt.projectnmt.service;
 
+import com.projectnmt.projectnmt.dto.UserCountRespDto;
+import com.projectnmt.projectnmt.dto.UserListRsqDto;
 import com.projectnmt.projectnmt.dto.req.AdminMessageReqDto;
 import com.projectnmt.projectnmt.dto.resp.CommentListRespDto;
 import com.projectnmt.projectnmt.entity.*;
@@ -19,9 +21,45 @@ public class AdminService {
 
     @Autowired
     UserMapper userMapper;
-    public List<AdminUser> getUserList() {
-        return adminMapper.findUserList();
+
+    public List<AdminUser> getUserList(UserListRsqDto userListRsqDto) {
+        List<AdminUser> list = List.of();
+        userListRsqDto.setPageNumber((userListRsqDto.getPageNumber() - 1) * 10);
+        userListRsqDto.setSearchCount(userListRsqDto.getSearchCount() + userListRsqDto.getPageNumber());
+        if(userListRsqDto.getSelectedRoleoption() == 0) {
+            list = adminMapper.findUserList(userListRsqDto);
+            for(AdminUser user : list) {
+                List<Role> roleList = adminMapper.findRoleList(user.getUserId());
+                List<Role> max = new ArrayList<>();
+                Role maxRole = Role.builder().build();
+                for (Role role : roleList) {
+                    maxRole = maxRole.getRoleId() > role.getRoleId() ? maxRole : role;
+                }
+                max.add(maxRole);
+                user.setRole(max);
+            }
+        } else {
+            list = adminMapper.findUserListForRoleSelect(userListRsqDto);
+            int lastNum = list.size() < 10 ? list.size() :userListRsqDto.getSearchCount();
+            list = list.subList(userListRsqDto.getPageNumber(), lastNum);
+        }
+        return list;
     }
+    public UserCountRespDto getUserCount(UserListRsqDto userListRsqDto) {
+        int count = 0;
+        if(userListRsqDto.getSelectedRoleoption() == 0) {
+            count = adminMapper.getUserCount(userListRsqDto);
+        } else {
+
+        }
+        int MaxPageNumber = (int)Math.ceil(((double) count) / userListRsqDto.getSearchCount());
+        return UserCountRespDto.builder()
+                .maxPageNumber(MaxPageNumber)
+                .totalCount(count)
+                .build();
+    }
+
+
     public AdminUser getUser(int userId) {
         return adminMapper.findUserByUserId(userId);
     }
