@@ -20,5 +20,4 @@ public class DonationListRespDto {
     private String donationTagName;
     private int donationPageShow;
     private int teamId;
-
 }
