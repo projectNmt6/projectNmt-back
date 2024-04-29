@@ -26,7 +26,7 @@
         <result property="gender" column="gender" />
         <result property="age" column="age" />
         <result property="profileImg" column="profile_img" />
-        <association property="role" resultMap="RoleResultMap" />
+        <collection property="role" javaType="list" resultMap="RoleResultMap"/>
     </resultMap>
 
     <resultMap id="RoleRegisterResultMap" type="com.projectnmt.projectnmt.entity.Authority">
@@ -108,7 +108,7 @@
     <delete id="deleteCommemt">
         delete
         from
-            comment_tb
+            donation_comment_tb
         where
         donation_comment_id = #{donationCommentId}
     </delete>
@@ -130,14 +130,124 @@
             ut.email,
             ut.gender,
             ut.age,
+            ut.profile_img
+        from
+            user_tb ut
+        where
+            1 = 1
+            <choose>
+                <when test="selectedTextOption == 0">
+                    and (
+                        ut.user_id = #{searchText}
+                        or  ut.username like concat('%', #{searchText}, '%')
+                        or  ut.name like concat('%', #{searchText}, '%')
+                        or  ut.phone_number like concat('%', #{searchText}, '%')
+                        or  ut.email like concat('%', #{searchText}, '%')
+                    )
+                </when>
+                <when test="selectedTextOption == 1">
+                    and ut.user_id = #{searchText}
+                </when>
+                <when test="selectedTextOption == 2">
+                    and ut.username like concat('%', #{searchText}, '%')
+                </when>
+                <when test="selectedTextOption == 3">
+                    and ut.name like concat('%', #{searchText}, '%')
+                </when>
+                <when test="selectedTextOption == 4">
+                    and ut.phone_number like concat('%', #{searchText}, '%')
+                </when>
+                <when test="selectedTextOption == 5">
+                    and ut.email like concat('%', #{searchText}, '%')
+                </when>
+            </choose>
+            limit #{pageNumber}, #{searchCount}
+    </select>
+
+    <select id="getUserCount" resultType="integer">
+        select
+            count(*)
+        from
+            user_tb ut
+        where
+            1 = 1
+        <choose>
+            <when test="selectedTextOption == 0">
+                and (
+                ut.user_id = #{searchText}
+                or  ut.username like concat('%', #{searchText}, '%')
+                or  ut.name like concat('%', #{searchText}, '%')
+                or  ut.phone_number like concat('%', #{searchText}, '%')
+                or  ut.email like concat('%', #{searchText}, '%')
+                )
+            </when>
+            <when test="selectedTextOption == 1">
+                and ut.user_id = #{searchText}
+            </when>
+            <when test="selectedTextOption == 2">
+                and ut.username like concat('%', #{searchText}, '%')
+            </when>
+            <when test="selectedTextOption == 3">
+                and ut.name like concat('%', #{searchText}, '%')
+            </when>
+            <when test="selectedTextOption == 4">
+                and ut.phone_number like concat('%', #{searchText}, '%')
+            </when>
+            <when test="selectedTextOption == 5">
+                and ut.email like concat('%', #{searchText}, '%')
+            </when>
+        </choose>
+    </select>
+
+    <select id="findUserListForRoleSelect" resultMap="AdminUserResultMap">
+        select
+            ut.user_id,
+            ut.username,
+            ut.password,
+            ut.name,
+            ut.phone_number,
+            ut.email,
+            ut.gender,
+            ut.age,
             ut.profile_img,
-            rt.role_id,
+            aut.role_id,
             rt.role_name,
             rt.role_name_kor
         from
             user_tb ut
             left outer join authority_tb aut on(aut.user_id = ut.user_id)
-            left outer join role_tb rt on(rt.role_id = aut.role_id);
+            left outer join role_tb rt on(rt.role_id = aut.role_id)
+        where
+            1 = 1
+        <if test="selectedRoleoption != 0">
+            and aut.role_id = #{selectedRoleoption}
+        </if>
+        <choose>
+            <when test="selectedTextOption == 0">
+                and (
+                ut.user_id = #{searchText}
+                or  ut.username like concat('%', #{searchText}, '%')
+                or  ut.name like concat('%', #{searchText}, '%')
+                or  ut.phone_number like concat('%', #{searchText}, '%')
+                or  ut.email like concat('%', #{searchText}, '%')
+                )
+            </when>
+            <when test="selectedTextOption == 1">
+                and ut.user_id = #{searchText}
+            </when>
+            <when test="selectedTextOption == 2">
+                and ut.username like concat('%', #{searchText}, '%')
+            </when>
+            <when test="selectedTextOption == 3">
+                and ut.name like concat('%', #{searchText}, '%')
+            </when>
+            <when test="selectedTextOption == 4">
+                and ut.phone_number like concat('%', #{searchText}, '%')
+            </when>
+            <when test="selectedTextOption == 5">
+                and ut.email like concat('%', #{searchText}, '%')
+            </when>
+        </choose>
     </select>
     <select id="findUserByUserId" resultMap="AdminUserResultMap">
         select
@@ -164,12 +274,17 @@
         select
             ct.donation_comment_id as donationCommentId,
             ct.comment_text as commentText,
-            dpt.story_title as storyTitle
+            dpt.story_title as storyTitle,
+            dpt.donation_page_id as donationPageId,
+            count(rt.comment_id) as reportCount
         from
-            comment_tb ct
+            donation_comment_tb ct
             left outer join donation_page_tb dpt on (dpt.donation_page_id = ct.donation_page_id)
+            left outer join report_tb rt on (rt.comment_id = ct.donation_comment_id)
         where
             ct.user_id = #{userId}
+        GROUP BY
+            ct.donation_comment_id, ct.comment_text, dpt.story_title, dpt.donation_page_id
     </select>
     <select id="getTeamList" resultMap="TeamResultMap" resultType="list">
         select
@@ -198,5 +313,14 @@
             team_member_tb
         where
             team_id = #{teamId}
+    </select>
+    <select id="findRoleList" resultMap="RoleResultMap">
+        select
+            *
+        from
+            role_tb rt
+            left outer join authority_tb aut on(aut.role_id = rt.role_id)
+        where
+            aut.user_id = #{user_id}
     </select>
 </mapper>

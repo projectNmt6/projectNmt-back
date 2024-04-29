@@ -1,5 +1,6 @@
 package com.projectnmt.projectnmt.repository;
 
+import com.projectnmt.projectnmt.dto.UserListRsqDto;
 import com.projectnmt.projectnmt.dto.req.AdminMessageReqDto;
 import com.projectnmt.projectnmt.dto.resp.CommentListRespDto;
 import com.projectnmt.projectnmt.entity.*;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Mapper
 public interface AdminMapper {
-    public List<AdminUser> findUserList();
+    public List<AdminUser> findUserList(UserListRsqDto userListRsqDto);
     public AdminUser findUserByUserId(int userId);
     public List<CommentListRespDto> findCommentListByUserId(int userId);
     public void addRole(Authority authority);
@@ -19,4 +20,7 @@ public interface AdminMapper {
     public int deleteTeamListByTeamIds(int teamId);
     public TeamMember findTeamMemberListByTeamId(int teamId);
     public int updatePageShow(int donationPageId);
+    public List<Role> findRoleList(int userId);
+    public List<AdminUser> findUserListForRoleSelect(UserListRsqDto userListRsqDto);
+    public Integer getUserCount(UserListRsqDto userListRsqDto);
 }

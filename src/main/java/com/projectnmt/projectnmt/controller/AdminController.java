@@ -1,6 +1,7 @@
 package com.projectnmt.projectnmt.controller;
 
 
+import com.projectnmt.projectnmt.dto.UserListRsqDto;
 import com.projectnmt.projectnmt.dto.req.AdminMessageReqDto;
 import com.projectnmt.projectnmt.dto.req.SearchTeamListDto;
 import com.projectnmt.projectnmt.dto.resp.CommentListRespDto;
@@ -20,9 +21,9 @@ public class AdminController {
     @Autowired
     AdminService adminService;
     @GetMapping("/user/list")
-    public ResponseEntity<?> getUserList() {
-        List<AdminUser> userList = adminService.getUserList();
-            return ResponseEntity.ok(userList);
+    public ResponseEntity<?> getUserList(UserListRsqDto userListRsqDto) {
+        List<AdminUser> userList = adminService.getUserList(userListRsqDto);
+        return ResponseEntity.ok(userList);
     }
     @GetMapping("/user")
     public ResponseEntity<?> getUser(int userId) {
@@ -34,6 +35,11 @@ public class AdminController {
         List<CommentListRespDto> commentList = adminService.getCommentList(userId);
         return ResponseEntity.ok(commentList);
     }
+    @GetMapping("/user/count")
+    public ResponseEntity<?> getCount(UserListRsqDto userListRsqDto) {
+        return ResponseEntity.ok(adminService.getUserCount(userListRsqDto));
+    }
+
     @DeleteMapping("/comment/delete")
     public ResponseEntity<?> deleteCommentList(@RequestBody List<Integer> deleteComments) {
         adminService.deleteCommemt(deleteComments);

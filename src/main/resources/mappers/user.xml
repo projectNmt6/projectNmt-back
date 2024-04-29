@@ -111,9 +111,9 @@
     <delete id="deleteOAuth2ByUserId">
         delete
         from
-        oauth2_tb
+            oauth2_tb
         where
-        user_id = #{userId}
+            user_id = #{userId}
     </delete>
     <delete id="deleteMessageById">
         delete
@@ -168,17 +168,18 @@
     </select>
     <select id="getMessageList" resultMap="MessageResultMap">
         select
-        mt.message_id,
-        tt.team_logo_img_url,
-        tt.team_name,
-        mt.message_text,
-        mt.create_date
+            mt.message_id,
+            tt.team_logo_img_url,
+            tt.team_name,
+            mt.message_text,
+            mt.create_date
         from
-        message_tb mt
-        left outer join team_tb tt on(tt.team_id = mt.sender_id)
+            message_tb mt
+            left outer join team_tb tt on(tt.team_id = mt.sender_id)
         where
-        getter_id = #{userId}
-        and is_team = 0
+            getter_id = #{userId}
+            and is_team = 0
+
     </select>
     <select id="findUserByUserId" resultMap="UserResultMap">
         select

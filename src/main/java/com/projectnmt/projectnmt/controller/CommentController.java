@@ -1,11 +1,11 @@
 package com.projectnmt.projectnmt.controller;
 
 
+import com.projectnmt.projectnmt.dto.CommentReportReqDto;
 import com.projectnmt.projectnmt.dto.req.CommentReqDto;
 import com.projectnmt.projectnmt.dto.resp.CommentRespDto;
 import com.projectnmt.projectnmt.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -21,11 +21,16 @@ public class CommentController {
     private CommentService commentService;
 
     @PostMapping("/upload")
-    public ResponseEntity<CommentReqDto> saveComment(@Valid @RequestBody CommentReqDto commentReqDto, BindingResult bindingResult) {
+    public ResponseEntity<CommentReqDto> saveComment(@RequestBody CommentReqDto commentReqDto) {
         commentService.saveComment(commentReqDto);
         return ResponseEntity.created(null).body(commentReqDto);
     }
-
+    @PostMapping("/report")
+    public ResponseEntity<CommentReqDto> reportComment(@RequestBody CommentReportReqDto commentReportReqDto) {
+        System.out.println(commentReportReqDto);
+        commentService.reportComment(commentReportReqDto);
+        return ResponseEntity.created(null).body(null);
+    }
 
 //    @GetMapping("/getcomment")
 //    public ResponseEntity<List<CommentRespDto>> getAllComments() {
