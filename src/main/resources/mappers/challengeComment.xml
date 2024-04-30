@@ -25,13 +25,6 @@
         FROM challenge_comment_tb
     </select>
 
-    <select id="getChallengeCommentsByChallengePageId" resultMap="ChallengeCommentResultMap">
-        SELECT *
-        FROM challenge_comment_tb
-        WHERE
-            challenge_page_id = #{challengePageId}
-    </select>
-
     <delete id="deletechallengeCommentById" parameterType="int">
         DELETE
         FROM
@@ -54,4 +47,41 @@
         WHERE
             challenge_page_id = #{challengePageId}
     </select>
+
+    <resultMap id="UserResultMap" type="com.projectnmt.projectnmt.entity.User">
+        <id property="userId" column="user_id" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="name" column="name" />
+        <result property="phoneNumber" column="phone_number" />
+        <result property="email" column="email" />
+        <result property="gender" column="gender" />
+        <result property="age" column="age" />
+        <result property="profileImg" column="profile_img" />
+    </resultMap>
+
+    <resultMap id="ChallengeCommentWithUserResultMap" type="com.projectnmt.projectnmt.entity.ChallengeComment">
+        <id property="challengeCommentId" column="challenge_comment_id" />
+        <result property="commentText" column="challenge_comment_text" />
+        <result property="challengePageId" column="challenge_page_id" />
+        <result property="userId" column="user_id" />
+        <result property="name" column="name" />  <!-- userName 매핑 -->
+        <result property="profileImg" column="profile_img" />  <!-- profileImg 매핑 -->
+    </resultMap>
+
+
+    <select id="getChallengeCommentsByChallengePageId" resultMap="ChallengeCommentWithUserResultMap">
+        SELECT
+        cc.challenge_comment_id,
+        cc.challenge_comment_text,
+        cc.challenge_page_id,
+        cc.user_id,
+        u.name as name,
+        u.profile_img
+
+        FROM challenge_comment_tb cc
+        LEFT OUTER JOIN user_tb u ON cc.user_id = u.user_id
+        WHERE cc.challenge_page_id = #{challengePageId}
+    </select>
+
 </mapper>

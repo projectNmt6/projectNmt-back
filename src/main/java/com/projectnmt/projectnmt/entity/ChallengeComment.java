@@ -17,6 +17,9 @@ public class ChallengeComment {
     private int challengePageId;
     private int userId;
     private User user;
+
+    private String name;
+    private String profileImg;
     private ChallengePage challengePage;
 
     public ChallengeCommentRespDto toSaveComment() {
@@ -25,6 +28,8 @@ public class ChallengeComment {
                 .commentText(commentText)
                 .challengePageId(challengePageId)
                 .userId(userId)
+                .name(name)
+                .profileImg(profileImg)
                 .build();
     }
 

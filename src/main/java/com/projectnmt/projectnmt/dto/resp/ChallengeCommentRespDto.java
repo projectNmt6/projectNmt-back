@@ -14,5 +14,7 @@ public class ChallengeCommentRespDto {
     private int challengePageId;
     private int userId;
     private User user;
+    private String name;
+    private String profileImg; // 사용자 프로필 이미지 URL 추가
     private ChallengePage challengePage;
 }

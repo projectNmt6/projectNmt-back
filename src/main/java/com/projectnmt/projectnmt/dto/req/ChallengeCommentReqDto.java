@@ -12,6 +12,8 @@ public class ChallengeCommentReqDto {
     private String commentText;
     private int challengePageId;
     private int userId;
+
+    private String name;
     private User user;
     private ChallengePage challengePage;
 

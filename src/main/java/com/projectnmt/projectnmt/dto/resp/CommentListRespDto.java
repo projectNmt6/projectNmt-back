@@ -7,5 +7,5 @@ public class CommentListRespDto {
     private int donationCommentId;
     private String commentText;
     private String storyTitle;
-
+    private String name;
 }

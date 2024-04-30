@@ -47,4 +47,6 @@
         WHERE donation_comment_id = #{donationCommentId}
     </select>
 
+
+
 </mapper>
