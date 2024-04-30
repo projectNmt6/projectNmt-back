@@ -17,9 +17,9 @@ public class LikeController {
         private LikeService likeService;
         @PostMapping("/post")
         public ResponseEntity<?> postLike(@RequestBody LikeReqDto likeReqDto){
-            likeService.changeLike(likeReqDto);
+            String message = likeService.changeLike(likeReqDto);
             System.out.println("post:"+likeReqDto);
-            return ResponseEntity.ok(null);
+            return ResponseEntity.ok(message);
         }
         @GetMapping("/get")
         public ResponseEntity<?> getLike(GetLikeReqDto getLikeReqDto) {

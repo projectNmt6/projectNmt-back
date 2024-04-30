@@ -31,6 +31,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         String name = authentication.getName();
+        System.out.println(authentication)  ;
         User user = userMapper.findUserByOAuth2name(name);
         if(user == null) {
         //oauth2 로그인을 통해 회원가입을 진행한 기록이 없는 상태

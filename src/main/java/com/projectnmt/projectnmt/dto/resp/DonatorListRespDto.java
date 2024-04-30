@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 public class DonatorListRespDto {
     private int donatorId;
     private int userId;
+    private String name;
     private LocalDateTime donationDate;
     private int donationAmount;
     private int donationPageId;

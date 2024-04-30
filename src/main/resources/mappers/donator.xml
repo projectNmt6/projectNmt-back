@@ -140,6 +140,7 @@
             dt.donation_page_id,
             dt.donator_anonymous,
             ut.username,
+            ut.name,
             dpt.story_title,
             dpt.main_img_url,
             dpt.goal_amount,
