@@ -63,6 +63,7 @@
         INSERT INTO donation_page_tb
         (team_id,
         main_category_id,
+        page_category_id,
         create_date,
         end_date,
         goal_amount,
