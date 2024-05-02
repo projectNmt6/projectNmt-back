@@ -25,6 +25,20 @@ public class AccountService {
 
     public void editAccount(EditAccountReqDto editAccountReqDto) {
         User user = userMapper.findUserByUsername(editAccountReqDto.getUsername());
+        User updatedUser = User.builder()
+                .userId(editAccountReqDto.getUserId())
+                .username(editAccountReqDto.getUsername())
+                .name(editAccountReqDto.getName())
+                .email(editAccountReqDto.getEmail())
+                .age(editAccountReqDto.getAge())
+                .gender(editAccountReqDto.getGender())
+                .phoneNumber(editAccountReqDto.getPhonenumber())
+                .profileImg(editAccountReqDto.getProfileImg())
+                .build();
+        userMapper.updateUser(updatedUser);
+    }
+    public void editPassword(EditAccountReqDto editAccountReqDto) {
+        User user = userMapper.findUserByUsername(editAccountReqDto.getUsername());
         if (!passwordEncoder.matches(editAccountReqDto.getOldPassword(), user.getPassword())) {
             throw new ValidException(Map.of("oldPassword", "비밀번호 인증에 실패하였습니다.\n다시입력하세요."));
         }
@@ -34,18 +48,11 @@ public class AccountService {
         if (passwordEncoder.matches(editAccountReqDto.getNewPassword(), user.getPassword())) {
             throw new ValidException(Map.of("newPassword", "이전 비밀번호와 동일한 비밀번호는 사용하실 수 없습니다.\n다시입력하세요."));
         }
-        User updatedUser = User.builder()
+        User updatepassword = User.builder()
                 .userId(editAccountReqDto.getUserId())
-                .username(editAccountReqDto.getUsername())
                 .password(passwordEncoder.encode(editAccountReqDto.getNewPassword()))
-                .name(editAccountReqDto.getName())
-                .email(editAccountReqDto.getEmail())
-                .age(editAccountReqDto.getAge())
-                .gender(editAccountReqDto.getGender())
-                .phoneNumber(editAccountReqDto.getPhonenumber())
-                .profileImg(editAccountReqDto.getProfileImg())
                 .build();
-        userMapper.updateUser(updatedUser);
+        userMapper.updatePassword(updatepassword);
     }
     public List<MyDonationListRespDto> GetMyDonation(GetMyDonationListReqDto getMyDonationListReqDto) {
         List<MyDonationListRespDto> donators = donatorMapper.getMyList(getMyDonationListReqDto);
