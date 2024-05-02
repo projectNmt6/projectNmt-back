@@ -21,6 +21,7 @@ public class ActionBoard {
     private String imageURL;
     private LocalDateTime createDate;
     private int challengePageId;
+    private String userName;
 
     public ActionBoardRespDto toActionBoardListRespDto() {
         return ActionBoardRespDto.builder()
@@ -31,6 +32,7 @@ public class ActionBoard {
                 .imageURL(imageURL)
                 .createDate(createDate)
                 .challengePageId(challengePageId)
+                .userName(userName)
                 .build();
     }
 }

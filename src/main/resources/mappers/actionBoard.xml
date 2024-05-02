@@ -12,6 +12,7 @@
         <result property="imageId" column="image_id" />
         <result property="imageURL" column="image_url" />
         <result property="createDate" column="create_date" />
+        <result property="userName" column="username" />  <!-- userName 매핑 -->
 
     </resultMap>
 
@@ -50,14 +51,16 @@
         action_board_tb abt
 
         LEFT OUTER JOIN challenge_tb ct ON ct.challenge_page_id = abt.challenge_page_id
+        LEFT OUTER JOIN user_tb u ON abt.user_id = u.user_id
     </select>
 
     <select id="getActionBoardByChallengePageId" parameterType="int" resultMap="ActionBoardResultMap" >
         SELECT *
         FROM
-        action_board_tb
+        action_board_tb abt
+        LEFT OUTER JOIN user_tb u ON abt.user_id = u.user_id
         WHERE
-            challenge_page_id = #{challengePageId}
+        abt.challenge_page_id = #{challengePageId}
     </select>
 
     <select id="countByActionBoardPageId" parameterType="int" resultType="int">

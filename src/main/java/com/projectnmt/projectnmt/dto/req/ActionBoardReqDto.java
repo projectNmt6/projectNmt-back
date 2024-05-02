@@ -1,6 +1,7 @@
 package com.projectnmt.projectnmt.dto.req;
 
 import com.projectnmt.projectnmt.entity.ActionBoard;
+import com.projectnmt.projectnmt.entity.User;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -13,6 +14,7 @@ public class ActionBoardReqDto {
     private String imageURL;
     private LocalDateTime createDate;
     private int challengePageId;
+    private String userName;
 
     public ActionBoard toEntity() {
         return ActionBoard.builder()
@@ -23,6 +25,7 @@ public class ActionBoardReqDto {
                 .imageURL(imageURL)
                 .createDate(createDate)
                 .challengePageId(challengePageId)
+                .userName(userName)
                 .build();
     }
 }
