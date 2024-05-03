@@ -33,8 +33,8 @@ public class DonationCommentService {
         return comments.stream().map(DonationComment::toSaveComment).collect(Collectors.toList());
     }
 
-    public List<CommentRespDto> getCommentsByDonationPageId(int donationPageId) {
-        List<DonationComment> comments = donationCommentMapper.getCommentsByDonationPageId(donationPageId);
+    public List<CommentRespDto> getChallengeCommentsByChallengePageId(int donationPageId) {
+        List<DonationComment> comments = donationCommentMapper.getChallengeCommentsByChallengePageId(donationPageId);
         return comments.stream().map(DonationComment::toSaveComment).collect(Collectors.toList());
     }
 

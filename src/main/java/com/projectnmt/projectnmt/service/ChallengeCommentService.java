@@ -33,11 +33,6 @@ public class ChallengeCommentService {
         return comments.stream().map(ChallengeComment::toSaveComment).collect(Collectors.toList());
     }
 
-//    public List<ChallengeCommentRespDto> getChallengeCommentsByChallengePageId(int challengePageId) {
-//        List<ChallengeComment> challengeComments = challengeCommentMapper.getChallengeCommentsByChallengePageId(challengePageId);
-//        return challengeComments.stream().map(ChallengeComment::toSaveComment).collect(Collectors.toList());
-//    }
-
     public List<ChallengeCommentRespDto> getChallengeCommentsByChallengePageId(int challengePageId) {
         List<ChallengeComment> challengeComments = challengeCommentMapper.getChallengeCommentsByChallengePageId(challengePageId);
         return challengeComments.stream().map(ChallengeComment::toSaveComment).collect(Collectors.toList());

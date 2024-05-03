@@ -27,6 +27,9 @@ public class Donation {
     private DonationTag donationTag;
     private int donationPageShow;
 
+    private Like like;
+    private int countLike;
+
     public DonationListRespDto toDonationListRespDto() {
         return DonationListRespDto.builder()
                 .donationPageId(donationPageId)
@@ -40,6 +43,7 @@ public class Donation {
                 .mainImgUrl(mainImgUrl)
                 .donationTagName(donationTag.getDonationTagName())
                 .donationPageShow(donationPageShow)
+                .countLike(countLike)
                 .build();
     }
 

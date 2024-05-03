@@ -22,4 +22,6 @@ public class DonationPageRespDto {
     private String mainImgUrl;
     private int donationTagId;
     private Boolean donationPageShow;
+    private int countLike;
+
 }

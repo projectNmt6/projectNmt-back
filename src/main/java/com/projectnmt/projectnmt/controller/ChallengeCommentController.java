@@ -35,7 +35,6 @@ public class ChallengeCommentController {
     }
 
 
-
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteComment(@PathVariable("id") int challengeCommentId,@AuthenticationPrincipal PrincipalUser currentUser){
         try {

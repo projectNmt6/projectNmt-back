@@ -26,7 +26,8 @@ public interface DonationMapper {
             @Param("goalAmount") int goalAmount,
             @Param("storyTitle") String storyTitle,
             @Param("mainImgUrl") String mainImgUrl,
-            @Param("donationTagId") int donationTagId);
+            @Param("donationTagId") int donationTagId,
+            @Param("countLike") Integer countLike);
 
 
 
@@ -46,7 +47,18 @@ public interface DonationMapper {
             @Param("donationTagName") String donationTagName);
 
     public DonationPage getDonationPage(
-            @Param("donationPageId") int donationPageId);
+
+            @Param("donationPageId") Integer donationPageId,
+            @Param("teamId") Integer teamId,
+            @Param("mainCategoryId") Integer mainCategoryId,
+            @Param("createDate") LocalDateTime createDate,
+            @Param("endDate") LocalDateTime endDate,
+            @Param("storyTitle") String storyTitle,
+            @Param("storyContent") String storyContent,
+            @Param("mainImgUrl") String mainImgUrl,
+            @Param("donationTagId") Integer donationTagId,
+            @Param("donationPageShow") Boolean donationPageShow,
+            @Param("countLike") Integer countLike);
 
     public List<MainCategory> getMainCategoryList(
             @Param("mainCategoryId") int mainCategoryId,

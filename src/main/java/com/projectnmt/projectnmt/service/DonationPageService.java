@@ -39,11 +39,24 @@ public class DonationPageService {
 
     public DonationPageRespDto getDonationPage(DonationPageReqDto donationPageReqDto) {
         DonationPage donationStory = donationMapper.getDonationPage(
-                donationPageReqDto.getDonationPageId());
-        System.out.println(donationStory);
+                donationPageReqDto.getDonationPageId(),
+                donationPageReqDto.getTeamId(),
+                donationPageReqDto.getMainCategoryId(),
+                donationPageReqDto.getCreateDate(),
+                donationPageReqDto.getEndDate(),
+                donationPageReqDto.getStoryTitle(),
+                donationPageReqDto.getStoryContent(),
+                donationPageReqDto.getMainImgUrl(),
+                donationPageReqDto.getDonationTagId(),
+                donationPageReqDto.getDonationPageShow(),
+                donationPageReqDto.getCountLike()
+        );
+
         DonationPageRespDto donationPageRespDto = donationStory.toDonationPageRespDto();
         return donationPageRespDto;
     }
+
+
 
     @Transactional(rollbackFor = Exception.class)
     public void updatePage(DonationPageUpdateReqDto donationPageUpdateReqDto, int userId) throws IllegalAccessException {

@@ -30,7 +30,7 @@ public class DonationCommentController {
 
     @GetMapping("/getcomment/{donationPageId}")
     public ResponseEntity<List<CommentRespDto>> getCommentListByDonationPageId(@PathVariable int donationPageId) {
-        List<CommentRespDto> commentList = commentService.getCommentsByDonationPageId(donationPageId);
+        List<CommentRespDto> commentList = commentService.getChallengeCommentsByChallengePageId(donationPageId);
         return ResponseEntity.ok(commentList);
     }
 

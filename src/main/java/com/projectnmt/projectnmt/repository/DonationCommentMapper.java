@@ -14,7 +14,8 @@ public interface DonationCommentMapper {
 
     public int saveComment(DonationComment comment);
 
-    List<DonationComment> getCommentList();
+
+    List<DonationComment> getChallengeCommentsByChallengePageId(int donationPageId);
 
     public List<DonationComment> getCommentList(
             @Param("donationCommentId") int donationCommentId,

@@ -15,5 +15,8 @@ public class CommentRespDto {
     private int userId;
     private User user;
     private DonationPage donationPage;
+
     private String name;
+    private String profileImg;
+
 }

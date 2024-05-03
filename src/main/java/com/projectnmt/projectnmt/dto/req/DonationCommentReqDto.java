@@ -15,12 +15,16 @@ public class DonationCommentReqDto {
     private User user;
     private DonationPage donationPage;
 
+    private String name;
+    private String profileImg;
     public DonationComment toEntity() {
         return DonationComment.builder()
                 .donationCommentId(donationCommentId)
                 .commentText(commentText)
                 .donationPageId(donationPageId)
                 .userId(userId)
+                .name(name)
+                .profileImg(profileImg)
                 .build();
     }
 

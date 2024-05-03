@@ -16,6 +16,9 @@ public class DonationComment {
     private int donationPageId;
     private int userId;
     private User user;
+
+    private String name;
+    private String profileImg;
     private DonationPage donationPage;
 
 
@@ -26,6 +29,8 @@ public class DonationComment {
                 .commentText(commentText)
                 .donationPageId(donationPageId)
                 .userId(userId)
+                .name(name)
+                .profileImg(profileImg)
                 .build();
     }
 

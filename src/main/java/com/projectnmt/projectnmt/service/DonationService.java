@@ -39,9 +39,12 @@
                     donationListReqDto.getGoalAmount(),
                     donationListReqDto.getStoryTitle(),
                     donationListReqDto.getMainImgUrl(),
-                    donationListReqDto.getDonationTagId()
+                    donationListReqDto.getDonationTagId(),
+                    donationListReqDto.getCountLike()
                     );
-
+                 for (Donation d : donations) {
+                     System.out.println(d.getCountLike());
+                 }
             return donations.stream().map(Donation::toDonationListRespDto).collect(Collectors.toList());
         }
 
@@ -64,14 +67,13 @@
         }
 
 
-        public List<DonationTagRespDto> getDonationTagList(DonationTagReqDto donationTagReqDto) {
-
+        public List<DonationTag> getDonationTagList(DonationTagReqDto donationTagReqDto) {
             List<DonationTag> donationTag = donationMapper.getDonationTagList(
                     donationTagReqDto.getDonationTagId(),
                     donationTagReqDto.getDonationTagName()
             );
 
-            return donationTag.stream().map(DonationTag::toDonationTagRespDto).collect(Collectors.toList());
+            return donationTag;
         }
 
         public List<DonationMainTagRespDto> getMainCategoryList(DonationMainTagReqDto donationMainTagReqDto) {

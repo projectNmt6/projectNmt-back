@@ -26,7 +26,7 @@ public class ChallengePage {
     private String challengeContent;
     private String challengeMainImg;
     private Boolean challengePageShow;
-    private int headCount;
+    private int headCount;  //프로젝트 목표 인원수
 
     public ChallengePageRespDto toChallengePageRespDto() {
         return ChallengePageRespDto.builder()
