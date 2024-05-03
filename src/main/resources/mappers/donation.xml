@@ -29,9 +29,16 @@
         <result property="mainImgUrl" column="main_img_url" />
         <result property="donationTagId" column="donation_tag_id" />
         <result property="donationPageShow" column="donation_page_show" />
+        <result property="countLike" column="countLike" />
         <association property="team" resultMap="TeamResultMap" />
         <association property="mainCategory" resultMap="MainCategoryResultMap" />
         <association property="donationTag" resultMap="DonationTagResultMap" />
+    </resultMap>
+
+    <resultMap id="LikeResultMap" type="com.projectnmt.projectnmt.entity.Like" >
+        <result property="donationPageId" column="donation_page_id" />
+        <result property="userId" column="user_id" />
+        <result property="donation_comment_id" column="donation_comment_id" />
     </resultMap>
 
     <resultMap id="TeamResultMap" type="com.projectnmt.projectnmt.entity.Team">
@@ -137,7 +144,17 @@
             dp.donation_tag_id,
             mc.main_category_name,
             dt.donation_tag_name,
-            t.team_name
+            t.team_name,
+            (
+            select
+                count(*)
+            from
+                like_tb lt
+            where
+                dp.donation_page_id = lt.donation_page_id
+                and lt.comment_id = 0
+            ) as countLike
+
         FROM
             donation_page_tb dp
         LEFT OUTER JOIN main_category_tb mc ON dp.main_category_id = mc.main_category_id

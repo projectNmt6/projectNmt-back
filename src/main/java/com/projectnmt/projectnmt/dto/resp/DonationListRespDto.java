@@ -20,4 +20,5 @@ public class DonationListRespDto {
     private String donationTagName;
     private int donationPageShow;
     private int teamId;
+    private int countLike;
 }
