@@ -42,7 +42,8 @@ public class DonationPageService {
                 donationPageReqDto.getStoryContent(),
                 donationPageReqDto.getMainImgUrl(),
                 donationPageReqDto.getDonationTagId(),
-                donationPageReqDto.getDonationPageShow()
+                donationPageReqDto.getDonationPageShow(),
+                donationPageReqDto.getCountLike()
         );
 
         DonationPageRespDto donationPageRespDto = donationStory.toDonationPageRespDto();
@@ -61,7 +62,8 @@ public class DonationPageService {
                 donationPageReqDto.getStoryContent(),
                 donationPageReqDto.getMainImgUrl(),
                 donationPageReqDto.getDonationTagId(),
-                donationPageReqDto.getDonationPageShow()
+                donationPageReqDto.getDonationPageShow(),
+                donationPageReqDto.getCountLike()
         );
 
         DonationPageRespDto donationPageRespDto =

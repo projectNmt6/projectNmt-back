@@ -15,4 +15,5 @@ public class DonationListReqDto {
     private String storyTitle;
     private String mainImgUrl;
     private int donationTagId;
+    private int countLike;
 }

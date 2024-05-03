@@ -27,6 +27,7 @@ public class DonationPage {
     private int donationTagId;
     private Boolean donationPageShow;
     private MainCategory mainCategory;
+    private int countLike;
 
     public DonationPageRespDto toSavePost() {
 
@@ -43,6 +44,7 @@ public class DonationPage {
                 .mainImgUrl(mainImgUrl)
                 .donationTagId(donationTagId)
                 .donationPageShow(donationPageShow)
+                .countLike(countLike)
                 .build();
     }
 
@@ -61,6 +63,7 @@ public class DonationPage {
                 .mainImgUrl(mainImgUrl)
                 .donationTagId(donationTagId)
                 .donationPageShow(donationPageShow)
+                .countLike(countLike)
                 .build();
     }
 
