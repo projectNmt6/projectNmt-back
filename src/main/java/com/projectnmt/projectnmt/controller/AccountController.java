@@ -83,7 +83,6 @@ public class AccountController {
     @PutMapping("/mypage/edit/password")
     public ResponseEntity<?> passwordedit(@Valid @RequestBody EditAccountReqDto editAccountReqDto,
                                           BindingResult bindingResult) {
-        System.out.println(editAccountReqDto);
         accountService.editPassword(editAccountReqDto);
         return ResponseEntity.ok().build();
     }

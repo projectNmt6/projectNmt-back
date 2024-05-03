@@ -54,6 +54,7 @@ public class AccountService {
                 .build();
         userMapper.updatePassword(updatepassword);
     }
+
     public List<MyDonationListRespDto> GetMyDonation(GetMyDonationListReqDto getMyDonationListReqDto) {
         List<MyDonationListRespDto> donators = donatorMapper.getMyList(getMyDonationListReqDto);
         return donators;
