@@ -53,7 +53,6 @@ public class AccountController {
         return ResponseEntity.ok().build();
     }
 
-
         @GetMapping("/teams")
         public ResponseEntity<?> getTeamList (SearchTeamListDto searchTeamListDto){
             List<Team> teamList = teamService.getTeamList(searchTeamListDto);
@@ -80,6 +79,12 @@ public class AccountController {
     public ResponseEntity<?> getMyPaticipateCount(int userId) {
         return ResponseEntity.ok(userSerive.getParticipateCount(userId));
     }
-
+    @ValidAspect
+    @PutMapping("/mypage/edit/password")
+    public ResponseEntity<?> passwordedit(@Valid @RequestBody EditAccountReqDto editAccountReqDto,
+                                          BindingResult bindingResult) {
+        accountService.editPassword(editAccountReqDto);
+        return ResponseEntity.ok().build();
+    }
 }
 
