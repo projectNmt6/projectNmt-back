@@ -8,7 +8,7 @@
         <id property="donatorId" column="donator_id" />
         <result property="userId" column="user_id" />
         <result property="donationDate" column="donation_date" />
-        <result property="amount" column="donation_amount" />
+        <result property="addAmount" column="donation_amount" />
         <result property="donationDate" column="donate_date" />
         <result property="donationAmount" column="donation_amount" />
         <result property="donationPageId" column="donation_page_id" />
@@ -62,7 +62,7 @@
         now(),
         #{amount},
         #{donationPageId},
-        #{anonymous}
+        #{donatorAnonymous}
         );
     </insert>
     <insert id="saveComment" parameterType="com.projectnmt.projectnmt.entity.DonationComment" >
@@ -119,7 +119,7 @@
             dt.donation_date,
             dt.donation_amount,
             dpt.donation_page_id as donationPageId,
-            dt.donation_anonymous
+            dt.donator_anonymous
         FROM
             donation_page_tb dpt
             left outer join donator_tb dt on(dpt.donation_page_id = dt.donation_page_id)
