@@ -54,6 +54,7 @@ public class DonationController {
     public ResponseEntity<?> saveReviewPage(
             @Valid @RequestBody DonationPageReqDto donationPageReqDto,
             BindingResult bindingResult) {
+        System.out.println(donationPageReqDto);
         donationPageService.saveDonationPage(donationPageReqDto);
         return ResponseEntity.created(null).body(donationPageReqDto);
     }

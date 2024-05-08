@@ -19,7 +19,6 @@ public class DonatorService {
     DonatorMapper donatorMapper;
 
     public List<DonatorListRespDto> getDonatorList(DonatorListReqDto donatorListReqDto) {
-
         List<Donator> donators = donatorMapper.getDonatorList(
                 donatorListReqDto.getDonatorId(),
                 donatorListReqDto.getUserId(),
@@ -33,13 +32,10 @@ public class DonatorService {
                 donatorListReqDto.getGoalAmount(),
                 donatorListReqDto.getAddAmount()
         );
-//        List<DonatorListRespDto> list = new ArrayList<>();
-//        System.out.println(donators);
-//        for (Object donator : donators) {
-//            list.add((DonatorListRespDto)donator);
-//        }
-//        System.out.println(list);
-//        return  list;
+        return donators.stream().map(Donator::toDonatorListRespDto).collect(Collectors.toList());
+    }
+    public List<DonatorListRespDto> getDonatorListByPageId(int pageId) {
+        List<Donator> donators = donatorMapper.getDonatorListByPageId(pageId);
         return donators.stream().map(Donator::toDonatorListRespDto).collect(Collectors.toList());
     }
 }

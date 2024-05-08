@@ -17,7 +17,7 @@ public interface  UserMapper {
     public int updateUser(User user);
     public int saveRole(int userId, int roleId);
     public int deleteAuthority(int userId);
-    public List<MessageRespDto> getMessageList(int userId);
+    public List<MessageRespDto> getMessageList(int id, int isTeam);
     public int deleteUserByUserId (Integer userId);
     public User findUserByUserId(int userId);
     public List<TeamMember> findTeamMemberByUserId(int userId);

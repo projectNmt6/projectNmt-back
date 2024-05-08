@@ -19,7 +19,7 @@ public class DonationPageUpdateReqDto {
     private String storyContent;
     private String mainImgUrl;
     private int donationTagId;
-    private Boolean donationPageShow;
+    private int donationPageShow;
 
     public DonationPage toEntity() {
         return DonationPage.builder()

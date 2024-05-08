@@ -1,11 +1,10 @@
 package com.projectnmt.projectnmt.controller;
 
 
+import com.projectnmt.projectnmt.dto.AdminTeamListReqDto;
+import com.projectnmt.projectnmt.dto.TeamListReqDto;
 import com.projectnmt.projectnmt.dto.UserListRsqDto;
-import com.projectnmt.projectnmt.dto.req.AdminMessageReqDto;
-import com.projectnmt.projectnmt.dto.req.DonationListReqDto;
-import com.projectnmt.projectnmt.dto.req.PageShowUpdateReqDto;
-import com.projectnmt.projectnmt.dto.req.SearchTeamListDto;
+import com.projectnmt.projectnmt.dto.req.*;
 import com.projectnmt.projectnmt.dto.resp.CommentListRespDto;
 import com.projectnmt.projectnmt.entity.*;
 import com.projectnmt.projectnmt.entity.User;
@@ -36,7 +35,7 @@ public class AdminController {
         return ResponseEntity.ok(findUser);
     }
     @GetMapping("/comment")
-    public ResponseEntity<?> getCommentList(int userId) {
+    public ResponseEntity<?> getCommentList(@RequestParam(defaultValue = "0") int userId) {
         List<CommentListRespDto> commentList = adminService.getCommentList(userId);
         return ResponseEntity.ok(commentList);
     }
@@ -63,14 +62,18 @@ public class AdminController {
     }
     @PostMapping("/message")
     public ResponseEntity<?> postMessage(@RequestBody AdminMessageReqDto adminMessageReqDto) {
+        System.out.println(adminMessageReqDto);
         adminService.sendMessage(adminMessageReqDto);
         return ResponseEntity.ok(null);
     }
     @GetMapping("/teams")
-    public ResponseEntity<?> getTeamList() {
-        return ResponseEntity.ok(adminService.getTeamList());
+    public ResponseEntity<?> getTeamList(AdminTeamListReqDto adminTeamListReqDto) {
+        return ResponseEntity.ok(adminService.getTeamList(adminTeamListReqDto));
     }
-
+    @GetMapping("/team/count")
+    public ResponseEntity<?> getTeamCount(AdminTeamListReqDto adminTeamListReqDto) {
+        return ResponseEntity.ok(adminService.getTeamCount(adminTeamListReqDto));
+    }
     @DeleteMapping("/team/delete")
     public ResponseEntity<?> deleteTeamList(@RequestBody List<Team> teamList) {
         adminService.deleteTeams(teamList);
@@ -88,4 +91,21 @@ public class AdminController {
         donationListReqDto1.setStoryTitle(name);
         return ResponseEntity.ok(donationService.searchDonation(donationListReqDto1));
     }
+
+    @GetMapping("/donations")
+    public ResponseEntity<?> DonationList(AdminDonationListReqDto adminDonationListReqDto) {
+        return ResponseEntity.ok(adminService.getDonationList(adminDonationListReqDto));
+    };
+
+    @GetMapping("/story/count")
+    public ResponseEntity<?> getStoryCount(AdminDonationListReqDto adminDonationListReqDto) {
+        return ResponseEntity.ok(adminService.getStoryCount(adminDonationListReqDto));
+    }
+
+    @DeleteMapping("/donation/delete")
+    public ResponseEntity<?> deleteDonationList(@RequestBody List<Donation> list) {
+        adminService.deleteDonation(list);
+        return ResponseEntity.ok(null);
+    }
+
 }

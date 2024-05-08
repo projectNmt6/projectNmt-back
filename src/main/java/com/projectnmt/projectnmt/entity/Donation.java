@@ -26,7 +26,6 @@ public class Donation {
     private DonationTag donationTag;
     private Like like;
     private int countLike;
-  
     public DonationListRespDto toDonationListRespDto() {
         return DonationListRespDto.builder()
                 .donationPageId(donationPageId)

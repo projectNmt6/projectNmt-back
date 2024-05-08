@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/team")
 public class TeamController {
@@ -41,5 +43,11 @@ public class TeamController {
     @GetMapping("/donations")
     public ResponseEntity<?> getDonationList(int teamId) {
         return ResponseEntity.ok( teamService.getDonationList(teamId));
+    }
+
+    @PutMapping("/updatePageShow")
+        public ResponseEntity<?> updatePageShow(@RequestBody Map<String, Integer> pageId) {
+        teamService.updatePageDelete(pageId.get("pageId"));
+        return ResponseEntity.ok( null);
     }
 }

@@ -30,5 +30,7 @@ public interface DonatorMapper {
             @Param("mainImageUrl") String mainImgUrl,
             @Param("goalAmount") int goalAmount,
             @Param("addAmount") int addAmount
-    );
+
+   );
+    public List<Donator> getDonatorListByPageId(int pageId);
 }

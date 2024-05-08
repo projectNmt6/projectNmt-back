@@ -25,7 +25,7 @@ public class DonationPage {
     private String storyContent;
     private String mainImgUrl;
     private int donationTagId;
-    private Boolean donationPageShow;
+    private int donationPageShow;
     private MainCategory mainCategory;
     private int countLike;
 

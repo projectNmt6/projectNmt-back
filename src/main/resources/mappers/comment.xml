@@ -24,6 +24,7 @@
         #{donationPageId},
         #{userId})
     </insert>
+    
     <insert id="reportComment">
         insert into report_tb
         values (
@@ -34,13 +35,22 @@
             #{isDonation}
         )
     </insert>
-
     <select id="getCommentList" resultMap="CommentResultMap" >
         SELECT * FROM donation_comment_tb
     </select>
 
     <select id="getCommentsByDonationPageId" resultMap="CommentResultMap" >
         SELECT * FROM donation_comment_tb WHERE donation_page_id = #{donationPageId}
+    </select>
+    <select id="getReportDuplication" resultType="java.lang.Integer">
+        select
+            count(*)
+        from
+            report_tb
+        where
+            user_id = #{userId}
+            and comment_id = #{commentId}
+            and is_donation = #{isDonation}
     </select>
 
     <delete id="deleteCommentById" parameterType="int" >

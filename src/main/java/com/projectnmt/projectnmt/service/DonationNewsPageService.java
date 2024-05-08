@@ -32,7 +32,7 @@ public class DonationNewsPageService {
                 donationNewsPageReqDto.getDonationPageId(),
                 donationNewsPageReqDto.getPageCategoryId(),
                 donationNewsPageReqDto.getNewsContent(),
-                donationNewsPageReqDto.getUserId()
+                donationNewsPageReqDto.getTeamId()
         );
         if (donationNewsPage == null) {
             // Handle the null case, perhaps by returning null or throwing an exception

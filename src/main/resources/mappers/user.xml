@@ -60,8 +60,7 @@
         #{email},
         #{gender},
         #{age},
-        #{profileImg},
-        null
+        #{profileImg}
         )
     </insert>
 
@@ -179,8 +178,8 @@
         message_tb mt
         left outer join team_tb tt on(tt.team_id = mt.sender_id)
         where
-        getter_id = #{userId}
-        and is_team = 0
+        getter_id = #{id}
+        and is_team = #{isTeam}
     </select>
     <select id="findUserByUserId" resultMap="UserResultMap">
         select
