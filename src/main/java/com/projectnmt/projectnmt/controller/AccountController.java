@@ -53,16 +53,17 @@ public class AccountController {
     }
 
 
-        @GetMapping("/teams")
-        public ResponseEntity<?> getTeamList (SearchTeamListDto searchTeamListDto){
-            List<Team> teamList = teamService.getTeamList(searchTeamListDto);
-            return ResponseEntity.ok(teamList);
-        }
+    @GetMapping("/teams")
+    public ResponseEntity<?> getTeamList (SearchTeamListDto searchTeamListDto){
+        List<Team> teamList = teamService.getTeamList(searchTeamListDto);
+        return ResponseEntity.ok(teamList);
+    }
 
 
-    @GetMapping("/message")
-    public ResponseEntity<?> getMessageList(int userId) {
-        return ResponseEntity.ok(userSerive.getMessageList(userId));
+
+    @GetMapping("/message/{id}/{isTeam}")
+    public ResponseEntity<?> getMessageList(@PathVariable int id, @PathVariable int isTeam) {
+        return ResponseEntity.ok(userSerive.getMessageList(id, isTeam));
     }
 
     @DeleteMapping("/message/delete/{id}/{isTeam}")
@@ -79,6 +80,12 @@ public class AccountController {
     public ResponseEntity<?> getMyPaticipateCount(int userId) {
         return ResponseEntity.ok(userSerive.getParticipateCount(userId));
     }
-
+    @ValidAspect
+    @PutMapping("/mypage/edit/password")
+    public ResponseEntity<?> passwordedit(@Valid @RequestBody EditAccountReqDto editAccountReqDto,
+                                          BindingResult bindingResult) {
+        accountService.editPassword(editAccountReqDto);
+        return ResponseEntity.ok().build();
+    }
 }
 

@@ -83,5 +83,8 @@ public class TeamService {
         return teamMember != null && teamMember.getUserId() == userId;
     }
 
-
+    public void updatePageDelete(int pageId) {
+        System.out.println(pageId);
+        teamMapper.updatePageDelete(pageId);
+    }
 }

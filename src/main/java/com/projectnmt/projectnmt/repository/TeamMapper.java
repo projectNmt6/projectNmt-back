@@ -22,4 +22,5 @@ public interface TeamMapper {
     public List<Donation> getDonationListByTeamId(int teamId);
     public int findTeamIdByUserId(int userId);
 
+    public int updatePageDelete(int pageId);
 }

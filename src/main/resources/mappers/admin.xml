@@ -72,6 +72,7 @@
         <result property="teamInfoText" column="team_info_text" />
         <result property="teamHomepage" column="team_homepage" />
         <result property="teamTypeCategory" column="team_type_category" />
+        <result property="teamTypeCategoryName" column="team_type_category_name" />
         <collection property="teamMembers" javaType="list" resultMap="teamMemberResultMap" />
         <collection property="accounts" javaType="list" resultMap="accountResultMap" />
     </resultMap>
@@ -89,11 +90,30 @@
         <result property="accountNumber" column="account_number"/>
         <result property="accountUrl" column="account_url"/>
     </resultMap>
+
     <resultMap id="DonationResultMap" type="com.projectnmt.projectnmt.entity.Donation">
         <id property="donationPageId" column="donation_page_id" />
+        <result property="teamId" column="team_id" />
+        <result property="mainCategoryId" column="main_category_id" />
+        <result property="storyTitle" column="story_title" />
+        <result property="createDate" column="create_date" />
+        <result property="endDate" column="end_date" />
+        <result property="goalAmount" column="goal_amount" />
+        <result property="mainImgUrl" column="main_img_url" />
+        <result property="donationTagId" column="donation_tag_id" />
         <result property="donationPageShow" column="donation_page_show" />
+        <association property="team" resultMap="TeamResultMap" />
+        <association property="mainCategory" resultMap="MainCategoryResultMap" />
+        <association property="donationTag" resultMap="DonationTagResultMap" />
     </resultMap>
-
+    <resultMap id="MainCategoryResultMap" type="com.projectnmt.projectnmt.entity.MainCategory">
+        <id property="mainCategoryId" column="main_category_id"/>
+        <result property="mainCategoryName" column="main_category_name"/>
+    </resultMap>
+    <resultMap id="DonationTagResultMap" type="com.projectnmt.projectnmt.entity.DonationTag">
+        <id property="donationTagId" column="donation_tag_id"/>
+        <result property="donationTagName" column="donation_tag_name"/>
+    </resultMap>
 
     <insert id="addRole">
         insert into authority_tb
@@ -124,6 +144,14 @@
             team_tb
         where
             team_id = #{teamId}
+    </delete>
+    <delete id="deleteReport">
+        delete
+        from
+            report_tb
+        where
+            comment_id = #{donationCommentId}
+            and is_donation = 1
     </delete>
 
     <select id="findUserList" resultMap="AdminUserResultMap">
@@ -288,7 +316,10 @@
             left outer join donation_page_tb dpt on (dpt.donation_page_id = ct.donation_page_id)
             left outer join report_tb rt on (rt.comment_id = ct.donation_comment_id)
         where
-            ct.user_id = #{userId}
+            1 = 1
+            <if test="userId != 0">
+                and ct.user_id = #{userId}
+            </if>
         GROUP BY
             ct.donation_comment_id, ct.comment_text, dpt.story_title, dpt.donation_page_id
     </select>
@@ -306,11 +337,47 @@
             tt.team_logo_img_url,
             tt.team_type_category,
             tmt.user_id,
-            tmt.team_role_id
+            tmt.team_role_id,
+            ttct.team_type_category_name
         from
             team_tb tt
             left outer join team_member_tb tmt on(tmt.team_id = tt.team_id)
-
+            left outer join team_type_category_tb ttct on(ttct.team_type_category_id = tt.team_type_category)
+        where
+        1 = 1
+        <if test="selectedCategory &lt; 0">
+            and tt.team_type = #{selectedCategory}  * -1
+        </if>
+        <if test="selectedCategory &gt; 0">
+            and tt.team_type_category = #{selectedCategory}
+        </if>
+        <choose>
+            <when test="selectedSearchTextOption == 0">
+                and (
+                tt.team_id = #{searchText}
+                or  tt.team_name like concat('%', #{searchText}, '%')
+                or  tt.company_register_number like concat('%', #{searchText}, '%')
+                or  tt.team_phone like concat('%', #{searchText}, '%')
+                or  tt.team_email like concat('%', #{searchText}, '%')
+                )
+            </when>
+            <when test="selectedSearchTextOption == 1">
+                and tt.team_id = #{searchText}
+            </when>
+            <when test="selectedSearchTextOption == 2">
+                and tt.team_name like concat('%', #{searchText}, '%')
+            </when>
+            <when test="selectedSearchTextOption == 3">
+                and tt.company_register_number like concat('%', #{searchText}, '%')
+            </when>
+            <when test="selectedSearchTextOption == 4">
+                and tt.team_email like concat('%', #{searchText}, '%')
+            </when>
+            <when test="selectedSearchTextOption == 5">
+                and tt.team_phone like concat('%', #{searchText}, '%')
+            </when>
+        </choose>
+        limit #{pageNumber}, #{searchCount}
     </select>
     <select id="findTeamMemberListByTeamId" resultMap="teamMemberResultMap">
         select
@@ -329,4 +396,181 @@
         where
             aut.user_id = #{user_id}
     </select>
+    <select id="getDonationList" resultMap="DonationResultMap">
+        SELECT
+            dp.donation_page_id,
+            dp.team_id,
+            dp.main_category_id,
+            dp.story_title,
+            dp.create_date,
+            dp.end_date,
+            dp.goal_amount,
+            dp.main_img_url,
+            dp.donation_tag_id,
+            mc.main_category_name,
+            dt.donation_tag_name,
+            dp.donation_page_show,
+            t.team_name
+        FROM
+            donation_page_tb dp
+            LEFT OUTER JOIN main_category_tb mc ON dp.main_category_id = mc.main_category_id
+            LEFT OUTER JOIN donation_tag_tb dt ON dp.donation_tag_id = dt.donation_tag_id
+            LEFT OUTER JOIN team_tb t ON dp.team_id = t.team_id
+        where
+            1 = 1
+            <if test="teamId != 0">
+                and dp.team_id = #{teamId}
+            </if>
+            <if test="donationIsShow != 0">
+                and donation_page_show = #{donationIsShow}
+            </if>
+            <if test="isTimeOut != 0">
+                and DATEDIFF( end_date, now()) * #{isTimeOut}
+            </if>
+            <choose>
+                <when test="selectedOption == 0">
+                    and (
+                    dp.donation_page_id = #{searchText}
+                    or  dp.story_title like concat('%', #{searchText}, '%')
+                    or  dp.story_content like concat('%', #{searchText}, '%')
+                    or  dt.donation_tag_name like concat('%', #{searchText}, '%')
+                    or  t.team_name like concat('%', #{searchText}, '%')
+                    )
+                </when>
+                <when test="selectedOption == 1">
+                    and dp.donation_page_id = #{searchText}
+                </when>
+                <when test="selectedOption == 2">
+                    and dp.story_title like concat('%', #{searchText}, '%')
+                </when>
+                <when test="selectedOption == 3">
+                    and dp.story_content like concat('%', #{searchText}, '%')
+                </when>
+                <when test="selectedOption == 4">
+                    and dt.donation_tag_name like concat('%', #{searchText}, '%')
+                </when>
+                <when test="selectedOption == 5">
+                    and t.team_name like concat('%', #{searchText}, '%')
+                </when>
+            </choose>
+            limit #{pageId}, #{searchCount}
+    </select>
+    <select id="getTeamCount" resultType="java.lang.Integer">
+        select
+            count(*)
+        from
+            team_tb tt
+            left outer join team_member_tb tmt on(tmt.team_id = tt.team_id)
+            left outer join team_type_category_tb ttct on(ttct.team_type_category_id = tt.team_type_category)
+        where
+            1 = 1
+        <if test="selectedCategory &lt; 0">
+            and tt.team_type = #{selectedCategory}  * -1
+        </if>
+        <if test="selectedCategory &gt; 0">
+            and tt.team_type_category = #{selectedCategory}
+        </if>
+        <choose>
+            <when test="selectedSearchTextOption == 0">
+                and (
+                tt.team_id = #{searchText}
+                or  tt.team_name like concat('%', #{searchText}, '%')
+                or  tt.company_register_number like concat('%', #{searchText}, '%')
+                or  tt.team_phone like concat('%', #{searchText}, '%')
+                or  tt.team_email like concat('%', #{searchText}, '%')
+                )
+            </when>
+            <when test="selectedSearchTextOption == 1">
+                and tt.team_id = #{searchText}
+            </when>
+            <when test="selectedSearchTextOption == 2">
+                and tt.team_name like concat('%', #{searchText}, '%')
+            </when>
+            <when test="selectedSearchTextOption == 3">
+                and tt.company_register_number like concat('%', #{searchText}, '%')
+            </when>
+            <when test="selectedSearchTextOption == 4">
+                and tt.team_email like concat('%', #{searchText}, '%')
+            </when>
+            <when test="selectedSearchTextOption == 5">
+                and tt.team_phone like concat('%', #{searchText}, '%')
+            </when>
+        </choose>
+    </select>
+    <select id="getDonationCount" resultType="java.lang.Integer">
+        select
+            count(*)
+        from
+            donation_page_tb dp
+            LEFT OUTER JOIN main_category_tb mc ON dp.main_category_id = mc.main_category_id
+            LEFT OUTER JOIN donation_tag_tb dt ON dp.donation_tag_id = dt.donation_tag_id
+            LEFT OUTER JOIN team_tb t ON dp.team_id = t.team_id
+        where
+            1 = 1
+        <if test="teamId != 0">
+            and dp.team_id = #{teamId}
+        </if>
+        <if test="donationIsShow != 0">
+            and donation_page_show = #{donationIsShow}
+        </if>
+        <if test="isTimeOut != 0">
+            and DATEDIFF( end_date, now()) * #{isTimeOut}
+        </if>
+        <choose>
+            <when test="selectedOption == 0">
+                and (
+                dp.donation_page_id = #{searchText}
+                or  dp.story_title like concat('%', #{searchText}, '%')
+                or  dp.story_content like concat('%', #{searchText}, '%')
+                or  dt.donation_tag_name like concat('%', #{searchText}, '%')
+                or  t.team_name like concat('%', #{searchText}, '%')
+                )
+            </when>
+            <when test="selectedOption == 1">
+                and dp.donation_page_id = #{searchText}
+            </when>
+            <when test="selectedOption == 2">
+                and dp.story_title like concat('%', #{searchText}, '%')
+            </when>
+            <when test="selectedOption == 3">
+                and dp.story_content like concat('%', #{searchText}, '%')
+            </when>
+            <when test="selectedOption == 4">
+                and dt.donation_tag_name like concat('%', #{searchText}, '%')
+            </when>
+            <when test="selectedOption == 5">
+                and t.team_name like concat('%', #{searchText}, '%')
+            </when>
+        </choose>
+    </select>
+
+    <delete id="deleteDonation">
+        delete
+        from
+            donation_page_tb
+        where
+        donation_page_id = #{donationPageId}
+    </delete>
+
+    <delete id="deleteCommemtByPageId">
+    delete
+    from
+        donation_comment_tb
+    where
+        donation_page_id = #{donationPageId}
+    </delete>
+    <delete id="deleteLikeByPageId">
+        delete
+        from
+            like_tb
+        where
+            donation_page_id = #{donationPageId}
+    </delete>
+    <delete id="deleteDonationImage">
+        delete
+        from
+            donation_image_tb
+        where
+            donation_page_id = #{donationPageId}
+    </delete>
 </mapper>

@@ -3,7 +3,6 @@ package com.projectnmt.projectnmt.dto.req;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 public class DonationListReqDto {
@@ -15,6 +14,8 @@ public class DonationListReqDto {
     private int goalAmount;
     private String storyTitle;
     private String mainImgUrl;
+
+    private String donationTagName;
     private int donationTagId;
     private int countLike;
 }

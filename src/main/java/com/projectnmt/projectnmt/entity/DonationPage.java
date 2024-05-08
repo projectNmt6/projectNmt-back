@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @Builder
@@ -14,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class DonationPage {
 
-    private int donationPageId;
+    private Integer donationPageId;
     private int teamId;
     private int mainCategoryId;
     private String donationName;
@@ -26,8 +25,7 @@ public class DonationPage {
     private String storyContent;
     private String mainImgUrl;
     private int donationTagId;
-    private Boolean donationPageShow;
-    private MainCategory mainCategory;
+    private int donationPageShow;
     private int countLike;
 
     public DonationPageRespDto toSavePost() {

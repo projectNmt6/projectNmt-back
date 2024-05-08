@@ -15,6 +15,7 @@ public class Donation {
     private int donationPageId;
     private int teamId;
     private int mainCategoryId;
+    private int pageCategoryId;
     private String storyTitle;
     private LocalDateTime createDate;
     private LocalDateTime endDate;

@@ -1,9 +1,8 @@
 package com.projectnmt.projectnmt.repository;
 
 
+import com.projectnmt.projectnmt.dto.req.CommentReqDto;
 import com.projectnmt.projectnmt.entity.DonationComment;
-import com.projectnmt.projectnmt.dto.CommentReportReqDto;
-import com.projectnmt.projectnmt.dto.resp.CommentRespDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -30,5 +29,5 @@ public interface DonationCommentMapper {
 
     DonationComment findCommentById(@Param("donationCommentId") int donationCommentId);
 
-    public int reportComment(CommentReportReqDto commentReportReqDto);
+    public int reportComment(CommentReqDto commentReportReqDto);
 }

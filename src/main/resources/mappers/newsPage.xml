@@ -20,6 +20,7 @@
             page_category_id,
             news_content,
             team_id)
+
         VALUES
             (#{donationNewsPageId},
             #{donationPageId},

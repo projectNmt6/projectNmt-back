@@ -20,7 +20,7 @@ public class DonationPageReqDto {
     private String storyContent;
     private String mainImgUrl;
     private int donationTagId;
-    private Boolean donationPageShow;
+    private int donationPageShow;
     private int countLike;
 
 

@@ -17,7 +17,7 @@ public interface  UserMapper {
     public int updateUser(User user);
     public int saveRole(int userId, int roleId);
     public int deleteAuthority(int userId);
-    public List<MessageRespDto> getMessageList(int userId);
+    public List<MessageRespDto> getMessageList(int id, int isTeam);
     public int deleteUserByUserId (Integer userId);
     public User findUserByUserId(int userId);
     public List<TeamMember> findTeamMemberByUserId(int userId);
@@ -31,4 +31,5 @@ public interface  UserMapper {
     public User findUserByOAuth2name(String name);
     public int deleteMessageById(int id, int isTeam);
     public ParticipateCountRespDto getParticipateCountByuserId(int userId);
+    public int updatePassword(User user);
 }

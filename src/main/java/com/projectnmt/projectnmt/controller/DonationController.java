@@ -32,7 +32,6 @@ public class DonationController {
     @Autowired
     private DonationPageService donationPageService;
 
-
     @Autowired
     private DonationNewsPageService donationNewsPageService;
 
@@ -84,7 +83,7 @@ public class DonationController {
     @PutMapping("/donation/news/update/{page}")
     public ResponseEntity<?> updateNewsPage(@PathVariable("page") int page, @AuthenticationPrincipal PrincipalUser currentUser,
                                             @RequestBody DonationNewsUpdateReqDto donationNewsUpdateReqDto
-                                            ) throws IllegalAccessException {
+    ) throws IllegalAccessException {
         if (currentUser == null || currentUser.getUserId() == 0) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 인증 정보가 없습니다.");
         }
@@ -130,12 +129,14 @@ public class DonationController {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
         }
-
+        if (!donationPageService.isUserPageOwner(page, currentUser.getUserId())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("접근 권한이 없습니다.");
+        }
         donationNewsPageReqDto.setDonationPageId(page);
         System.out.println("work");
         donationNewsPageService.saveDonationNewsPage(donationNewsPageReqDto, page, currentUser.getUserId());
 
-        return ResponseEntity.created(null).body(donationNewsPageReqDto);
+        return ResponseEntity.ok(donationNewsPageReqDto);
     }
 
 
@@ -172,8 +173,6 @@ public class DonationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 내부 오류: " + e.getMessage());
         }
     }
-
-
 
     @GetMapping("donation/fundings/now")
     public ResponseEntity<List<DonationListRespDto>> getCurrentFundraisings() {

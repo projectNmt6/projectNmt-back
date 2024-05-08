@@ -39,6 +39,7 @@ public class DonationNewsPageService {
         }
         donationNewsMapper.updateNewsPageById(donationNewsUpdateReqDto.toEntity());
     }
+
     public void saveDonationNewsPage(DonationNewsPageReqDto donationNewsPageReqDto, int pageId, int userId) throws IllegalAccessException {
         // 페이지 존재 여부 및 권한 확인
         DonationPage existingPage = donationMapper.findPageById(pageId);
