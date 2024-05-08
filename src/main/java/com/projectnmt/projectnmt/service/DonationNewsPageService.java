@@ -40,15 +40,11 @@ public class DonationNewsPageService {
         donationNewsMapper.updateNewsPageById(donationNewsUpdateReqDto.toEntity());
     }
 
-    public void saveDonationNewsPage(DonationNewsPageReqDto donationNewsPageReqDto, int pageId, int userId) throws IllegalAccessException {
+    public void saveDonationNewsPage(DonationNewsPageReqDto donationNewsPageReqDto, int pageId) throws IllegalAccessException {
         // 페이지 존재 여부 및 권한 확인
         DonationPage existingPage = donationMapper.findPageById(pageId);
         if (existingPage == null) {
             throw new IllegalArgumentException("해당 페이지가 존재하지 않습니다.");
-        }
-        // 유저 권한 확인
-        if (!teamService.isTeamMember(existingPage.getTeamId(), userId)) {
-            throw new IllegalAccessException("이 페이지를 수정할 권한이 없습니다.");
         }
         DonationNewsPage donationNewsPage = donationNewsPageReqDto.toEntity();
         int count = donationNewsMapper.saveDonationNewsPage(donationNewsPage);

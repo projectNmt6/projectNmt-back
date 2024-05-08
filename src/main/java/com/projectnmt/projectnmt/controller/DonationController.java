@@ -93,10 +93,8 @@ public class DonationController {
     }
 
     @GetMapping("/donation/news/update/{page}")
-    public ResponseEntity<?> getNewsPageUpdate(@PathVariable("page") int page, @AuthenticationPrincipal PrincipalUser currentUser) {
-        if (currentUser == null || currentUser.getUserId() == 0) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 인증 정보가 없습니다.");
-        }
+    public ResponseEntity<?> getNewsPageUpdate(@PathVariable("page") int page) {
+
         DonationNewsPageReqDto donationNewsPageReqDto = new DonationNewsPageReqDto();
         donationNewsPageReqDto.setDonationPageId(page);
         DonationNewsPageRespDto donationNewsPageRespDto = donationNewsPageService.getDonationNews(donationNewsPageReqDto);
@@ -124,17 +122,13 @@ public class DonationController {
     @PostMapping("/donation/news/{page}")
     public ResponseEntity<?> saveDonationNewsPage(@PathVariable("page") int page,
                                                   @Valid @RequestBody DonationNewsPageReqDto donationNewsPageReqDto,
-                                                  BindingResult bindingResult,
-                                                  @AuthenticationPrincipal PrincipalUser currentUser) throws IllegalAccessException {
+                                                  BindingResult bindingResult) throws IllegalAccessException {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
         }
-        if (!donationPageService.isUserPageOwner(page, currentUser.getUserId())) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("접근 권한이 없습니다.");
-        }
         donationNewsPageReqDto.setDonationPageId(page);
         System.out.println("work");
-        donationNewsPageService.saveDonationNewsPage(donationNewsPageReqDto, page, currentUser.getUserId());
+        donationNewsPageService.saveDonationNewsPage(donationNewsPageReqDto, page);
 
         return ResponseEntity.ok(donationNewsPageReqDto);
     }

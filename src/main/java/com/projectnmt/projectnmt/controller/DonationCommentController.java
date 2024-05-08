@@ -35,9 +35,9 @@ public class DonationCommentController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteComment(@PathVariable("id") int donationCommentId, @AuthenticationPrincipal PrincipalUser currentUser) {
+    public ResponseEntity<?> deleteComment(@PathVariable("id") int donationCommentId) {
         try {
-            commentService.deleteComment(donationCommentId, currentUser.getUserId());
+            commentService.deleteComment(donationCommentId);
             return ResponseEntity.ok().build();
         } catch (IllegalStateException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
