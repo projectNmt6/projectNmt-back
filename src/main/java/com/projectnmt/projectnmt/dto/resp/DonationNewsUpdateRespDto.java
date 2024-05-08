@@ -10,5 +10,5 @@ public class DonationNewsUpdateRespDto {
     private int donationPageId;
     private int pageCategoryId;
     private String newsContend;
-    private int userId;
+    private int teamId;
 }

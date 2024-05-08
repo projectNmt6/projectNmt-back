@@ -17,20 +17,6 @@ public interface DonationMapper {
 
     public int saveDonationPage(DonationPage donationPage);
 
-    public int saveDonationNewsPage(DonationPage donationPage);
-
-    public List<Donation> getChallengeList(
-            @Param("donationPageId") int donationPageId,
-            @Param("teamId") int teamId,
-            @Param("mainCategoryId") int mainCategoryId,
-            @Param("createDate") LocalDateTime createDate,
-            @Param("endDate") LocalDateTime endDate,
-            @Param("goalAmount") int goalAmount,
-            @Param("storyTitle") String storyTitle,
-            @Param("mainImgUrl") String mainImgUrl,
-            @Param("donationTagId") int donationTagId);
-
-
     public List<Donation> getDonationList(
             @Param("donationPageId") int donationPageId,
             @Param("teamId") int teamId,
@@ -42,6 +28,8 @@ public interface DonationMapper {
             @Param("mainImgUrl") String mainImgUrl,
             @Param("donationTagId") int donationTagId,
             @Param("countLike") Integer countLike);
+
+
 
 
     public List<Donation> searchDonation(
@@ -60,6 +48,7 @@ public interface DonationMapper {
             @Param("donationTagName") String donationTagName);
 
     public DonationPage getDonationPage(
+
             @Param("donationPageId") Integer donationPageId,
             @Param("teamId") Integer teamId,
             @Param("mainCategoryId") Integer mainCategoryId,
@@ -69,7 +58,7 @@ public interface DonationMapper {
             @Param("storyContent") String storyContent,
             @Param("mainImgUrl") String mainImgUrl,
             @Param("donationTagId") Integer donationTagId,
-            @Param("donationPageShow") Integer donationPageShow);
+            @Param("donationPageShow") Integer donationPageShow,
             @Param("countLike") Integer countLike);
 
     public List<MainCategory> getMainCategoryList(
@@ -80,10 +69,11 @@ public interface DonationMapper {
 
     public int deletePageById(@Param("donationPageId") int donationPageId);
 
+    public DonationPage findPageById(@Param("donationPageId") int donationPageId);
+
     List<Donation> getCurrentFundraisings();
     List<Donation> getEndedFundraisings();
 
-    public int findById(@Param("donationPageId") int donationPageId);
 }
 
 

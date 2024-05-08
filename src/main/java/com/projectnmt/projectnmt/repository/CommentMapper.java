@@ -1,6 +1,7 @@
 package com.projectnmt.projectnmt.repository;
 
 import com.projectnmt.projectnmt.dto.CommentReportReqDto;
+import com.projectnmt.projectnmt.dto.req.CommentReqDto;
 import com.projectnmt.projectnmt.dto.resp.CommentRespDto;
 import com.projectnmt.projectnmt.entity.Comment;
 import org.apache.ibatis.annotations.Mapper;

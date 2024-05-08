@@ -15,7 +15,6 @@ public class PerminAllfilter extends GenericFilter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-
         List<String> antMatchers = List.of("/error", "/auth", "/mail/authenticate","/oauth2","/login","/main","/challenge","/comment", "/get", "/donator");
 
         String url = request.getRequestURI();

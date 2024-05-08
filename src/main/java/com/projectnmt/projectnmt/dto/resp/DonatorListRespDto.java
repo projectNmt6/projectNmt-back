@@ -14,12 +14,14 @@ public class DonatorListRespDto {
     private LocalDateTime donationDate;
     private int donationAmount;
     private int donationPageId;
-    private int donatorAnonymous;
+    private boolean donatorAnonymous;
     private String username;
     private String storyTitle;
     private String mainImgUrl;
     private int goalAmount;
     private int addAmount;
+
+
 }
 
 

@@ -22,6 +22,7 @@
         <id property="donationPageId" column="donation_page_id" />
         <result property="teamId" column="team_id" />
         <result property="mainCategoryId" column="main_category_id" />
+        <result property="pageCategoryId" column="page_category_id"/>
         <result property="storyTitle" column="story_title" />
         <result property="createDate" column="create_date" />
         <result property="endDate" column="end_date" />
@@ -38,14 +39,14 @@
     <resultMap id="LikeResultMap" type="com.projectnmt.projectnmt.entity.Like" >
         <result property="donationPageId" column="donation_page_id" />
         <result property="userId" column="user_id" />
-        <result property="donation_comment_id" column="donation_comment_id" />
+        <result property="commentId" column="donation_comment_id" />
     </resultMap>
 
     <resultMap id="TeamResultMap" type="com.projectnmt.projectnmt.entity.Team">
         <id property="teamId" column="team_id" />
         <result property="teamName" column="team_name" />
         <result property="teamType" column="team_type" />
-        <result property="teamPhone" column="team_phone" />
+        <result property="teamPhoneNumber" column="team_phone" />
         <result property="teamEmail" column="team_email" />
         <result property="companyRegisterNumber" column="company_register_number" />
         <result property="teamHomepage" column="team_homepage" />
@@ -59,11 +60,6 @@
     <resultMap id="DonationTagResultMap" type="com.projectnmt.projectnmt.entity.DonationTag">
         <id property="donationTagId" column="donation_tag_id"/>
         <result property="donationTagName" column="donation_tag_name"/>
-    </resultMap>
-
-    <resultMap id="PageCategoryResultMap" type="com.projectnmt.projectnmt.entity.PageCategory">
-        <id property="PageCategoryId" column="page_category_id" />
-        <result property="PageCategoryName" column="page_category_name" />
     </resultMap>
 
     <insert id="saveDonationPage" parameterType="com.projectnmt.projectnmt.entity.DonationPage">
@@ -81,26 +77,27 @@
         donation_page_show)
 
         VALUES
-            (#{teamId},
-            #{mainCategoryId},
-            #{createDate},
-            #{endDate},
-            #{goalAmount},
-            #{storyTitle},
-            #{storyContent},
-            #{mainImgUrl},
-            #{donationTagId},
-            #{donationPageShow})
+        (#{teamId},
+        #{mainCategoryId},
+        #{pageCategoryId},
+        #{createDate},
+        #{endDate},
+        #{goalAmount},
+        #{storyTitle},
+        #{storyContent},
+        #{mainImgUrl},
+        #{donationTagId},
+        #{donationPageShow})
 
     </insert>
 
     <insert id="saveDonationNewsPage" parameterType="com.projectnmt.projectnmt.entity.DonationNewsPage">
         INSERT INTO donation_news_page_tb
         (donation_news_page_id,
-         donation_page_id,
-         page_category_id,
-         news_content,
-         team_id)
+        donation_page_id,
+        page_category_id,
+        news_content,
+        team_id)
         VALUES
         (#{donationNewsPageId},
         #{donationPageId},
@@ -111,50 +108,50 @@
     </insert>
     <select id="getDonationPage" resultMap="DonationPageResultMap">
         SELECT
-            donation_page_id,
-            team_id,
-            main_category_id,
-            create_date,
-            end_date,
-            goal_amount,
-            story_title,
-            story_content,
-            main_img_url,
-            donation_tag_id,
-            donation_page_show
+        donation_page_id,
+        team_id,
+        main_category_id,
+        create_date,
+        end_date,
+        goal_amount,
+        story_title,
+        story_content,
+        main_img_url,
+        donation_tag_id,
+        donation_page_show
         FROM
-            donation_page_tb
+        donation_page_tb
         where
-            donation_page_id = #{donationPageId}
+        donation_page_id = #{donationPageId}
     </select>
 
     <select id="getDonationList" resultMap="DonationResultMap">
         SELECT
-            dp.donation_page_id,
-            dp.team_id,
-            dp.main_category_id,
-            dp.story_title,
-            dp.create_date,
-            dp.end_date,
-            dp.goal_amount,
-            dp.story_title,
-            dp.main_img_url,
-            dp.donation_tag_id,
-            mc.main_category_name,
-            dt.donation_tag_name,
-            dp.donation_page_show,
-            t.team_name,
-            (
-            select
-                count(*)
-            from
-                like_tb lt
-            where
-                dp.donation_page_id = lt.donation_page_id
-                and lt.comment_id = 0
-            ) as countLike
+        dp.donation_page_id,
+        dp.team_id,
+        dp.main_category_id,
+        dp.story_title,
+        dp.create_date,
+        dp.end_date,
+        dp.goal_amount,
+        dp.story_title,
+        dp.main_img_url,
+        dp.donation_tag_id,
+        mc.main_category_name,
+        dt.donation_tag_name,
+        dp.donation_page_show,
+        t.team_name,
+        (
+        select
+        count(*)
+        from
+        like_tb lt
+        where
+        dp.donation_page_id = lt.donation_page_id
+        and lt.comment_id = 0
+        ) as countLike
         FROM
-            donation_page_tb dp
+        donation_page_tb dp
         LEFT OUTER JOIN main_category_tb mc ON dp.main_category_id = mc.main_category_id
         LEFT OUTER JOIN donation_tag_tb dt ON dp.donation_tag_id = dt.donation_tag_id
         LEFT OUTER JOIN team_tb t ON dp.team_id = t.team_id;
@@ -162,19 +159,19 @@
 
     <select id="searchDonation" resultMap="DonationResultMap">
         SELECT
-            dp.donation_page_id,
-            dp.team_id,
-            dp.main_category_id,
-            dp.story_title,
-            dp.create_date,
-            dp.end_date,
-            dp.goal_amount,
-            dp.main_img_url,
-            dp.donation_tag_id,
-            mc.main_category_name,
-            dt.donation_tag_name,
-            t.team_name,
-            dp.donation_page_show
+        dp.donation_page_id,
+        dp.team_id,
+        dp.main_category_id,
+        dp.story_title,
+        dp.create_date,
+        dp.end_date,
+        dp.goal_amount,
+        dp.main_img_url,
+        dp.donation_tag_id,
+        mc.main_category_name,
+        dt.donation_tag_name,
+        t.team_name,
+        dp.donation_page_show
         FROM
         donation_page_tb dp
         LEFT OUTER JOIN main_category_tb mc ON dp.main_category_id = mc.main_category_id
@@ -188,34 +185,34 @@
 
     <select id="getDonationTagList" resultMap="DonationTagResultMap">
         SELECT
-            *
+        *
         FROM
-            donation_tag_tb
+        donation_tag_tb
     </select>
 
     <select id="getMainCategoryList" resultMap="MainCategoryResultMap" >
         SELECT *
         FROM
-            main_category_tb
+        main_category_tb
     </select>
 
     <update id="updatePageById" parameterType="com.projectnmt.projectnmt.entity.DonationPage">
         update
-            donation_page_tb
+        donation_page_tb
         set
-            donation_page_id = #{donationPageId},
-            team_id = #{teamId},
-            main_category_id=#{mainCategoryId},
-            create_date=now(),
-            end_date=#{endDate},
-            goal_amount=#{goalAmount},
-            story_title=#{storyTitle},
-            story_content=#{storyContent},
-            main_img_url=#{mainImgUrl},
-            donation_tag_id=#{donationTagId},
-            donation_page_show=#{donationPageShow}
+        donation_page_id = #{donationPageId},
+        team_id = #{teamId},
+        main_category_id=#{mainCategoryId},
+        create_date=now(),
+        end_date=#{endDate},
+        goal_amount=#{goalAmount},
+        story_title=#{storyTitle},
+        story_content=#{storyContent},
+        main_img_url=#{mainImgUrl},
+        donation_tag_id=#{donationTagId},
+        donation_page_show=#{donationPageShow}
         where
-            donation_page_id = #{donationPageId}
+        donation_page_id = #{donationPageId}
     </update>
 
     <delete id="deletePageById" parameterType="int">
@@ -225,22 +222,22 @@
 
     <select id="getChallengeList" resultMap="DonationResultMap">
         SELECT
-            donation_page_id,
-            team_id,
-            main_category_id,
-            page_category_id,
-            create_date,
-            end_date,
-            goal_amount,
-            story_title,
-            story_content,
-            main_img_url,
-            donation_tag_id,
-            donation_page_show
+        donation_page_id,
+        team_id,
+        main_category_id,
+        page_category_id,
+        create_date,
+        end_date,
+        goal_amount,
+        story_title,
+        story_content,
+        main_img_url,
+        donation_tag_id,
+        donation_page_show
         FROM
-            donation_page_tb
+        donation_page_tb
         WHERE
-            main_category_id = #{mainCategoryId}
+        main_category_id = #{mainCategoryId}
     </select>
 
     <!-- 진행 중인 모금 캠페인을 가져오는 쿼리 -->
@@ -286,6 +283,12 @@
         WHERE
         dp.end_date &lt; CURDATE()
 
+    </select>
+
+    <select id="findPageById" parameterType="int" resultMap="DonationPageResultMap">
+        SELECT *
+        FROM donation_page_tb
+        WHERE donation_page_id = #{donationPageId}
     </select>
 
 </mapper>

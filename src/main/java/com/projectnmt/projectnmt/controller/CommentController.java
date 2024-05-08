@@ -20,11 +20,7 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
-    @PostMapping("/upload")
-    public ResponseEntity<CommentReqDto> saveComment(@RequestBody CommentReqDto commentReqDto) {
-        commentService.saveComment(commentReqDto);
-        return ResponseEntity.created(null).body(commentReqDto);
-    }
+
     @PostMapping("/report")
     public ResponseEntity<CommentReqDto> reportComment(@RequestBody CommentReportReqDto commentReportReqDto) {
         commentService.reportComment(commentReportReqDto);
@@ -32,22 +28,4 @@ public class CommentController {
     }
 
 
-//    @GetMapping("/getcomment")
-//    public ResponseEntity<List<CommentRespDto>> getAllComments() {
-//        List<CommentRespDto> comments = commentService.getComment(new CommentReqDto()); // Assuming an overloaded method or modify existing one
-//        return ResponseEntity.ok(comments);
-//    }
-
-    @GetMapping("/getcomment/{donationPageId}")
-    public ResponseEntity<List<CommentRespDto>> getCommentListByDonationPageId(@PathVariable int donationPageId) {
-        List<CommentRespDto> commentList = commentService.getCommentsByDonationPageId(donationPageId);
-        return ResponseEntity.ok(commentList);
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteComment(@PathVariable("id") int donationCommentId) {
-        System.out.println(donationCommentId);
-        commentService.deleteComment(donationCommentId);
-        return ResponseEntity.ok().build();
-    }
 }

@@ -1,29 +1,24 @@
 package com.projectnmt.projectnmt.controller;
 
 import com.projectnmt.projectnmt.dto.AmountRespDto;
-import com.projectnmt.projectnmt.dto.DonationGivingReqDto;
+import com.projectnmt.projectnmt.dto.req.DonationGivingReqDto;
 import com.projectnmt.projectnmt.dto.req.*;
-import com.projectnmt.projectnmt.dto.resp.CommentRespDto;
-import com.projectnmt.projectnmt.dto.resp.DonationListRespDto;
-import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagReqDto;
-import com.projectnmt.projectnmt.dto.resp.DonationNewsPageRespDto;
-import com.projectnmt.projectnmt.entity.DonationNewsPage;
+import com.projectnmt.projectnmt.dto.resp.*;
 import com.projectnmt.projectnmt.dto.ProgressAmountReqDto;
 import com.projectnmt.projectnmt.dto.ProgressAmountRespDto;
 import com.projectnmt.projectnmt.dto.req.DonationPageReqDto;
-import com.projectnmt.projectnmt.dto.resp.DonationMainTag.DonationMainTagReqDto;
-import com.projectnmt.projectnmt.entity.Donator;
-import com.projectnmt.projectnmt.service.DonationGivingService;
-import com.projectnmt.projectnmt.dto.resp.DonationPageRespDto;
-import com.projectnmt.projectnmt.service.DonationNewsPageService;
-import com.projectnmt.projectnmt.service.DonationPageService;
+import com.projectnmt.projectnmt.security.PrincipalUser;
+import com.projectnmt.projectnmt.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
-import com.projectnmt.projectnmt.service.DonationService;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -44,43 +39,17 @@ public class DonationController {
     private DonationGivingService donationGivingService;
 
     @PostMapping("/write")
-    public ResponseEntity<?> saveDonationPage(@Valid @RequestBody DonationPageReqDto donationPageReqDto, BindingResult bindingResult) {
-        donationPageService.saveDonationPage(donationPageReqDto);
-
-        return ResponseEntity.created(null).body(donationPageReqDto);
-    }
-
-    @PostMapping("/donation/review")
-    public ResponseEntity<?> saveReviewPage(
-            @Valid @RequestBody DonationPageReqDto donationPageReqDto,
-            BindingResult bindingResult) {
-        System.out.println(donationPageReqDto);
+    public ResponseEntity<?> saveDonationPage(@Valid @RequestBody DonationPageReqDto donationPageReqDto,
+                                              @AuthenticationPrincipal PrincipalUser currentUser, BindingResult bindingResult) throws IllegalAccessException {
         donationPageService.saveDonationPage(donationPageReqDto);
         return ResponseEntity.created(null).body(donationPageReqDto);
     }
 
-    @PostMapping("/donation/news/{page}")
-    public ResponseEntity<?> saveDonationNewsPage(@PathVariable("page") int page,
-            @Valid @RequestBody DonationPageReqDto donationPageReqDto,
-            BindingResult bindingResult) {
-        donationPageReqDto.setDonationPageId(page);
-        donationPageService.saveDonationPage(donationPageReqDto);
-
-        return ResponseEntity.created(null).body(donationPageReqDto);
-    }
-
-    @PostMapping("/donation/donationnews")
-    public ResponseEntity<?> saveDonationNews(@RequestBody DonationNewsPageReqDto donationNewsPageReqDto) {
-        donationNewsPageService.saveDonationNewsPage(donationNewsPageReqDto);
-        return ResponseEntity.ok().build();
-    }
 
     @GetMapping("/donation/news/{page}")
     public ResponseEntity<?> getDonationNews(@PathVariable("page") int page) {
         DonationNewsPageRespDto response = donationNewsPageService.getDonationNewsByPageId(page);
-        if (response == null) {
-            return ResponseEntity.notFound().build();
-        }
+
         return ResponseEntity.ok(response);
     }
 
@@ -96,11 +65,6 @@ public class DonationController {
         return ResponseEntity.ok(donationService.getDonationList(donationListReqDto));
     };
 
-    @GetMapping("/donations/challenge")
-    public ResponseEntity<?> ChallengeList(DonationListReqDto donationListReqDto) {
-        return ResponseEntity.ok(donationService.getChallengeList(donationListReqDto));
-    };
-
     @GetMapping("/search")
     public ResponseEntity<?> searchDonation(
             @RequestParam(value = "name", defaultValue = "") String name) {
@@ -109,16 +73,6 @@ public class DonationController {
         return ResponseEntity.ok(donationService.searchDonation(donationListReqDto1));
     };
 
-    @GetMapping("/donationtag")
-    public ResponseEntity<?> DonationTag(DonationTagReqDto donationTagReqDto) {
-        return ResponseEntity.ok(donationService.getDonationTagList(donationTagReqDto));
-    };
-
-
-    @GetMapping("/storytypes")
-    public ResponseEntity<?> getMainType(DonationMainTagReqDto donationMainTagReqDto) {
-        return ResponseEntity.ok(donationService.getMainCategoryList(donationMainTagReqDto));
-    }
 
     @PostMapping("/test")
     public ResponseEntity<?> givingDonation(@RequestBody DonationGivingReqDto donationGivingReqDto) {
@@ -126,24 +80,25 @@ public class DonationController {
         return ResponseEntity.created(null).body(donationGivingReqDto);
     }
 
-    @PutMapping("/donation/update/{page}")
-    public ResponseEntity<?> updatePage(@PathVariable("page") int page, @RequestBody DonationPageUpdateReqDto donationPageUpdateReqDto) {
-        donationPageUpdateReqDto.setDonationPageId(page);
-        donationPageService.updatePage(donationPageUpdateReqDto);
-        return ResponseEntity.ok(true);
-    }
-
     @PutMapping("/donation/news/update/{page}")
-    public ResponseEntity<?> updateNewsPage(@PathVariable("page") int page, @RequestBody DonationNewsUpdateReqDto donationNewsUpdateReqDto) {
+    public ResponseEntity<?> updateNewsPage(@PathVariable("page") int page, @AuthenticationPrincipal PrincipalUser currentUser,
+                                            @RequestBody DonationNewsUpdateReqDto donationNewsUpdateReqDto
+    ) throws IllegalAccessException {
+        if (currentUser == null || currentUser.getUserId() == 0) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 인증 정보가 없습니다.");
+        }
         donationNewsUpdateReqDto.setDonationNewsPageId(page);
-        donationNewsPageService.updateNewsPage(donationNewsUpdateReqDto);
+        donationNewsPageService.updateNewsPage(donationNewsUpdateReqDto, currentUser.getUserId());
         return ResponseEntity.ok(true);
     }
 
     @GetMapping("/donation/news/update/{page}")
-    public ResponseEntity<?> getNewsPageUpdate(@PathVariable("page") int page) {
+    public ResponseEntity<?> getNewsPageUpdate(@PathVariable("page") int page, @AuthenticationPrincipal PrincipalUser currentUser) {
+        if (currentUser == null || currentUser.getUserId() == 0) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 인증 정보가 없습니다.");
+        }
         DonationNewsPageReqDto donationNewsPageReqDto = new DonationNewsPageReqDto();
-        donationNewsPageReqDto.setDonationNewsPageId(page);
+        donationNewsPageReqDto.setDonationPageId(page);
         DonationNewsPageRespDto donationNewsPageRespDto = donationNewsPageService.getDonationNews(donationNewsPageReqDto);
         if (donationNewsPageRespDto == null) {
             return ResponseEntity.notFound().build();
@@ -153,17 +108,70 @@ public class DonationController {
 
 
     @GetMapping("/donation/update/{page}")
-    public ResponseEntity<?> getPageUpdate(@PathVariable("page") int page) {
+    public ResponseEntity<?> getPageUpdate(@PathVariable("page") int page, @AuthenticationPrincipal PrincipalUser currentUser) {
+        if (currentUser == null || currentUser.getUserId() == 0) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 인증 정보가 없습니다.");
+        }
+        if (!donationPageService.isUserPageOwner(page, currentUser.getUserId())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("접근 권한이 없습니다.");
+        }
         DonationPageReqDto donationPageReqDto = new DonationPageReqDto();
         donationPageReqDto.setDonationPageId(page);
         DonationPageRespDto donationPageRespDto = donationPageService.getDonationPage(donationPageReqDto);
         return ResponseEntity.ok(donationPageRespDto);
     }
 
+    @PostMapping("/donation/news/{page}")
+    public ResponseEntity<?> saveDonationNewsPage(@PathVariable("page") int page,
+                                                  @Valid @RequestBody DonationNewsPageReqDto donationNewsPageReqDto,
+                                                  BindingResult bindingResult,
+                                                  @AuthenticationPrincipal PrincipalUser currentUser) throws IllegalAccessException {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
+        }
+        if (!donationPageService.isUserPageOwner(page, currentUser.getUserId())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("접근 권한이 없습니다.");
+        }
+        donationNewsPageReqDto.setDonationPageId(page);
+        System.out.println("work");
+        donationNewsPageService.saveDonationNewsPage(donationNewsPageReqDto, page, currentUser.getUserId());
+
+        return ResponseEntity.ok(donationNewsPageReqDto);
+    }
+
+
+    @PutMapping("/donation/update/{page}")
+    public ResponseEntity<?> updatePage(@PathVariable("page") int page,
+                                        @RequestBody DonationPageUpdateReqDto donationPageUpdateReqDto,
+                                        @AuthenticationPrincipal PrincipalUser currentUser) {
+        donationPageUpdateReqDto.setDonationPageId(page);
+        if (currentUser == null || currentUser.getUserId() == 0) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 인증 정보가 없습니다.");
+        }
+        if (!donationPageService.isUserPageOwner(page, currentUser.getUserId())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("접근 권한이 없습니다.");
+        }
+        try {
+            donationPageService.updatePage(donationPageUpdateReqDto, currentUser.getUserId());
+            return ResponseEntity.ok(true);
+        } catch (IllegalAccessException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("접근 권한이 없습니다.");
+        }
+    }
+
     @DeleteMapping("/donation/{id}")
-    public ResponseEntity<?> deleteDonationPage(@PathVariable("id") int donationPageId) {
-        donationPageService.deleteDonationPage(donationPageId);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<?> deleteDonationPage(@PathVariable("id") int donationPageId, @AuthenticationPrincipal PrincipalUser currentUser) {
+        if (currentUser == null || currentUser.getUserId() == 0) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 인증 정보가 없습니다.");
+        }
+        try {
+            donationPageService.deleteDonationPage(donationPageId, currentUser.getUserId());
+            return ResponseEntity.ok().build();
+        }  catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 페이지를 찾을 수 없습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 내부 오류: " + e.getMessage());
+        }
     }
 
     @GetMapping("donation/fundings/now")
@@ -189,4 +197,12 @@ public class DonationController {
         ProgressAmountRespDto amountRespDto = donationPageService.Homeprogressdonation(progressAmountReqDto);
         return ResponseEntity.ok(amountRespDto);
     }
+
+    @GetMapping("/donators/{donationPageId}")
+    public ResponseEntity<List<DonationGivingRespDto>> getDonatorGivingListByDonationPageId(@PathVariable int donationPageId) {
+        List<DonationGivingRespDto> givingList = donationGivingService.getDonationGivingByDonationPageId(donationPageId);
+        return ResponseEntity.ok(givingList);
+    }
+
+
 }

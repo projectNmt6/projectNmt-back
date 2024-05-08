@@ -1,4 +1,4 @@
-package com.projectnmt.projectnmt.dto;
+package com.projectnmt.projectnmt.dto.req;
 
 import lombok.Data;
 
@@ -14,6 +14,6 @@ public class DonationGivingReqDto {
     // 기부시 전송할 메시지
     private int donationPageId;
     // 익명 여부
-    private boolean anonymous;
+    private int donatorAnonymous;
     private String message;
 }
