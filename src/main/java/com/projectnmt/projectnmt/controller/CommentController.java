@@ -27,7 +27,6 @@ public class CommentController {
     }
     @PostMapping("/report")
     public ResponseEntity<CommentReqDto> reportComment(@RequestBody CommentReportReqDto commentReportReqDto) {
-        System.out.println(commentReportReqDto);
         commentService.reportComment(commentReportReqDto);
         return ResponseEntity.created(null).body(null);
     }

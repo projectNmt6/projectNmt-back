@@ -10,7 +10,7 @@ public class DonationNewsUpdateReqDto {
     private int donationPageId;
     private int pageCategoryId;
     private String newsContent;
-    private int userId;
+    private int teamId;
 
     public DonationNewsPage toEntity() {
         return DonationNewsPage.builder()
@@ -18,7 +18,7 @@ public class DonationNewsUpdateReqDto {
                 .donationPageId(donationPageId)
                 .pageCategoryId(pageCategoryId)
                 .newsContent(newsContent)
-                .userId(userId)
+                .teamId(teamId)
                 .build();
     }
 }

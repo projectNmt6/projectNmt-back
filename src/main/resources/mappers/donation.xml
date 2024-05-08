@@ -75,7 +75,6 @@
         VALUES
             (#{teamId},
             #{mainCategoryId},
-            #{pageCategoryId},
             #{createDate},
             #{endDate},
             #{goalAmount},
@@ -93,15 +92,13 @@
          donation_page_id,
          page_category_id,
          news_content,
-         user_id)
-
+         team_id)
         VALUES
-
         (#{donationNewsPageId},
         #{donationPageId},
         #{pageCategoryId},
         #{newsContent},
-        #{userId})
+        #{teamId})
 
     </insert>
     <select id="getDonationPage" resultMap="DonationPageResultMap">
@@ -137,6 +134,7 @@
             dp.donation_tag_id,
             mc.main_category_name,
             dt.donation_tag_name,
+            dp.donation_page_show,
             t.team_name
         FROM
             donation_page_tb dp

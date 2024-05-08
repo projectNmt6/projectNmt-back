@@ -20,6 +20,7 @@ public interface CommentMapper {
             @Param("donationPageId") int donationPageId,
             @Param("userId") int userId
     );
+    public int getReportDuplication(int userId, int commentId, int isDonation);
     public int deleteCommentById(@Param("donationCommentId") int donationCommentId);
     public int reportComment(CommentReportReqDto commentReportReqDto);
     List<Comment> getCommentsByDonationPageId(int donationPageId);

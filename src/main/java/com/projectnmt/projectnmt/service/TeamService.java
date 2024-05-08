@@ -76,4 +76,9 @@ public class TeamService {
     public List<Donation> getDonationList(int teamId) {
         return  teamMapper.getDonationListByTeamId(teamId);
     }
+
+    public void updatePageDelete(int pageId) {
+        System.out.println(pageId);
+        teamMapper.updatePageDelete(pageId);
+    }
 }

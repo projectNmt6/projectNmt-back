@@ -134,7 +134,16 @@
             donator_tb dt
             left outer join user_tb ut on(ut.user_id = dt.user_id)
             left outer join donation_page_tb dpt on(dpt.donation_page_id = dt.donation_page_id)
-
-
+    </select>
+    <select id="getDonatorListByPageId" resultMap="DonatorResultMap">
+        select
+            user_id,
+            donation_page_id
+        from
+            donator_tb
+        where
+            donation_page_id = #{pageId}
+        group by
+            user_id
     </select>
 </mapper>

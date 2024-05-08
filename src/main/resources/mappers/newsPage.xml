@@ -10,7 +10,7 @@
         <result property="donationPageId" column="donation_page_id" />
         <result property="pageCategoryId" column="page_category_id" />
         <result property="newsContent" column="news_content" />
-        <result property="userId" column="user_id" />
+        <result property="teamId" column="team_id" />
     </resultMap>
 
     <insert id="saveDonationNewsPage" parameterType="com.projectnmt.projectnmt.entity.DonationNewsPage" >
@@ -19,13 +19,13 @@
             donation_page_id,
             page_category_id,
             news_content,
-            user_id)
+        team_id)
         VALUES
             (#{donationNewsPageId},
             #{donationPageId},
             #{pageCategoryId},
             #{newsContent},
-            #{userId})
+            #{teamId})
     </insert>
 
     <select id="getNewsPage" resultMap="NewsPageResultMap">

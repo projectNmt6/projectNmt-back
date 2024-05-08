@@ -39,7 +39,11 @@ public class CommentService {
     }
 
     public void reportComment(CommentReportReqDto commentReportReqDto) {
-        commentMapper.reportComment(commentReportReqDto);
+        if(commentMapper.getReportDuplication(commentReportReqDto.getUserId(), commentReportReqDto.getDonationCommentId(), commentReportReqDto.getIsDonation()) == 0) {
+            commentMapper.reportComment(commentReportReqDto);
+        } else {
+            throw new IllegalArgumentException("이미 신고 하신 댓글 입니다.");
+        }
     }
 
     @Transactional(rollbackFor = Exception.class)

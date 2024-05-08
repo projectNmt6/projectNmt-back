@@ -54,16 +54,16 @@ public class AccountController {
     }
 
 
-        @GetMapping("/teams")
-        public ResponseEntity<?> getTeamList (SearchTeamListDto searchTeamListDto){
-            List<Team> teamList = teamService.getTeamList(searchTeamListDto);
-            return ResponseEntity.ok(teamList);
-        }
+    @GetMapping("/teams")
+    public ResponseEntity<?> getTeamList (SearchTeamListDto searchTeamListDto){
+        List<Team> teamList = teamService.getTeamList(searchTeamListDto);
+        return ResponseEntity.ok(teamList);
+    }
 
 
-    @GetMapping("/message")
-    public ResponseEntity<?> getMessageList(int userId) {
-        return ResponseEntity.ok(userSerive.getMessageList(userId));
+    @GetMapping("/message/{id}/{isTeam}")
+    public ResponseEntity<?> getMessageList(@PathVariable int id, @PathVariable int isTeam) {
+        return ResponseEntity.ok(userSerive.getMessageList(id, isTeam));
     }
 
     @DeleteMapping("/message/delete/{id}/{isTeam}")

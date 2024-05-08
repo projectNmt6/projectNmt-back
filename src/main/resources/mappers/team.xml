@@ -15,6 +15,7 @@
         <result property="teamInfoText" column="team_info_text" />
         <result property="teamHomepage" column="team_homepage" />
         <result property="teamTypeCategory" column="team_type_category" />
+        <result property="teamTypeCategoryName" column="team_type_category_name" />
         <collection property="teamMembers" javaType="list" resultMap="teamMemberResultMap" />
         <collection property="accounts" javaType="list" resultMap="accountResultMap" />
     </resultMap>
@@ -96,6 +97,14 @@
         where
             team_id = #{teamId}
     </update>
+    <update id="updatePageDelete">
+        update
+            donation_page_tb
+        set
+            donation_page_show = -1
+        where
+            donation_page_id = #{pageId}
+    </update>
     <delete id="deleteAccounts" parameterType="integer">
         delete
         from
@@ -117,10 +126,12 @@
         tt.team_logo_img_url,
         tt.team_type_category,
         tmt.user_id,
-        tmt.team_role_id
+        tmt.team_role_id,
+        ttct.team_type_category_name
         from
         team_tb tt
         left outer join team_member_tb tmt on(tmt.team_id = tt.team_id)
+        left outer join team_type_category_tb ttct on(ttct.team_type_category_id = tt.team_type_category)
         where
         tmt.user_id = #{userId}
     </select>

@@ -6,6 +6,7 @@ import com.projectnmt.projectnmt.service.DonatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,5 +19,9 @@ public class DonatorController {
     @GetMapping("/donator")
     public ResponseEntity<?> DonatorList(){
         return ResponseEntity.ok(donatorService.getDonatorList(donatorListReqDto));
+    };
+    @GetMapping("/list/{pageId}")
+    public ResponseEntity<?> DonatorListByPageId(@PathVariable int pageId){
+        return ResponseEntity.ok(donatorService.getDonatorListByPageId(pageId));
     };
 }

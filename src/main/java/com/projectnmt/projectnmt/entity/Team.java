@@ -25,4 +25,5 @@ public class Team {
     private String teamInfoText;
     private List<TeamMember> teamMembers;
     private List<Account> accounts;
+    private String teamTypeCategoryName;
 }

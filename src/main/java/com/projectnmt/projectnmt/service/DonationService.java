@@ -38,7 +38,6 @@
                     donationListReqDto.getMainImgUrl(),
                     donationListReqDto.getDonationTagId()
                     );
-
             return donations.stream().map(Donation::toDonationListRespDto).collect(Collectors.toList());
         }
 

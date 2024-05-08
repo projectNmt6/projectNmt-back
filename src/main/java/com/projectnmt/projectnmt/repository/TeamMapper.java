@@ -19,4 +19,5 @@ public interface TeamMapper {
     public int deleteAccounts(int teamId);
     public TeamMember findMember(int userId, int teamId);
     public List<Donation> getDonationListByTeamId(int teamId);
+    public int updatePageDelete(int pageId);
 }
