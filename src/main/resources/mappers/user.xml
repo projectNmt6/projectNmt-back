@@ -271,7 +271,6 @@
         UPDATE
             user_tb
         SET
-            password = #{password},
             name = #{name},
             email = #{email},
             age = #{age},
@@ -280,4 +279,13 @@
         WHERE
             user_id = #{userId}
         </update>
+
+    <update id="updatePassword" parameterType="com.projectnmt.projectnmt.entity.User">
+        UPDATE
+            user_tb
+        SET
+            password = #{password}
+        WHERE
+            user_id = #{userId}
+    </update>
 </mapper>

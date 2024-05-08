@@ -61,6 +61,7 @@ public class AccountController {
     }
 
 
+
     @GetMapping("/message/{id}/{isTeam}")
     public ResponseEntity<?> getMessageList(@PathVariable int id, @PathVariable int isTeam) {
         return ResponseEntity.ok(userSerive.getMessageList(id, isTeam));
@@ -80,6 +81,12 @@ public class AccountController {
     public ResponseEntity<?> getMyPaticipateCount(int userId) {
         return ResponseEntity.ok(userSerive.getParticipateCount(userId));
     }
-
+    @ValidAspect
+    @PutMapping("/mypage/edit/password")
+    public ResponseEntity<?> passwordedit(@Valid @RequestBody EditAccountReqDto editAccountReqDto,
+                                          BindingResult bindingResult) {
+        accountService.editPassword(editAccountReqDto);
+        return ResponseEntity.ok().build();
+    }
 }
 

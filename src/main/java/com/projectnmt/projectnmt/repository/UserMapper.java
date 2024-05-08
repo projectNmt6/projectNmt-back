@@ -31,4 +31,5 @@ public interface  UserMapper {
     public User findUserByOAuth2name(String name);
     public int deleteMessageById(int id, int isTeam);
     public ParticipateCountRespDto getParticipateCountByuserId(int userId);
+    public int updatePassword(User user);
 }

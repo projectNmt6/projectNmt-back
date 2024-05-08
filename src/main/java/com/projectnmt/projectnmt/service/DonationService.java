@@ -36,7 +36,8 @@
                     donationListReqDto.getGoalAmount(),
                     donationListReqDto.getStoryTitle(),
                     donationListReqDto.getMainImgUrl(),
-                    donationListReqDto.getDonationTagId()
+                    donationListReqDto.getDonationTagId(),
+                    donationListReqDto.getCountLike()
                     );
             return donations.stream().map(Donation::toDonationListRespDto).collect(Collectors.toList());
         }

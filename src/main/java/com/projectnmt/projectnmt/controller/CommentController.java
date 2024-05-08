@@ -46,6 +46,7 @@ public class CommentController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteComment(@PathVariable("id") int donationCommentId) {
+        System.out.println(donationCommentId);
         commentService.deleteComment(donationCommentId);
         return ResponseEntity.ok().build();
     }

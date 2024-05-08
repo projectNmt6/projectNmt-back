@@ -20,6 +20,7 @@ public class DonationPageReqDto {
     private String mainImgUrl;
     private int donationTagId;
     private int donationPageShow;
+    private int countLike;
 
     public DonationPage toEntity() {
         return DonationPage.builder()
@@ -35,6 +36,7 @@ public class DonationPageReqDto {
                 .mainImgUrl(mainImgUrl)
                 .donationTagId(donationTagId)
                 .donationPageShow(donationPageShow)
+                .countLike(countLike)
                 .build();
     }
 
