@@ -128,35 +128,32 @@
     </select>
 
     <select id="getDonationGivingByDonationPageId" parameterType="int" resultMap="DonatorResultMap">
-        SELECT *
+        SELECT
+        dt.donator_id,
+        dt.user_id,
+        dt.donation_date,
+        dt.donation_amount,
+        dt.donation_page_id,
+        dt.donator_anonymous,
+        ut.username,
+        ut.name,
+        dpt.story_title,
+        dpt.main_img_url,
+        dpt.goal_amount,
+        (
+        SELECT
+        SUM(dt2.donation_amount)
         FROM
-        donator_tb
-        WHERE donation_page_id = #{donationPageId}
-        select
-            dt.donator_id,
-            dt.user_id,
-            dt.donation_date,
-            dt.donation_amount,
-            dt.donation_page_id,
-            dt.donator_anonymous,
-            ut.username,
-            ut.name,
-            dpt.story_title,
-            dpt.main_img_url,
-            dpt.goal_amount,
-            (
-            SELECT
-                SUM(dt2.donation_amount)
-            FROM
-                donator_tb dt2
-            WHERE
-                dt2.donation_page_id = dt.donation_page_id
-            ) AS add_amount
-
-        from
-            donator_tb dt
-            left outer join user_tb ut on(ut.user_id = dt.user_id)
-            left outer join donation_page_tb dpt on(dpt.donation_page_id = dt.donation_page_id)
-
+        donator_tb dt2
+        WHERE
+        dt2.donation_page_id = dt.donation_page_id
+        ) AS add_amount
+        FROM
+        donator_tb dt
+        LEFT OUTER JOIN user_tb ut ON ut.user_id = dt.user_id
+        LEFT OUTER JOIN donation_page_tb dpt ON dpt.donation_page_id = dt.donation_page_id
+        WHERE
+        dt.donation_page_id = #{donationPageId}
     </select>
+
 </mapper>
