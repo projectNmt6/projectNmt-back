@@ -106,13 +106,8 @@ public class DonationController {
 
 
     @GetMapping("/donation/update/{page}")
-    public ResponseEntity<?> getPageUpdate(@PathVariable("page") int page, @AuthenticationPrincipal PrincipalUser currentUser) {
-        if (currentUser == null || currentUser.getUserId() == 0) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 인증 정보가 없습니다.");
-        }
-        if (!donationPageService.isUserPageOwner(page, currentUser.getUserId())) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("접근 권한이 없습니다.");
-        }
+    public ResponseEntity<?> getPageUpdate(@PathVariable("page") int page) {
+
         DonationPageReqDto donationPageReqDto = new DonationPageReqDto();
         donationPageReqDto.setDonationPageId(page);
         DonationPageRespDto donationPageRespDto = donationPageService.getDonationPage(donationPageReqDto);
@@ -136,36 +131,42 @@ public class DonationController {
 
     @PutMapping("/donation/update/{page}")
     public ResponseEntity<?> updatePage(@PathVariable("page") int page,
-                                        @RequestBody DonationPageUpdateReqDto donationPageUpdateReqDto,
-                                        @AuthenticationPrincipal PrincipalUser currentUser) {
+                                        @RequestBody DonationPageUpdateReqDto donationPageUpdateReqDto
+                                        ) throws IllegalAccessException {
         donationPageUpdateReqDto.setDonationPageId(page);
-        if (currentUser == null || currentUser.getUserId() == 0) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 인증 정보가 없습니다.");
-        }
-        if (!donationPageService.isUserPageOwner(page, currentUser.getUserId())) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("접근 권한이 없습니다.");
-        }
-        try {
-            donationPageService.updatePage(donationPageUpdateReqDto, currentUser.getUserId());
+
+
+
+            donationPageService.updatePage(donationPageUpdateReqDto);
             return ResponseEntity.ok(true);
-        } catch (IllegalAccessException e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("접근 권한이 없습니다.");
-        }
+
     }
 
+//    @PutMapping("/donation/update/{page}")
+//    public ResponseEntity<?> updatePage(@PathVariable("page") int page,
+//                                        @RequestBody DonationPageUpdateReqDto donationPageUpdateReqDto,
+//                                        @AuthenticationPrincipal PrincipalUser currentUser) {
+//        donationPageUpdateReqDto.setDonationPageId(page);
+//        if (currentUser == null || currentUser.getUserId() == 0) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 인증 정보가 없습니다.");
+//        }
+//        if (!donationPageService.isUserPageOwner(page, currentUser.getUserId())) {
+//            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("접근 권한이 없습니다.");
+//        }
+//        try {
+//            donationPageService.updatePage(donationPageUpdateReqDto, currentUser.getUserId());
+//            return ResponseEntity.ok(true);
+//        } catch (IllegalAccessException e) {
+//            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("접근 권한이 없습니다.");
+//        }
+//    }
+
     @DeleteMapping("/donation/{id}")
-    public ResponseEntity<?> deleteDonationPage(@PathVariable("id") int donationPageId, @AuthenticationPrincipal PrincipalUser currentUser) {
-        if (currentUser == null || currentUser.getUserId() == 0) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 인증 정보가 없습니다.");
-        }
-        try {
-            donationPageService.deleteDonationPage(donationPageId, currentUser.getUserId());
+    public ResponseEntity<?> deleteDonationPage(@PathVariable("id") int donationPageId
+           ) throws IllegalAccessException {
+            donationPageService.deleteDonationPage(donationPageId);
             return ResponseEntity.ok().build();
-        }  catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 페이지를 찾을 수 없습니다.");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 내부 오류: " + e.getMessage());
-        }
+
     }
 
     @GetMapping("donation/fundings/now")
