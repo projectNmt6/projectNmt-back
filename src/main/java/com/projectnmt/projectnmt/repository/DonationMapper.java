@@ -69,7 +69,7 @@ public interface DonationMapper {
             @Param("storyContent") String storyContent,
             @Param("mainImgUrl") String mainImgUrl,
             @Param("donationTagId") Integer donationTagId,
-            @Param("donationPageShow") Integer donationPageShow);
+            @Param("donationPageShow") Integer donationPageShow,
             @Param("countLike") Integer countLike);
 
     public List<MainCategory> getMainCategoryList(

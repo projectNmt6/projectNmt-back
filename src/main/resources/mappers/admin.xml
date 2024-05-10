@@ -121,7 +121,7 @@
     </insert>
     <insert id="sendMessage">
         insert into message_tb
-        values(0, #{isTeam}, 0, #{userId}, #{message}, now());
+        values(0, #{isTeam}, #{senderId}, #{userId}, #{message}, now());
     </insert>
     <update id="updatePageShow">
         UPDATE
@@ -336,12 +336,9 @@
             tt.team_homepage,
             tt.team_logo_img_url,
             tt.team_type_category,
-            tmt.user_id,
-            tmt.team_role_id,
             ttct.team_type_category_name
         from
             team_tb tt
-            left outer join team_member_tb tmt on(tmt.team_id = tt.team_id)
             left outer join team_type_category_tb ttct on(ttct.team_type_category_id = tt.team_type_category)
         where
         1 = 1

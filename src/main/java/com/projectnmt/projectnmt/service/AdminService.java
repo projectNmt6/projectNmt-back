@@ -96,23 +96,38 @@ public class AdminService {
 
     public void sendMessage(AdminMessageReqDto adminMessageReqDto) {
         for(int userId : adminMessageReqDto.getUserId()) {
-            adminMapper.sendMessage(userId, adminMessageReqDto.getIsTeam(), adminMessageReqDto.getMessage());
+            adminMapper.sendMessage(userId, adminMessageReqDto.getIsTeam(), adminMessageReqDto.getMessage(), adminMessageReqDto.getSenderId());
         }
     }
 
     public List<Team> getTeamList(AdminTeamListReqDto adminTeamListReqDto) {
         adminTeamListReqDto.setPageNumber((adminTeamListReqDto.getPageNumber() - 1) * 10);
+        List<Team> list = new ArrayList<>();
         if(adminTeamListReqDto.getUserId() != 0) {
-            return teamMapper.teamList(adminTeamListReqDto.getUserId());
+            list = teamMapper.teamList(adminTeamListReqDto.getUserId());
+            for (Team team : list) {
+                List<TeamMember> teamMembers = teamMapper.findMemberByTeamId(team.getTeamId());
+                List<Account> accounts = teamMapper.getAccountListByTeamId(team.getTeamId());
+                team.setTeamMembers(teamMembers);
+                team.setAccounts(accounts);
+            }
+        } else {
+            list = adminMapper.getTeamList(adminTeamListReqDto);
+            for (Team team : list) {
+                List<TeamMember> teamMembers = teamMapper.findMemberByTeamId(team.getTeamId());
+                List<Account> accounts = teamMapper.getAccountListByTeamId(team.getTeamId());
+                team.setTeamMembers(teamMembers);
+                team.setAccounts(accounts);
+            }
         }
-        return adminMapper.getTeamList(adminTeamListReqDto);
+        return list;
     }
 
     public void deleteTeams(List<Team> teamList) {
         for(Team team : teamList) {
             adminMapper.deleteTeamListByTeamIds(team.getTeamId());
             TeamMember member = adminMapper.findTeamMemberListByTeamId(team.getTeamId());
-            adminMapper.sendMessage(member.getUserId(), 0,"관리자에 의해 팀"+team.getTeamName()+"이(가) 해체되었습니다.");
+            adminMapper.sendMessage(member.getUserId(), 0,"관리자에 의해 팀"+team.getTeamName()+"이(가) 해체되었습니다.", 0);
         }
     }
     public int updatePageShow(List<DonationPage> donationPageList) {

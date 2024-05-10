@@ -137,13 +137,32 @@
     </select>
     <select id="getDonatorListByPageId" resultMap="DonatorResultMap">
         select
-            user_id,
-            donation_page_id
+        dt.donator_id,
+        dt.user_id,
+        dt.donation_date,
+        dt.donation_amount,
+        dt.donation_page_id,
+        dt.donator_anonymous,
+        ut.username,
+        ut.name,
+        dpt.story_title,
+        dpt.main_img_url,
+        dpt.goal_amount,
+        (
+        SELECT
+        SUM(dt2.donation_amount)
+        FROM
+        donator_tb dt2
+        WHERE
+        dt2.donation_page_id = dt.donation_page_id
+        ) AS add_amount
         from
-            donator_tb
+        donator_tb dt
+        left outer join user_tb ut on(ut.user_id = dt.user_id)
+        left outer join donation_page_tb dpt on(dpt.donation_page_id = dt.donation_page_id)
         where
-            donation_page_id = #{pageId}
+            dpt.donation_page_id = #{donationPageId}
         group by
-            user_id
+         dt.userd
     </select>
 </mapper>

@@ -74,6 +74,14 @@
         #{userId},
         1)
     </insert>
+    <insert id="saveMember">
+        insert into team_member_tb
+        values (
+        0,
+        #{teamId},
+        #{userId},
+        2)
+    </insert>
     <insert id="saveAccount" parameterType="com.projectnmt.projectnmt.entity.Account">
         insert into account_info_tb
         values (
@@ -125,8 +133,6 @@
         tt.team_homepage,
         tt.team_logo_img_url,
         tt.team_type_category,
-        tmt.user_id,
-        tmt.team_role_id,
         ttct.team_type_category_name
         from
         team_tb tt
@@ -171,6 +177,15 @@
         and
             team_id = #{teamId};
     </select>
+
+    <select id="findMemberByTeamId" resultMap="teamMemberResultMap">
+        select
+        *
+        from
+        team_member_tb
+        where
+        team_id = #{teamId};
+    </select>
     <select id="getDonationListByTeamId" resultMap="DonationPageResultMap">
         SELECT
             donation_page_id,
@@ -188,5 +203,13 @@
             donation_page_tb
         where
             team_id = #{teamId}
+    </select>
+    <select id="getAccountListByTeamId" resultMap="accountResultMap">
+        select
+        *
+        from
+        account_info_tb
+        where
+        team_id = #{teamId};
     </select>
 </mapper>

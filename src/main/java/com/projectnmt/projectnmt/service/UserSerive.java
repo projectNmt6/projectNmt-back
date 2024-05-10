@@ -13,7 +13,9 @@ public class UserSerive {
     @Autowired
     UserMapper userMapper;
     public List<MessageRespDto> getMessageList(int id, int isTeam) {
+        System.out.println(userMapper.getMessageList(id,isTeam));
         return userMapper.getMessageList(id, isTeam);
+
     }
     public void deleteMessageBYId(int id, int isTeam) {
         userMapper.deleteMessageById(id, isTeam);

@@ -23,7 +23,12 @@ public class TeamController {
         teamService.saveTeam(registerTeamReqDto);
         return ResponseEntity.ok(null);
     }
-
+    @PostMapping("/join")
+    public ResponseEntity<?> joinTeam(@RequestBody Map<String, Integer> teamJoinReq) {
+        System.out.println(teamJoinReq);
+        teamService.joinTeam(teamJoinReq);
+        return ResponseEntity.ok(null);
+    }
     @PutMapping("/update")
     public ResponseEntity<?> updateTeam(@RequestBody UpdateTeamReqDto updateTeamReqDto) {
         teamService.updateTeam(updateTeamReqDto);

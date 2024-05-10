@@ -9,4 +9,6 @@ public class MessageRespDto {
     private String teamName;
     private String message;
     private String date;
+    private int senderId;
+    private int isTeam;
 }

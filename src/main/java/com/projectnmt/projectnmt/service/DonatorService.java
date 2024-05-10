@@ -36,6 +36,7 @@ public class DonatorService {
     }
     public List<DonatorListRespDto> getDonatorListByPageId(int pageId) {
         List<Donator> donators = donatorMapper.getDonatorListByPageId(pageId);
+        System.out.println(donators);
         return donators.stream().map(Donator::toDonatorListRespDto).collect(Collectors.toList());
     }
 }

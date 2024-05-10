@@ -34,6 +34,8 @@
         <result property="teamLogoImgUrl" column="team_logo_img_url" />
         <result property="teamName" column="team_name" />
         <result property="message" column="message_text"/>
+        <result property="isTeam" column="is_team" />
+        <result property="senderId" column="sender_id"/>
         <result property="date" column="create_date" />
     </resultMap>
     <resultMap id="teamMemberResultMap" type="com.projectnmt.projectnmt.entity.TeamMember">
@@ -173,7 +175,9 @@
         tt.team_logo_img_url,
         tt.team_name,
         mt.message_text,
-        mt.create_date
+        mt.create_date,
+        mt.sender_id,
+        mt.is_team
         from
         message_tb mt
         left outer join team_tb tt on(tt.team_id = mt.sender_id)
