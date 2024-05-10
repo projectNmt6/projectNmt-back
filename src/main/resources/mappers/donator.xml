@@ -75,15 +75,15 @@
     </insert>
     <select id="getMyList" resultType="com.projectnmt.projectnmt.dto.MyDonationListRespDto">
         select
-        dt.donation_page_id as donationPageId,
-        dt.donation_amount as amount,
-        dt.donation_date as donationDate,
-        dpt.story_title as storyTitle
+            dt.donation_page_id as donationPageId,
+            dt.donation_amount as amount,
+            dt.donation_date as donationDate,
+            dpt.story_title as storyTitle
         from
-        donator_tb dt
-        left outer join donation_page_tb dpt on(dpt.donation_page_id = dt.donation_page_id)
+            donator_tb dt
+            left outer join donation_page_tb dpt on(dpt.donation_page_id = dt.donation_page_id)
         where
-        dt.user_id = #{userId}
+            dt.user_id = #{userId}
         <if test="donationDate != 0">
             and year(dt.donation_date) = year(now()) - #{donationDate} + 1
         </if>
@@ -93,22 +93,49 @@
     </select>
     <select id="saveAmount" resultType="com.projectnmt.projectnmt.dto.AmountRespDto">
         SELECT
-        SUM(donation_amount) AS totalAmount
+            SUM(donation_amount) AS totalAmount
         FROM
-        donator_tb
+            donator_tb
     </select>
     <select id="HomeDonation" parameterType="Integer" resultType="com.projectnmt.projectnmt.dto.ProgressAmountRespDto">
         SELECT
-        dpt.donation_page_id as donationPageId,
-        sum(dt.donation_amount) as addAmount,
-        dpt.goal_amount as goalAmount
+            dpt.donation_page_id as donationPageId,
+            sum(dt.donation_amount) as addAmount,
+            dpt.goal_amount as goalAmount
         From
-        donation_page_tb dpt
-        left outer join donator_tb dt on(dpt.donation_page_id = dt.donation_page_id)
+            donation_page_tb dpt
+            left outer join donator_tb dt on(dpt.donation_page_id = dt.donation_page_id)
         where
-        dpt.donation_page_id = #{donationPageId}
+            dpt.donation_page_id = #{donationPageId}
     </select>
     <select id="getDonatorList" resultMap="DonatorResultMap">
+        select
+            dt.donator_id,
+            dt.user_id,
+            dt.donation_date,
+            dt.donation_amount,
+            dt.donation_page_id,
+            dt.donator_anonymous,
+            ut.username,
+            ut.name,
+            dpt.story_title,
+            dpt.main_img_url,
+            dpt.goal_amount,
+            (
+            SELECT
+                SUM(dt2.donation_amount)
+            FROM
+                donator_tb dt2
+            WHERE
+                dt2.donation_page_id = dt.donation_page_id
+            ) AS add_amount
+
+        from
+            donator_tb dt
+            left outer join user_tb ut on(ut.user_id = dt.user_id)
+            left outer join donation_page_tb dpt on(dpt.donation_page_id = dt.donation_page_id)
+    </select>
+    <select id="getDonatorListByPageId" resultMap="DonatorResultMap">
         select
         dt.donator_id,
         dt.user_id,
@@ -129,22 +156,14 @@
         WHERE
         dt2.donation_page_id = dt.donation_page_id
         ) AS add_amount
-
         from
         donator_tb dt
         left outer join user_tb ut on(ut.user_id = dt.user_id)
         left outer join donation_page_tb dpt on(dpt.donation_page_id = dt.donation_page_id)
-    </select>
-    <select id="getDonatorListByPageId" resultMap="DonatorResultMap">
-        select
-        user_id,
-        donation_page_id
-        from
-        donator_tb
         where
-        donation_page_id = #{pageId}
+            dpt.donation_page_id = #{donationPageId}
         group by
-        user_id
+         dt.userd
     </select>
 
     <select id="getDonationGivingByDonationPageId" parameterType="int" resultMap="DonatorResultMap">

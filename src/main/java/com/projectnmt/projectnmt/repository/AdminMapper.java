@@ -19,7 +19,7 @@ public interface AdminMapper {
     public void addRole(Authority authority);
     public void deleteCommemt(int commentId);
     public void deleteReport(int commentId);
-    public void sendMessage(int userId, int isTeam, String message);
+    public void sendMessage(int userId, int isTeam, String message, int senderId);
     public List<Team> getTeamList(AdminTeamListReqDto adminTeamListReqDto);
     public int deleteTeamListByTeamIds(int teamId);
     public TeamMember findTeamMemberListByTeamId(int teamId);

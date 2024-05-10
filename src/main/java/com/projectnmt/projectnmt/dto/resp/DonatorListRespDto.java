@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class DonatorListRespDto {
+public class    DonatorListRespDto {
     private int donatorId;
     private int userId;
     private String name;
