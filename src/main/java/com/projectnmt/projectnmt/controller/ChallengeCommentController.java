@@ -16,14 +16,16 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/challengeComment")
+@RequestMapping("/comment/challenge")
 public class ChallengeCommentController {
 
     @Autowired
     private ChallengeCommentService challengeCommentService;
 
     @PostMapping("/upload")
-    public ResponseEntity<ChallengeCommentReqDto> saveComment(@Valid @RequestBody ChallengeCommentReqDto challengeCommentReqDto, BindingResult bindingResult){
+    public ResponseEntity<ChallengeCommentReqDto> saveComment(@Valid @RequestBody
+                                                                  ChallengeCommentReqDto challengeCommentReqDto,
+                                                              BindingResult bindingResult){
         challengeCommentService.saveChallengeComment(challengeCommentReqDto);
         return ResponseEntity.created(null).body(challengeCommentReqDto);
     }
@@ -36,9 +38,9 @@ public class ChallengeCommentController {
 
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteComment(@PathVariable("id") int challengeCommentId,@AuthenticationPrincipal PrincipalUser currentUser){
+    public ResponseEntity<?> deleteComment(@PathVariable("id") int challengeCommentId){
         try {
-            challengeCommentService.deleteChallengeComment(challengeCommentId, currentUser.getUserId());
+            challengeCommentService.deleteChallengeComment(challengeCommentId);
             return ResponseEntity.ok().build();
         } catch (IllegalStateException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
