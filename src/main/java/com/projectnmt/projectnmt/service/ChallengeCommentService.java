@@ -40,13 +40,10 @@ public class ChallengeCommentService {
 
 
     @Transactional(rollbackFor = Exception.class)
-    public void deleteChallengeComment(int challengeCommentId, int userId){
+    public void deleteChallengeComment(int challengeCommentId){
+
         ChallengeComment challengeComment = challengeCommentMapper.findCommentById(challengeCommentId);
-        if (challengeComment != null && challengeComment.getUserId() == userId) {
-            challengeCommentMapper.deletechallengeCommentById(challengeCommentId);
-        } else {
-            throw new IllegalStateException("삭제할 권한이 없습니다.");
-        }
+
     }
 
 }

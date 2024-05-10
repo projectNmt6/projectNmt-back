@@ -33,10 +33,8 @@ public class DonationNewsPageService {
     private TeamService teamService;
 
 
-    public void updateNewsPage(DonationNewsUpdateReqDto donationNewsUpdateReqDto, int userId) throws IllegalAccessException {
-        if (!teamService.isTeamMember(donationNewsUpdateReqDto.getTeamId(), userId)) {
-            throw new IllegalAccessException("페이지 수정 권한이 없습니다.");
-        }
+    public void updateNewsPage(DonationNewsUpdateReqDto donationNewsUpdateReqDto) throws IllegalAccessException {
+
         donationNewsMapper.updateNewsPageById(donationNewsUpdateReqDto.toEntity());
     }
 
@@ -51,8 +49,6 @@ public class DonationNewsPageService {
         System.out.println("count:" + count);
     }
 
-
-
     public DonationNewsPageRespDto getDonationNews(DonationNewsPageReqDto donationNewsPageReqDto) {
         DonationNewsPage donationNewsPage = donationNewsMapper.getNewsPage(
                 donationNewsPageReqDto.getDonationNewsPageId(),
@@ -62,31 +58,27 @@ public class DonationNewsPageService {
                 donationNewsPageReqDto.getTeamId()
         );
         if (donationNewsPage == null) {
-            return null;
+            System.out.println("given ID");
+            return null; // 혹은 적절한 예외 처리 또는 오류 응답 반환
         }
+
+        System.out.println(donationNewsPage);
         DonationNewsPageRespDto donationNewsPageRespDto = donationNewsPage.toDonationNewsPageRespDto();
         return donationNewsPageRespDto;
     }
 
+
     public DonationNewsPageRespDto getDonationNewsByPageId(int donationPageId) {
         DonationNewsPage donationNewsPage = donationNewsMapper.getNewsByDonationPageId(donationPageId);
+        if (donationNewsPage == null) {
+            System.out.println("No news page found with the given ID");
+            return null; // Or handle the error as appropriate
+        }
+        System.out.println(donationNewsPage);
         return donationNewsPage.toDonationNewsPageRespDto();
     }
 
 
-    private boolean isUserTeamMember(int teamId, int userId) {
-        TeamMember teamMember = teamMapper.findMemberByTeamIdAndUserId(teamId, userId);
-        return teamMember != null && teamMember.getUserId() == userId;
-    }
-
-public boolean isUserPageOwner(int pageId, int userId) {
-    DonationPage donationPage = donationMapper.findPageById(pageId);
-    if (donationPage == null) {
-        throw new IllegalArgumentException("해당 페이지가 존재하지 않습니다.");
-    }
-    // TeamService의 isTeamMember를 사용하여 유저가 팀의 멤버인지 확인
-    return teamService.isTeamMember(donationPage.getTeamId(), userId);
-}
 
 
 }

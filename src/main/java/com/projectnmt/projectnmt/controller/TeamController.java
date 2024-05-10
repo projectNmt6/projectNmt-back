@@ -44,6 +44,10 @@ public class TeamController {
     public ResponseEntity<?> getDonationList(int teamId) {
         return ResponseEntity.ok( teamService.getDonationList(teamId));
     }
+    @GetMapping("/challenges")
+    public ResponseEntity<?> getChallengeList(int teamId) {
+        return ResponseEntity.ok( teamService.getChallengeList(teamId));
+    }
 
     @PutMapping("/updatePageShow")
         public ResponseEntity<?> updatePageShow(@RequestBody Map<String, Integer> pageId) {

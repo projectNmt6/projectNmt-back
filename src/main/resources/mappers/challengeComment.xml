@@ -11,7 +11,17 @@
         <result property="challengePageId" column="challenge_page_id" />
         <result property="userId" column="user_id" />
     </resultMap>
-
+    <resultMap id="UserResultMap" type="com.projectnmt.projectnmt.entity.User">
+        <id property="userId" column="user_id" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="name" column="name" />
+        <result property="phoneNumber" column="phone_number" />
+        <result property="email" column="email" />
+        <result property="gender" column="gender" />
+        <result property="age" column="age" />
+        <result property="profileImg" column="profile_img" />
+    </resultMap>
     <insert id="saveChallengeComment" parameterType="com.projectnmt.projectnmt.entity.ChallengeComment" useGeneratedKeys="true" keyProperty="challengeCommentId">
         INSERT INTO challenge_comment_tb
         (challenge_comment_text, challenge_page_id, user_id)
@@ -48,18 +58,6 @@
             challenge_page_id = #{challengePageId}
     </select>
 
-    <resultMap id="UserResultMap" type="com.projectnmt.projectnmt.entity.User">
-        <id property="userId" column="user_id" />
-        <result property="username" column="username" />
-        <result property="password" column="password" />
-        <result property="name" column="name" />
-        <result property="phoneNumber" column="phone_number" />
-        <result property="email" column="email" />
-        <result property="gender" column="gender" />
-        <result property="age" column="age" />
-        <result property="profileImg" column="profile_img" />
-    </resultMap>
-
     <resultMap id="ChallengeCommentWithUserResultMap" type="com.projectnmt.projectnmt.entity.ChallengeComment">
         <id property="challengeCommentId" column="challenge_comment_id" />
         <result property="commentText" column="challenge_comment_text" />
@@ -71,13 +69,7 @@
 
 
     <select id="getChallengeCommentsByChallengePageId" resultMap="ChallengeCommentWithUserResultMap">
-        SELECT
-        cc.challenge_comment_id,
-        cc.challenge_comment_text,
-        cc.challenge_page_id,
-        cc.user_id,
-        u.name as name,
-        u.profile_img
+        SELECT *
 
         FROM challenge_comment_tb cc
         LEFT OUTER JOIN user_tb u ON cc.user_id = u.user_id

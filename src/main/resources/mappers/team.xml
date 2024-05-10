@@ -46,6 +46,20 @@
         <result property="donationTagId" column="donation_tag_id" />
         <result property="donationPageShow" column="donation_page_show" />
     </resultMap>
+    <resultMap id="ChallengeResultMap" type="com.projectnmt.projectnmt.entity.ChallengePage">
+        <id property="challengePageId" column="challenge_page_id" />
+        <result property="teamId" column="team_id" />
+        <result property="mainCategoryId" column="main_category_id" />
+        <result property="pageCategoryId" column="page_category_id" />
+        <result property="createDate" column="create_date" />
+        <result property="endDate" column="end_date" />
+        <result property="challengeTitle" column="challenge_page_title" />
+        <result property="challengeOverview" column="challenge_overview" />
+        <result property="challengeContent" column="challenge_page_content" />
+        <result property="challengeMainImg" column="challenge_main_img" />
+        <result property="challengePageShow" column="challenge_page_show" />
+        <result property="headCount" column="challenge_headCount" />
+    </resultMap>
     <insert id="saveTeam"
             parameterType="com.projectnmt.projectnmt.entity.Team"
             keyProperty="teamId"
@@ -195,5 +209,14 @@
             donation_page_tb
         where
             team_id = #{teamId}
+    </select>
+
+    <select id="getChallengeListByTeamId" resultMap="ChallengeResultMap">
+        SELECT
+        *
+        FROM
+        challenge_page_tb
+        where
+        team_id = #{teamId}
     </select>
 </mapper>

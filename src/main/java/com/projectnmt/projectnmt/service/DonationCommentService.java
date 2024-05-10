@@ -17,7 +17,6 @@ public class DonationCommentService {
     private DonationCommentMapper donationCommentMapper;
 
     public void saveComment(DonationCommentReqDto commentReqDto) {
-
         donationCommentMapper.saveComment(commentReqDto.toEntity());
     }
 

@@ -80,30 +80,16 @@ public class DonationController {
         return ResponseEntity.created(null).body(donationGivingReqDto);
     }
 
-    @PutMapping("/donation/news/update/{page}")
-    public ResponseEntity<?> updateNewsPage(@PathVariable("page") int page, @AuthenticationPrincipal PrincipalUser currentUser,
-                                            @RequestBody DonationNewsUpdateReqDto donationNewsUpdateReqDto
-    ) throws IllegalAccessException {
-        if (currentUser == null || currentUser.getUserId() == 0) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 인증 정보가 없습니다.");
-        }
-        donationNewsUpdateReqDto.setDonationNewsPageId(page);
-        donationNewsPageService.updateNewsPage(donationNewsUpdateReqDto, currentUser.getUserId());
-        return ResponseEntity.ok(true);
-    }
+
 
     @GetMapping("/donation/news/update/{page}")
     public ResponseEntity<?> getNewsPageUpdate(@PathVariable("page") int page) {
-
-        DonationNewsPageReqDto donationNewsPageReqDto = new DonationNewsPageReqDto();
-        donationNewsPageReqDto.setDonationPageId(page);
-        DonationNewsPageRespDto donationNewsPageRespDto = donationNewsPageService.getDonationNews(donationNewsPageReqDto);
-        if (donationNewsPageRespDto == null) {
-            return ResponseEntity.notFound().build();
-        }
+        DonationNewsPageReqDto donationNewsPageRepDto = new DonationNewsPageReqDto();
+        donationNewsPageRepDto.setDonationPageId(page);
+        DonationNewsPageRespDto donationNewsPageRespDto = donationNewsPageService.getDonationNews(donationNewsPageRepDto);
+        System.out.println(donationNewsPageRespDto);
         return ResponseEntity.ok(donationNewsPageRespDto);
     }
-
 
     @GetMapping("/donation/update/{page}")
     public ResponseEntity<?> getPageUpdate(@PathVariable("page") int page) {
@@ -134,32 +120,19 @@ public class DonationController {
                                         @RequestBody DonationPageUpdateReqDto donationPageUpdateReqDto
                                         ) throws IllegalAccessException {
         donationPageUpdateReqDto.setDonationPageId(page);
-
-
-
             donationPageService.updatePage(donationPageUpdateReqDto);
             return ResponseEntity.ok(true);
 
     }
+    @PutMapping("/donation/news/update/{page}")
+    public ResponseEntity<?> updateNewsPage(@PathVariable("page") int page,
+                                            @RequestBody DonationNewsUpdateReqDto donationNewsUpdateReqDto
+                                            ) throws IllegalAccessException {
 
-//    @PutMapping("/donation/update/{page}")
-//    public ResponseEntity<?> updatePage(@PathVariable("page") int page,
-//                                        @RequestBody DonationPageUpdateReqDto donationPageUpdateReqDto,
-//                                        @AuthenticationPrincipal PrincipalUser currentUser) {
-//        donationPageUpdateReqDto.setDonationPageId(page);
-//        if (currentUser == null || currentUser.getUserId() == 0) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 인증 정보가 없습니다.");
-//        }
-//        if (!donationPageService.isUserPageOwner(page, currentUser.getUserId())) {
-//            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("접근 권한이 없습니다.");
-//        }
-//        try {
-//            donationPageService.updatePage(donationPageUpdateReqDto, currentUser.getUserId());
-//            return ResponseEntity.ok(true);
-//        } catch (IllegalAccessException e) {
-//            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("접근 권한이 없습니다.");
-//        }
-//    }
+        donationNewsUpdateReqDto.setDonationPageId(page);
+        donationNewsPageService.updateNewsPage(donationNewsUpdateReqDto);
+        return ResponseEntity.ok(true);
+    }
 
     @DeleteMapping("/donation/{id}")
     public ResponseEntity<?> deleteDonationPage(@PathVariable("id") int donationPageId
