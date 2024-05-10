@@ -16,6 +16,7 @@ import com.projectnmt.projectnmt.entity.Team;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,7 +45,21 @@ public class TeamService {
         if(successCount < 3 + registerTeamReqDto.getAccountInfos().length) {
             throw new UsernameNotFoundException("");
         }
+    }
 
+    @Transactional(rollbackFor = Exception.class)
+    public void joinTeam(Map<String, Integer> map) {
+        int successCount = 0;
+        successCount += teamMapper.saveMember(map.get("userId"), map.get("teamId"));
+        User user = userMapper.findUserByUserId(map.get("userId"));
+        if(user.getRoleRegisters().stream().filter(authority -> authority.getRoleId() == 2).collect(Collectors.toList()).isEmpty()) {
+            successCount += userMapper.saveRole(map.get("userId"), 2);
+        } else {
+            successCount++;
+        }
+        if(successCount < 2 ) {
+            throw new UsernameNotFoundException("");
+        }
     }
     public void updateTeam(UpdateTeamReqDto updateTeamReqDto) {
         Team team = updateTeamReqDto.toEntity();
@@ -58,12 +73,14 @@ public class TeamService {
     }
     public List<Team> getTeamList(SearchTeamListDto searchTeamListDto) {
         List<Team> teamList = teamMapper.teamList(searchTeamListDto.getUserId());
+        for (Team team : teamList) {
+            List<TeamMember> teamMembers = teamMapper.findMemberByTeamId(team.getTeamId());
+            team.setTeamMembers(teamMembers);
+        }
         return teamList;
     }
     public Team getTeamInfo(SearchTeamInfoDto searchTeamInfoDto) {
-        System.out.println(searchTeamInfoDto.getTeamId());
         Team team = teamMapper.teamInfo(searchTeamInfoDto.getTeamId());
-        System.out.println(team);
         return team;
     }
     public List<TeamMember> getMemberInfo(TeamMemberListReqDto teamMemberListReqDto) {
@@ -89,7 +106,6 @@ public class TeamService {
     }
 
     public void updatePageDelete(int pageId) {
-        System.out.println(pageId);
         teamMapper.updatePageDelete(pageId);
     }
 }

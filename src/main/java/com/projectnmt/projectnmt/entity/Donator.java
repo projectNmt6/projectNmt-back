@@ -31,7 +31,6 @@ public class Donator {
     private DonationComment comment;
     private int goalAmount;
     public DonatorListRespDto toDonatorListRespDto() {
-        System.out.println(user);
         return DonatorListRespDto.builder()
                 .donatorId(donatorId)
                 .userId(userId)
