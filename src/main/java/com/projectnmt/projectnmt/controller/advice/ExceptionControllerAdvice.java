@@ -29,7 +29,6 @@ public class ExceptionControllerAdvice {
     }
     @ExceptionHandler(ValidException.class)
     public ResponseEntity<?> ValidException(ValidException e) {
-        System.out.println("work: " + e.getMessage());
         return ResponseEntity.badRequest().body(e.getErrorMap());
     }
 }

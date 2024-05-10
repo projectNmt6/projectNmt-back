@@ -19,5 +19,5 @@ public class EditAccountReqDto {
     private String age;
     private String gender;
     private String phonenumber;
-    private String profileImg;
+    private String  profileImg;
 }
