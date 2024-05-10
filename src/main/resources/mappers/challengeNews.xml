@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.projectnmt.projectnmt.repository.ChallengeNewsMapper">
+
+    <resultMap id="ChallengeNewsResultMap" type="com.projectnmt.projectnmt.entity.ChallengeNewsPage">
+        <id property="challengeNewsPageId" column="challenge_news_page_id"/>
+        <result property="challengePageId" column="challenge_page_id" />
+        <result property="pageCategoryId" column="page_category_id" />
+        <result property="challengeNewsContent" column="challenge_news_content" />
+        <result property="teamId" column="team_id"/>
+
+    </resultMap>
+
+
+    <insert id="saveChallengeNewsPage" parameterType="com.projectnmt.projectnmt.entity.ChallengeNewsPage">
+        INSERT INTO challenge_news_page_tb
+        (challenge_news_page_id,
+        challenge_page_id,
+        page_category_id,
+        challenge_news_content,
+        team_id)
+        VALUES
+        (#{challengeNewsPageId},
+        #{challengePageId},
+        #{pageCategoryId},
+        #{challengeNewsContent},
+        #{teamId})
+    </insert>
+
+    <select id="getChallengeNewsPage" resultMap="ChallengeNewsResultMap">
+        SELECT *
+        FROM challenge_news_page_tb
+        WHERE challenge_news_page_id = #{challengeNewsPageId};
+    </select>
+
+    <update id="updateChallengeNewsPageById" parameterType="com.projectnmt.projectnmt.entity.DonationNewsPage">
+        UPDATE challenge_news_page_tb
+        SET
+        challenge_news_page_id = #{challengeNewsPageId},
+        challenge_page_id = #{challengePageId},
+        page_category_id = #{pageCategoryId},
+        challenge_news_content = #{challengeNewsContent},
+        team_id = #{teamId}
+        WHERE
+        challenge_news_page_id = #{challengeNewsPageId}
+    </update>
+
+    <select id="getNewsByChallengePageId" resultMap="ChallengeNewsResultMap">
+        SELECT *
+        FROM challenge_news_page_tb
+        WHERE challenge_page_id = #{challengePageId}
+    </select>
+
+
+</mapper>

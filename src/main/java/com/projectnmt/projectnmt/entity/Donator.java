@@ -1,6 +1,7 @@
 package com.projectnmt.projectnmt.entity;
 
 import com.projectnmt.projectnmt.dto.GetMyDonationListReqDto;
+import com.projectnmt.projectnmt.dto.resp.DonationGivingRespDto;
 import com.projectnmt.projectnmt.dto.resp.DonationPageRespDto;
 import com.projectnmt.projectnmt.dto.resp.DonatorListRespDto;
 import lombok.AllArgsConstructor;
@@ -20,14 +21,14 @@ public class Donator {
     private LocalDateTime donationDate;
     private int donationAmount;
     private int donationPageId;
-    private int donatorAnonymous;
+    private boolean donatorAnonymous;
     private String username;
     private String storyTitle;
     private String mainImgUrl;
     private int addAmount;
     private User user;
     private DonationPage donationPage ;
-    private Comment comment;
+    private DonationComment comment;
     private int goalAmount;
     public DonatorListRespDto toDonatorListRespDto() {
         return DonatorListRespDto.builder()
@@ -43,6 +44,17 @@ public class Donator {
                 .mainImgUrl(mainImgUrl)
                 .goalAmount(goalAmount)
                 .addAmount(addAmount)
+                .build();
+    }
+
+    public DonationGivingRespDto toSaveGivings() {
+        return DonationGivingRespDto.builder()
+                .donatorId(donatorId)
+                .userId(userId)
+                .donationDate(donationDate)
+                .amount(addAmount)
+                .donationPageId(donationPageId)
+                .donatorAnonymous(donatorAnonymous)
                 .build();
     }
 

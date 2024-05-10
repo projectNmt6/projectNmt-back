@@ -94,6 +94,12 @@ public class TeamService {
         return  teamMapper.getDonationListByTeamId(teamId);
     }
 
+    // 팀 멤버인지 확인하는 메소드
+    public boolean isTeamMember(int teamId, int userId) {
+        TeamMember teamMember = teamMapper.findMemberByTeamIdAndUserId(teamId, userId);
+        return teamMember != null && teamMember.getUserId() == userId;
+    }
+
     public void updatePageDelete(int pageId) {
         teamMapper.updatePageDelete(pageId);
     }

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.projectnmt.projectnmt.repository.ChallengeMapper">
+
+    <resultMap id="ChallengeResultMap" type="com.projectnmt.projectnmt.entity.ChallengePage">
+        <id property="challengePageId" column="challenge_page_id" />
+        <result property="teamId" column="team_id" />
+        <result property="mainCategoryId" column="main_category_id" />
+        <result property="pageCategoryId" column="page_category_id" />
+        <result property="createDate" column="create_date" />
+        <result property="endDate" column="end_date" />
+        <result property="challengeTitle" column="challenge_page_title" />
+        <result property="challengeOverview" column="challenge_overview" />
+        <result property="challengeContent" column="challenge_page_content" />
+        <result property="challengeMainImg" column="challenge_main_img" />
+        <result property="challengePageShow" column="challenge_page_show" />
+        <result property="headCount" column="challenge_headCount" />
+    </resultMap>
+
+
+    <resultMap id="TeamResultMap" type="com.projectnmt.projectnmt.entity.Team">
+        <id property="teamId" column="team_id" />
+        <result property="teamName" column="team_name" />
+        <result property="teamType" column="team_type" />
+        <result property="teamPhoneNumber" column="team_phone" />
+        <result property="teamEmail" column="team_email" />
+        <result property="companyRegisterNumber" column="company_register_number" />
+        <result property="teamHomepage" column="team_homepage" />
+        <result property="teamInfoText" column="team_info_text" />
+    </resultMap>
+
+    <insert id="saveChallengePage" parameterType="com.projectnmt.projectnmt.entity.ChallengePage"
+            keyProperty="challengePageId"
+            useGeneratedKeys="true">
+        INSERT INTO challenge_page_tb
+        (
+        team_id,
+        main_category_id,
+        page_category_id,
+        create_date,
+        end_date,
+        challenge_page_title,
+        challenge_overview,
+        challenge_page_content,
+        challenge_main_img,
+        challenge_page_show,
+        challenge_headCount)
+        VALUES
+
+        (
+        #{teamId},
+        #{mainCategoryId},
+        #{pageCategoryId},
+        #{createDate},
+        #{endDate},
+        #{challengeTitle},
+        #{challengeOverview},
+        #{challengeContent},
+        #{challengeMainImg},
+        #{challengePageShow},
+        #{headCount})
+    </insert>
+
+    <select id="getChallengePage" resultMap="ChallengeResultMap">
+        SELECT *
+        FROM
+            challenge_page_tb
+
+        where
+            challenge_page_id = #{challengePageId}
+
+    </select>
+
+    <select id="findPageById" parameterType="int" resultMap="ChallengeResultMap">
+        SELECT *
+        FROM
+        challenge_page_tb
+
+        where
+        challenge_page_id = #{challengePageId}
+    </select>
+
+    <select id="getChallengePageList" resultMap="ChallengeResultMap">
+        SELECT *
+        FROM challenge_page_tb cp
+        LEFT OUTER JOIN main_category_tb mc ON cp.main_category_id = mc.main_category_id
+        LEFT OUTER JOIN team_tb t ON cp.team_id = t.team_id;
+    </select>
+
+
+    <update id="updatePageById" parameterType="com.projectnmt.projectnmt.entity.ChallengePage"
+            keyProperty="challengePageId"
+            useGeneratedKeys="true">
+        UPDATE
+            challenge_page_tb
+        set
+            challenge_page_id = #{challengePageId},
+            team_id=#{teamId},
+            main_category_id=#{mainCategoryId},
+            page_category_id=#{pageCategoryId},
+            create_date=#{createDate},
+            end_date=#{endDate},
+            challenge_page_title=#{challengeTitle},
+            challenge_overview=#{challengeOverview},
+            challenge_page_content=#{challengeContent},
+            challenge_main_img=#{challengeMainImg},
+            challenge_page_show=#{challengePageShow},
+            challenge_headCount =#{headCount}
+
+        WHERE
+            challenge_page_id = #{challengePageId}
+    </update>
+
+    <delete id="deletePageById" parameterType="int">
+        DELETE
+        FROM
+            challenge_page_tb
+        WHERE
+            challenge_page_id = #{challengePageId}
+    </delete>
+
+
+
+</mapper>

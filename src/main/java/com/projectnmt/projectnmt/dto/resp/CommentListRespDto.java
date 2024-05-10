@@ -8,5 +8,11 @@ public class CommentListRespDto {
     private int donationPageId;
     private String commentText;
     private String storyTitle;
+
+
+    private String name;
+    private String profileImg;
+
     private int reportCount;
+
 }

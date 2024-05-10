@@ -26,7 +26,6 @@ public class DonationPage {
     private String mainImgUrl;
     private int donationTagId;
     private int donationPageShow;
-    private MainCategory mainCategory;
     private int countLike;
 
     public DonationPageRespDto toSavePost() {

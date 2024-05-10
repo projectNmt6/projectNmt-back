@@ -132,25 +132,25 @@
             resultMap="UserResultMap"
     >
         select
-            ut.user_id,
-            ut.username,
-            ut.password,
-            ut.name,
-            ut.phone_number,
-            ut.email,
-            ut.gender,
-            ut.age,
-            ut.profile_img,
-            aut.authority_id,
-            aut.role_id,
-            rt.role_name,
-            rt.role_name_kor
+        ut.user_id,
+        ut.username,
+        ut.password,
+        ut.name,
+        ut.phone_number,
+        ut.email,
+        ut.gender,
+        ut.age,
+        ut.profile_img,
+        aut.authority_id,
+        aut.role_id,
+        rt.role_name,
+        rt.role_name_kor
         from
-            user_tb ut
-            left outer join authority_tb aut on(aut.user_id = ut.user_id)
-            left outer join role_tb rt on(rt.role_id = aut.role_id)
+        user_tb ut
+        left outer join authority_tb aut on(aut.user_id = ut.user_id)
+        left outer join role_tb rt on(rt.role_id = aut.role_id)
         where
-            username = #{username}
+        username = #{username}
     </select>
 
     <select id="findUserTest" resultMap="UserResultMap">
@@ -240,56 +240,56 @@
 
     <select id="findUserByOAuth2name" resultMap="UserResultMap">
         select
-            ut.user_id,
-            ut.username,
-            ut.password,
-            ut.name,
-            ut.email,
-            rrt.authority_id,
-            rrt.role_id,
-            rt.role_name,
-            rt.role_name_kor,
-            oat.oauth2_id,
-            oat.oauth2_name,
-            oat.provider_name
+        ut.user_id,
+        ut.username,
+        ut.password,
+        ut.name,
+        ut.email,
+        rrt.authority_id,
+        rrt.role_id,
+        rt.role_name,
+        rt.role_name_kor,
+        oat.oauth2_id,
+        oat.oauth2_name,
+        oat.provider_name
         from
-            user_tb ut
-            left outer join oauth2_tb oat on(oat.user_id = ut.user_id)
-            left outer join authority_tb rrt on(rrt.user_id = ut.user_id)
-            left outer join role_tb rt on(rt.role_id = rrt.role_id)
+        user_tb ut
+        left outer join oauth2_tb oat on(oat.user_id = ut.user_id)
+        left outer join authority_tb rrt on(rrt.user_id = ut.user_id)
+        left outer join role_tb rt on(rt.role_id = rrt.role_id)
         where
-            oat.oauth2_name = #{oAuth2Name}
+        oat.oauth2_name = #{oAuth2Name}
     </select>
     <select id="getParticipateCountByuserId"
             resultType="com.projectnmt.projectnmt.dto.resp.ParticipateCountRespDto">
         select
-            count(user_id) as donationCount,
-            sum(donation_amount) as donationAmount
+        count(user_id) as donationCount,
+        sum(donation_amount) as donationAmount
         from
-            donator_tb
+        donator_tb
         where
-            user_id = #{userId}
+        user_id = #{userId}
     </select>
 
     <update id="updateUser" parameterType="com.projectnmt.projectnmt.entity.User">
         UPDATE
-            user_tb
+        user_tb
         SET
-            name = #{name},
-            email = #{email},
-            age = #{age},
-            gender = #{gender},
-            phone_number = #{phoneNumber}
+        name = #{name},
+        email = #{email},
+        age = #{age},
+        gender = #{gender},
+        phone_number = #{phoneNumber}
         WHERE
-            user_id = #{userId}
-        </update>
+        user_id = #{userId}
+    </update>
 
     <update id="updatePassword" parameterType="com.projectnmt.projectnmt.entity.User">
         UPDATE
-            user_tb
+        user_tb
         SET
-            password = #{password}
+        password = #{password}
         WHERE
-            user_id = #{userId}
+        user_id = #{userId}
     </update>
 </mapper>

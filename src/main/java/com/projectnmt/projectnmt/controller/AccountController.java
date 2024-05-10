@@ -8,10 +8,9 @@ import com.projectnmt.projectnmt.dto.req.SearchTeamListDto;
 import com.projectnmt.projectnmt.entity.Team;
 import com.projectnmt.projectnmt.security.PrincipalUser;
 import com.projectnmt.projectnmt.service.AccountService;
-import com.projectnmt.projectnmt.service.AuthService;
 import com.projectnmt.projectnmt.service.PrincipalService;
 import com.projectnmt.projectnmt.service.TeamService;
-import com.projectnmt.projectnmt.service.UserSerive;
+import com.projectnmt.projectnmt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
@@ -33,7 +32,7 @@ public class AccountController {
     @Autowired
     TeamService teamService;
     @Autowired
-    UserSerive userSerive;
+    UserService userSerive;
     @Autowired
     AccountService accountService;
 

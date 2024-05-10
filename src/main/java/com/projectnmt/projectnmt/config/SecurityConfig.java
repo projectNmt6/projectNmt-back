@@ -39,6 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/main/**","/tag/**", "/auth/**", "/comment/**", "/challenge/**", "/like/get", "/donator")
                 .permitAll()
+                .antMatchers("/tag/donationtag")
+                .permitAll()
                 .antMatchers("/main/write")
                 .not().permitAll()
                 .antMatchers("/mail/authenticate")
