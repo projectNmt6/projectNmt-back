@@ -19,7 +19,8 @@ public class ChallengePageListRespDto {
         private String challengeOverview;   //챌린지 요약
         private String challengeContent;
         private String challengeMainImg;
-        private int headCount;
+        private Boolean challengePageShow;
+        private int headCount;  //프로젝트 목표 인원수
 
 
 

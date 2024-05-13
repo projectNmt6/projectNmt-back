@@ -18,6 +18,8 @@
         <result property="challengeMainImg" column="challenge_main_img" />
         <result property="challengePageShow" column="challenge_page_show" />
         <result property="headCount" column="challenge_headCount" />
+        <association property="team" resultMap="TeamResultMap" />
+
     </resultMap>
 
 
@@ -122,6 +124,12 @@
             challenge_page_id = #{challengePageId}
     </delete>
 
+    <select id="searchChallenge" resultMap="ChallengeResultMap">
+        SELECT *
+        FROM challenge_page_tb cp
+        LEFT OUTER JOIN team_tb t ON cp.team_id = t.team_id
 
+
+    </select>
 
 </mapper>

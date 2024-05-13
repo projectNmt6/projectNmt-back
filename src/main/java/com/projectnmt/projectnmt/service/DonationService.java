@@ -48,11 +48,6 @@ public class DonationService {
         return donations.stream().map(Donation::toDonationListRespDto).collect(Collectors.toList());
     }
 
-
-
-
-
-
     public List<DonationListRespDto> searchDonation(DonationListReqDto donationListReqDto1) {
 
         List<Donation> donations = donationMapper.searchDonation(
@@ -66,6 +61,7 @@ public class DonationService {
                 donationListReqDto1.getMainImgUrl(),
                 donationListReqDto1.getDonationTagId()
         );
+
         return donations.stream().map(Donation::toDonationListRespDto).collect(Collectors.toList());
     }
 

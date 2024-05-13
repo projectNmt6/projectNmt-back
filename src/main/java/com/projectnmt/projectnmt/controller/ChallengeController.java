@@ -25,6 +25,13 @@ public class ChallengeController {
     @Autowired
     private ChallengeNewsService challengeNewsService;
 
+    @GetMapping("/challenge/search")
+    public ResponseEntity<?> searchChallenge(
+            @RequestParam(value = "name", defaultValue = "") String name) {
+        ChallengePageListReqDto challengePageListReqDto = new ChallengePageListReqDto();
+        challengePageListReqDto.setChallengeTitle(name);
+        return ResponseEntity.ok(challengeService.searchChallenge(challengePageListReqDto));
+    };
 
     @GetMapping("/challenges")
     public ResponseEntity<?> getChallengeList(ChallengePageListReqDto challengePageListReqDto) {
