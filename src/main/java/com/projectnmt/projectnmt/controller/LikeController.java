@@ -1,5 +1,6 @@
 package com.projectnmt.projectnmt.controller;
 
+import com.projectnmt.projectnmt.dto.req.BestCommentReqDto;
 import com.projectnmt.projectnmt.dto.req.GetLikeReqDto;
 import com.projectnmt.projectnmt.dto.req.LikeReqDto;
 import com.projectnmt.projectnmt.dto.resp.LikeRespDto;
@@ -18,13 +19,15 @@ public class LikeController {
         @PostMapping("/post")
         public ResponseEntity<?> postLike(@RequestBody LikeReqDto likeReqDto){
             String message = likeService.changeLike(likeReqDto);
-            System.out.println("post:"+likeReqDto);
             return ResponseEntity.ok(message);
         }
         @GetMapping("/get")
         public ResponseEntity<?> getLike(GetLikeReqDto getLikeReqDto) {
-            System.out.println("get:"+getLikeReqDto);
             return ResponseEntity.ok(likeService.getLike(getLikeReqDto));
+        }
+        @GetMapping("/bestcomment")
+        public ResponseEntity<?> getBestComment(){
+            return ResponseEntity.ok(likeService.bestComment());
         }
     }
 

@@ -1,10 +1,13 @@
 package com.projectnmt.projectnmt.repository;
 
 import com.projectnmt.projectnmt.dto.req.LikeReqDto;
+import com.projectnmt.projectnmt.entity.BestComment;
 import com.projectnmt.projectnmt.entity.DonationPage;
 import com.projectnmt.projectnmt.entity.Like;
 import com.projectnmt.projectnmt.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface LikeMapper {
@@ -21,4 +24,5 @@ public interface LikeMapper {
 
     int existsByUserIdAndDonationPageId(int donationPageId, int userId , int commentId);
 
+    List<String> getBestCommentList();
 }

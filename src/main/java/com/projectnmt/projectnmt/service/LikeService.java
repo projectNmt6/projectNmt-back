@@ -1,15 +1,14 @@
 package com.projectnmt.projectnmt.service;
 
+import com.projectnmt.projectnmt.dto.req.BestCommentReqDto;
 import com.projectnmt.projectnmt.dto.req.DonationListReqDto;
 import com.projectnmt.projectnmt.dto.req.GetLikeReqDto;
 import com.projectnmt.projectnmt.dto.req.LikeReqDto;
+import com.projectnmt.projectnmt.dto.resp.BestCommentRespDto;
 import com.projectnmt.projectnmt.dto.resp.DonationListRespDto;
 import com.projectnmt.projectnmt.dto.resp.DonationPageRespDto;
 import com.projectnmt.projectnmt.dto.resp.LikeRespDto;
-import com.projectnmt.projectnmt.entity.Donation;
-import com.projectnmt.projectnmt.entity.DonationPage;
-import com.projectnmt.projectnmt.entity.Like;
-import com.projectnmt.projectnmt.entity.User;
+import com.projectnmt.projectnmt.entity.*;
 import com.projectnmt.projectnmt.repository.DonationMapper;
 import com.projectnmt.projectnmt.repository.LikeMapper;
 import com.projectnmt.projectnmt.repository.UserMapper;
@@ -25,7 +24,6 @@ public class LikeService {
     private LikeMapper likeMapper;
 
     public String  changeLike(LikeReqDto likeReqDto) {
-        System.out.println(likeReqDto);
         Like existingLike = likeMapper.findByUserIdAndDonationPageId(likeReqDto);
         String message;
         if (existingLike != null) {
@@ -45,11 +43,13 @@ public class LikeService {
     public LikeRespDto getLike(GetLikeReqDto getLikeReqDto) {
         int isLiked = likeMapper.existsByUserIdAndDonationPageId(getLikeReqDto.getDonationPageId(), getLikeReqDto.getUserId(), getLikeReqDto.getCommentId());
         int countLike = likeMapper.countLikesByDonationPageId(getLikeReqDto.getDonationPageId(), getLikeReqDto.getCommentId());
-        System.out.println("isLiked:"+isLiked);
-        System.out.println("isCount:"+countLike);
+
         return LikeRespDto.builder()
                 .isLiked(isLiked)
                 .countLike(countLike)
                 .build();
+    }
+    public List<String> bestComment(){
+        return likeMapper.getBestCommentList();
     }
     }

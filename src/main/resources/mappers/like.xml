@@ -8,7 +8,17 @@
     <resultMap id="LikeResultMap" type="com.projectnmt.projectnmt.entity.Like" >
         <result property="donationPageId" column="donation_page_id" />
         <result property="userId" column="user_id" />
-        <result property="donation_comment_id" column="donation_comment_id" />
+    </resultMap>
+    <resultMap id="BestCommentResultMap" type="com.projectnmt.projectnmt.entity.BestComment" >
+        <result property="donationPageId" column="donation_page_id" />
+        <result property="commentText" column="comment_text" />
+        <association property="donationComment" resultMap="CommentResultMap" />
+
+    </resultMap>
+    <resultMap id="CommentResultMap" type="com.projectnmt.projectnmt.entity.DonationComment" >
+        <id property="donationCommentId" column="donation_comment_id" />
+        <result property="commentText" column="comment_text" />
+        <result property="donationPageId" column="donation_page_id" />
     </resultMap>
 
     <insert id="insert" parameterType="com.projectnmt.projectnmt.entity.Like" >
@@ -63,4 +73,20 @@
         ELSE 0
         END AS result
     </select>
+    <select id="getBestCommentList" resultType="string">
+        SELECT
+        dpt.comment_text
+        FROM
+        like_tb lt
+        left outer join donation_comment_tb dpt on(dpt.donation_page_id = lt.donation_page_id)
+        WHERE
+        lt.comment_id > 0 and
+        lt.donation_page_id>0
+        GROUP BY
+        lt.comment_id
+        ORDER BY
+        count(*) DESC
+        LIMIT 3;
+    </select>
+
 </mapper>
