@@ -16,7 +16,10 @@ public class DonationGivingRespDto {
     // 기부시 전송할 메시지
     private int donationPageId;
     // 익명 여부
-    private boolean donatorAnonymous;
+    private int donatorAnonymous;
+
     private String message;
+    private String username;
+
 
 }

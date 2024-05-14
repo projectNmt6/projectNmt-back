@@ -38,8 +38,6 @@ public class DonationController {
     @Autowired
     private DonationGivingService donationGivingService;
 
-    @Autowired
-    private SearchPageService searchPageService;
 
     @PostMapping("/write")
     public ResponseEntity<?> saveDonationPage(@Valid @RequestBody DonationPageReqDto donationPageReqDto,

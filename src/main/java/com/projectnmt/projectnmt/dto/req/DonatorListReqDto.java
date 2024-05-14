@@ -19,4 +19,7 @@ public class DonatorListReqDto {
     private String mainImgUrl;
     private int goalAmount;
     private int addAmount;
+
+
+    private String name;
 }

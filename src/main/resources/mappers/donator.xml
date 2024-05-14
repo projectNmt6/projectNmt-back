@@ -7,8 +7,8 @@
     <resultMap id="DonatorResultMap" type="com.projectnmt.projectnmt.entity.Donator"   >
         <id property="donatorId" column="donator_id" />
         <result property="userId" column="user_id" />
-        <result property="donationDate" column="donate_date" />
-        <result property="donationAmount" column="donation_amount" />
+        <result property="donationDate" column="donation_date" />
+        <result property="amount" column="donation_amount" />
         <result property="donationPageId" column="donation_page_id" />
         <result property="donatorAnonymous" column="donator_anonymous" />
         <result property="username" column="username" />
@@ -19,6 +19,16 @@
         <association property="user" resultMap="UserResultMap" />
         <association property="donationPage" resultMap="DonationPageResultMap" />
         <association property="comment" resultMap="CommentResultMap" />
+    </resultMap>
+    <resultMap id="DonatorWithUserResultMap" type="com.projectnmt.projectnmt.entity.Donator" >
+        <id property="donatorId" column="donator_id" />
+        <result property="userId" column="user_id" />
+        <result property="donationDate" column="donation_date" />
+        <result property="amount" column="donation_amount" />
+        <result property="donationPageId" column="donation_page_id" />
+        <result property="donatorAnonymous" column="donator_anonymous" />
+        <result property="name" column="name" />  <!-- userName 매핑 -->
+
     </resultMap>
     <resultMap id="DonationPageResultMap" type="com.projectnmt.projectnmt.entity.DonationPage">
         <id property="donationPageId" column="donation_page_id" />
@@ -44,7 +54,7 @@
         <result property="age" column="age" />
         <result property="profileImg" column="profile_img" />
     </resultMap>
-    <resultMap id="CommentResultMap" type="com.projectnmt.projectnmt.entity.Comment">
+    <resultMap id="CommentResultMap" type="com.projectnmt.projectnmt.entity.DonationComment">
         <id property="donationCommentId" column="donation_comment_id" />
         <result property="commentText" column="comment_text" />
         <result property="donationPageId" column="donation_page_id" />
@@ -60,11 +70,11 @@
         now(),
         #{amount},
         #{donationPageId},
-        #{anonymous}
+        #{donatorAnonymous}
         );
     </insert>
-    <insert id="saveComment" parameterType="com.projectnmt.projectnmt.entity.Comment" >
-        INSERT INTO comment_tb
+    <insert id="saveComment" parameterType="com.projectnmt.projectnmt.entity.DonationComment" >
+        INSERT INTO donation_comment_tb
         VALUES
         (
         0,
@@ -147,32 +157,12 @@
         user_id
     </select>
 
-    <select id="getDonationGivingByDonationPageId" parameterType="int" resultMap="DonatorResultMap">
+
+    <select id="getDonationGivingByDonationPageId" resultMap="DonatorWithUserResultMap">
         SELECT
-        dt.donator_id,
-        dt.user_id,
-        dt.donation_date,
-        dt.donation_amount,
-        dt.donation_page_id,
-        dt.donator_anonymous,
-        ut.username,
-        ut.name,
-        dpt.story_title,
-        dpt.main_img_url,
-        dpt.goal_amount,
-        (
-        SELECT
-        SUM(dt2.donation_amount)
-        FROM
-        donator_tb dt2
-        WHERE
-        dt2.donation_page_id = dt.donation_page_id
-        ) AS add_amount
-        FROM
-        donator_tb dt
-        LEFT OUTER JOIN user_tb ut ON ut.user_id = dt.user_id
-        LEFT OUTER JOIN donation_page_tb dpt ON dpt.donation_page_id = dt.donation_page_id
-        WHERE
-        dt.donation_page_id = #{donationPageId}
+*
+        FROM  donator_tb dt
+        LEFT OUTER JOIN user_tb u ON dt.user_id = u.user_id
+        WHERE dt.donation_page_id = #{donationPageId}
     </select>
 </mapper>
