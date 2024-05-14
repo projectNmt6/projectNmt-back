@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class Like {
     private int donationPageId;
-    private int userId;
     private int commentId;
+    private int userId;
     private int challengePageId;
 }
