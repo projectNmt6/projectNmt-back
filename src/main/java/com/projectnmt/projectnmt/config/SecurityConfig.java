@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/main/**","/team/**", "/auth/**", "/comment/**", "/challenge/**", "/main/challenges", "/challengeComment/get/**", "/like/get", "/donator" )
                 .permitAll()
-                .antMatchers("/main/donationtag")
+                .antMatchers("/team/info")
                 .permitAll()
                 .antMatchers("/main/write")
                 .not().permitAll()

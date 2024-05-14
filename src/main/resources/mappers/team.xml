@@ -227,7 +227,14 @@
             team_id = #{teamId}
     </select>
 
-
+    <select id="getChallengeListByTeamId" resultMap="ChallengeResultMap">
+        SELECT
+        *
+        FROM
+        challenge_page_tb
+        where
+        team_id = #{teamId}
+    </select>
     <select id="getAccountListByTeamId" resultMap="accountResultMap">
         select
         *
