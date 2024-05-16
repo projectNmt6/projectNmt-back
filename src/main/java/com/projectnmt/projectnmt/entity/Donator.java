@@ -19,9 +19,9 @@ public class Donator {
     private int donatorId;
     private int userId;
     private LocalDateTime donationDate;
-    private int donationAmount;
+    private int amount;
     private int donationPageId;
-    private boolean donatorAnonymous;
+    private int donatorAnonymous;
     private String username;
     private String storyTitle;
     private String mainImgUrl;
@@ -30,13 +30,17 @@ public class Donator {
     private DonationPage donationPage ;
     private DonationComment comment;
     private int goalAmount;
+
+    private String name;
+    private String profileImg;
+
     public DonatorListRespDto toDonatorListRespDto() {
         return DonatorListRespDto.builder()
                 .donatorId(donatorId)
                 .userId(userId)
                 .name(user.getName())
                 .donationDate(donationDate)
-                .donationAmount(donationAmount)
+                .amount(amount)
                 .donationPageId(donationPageId)
                 .donatorAnonymous(donatorAnonymous)
                 .username(username)
@@ -52,9 +56,10 @@ public class Donator {
                 .donatorId(donatorId)
                 .userId(userId)
                 .donationDate(donationDate)
-                .amount(addAmount)
-                .donationPageId(donationPageId)
+                .amount(amount)
                 .donatorAnonymous(donatorAnonymous)
+                .donationPageId(donationPageId)
+                .username(username)
                 .build();
     }
 

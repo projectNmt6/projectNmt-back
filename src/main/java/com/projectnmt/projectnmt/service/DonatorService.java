@@ -39,4 +39,5 @@ public class DonatorService {
         System.out.println(donators);
         return donators.stream().map(Donator::toDonatorListRespDto).collect(Collectors.toList());
     }
+
 }

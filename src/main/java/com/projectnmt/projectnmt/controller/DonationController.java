@@ -38,6 +38,7 @@ public class DonationController {
     @Autowired
     private DonationGivingService donationGivingService;
 
+
     @PostMapping("/write")
     public ResponseEntity<?> saveDonationPage(@Valid @RequestBody DonationPageReqDto donationPageReqDto,
                                               @AuthenticationPrincipal PrincipalUser currentUser, BindingResult bindingResult) throws IllegalAccessException {

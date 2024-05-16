@@ -16,4 +16,6 @@ public class DonationGivingReqDto {
     // 익명 여부
     private int donatorAnonymous;
     private String message;
+    private String username;
+    private String name;
 }

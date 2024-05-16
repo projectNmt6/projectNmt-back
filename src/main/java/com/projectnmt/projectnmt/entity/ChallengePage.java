@@ -28,6 +28,7 @@ public class ChallengePage {
     private Boolean challengePageShow;
     private int headCount;  //프로젝트 목표 인원수
 
+    private Team team;
     public ChallengePageRespDto toChallengePageRespDto() {
         return ChallengePageRespDto.builder()
                 .challengePageId(challengePageId)

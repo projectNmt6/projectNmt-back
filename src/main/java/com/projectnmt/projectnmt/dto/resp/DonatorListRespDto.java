@@ -12,9 +12,9 @@ public class    DonatorListRespDto {
     private int userId;
     private String name;
     private LocalDateTime donationDate;
-    private int donationAmount;
+    private int amount;
     private int donationPageId;
-    private boolean donatorAnonymous;
+    private int donatorAnonymous;
     private String username;
     private String storyTitle;
     private String mainImgUrl;
