@@ -26,7 +26,14 @@ spring:
   config:
     activate:
       on-profile: blue
-
+  security:
+    oauth2:
+      client:
+        registration:
+          naver:
+            redirectUri: http://localhost:8080/login/oauth2/code/naver
+          kakao:
+            redirectUri: http://localhost:8080/login/oauth2/code/kakao
 server:
   port: 8080
   deploy-address: 43.202.194.195
@@ -38,7 +45,14 @@ spring:
   config:
     activate:
       on-profile: green
-
+  security:
+    oauth2:
+      client:
+        registration:
+          naver:
+            redirectUri: http://localhost:8080/login/oauth2/code/naver
+          kakao:
+            redirectUri: http://localhost:8080/login/oauth2/code/kakao
 server:
   port: 9090
   deploy-address: 43.202.194.195
