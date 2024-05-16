@@ -59,16 +59,22 @@ public class DonationPageService {
 
 
     @Transactional(rollbackFor = Exception.class)
-    public void updatePage(DonationPageUpdateReqDto donationPageUpdateReqDto, int userId) throws IllegalAccessException {
-        if (!teamService.isTeamMember(donationPageUpdateReqDto.getTeamId(), userId)) {
-            throw new IllegalAccessException("수정 권한이 없습니다.");
-        }
-        TeamMember teamMember = teamMapper.findMemberByTeamIdAndUserId(donationPageUpdateReqDto.getTeamId(), userId);
-        if (teamMember == null || teamMember.getUserId() != userId) {
-            throw new IllegalAccessException("이 페이지를 수정할 권한이 없습니다.");
-        }
+    public void updatePage(DonationPageUpdateReqDto donationPageUpdateReqDto) throws IllegalAccessException {
+
         donationMapper.updatePageById(donationPageUpdateReqDto.toEntity());
     }
+
+//    @Transactional(rollbackFor = Exception.class)
+//    public void updatePage(DonationPageUpdateReqDto donationPageUpdateReqDto, int userId) throws IllegalAccessException {
+//        if (!teamService.isTeamMember(donationPageUpdateReqDto.getTeamId(), userId)) {
+//            throw new IllegalAccessException("수정 권한이 없습니다.");
+//        }
+//        TeamMember teamMember = teamMapper.findMemberByTeamIdAndUserId(donationPageUpdateReqDto.getTeamId(), userId);
+//        if (teamMember == null || teamMember.getUserId() != userId) {
+//            throw new IllegalAccessException("이 페이지를 수정할 권한이 없습니다.");
+//        }
+//        donationMapper.updatePageById(donationPageUpdateReqDto.toEntity());
+//    }
 
     public boolean isUserPageOwner(int donationPageId, int userId) {
         DonationPage donationPage = donationMapper.findPageById(donationPageId);
@@ -83,17 +89,8 @@ public class DonationPageService {
 
 
     @Transactional(rollbackFor = Exception.class)
-    public void deleteDonationPage(int donationPageId, int userId) throws IllegalAccessException, IllegalArgumentException {
+    public void deleteDonationPage(int donationPageId) throws IllegalAccessException {
         DonationPage donationPage = donationMapper.findPageById(donationPageId);
-        if (donationPage == null) {
-            throw new IllegalArgumentException("해당 기부 페이지가 존재하지 않습니다.");
-        }
-
-        TeamMember teamMember = teamMapper.findMember(userId, donationPage.getTeamId());
-        if (teamMember == null || teamMember.getUserId() != userId) {
-            throw new IllegalAccessException("이 페이지를 삭제할 권한이 없습니다.");
-        }
-
         donationMapper.deletePageById(donationPageId);
     }
 

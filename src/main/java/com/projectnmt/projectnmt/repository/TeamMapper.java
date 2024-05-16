@@ -1,9 +1,6 @@
 package com.projectnmt.projectnmt.repository;
 
-import com.projectnmt.projectnmt.entity.Account;
-import com.projectnmt.projectnmt.entity.Donation;
-import com.projectnmt.projectnmt.entity.Team;
-import com.projectnmt.projectnmt.entity.TeamMember;
+import com.projectnmt.projectnmt.entity.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -22,6 +19,7 @@ public interface TeamMapper {
     public List<TeamMember> findMemberByTeamId(int teamId);
     public TeamMember findMemberByTeamIdAndUserId(int teamId,int userId);
     public List<Donation> getDonationListByTeamId(int teamId);
+    public List<ChallengePage> getChallengeListByTeamId(int teamId);
     public List<Account> getAccountListByTeamId(int teamId);
     public int findTeamIdByUserId(int userId);
 

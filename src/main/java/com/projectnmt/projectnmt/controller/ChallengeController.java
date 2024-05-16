@@ -33,10 +33,20 @@ public class ChallengeController {
     }
 
     @PostMapping("/challenge/write")
-    public ResponseEntity<?> saveChallengePage(@Valid @RequestBody ChallengePageReqDto challengePageReqDto, BindingResult bindingResult) {
+    public ResponseEntity<?> saveChallengePage(@Valid @RequestBody
+                                                   ChallengePageReqDto challengePageReqDto,
+                                               BindingResult bindingResult) {
         challengeService.saveChallengePage(challengePageReqDto);
         return ResponseEntity.created(null).body(challengePageReqDto);
     }
+
+    @GetMapping("/challenge")
+    public ResponseEntity<?> challengeStory(@RequestParam(value = "page", defaultValue = "1") int page) {
+        ChallengePageReqDto challengePageReqDto = new ChallengePageReqDto();
+        challengePageReqDto.setChallengePageId(page);
+        return ResponseEntity.ok(challengeService.getChallengePage(challengePageReqDto));
+    };
+
 
     @GetMapping("/challenge/{page}")
     public ResponseEntity<?> ChallengeMission(@PathVariable("page") int page) {
@@ -47,25 +57,10 @@ public class ChallengeController {
 
     @PutMapping("/challenge/update/{page}")
     public ResponseEntity<?> updatePage(@PathVariable("page") int page,
-                                         @RequestBody ChallengeUpdatePageReqDto challengeUpdatePageReqDto,
-                                         @AuthenticationPrincipal PrincipalUser currentUser) {
+                                         @RequestBody ChallengeUpdatePageReqDto challengeUpdatePageReqDto) throws IllegalAccessException {
         challengeUpdatePageReqDto.setChallengePageId(page);
-
-        if (currentUser == null || currentUser.getUserId() == 0) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 인증 정보가 없습니다.");
-        }
-
-        if (!challengeService.isUserPageOwner(page, currentUser.getUserId())) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("접근 권한이 없습니다.");
-        }
-
-        try {
-            challengeService.updateChallengePage(challengeUpdatePageReqDto, currentUser.getUserId());
+            challengeService.updateChallengePage(challengeUpdatePageReqDto);
             return ResponseEntity.ok(true);
-        } catch (IllegalAccessException e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("접근 권한이 없습니다.");
-        }
-
     }
 
     @GetMapping("/challenge/update/{page}")
@@ -77,55 +72,38 @@ public class ChallengeController {
     }
 
     @DeleteMapping("/challenge/{id}")
-    public ResponseEntity<?> deleteChallengePage(@PathVariable("id") int challengePageId, @AuthenticationPrincipal PrincipalUser currentUser) {
-        if (currentUser == null || currentUser.getUserId() == 0) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 인증 정보가 없습니다.");
-        }
-        try {
-            challengeService.deleteChallengePage(challengePageId, currentUser.getUserId());
+    public ResponseEntity<?> deleteChallengePage(@PathVariable("id") int challengePageId) {
+            challengeService.deleteChallengePage(challengePageId);
             return ResponseEntity.ok().build();
-        }  catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 페이지를 찾을 수 없습니다.");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 내부 오류: " + e.getMessage());
-        }
+
     }
 
     @GetMapping("/challenge/news/{page}")
     public ResponseEntity<?> getDonationNews(@PathVariable("page") int page) {
         ChallengeNewsPageRespDto response = challengeNewsService.getChallengeNewsByPageId(page);
-
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/challenge/news/{page}")
     public ResponseEntity<?> saveChallengeNewsPage(@PathVariable("page") int page,
                                                   @Valid @RequestBody ChallengeNewsPageReqDto challengeNewsPageReqDto,
-                                                  BindingResult bindingResult,
-                                                  @AuthenticationPrincipal PrincipalUser currentUser) throws IllegalAccessException {
+                                                  BindingResult bindingResult) throws IllegalAccessException {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
         }
-
         challengeNewsPageReqDto.setChallengePageId(page);
-        System.out.println("work");
-        challengeNewsService.saveChallengeNewsPage(challengeNewsPageReqDto, page, currentUser.getUserId());
+        challengeNewsService.saveChallengeNewsPage(challengeNewsPageReqDto, page);
 
         return ResponseEntity.created(null).body(challengeNewsPageReqDto);
     }
-
-    @GetMapping("/challenge/news/update/{page}")
-    public ResponseEntity<?> getNewsPageUpdate(@PathVariable("page") int page, @AuthenticationPrincipal PrincipalUser currentUser) {
-        if (currentUser == null || currentUser.getUserId() == 0) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 인증 정보가 없습니다.");
-        }
-        ChallengeNewsPageReqDto challengeNewsPageReqDto = new ChallengeNewsPageReqDto();
-        challengeNewsPageReqDto.setChallengePageId(page);
-        ChallengeNewsPageRespDto challengeNewsPageRespDto = challengeNewsService.getChallengeNews((challengeNewsPageReqDto));
-        if (challengeNewsPageRespDto == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(challengeNewsPageRespDto);
+    @PutMapping("/challenge/news/update/{page}")
+    public ResponseEntity<?> updateChallengeNews(@PathVariable("page") int page,
+                                                 @RequestBody ChallengeNewsUpdateReqDto challengeNewsUpdateReqDto) throws IllegalAccessException {
+        challengeNewsUpdateReqDto.setChallengeNewsPageId(page);
+        challengeNewsService.updateChallengeNews(challengeNewsUpdateReqDto);
+        return ResponseEntity.ok(true);
     }
+
+
 
 }

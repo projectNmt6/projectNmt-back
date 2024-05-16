@@ -91,7 +91,12 @@ public class TeamService {
         return teamMembers;
     }
     public List<Donation> getDonationList(int teamId) {
+
         return  teamMapper.getDonationListByTeamId(teamId);
+    }
+
+    public List<ChallengePage> getChallengeList(int teamId) {
+        return teamMapper.getChallengeListByTeamId(teamId);
     }
 
     // 팀 멤버인지 확인하는 메소드

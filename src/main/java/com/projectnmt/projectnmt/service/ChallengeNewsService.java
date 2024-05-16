@@ -1,6 +1,7 @@
 package com.projectnmt.projectnmt.service;
 
 import com.projectnmt.projectnmt.dto.req.ChallengeNewsPageReqDto;
+import com.projectnmt.projectnmt.dto.req.ChallengeNewsUpdateReqDto;
 import com.projectnmt.projectnmt.dto.req.DonationNewsPageReqDto;
 import com.projectnmt.projectnmt.dto.resp.ChallengeNewsPageRespDto;
 import com.projectnmt.projectnmt.dto.resp.DonationNewsPageRespDto;
@@ -26,16 +27,8 @@ public class ChallengeNewsService {
     @Autowired
     private ChallengeMapper challengeMapper;
 
-    public void saveChallengeNewsPage(ChallengeNewsPageReqDto challengeNewsPageReqDto, int pageId, int userId) throws IllegalAccessException {
-        // 페이지 존재 여부 및 권한 확인
-        ChallengePage existingPage = challengeMapper.findPageById(pageId);
-        if (existingPage == null) {
-            throw new IllegalArgumentException("해당 페이지가 존재하지 않습니다.");
-        }
-        // 유저 권한 확인
-        if (!teamService.isTeamMember(existingPage.getTeamId(), userId)) {
-            throw new IllegalAccessException("이 페이지를 수정할 권한이 없습니다.");
-        }
+    public void saveChallengeNewsPage(ChallengeNewsPageReqDto challengeNewsPageReqDto, int pageId) throws IllegalAccessException {
+
         ChallengeNewsPage challengeNewsPage = challengeNewsPageReqDto.toEntity();
         int count = challengeNewsMapper.saveChallengeNewsPage(challengeNewsPage);
         System.out.println("count:" + count);
@@ -59,6 +52,10 @@ public class ChallengeNewsService {
 
     public ChallengeNewsPageRespDto getChallengeNewsByPageId(int challengePageId) {
         ChallengeNewsPage challengeNewsPage = challengeNewsMapper.getNewsByChallengePageId(challengePageId);
+        if (challengeNewsPage == null) {
+            System.out.println("No news page found with the given ID");
+            return null; // Or handle the error as appropriate
+        }
         return challengeNewsPage.toChallengeNewsPageRespDto();
     }
 
@@ -74,5 +71,9 @@ public class ChallengeNewsService {
         }
         // TeamService의 isTeamMember를 사용하여 유저가 팀의 멤버인지 확인
         return teamService.isTeamMember(challengePage.getTeamId(), userId);
+    }
+
+    public void updateChallengeNews(ChallengeNewsUpdateReqDto challengeNewsUpdateReqDto) throws IllegalAccessException {
+        challengeNewsMapper.updateChallengeNewsPageById(challengeNewsUpdateReqDto.toEntity());
     }
 }

@@ -8,7 +8,6 @@ import org.apache.ibatis.annotations.Param;
 public interface ChallengeNewsMapper {
 
     public int saveChallengeNewsPage(ChallengeNewsPage challengeNewsPage);
-
     public int updateChallengeNewsPageById(ChallengeNewsPage challengeNewsPage);
 
     public ChallengeNewsPage getChallengeNewsPage(

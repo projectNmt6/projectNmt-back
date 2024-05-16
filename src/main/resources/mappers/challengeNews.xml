@@ -36,7 +36,7 @@
         WHERE challenge_news_page_id = #{challengeNewsPageId};
     </select>
 
-    <update id="updateChallengeNewsPageById" parameterType="com.projectnmt.projectnmt.entity.DonationNewsPage">
+    <update id="updateChallengeNewsPageById" parameterType="com.projectnmt.projectnmt.entity.ChallengeNewsPage">
         UPDATE challenge_news_page_tb
         SET
         challenge_news_page_id = #{challengeNewsPageId},

@@ -90,14 +90,8 @@ public class ChallengeService {
 
 
     @Transactional(rollbackFor = Exception.class)
-    public void updateChallengePage(ChallengeUpdatePageReqDto challengeUpdatePageReqDto, int userId) throws IllegalAccessException {
-        if (!teamService.isTeamMember(challengeUpdatePageReqDto.getTeamId(), userId)) {
-            throw new IllegalAccessException("수정 권한이 없습니다.");
-        }
-        TeamMember teamMember = teamMapper.findMemberByTeamIdAndUserId(challengeUpdatePageReqDto.getTeamId(), userId);
-        if (teamMember == null || teamMember.getUserId() != userId) {
-            throw new IllegalAccessException("이 페이지를 수정할 권한이 없습니다.");
-        }
+    public void updateChallengePage(ChallengeUpdatePageReqDto challengeUpdatePageReqDto) throws IllegalAccessException {
+
         challengeMapper.updatePageById(challengeUpdatePageReqDto.toEntity());
 
 
@@ -106,16 +100,9 @@ public class ChallengeService {
 
 
     @Transactional(rollbackFor = Exception.class)
-    public void deleteChallengePage(int challengePageId, int userId) throws IllegalAccessException, IllegalArgumentException {
-        System.out.println(challengePageId);
-        System.out.println(userId);
+    public void deleteChallengePage(int challengePageId) throws IllegalArgumentException {
+
         ChallengePage challengePage = challengeMapper.findPageById(challengePageId);
-
-        TeamMember teamMember = teamMapper.findMember(userId, challengePage.getTeamId());
-        if(teamMember == null || teamMember.getUserId() != userId) {
-            throw new IllegalAccessException("페이지를 삭제할 권한이 없습니다.");
-
-        } System.out.println(teamMember.getTeamId());
 
         challengeMapper.deletePageById(challengePageId);
     }

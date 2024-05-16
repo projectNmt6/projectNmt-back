@@ -42,6 +42,7 @@ public class Donation {
                 .endDate(endDate)
                 .goalAmount(goalAmount)
                 .mainImgUrl(mainImgUrl)
+                .donationTagId(donationTagId)
                 .donationPageShow(donationPageShow)
                 .countLike(countLike)
                 .build();

@@ -12,8 +12,8 @@ public class ChallengeCommentReqDto {
     private String commentText;
     private int challengePageId;
     private int userId;
-
     private String name;
+    private String profileImg;
     private User user;
     private ChallengePage challengePage;
 
@@ -23,6 +23,8 @@ public class ChallengeCommentReqDto {
                 .commentText(commentText)
                 .challengePageId(challengePageId)
                 .userId(userId)
+                .name(name)
+                .profileImg(profileImg)
                 .build();
 
     }

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/tag")
+@RequestMapping("/main")
 public class DonationTagController {
     @Autowired
     private DonationService donationService;
