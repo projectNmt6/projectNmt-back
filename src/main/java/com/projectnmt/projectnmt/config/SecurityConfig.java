@@ -37,7 +37,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors();//WebMvcConfig의 cors 설정을 따라간다.
         http.csrf().disable();
         http.authorizeRequests()
+<<<<<<< HEAD
+                .antMatchers("/main/**","/tag/**", "/auth/**", "/comment/**", "/challenge/**", "/like/get", "/donator", "/team/info", "/env")
+=======
                 .antMatchers("/main/**","/team/**", "/auth/**", "/comment/**", "/challenge/**", "/main/challenges", "/challengeComment/get/**", "/like/get", "/donator" )
+>>>>>>> refs/remotes/origin/89---joinTeam
                 .permitAll()
                 .antMatchers("/team/info")
                 .permitAll()
