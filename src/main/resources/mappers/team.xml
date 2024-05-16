@@ -234,6 +234,7 @@
         challenge_page_tb
         where
         team_id = #{teamId}
+    </select>
     <select id="getAccountListByTeamId" resultMap="accountResultMap">
         select
         *

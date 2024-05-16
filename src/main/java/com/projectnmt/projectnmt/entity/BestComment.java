@@ -1,7 +1,5 @@
 package com.projectnmt.projectnmt.entity;
 
-import com.projectnmt.projectnmt.dto.resp.DonationTagRespDto;
-import com.projectnmt.projectnmt.dto.resp.LikeRespDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Like {
+public class BestComment {
+    private String commentText;
     private int donationPageId;
-    private int commentId;
-    private int userId;
-    private int challengePageId;
+    private DonationComment donationComment;
+
 }
