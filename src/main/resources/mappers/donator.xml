@@ -173,7 +173,7 @@
         where
             dpt.donation_page_id = #{donationPageId}
         group by
-         dt.userd
+         dt.user_id
     </select>
 
     <select id="getDonationGivingByDonationPageId" resultMap="DonatorWithUserResultMap">
