@@ -6,6 +6,7 @@ import com.projectnmt.projectnmt.dto.TeamListReqDto;
 import com.projectnmt.projectnmt.dto.UserListRsqDto;
 import com.projectnmt.projectnmt.dto.req.*;
 import com.projectnmt.projectnmt.dto.resp.CommentListRespDto;
+import com.projectnmt.projectnmt.dto.resp.DonationListRespDto;
 import com.projectnmt.projectnmt.entity.*;
 import com.projectnmt.projectnmt.entity.User;
 import com.projectnmt.projectnmt.service.AdminService;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -39,6 +41,11 @@ public class AdminController {
         List<CommentListRespDto> commentList = adminService.getCommentList(userId);
         return ResponseEntity.ok(commentList);
     }
+    @GetMapping("/challenge/comment")
+    public ResponseEntity<?> getChallengeCommentList(@RequestParam(defaultValue = "0") int userId) {
+        List<CommentListRespDto> commentList = adminService.getChallengeCommentList(userId);
+        return ResponseEntity.ok(commentList);
+    }
     @GetMapping("/user/count")
     public ResponseEntity<?> getCount(UserListRsqDto userListRsqDto) {
         return ResponseEntity.ok(adminService.getUserCount(userListRsqDto));
@@ -60,12 +67,7 @@ public class AdminController {
         adminService.addRole(authority);
         return ResponseEntity.ok(null);
     }
-    @PostMapping("/message")
-    public ResponseEntity<?> postMessage(@RequestBody AdminMessageReqDto adminMessageReqDto) {
-        System.out.println(adminMessageReqDto);
-        adminService.sendMessage(adminMessageReqDto);
-        return ResponseEntity.ok(null);
-    }
+
     @GetMapping("/teams")
     public ResponseEntity<?> getTeamList(AdminTeamListReqDto adminTeamListReqDto) {
         return ResponseEntity.ok(adminService.getTeamList(adminTeamListReqDto));
@@ -96,6 +98,7 @@ public class AdminController {
     public ResponseEntity<?> DonationList(AdminDonationListReqDto adminDonationListReqDto) {
         return ResponseEntity.ok(adminService.getDonationList(adminDonationListReqDto));
     };
+
 
     @GetMapping("/story/count")
     public ResponseEntity<?> getStoryCount(AdminDonationListReqDto adminDonationListReqDto) {

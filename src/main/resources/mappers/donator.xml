@@ -18,7 +18,7 @@
         <result property="addAmount" column="add_amount" />
         <association property="user" resultMap="UserResultMap" />
         <association property="donationPage" resultMap="DonationPageResultMap" />
-        <association property="comment" resultMap="CommentResultMap" />
+<!--        <association property="comment" resultMap="CommentResultMap" />-->
     </resultMap>
     <resultMap id="DonationPageResultMap" type="com.projectnmt.projectnmt.entity.DonationPage">
         <id property="donationPageId" column="donation_page_id" />
@@ -163,7 +163,7 @@
         where
             dpt.donation_page_id = #{donationPageId}
         group by
-         dt.userd
+         dt.user_id
     </select>
 
     <select id="getDonationGivingByDonationPageId" parameterType="int" resultMap="DonatorResultMap">
