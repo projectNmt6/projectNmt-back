@@ -29,7 +29,7 @@ spring:
 
 server:
   port: 8080
-  deploy-address: 3.35.122.151
+  deploy-address: 43.202.194.195
   name: blue_server
 
 ---
@@ -41,7 +41,7 @@ spring:
 
 server:
   port: 9090
-  deploy-address: 3.35.122.151
+  deploy-address: 43.202.194.195
   name: green_server
 
 ---
