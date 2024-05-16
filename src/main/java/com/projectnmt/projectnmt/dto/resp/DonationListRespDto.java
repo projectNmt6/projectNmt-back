@@ -17,7 +17,7 @@ public class DonationListRespDto {
     private int goalAmount;
     private String storyTitle;
     private String mainImgUrl;
-    private String donationTagName;
+    private int donationTagId;
     private int donationPageShow;
     private int teamId;
     private int countLike;

@@ -1,5 +1,6 @@
 package com.projectnmt.projectnmt.repository;
 
+import com.projectnmt.projectnmt.entity.ChallengeNewsPage;
 import com.projectnmt.projectnmt.entity.ChallengePage;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -11,7 +12,6 @@ import java.util.List;
 public interface ChallengeMapper {
 
     public int saveChallengePage(ChallengePage challengePage);
-
     public ChallengePage getChallengePage(
             @Param("challengePageId") int challengePageId,
             @Param("teamId") int teamId,

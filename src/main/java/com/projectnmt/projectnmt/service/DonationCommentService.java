@@ -17,7 +17,6 @@ public class DonationCommentService {
     private DonationCommentMapper donationCommentMapper;
 
     public void saveComment(DonationCommentReqDto commentReqDto) {
-
         donationCommentMapper.saveComment(commentReqDto.toEntity());
     }
 
@@ -40,13 +39,9 @@ public class DonationCommentService {
 
 
     @Transactional(rollbackFor = Exception.class)
-    public void deleteComment(int donationCommentId, int userId) {
+    public void deleteComment(int donationCommentId) {
         DonationComment comment = donationCommentMapper.findCommentById(donationCommentId);
-        if (comment != null && comment.getUserId() == userId) {
-            donationCommentMapper.deleteCommentById(donationCommentId);
-        } else {
-            throw new IllegalStateException("삭제할 권한이 없습니다.");
-        }
+
     }
 
 
