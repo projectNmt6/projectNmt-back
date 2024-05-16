@@ -4,13 +4,11 @@ import com.projectnmt.projectnmt.aop.annotation.ValidAspect;
 import com.projectnmt.projectnmt.dto.EditAccountReqDto;
 import com.projectnmt.projectnmt.dto.GetMyDonationListReqDto;
 
+import com.projectnmt.projectnmt.dto.req.AdminMessageReqDto;
 import com.projectnmt.projectnmt.dto.req.SearchTeamListDto;
 import com.projectnmt.projectnmt.entity.Team;
 import com.projectnmt.projectnmt.security.PrincipalUser;
-import com.projectnmt.projectnmt.service.AccountService;
-import com.projectnmt.projectnmt.service.PrincipalService;
-import com.projectnmt.projectnmt.service.TeamService;
-import com.projectnmt.projectnmt.service.UserService;
+import com.projectnmt.projectnmt.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
@@ -33,6 +31,8 @@ public class AccountController {
     TeamService teamService;
     @Autowired
     UserService userSerive;
+    @Autowired
+    AdminService adminService;
     @Autowired
     AccountService accountService;
 
@@ -71,6 +71,11 @@ public class AccountController {
         userSerive.deleteMessageBYId(id, isTeam);
         return ResponseEntity.ok(null);
     }
+    @DeleteMapping("/message/delete")
+    public ResponseEntity<?> deleteOldMessageList(@RequestBody List<Integer> oldMessageList) {
+        System.out.println(oldMessageList);
+        return ResponseEntity.ok(null);
+    }
 
     @GetMapping("/mypage/donation")
     public ResponseEntity<?> getMyList(GetMyDonationListReqDto getMyDonationListReqDto) {
@@ -87,5 +92,12 @@ public class AccountController {
         accountService.editPassword(editAccountReqDto);
         return ResponseEntity.ok().build();
     }
+    @PostMapping("/message")
+    public ResponseEntity<?> postMessage(@RequestBody AdminMessageReqDto adminMessageReqDto) {
+        System.out.println(adminMessageReqDto);
+        adminService.sendMessage(adminMessageReqDto);
+        return ResponseEntity.ok(null);
+    }
+
 }
 

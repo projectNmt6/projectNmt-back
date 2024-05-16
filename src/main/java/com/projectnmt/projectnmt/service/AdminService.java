@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -83,6 +85,10 @@ public class AdminService {
     }
     public List<CommentListRespDto> getCommentList(int userId) {
         return adminMapper.findCommentListByUserId(userId);
+    }
+    public List<CommentListRespDto> getChallengeCommentList(int userId) {
+
+        return adminMapper.findChallengeCommentListByUserId(userId);
     }
     public void deleteCommemt(List<Integer> commentIds) {
         for(int commentId : commentIds) {
@@ -160,12 +166,31 @@ public class AdminService {
     }
     public List<DonationListRespDto> getDonationList(AdminDonationListReqDto adminDonationListReqDto) {
         adminDonationListReqDto.setPageId((adminDonationListReqDto.getPageId() - 1) * adminDonationListReqDto.getSearchCount());
-        List<Donation> donations = adminMapper.getDonationList(adminDonationListReqDto);
+        List<Donation> donations = new ArrayList<>();
+        if(adminDonationListReqDto.getMainCategoryId() != 2) donations.addAll(adminMapper.getDonationList(adminDonationListReqDto));
+        if(adminDonationListReqDto.getMainCategoryId() != 1) donations.addAll(adminMapper.getChallengeList(adminDonationListReqDto));
+        Collections.sort(donations, new Comparator<Donation>() {
+            @Override
+            public int compare(Donation o1, Donation o2) {
+                // 두 번째 인자가 크다면 양수, 첫 번째 인자가 크다면 음수
+                return o2.getCreateDate().compareTo(o1.getCreateDate());
+            }
+        });
+        int lastNum = donations.size() < adminDonationListReqDto.getPageId() + adminDonationListReqDto.getSearchCount() ? donations.size() : adminDonationListReqDto.getSearchCount() + adminDonationListReqDto.getPageId();
+        donations = donations.subList(adminDonationListReqDto.getPageId(), lastNum);
         return donations.stream().map(Donation::toDonationListRespDto).collect(Collectors.toList());
     }
 
+
     public UserCountRespDto getStoryCount(AdminDonationListReqDto adminDonationListReqDto) {
-        int count = adminMapper.getDonationCount(adminDonationListReqDto);
+        int count = 0;
+        if(adminDonationListReqDto.getMainCategoryId() != 2){
+            count += adminMapper.getDonationCount(adminDonationListReqDto);
+        }
+        if (adminDonationListReqDto.getMainCategoryId() != 1) {
+            count += adminMapper.getChallengeCount(adminDonationListReqDto);
+        }
+        System.out.println(count);
         int MaxPageNumber = (int)Math.ceil(((double) count) / adminDonationListReqDto.getSearchCount());
         return UserCountRespDto.builder()
                 .maxPageNumber(MaxPageNumber)

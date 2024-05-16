@@ -106,6 +106,19 @@
         <association property="mainCategory" resultMap="MainCategoryResultMap" />
         <association property="donationTag" resultMap="DonationTagResultMap" />
     </resultMap>
+    <resultMap id="ChallengeResultMap" type="com.projectnmt.projectnmt.entity.Donation">
+        <id property="donationPageId" column="challenge_page_id" />
+        <result property="teamId" column="team_id" />
+        <result property="mainCategoryId" column="main_category_id" />
+        <result property="storyTitle" column="challenge_page_title" />
+        <result property="createDate" column="create_date" />
+        <result property="endDate" column="end_date" />
+        <result property="goalAmount" column="challenge_headCount" />
+        <result property="mainImgUrl" column="challenge_main_img" />
+        <result property="donationPageShow" column="challenge_page_show" />
+        <association property="team" resultMap="TeamResultMap" />
+        <association property="mainCategory" resultMap="MainCategoryResultMap" />
+    </resultMap>
     <resultMap id="MainCategoryResultMap" type="com.projectnmt.projectnmt.entity.MainCategory">
         <id property="mainCategoryId" column="main_category_id"/>
         <result property="mainCategoryName" column="main_category_name"/>
@@ -310,11 +323,15 @@
             ct.comment_text as commentText,
             dpt.story_title as storyTitle,
             dpt.donation_page_id as donationPageId,
-            count(rt.comment_id) as reportCount
+            (select
+                count(rt.comment_id)
+            from report_tb rt
+            where
+                rt.is_donation = 1
+            and rt.comment_id = ct.donation_comment_id) as reportCount
         from
             donation_comment_tb ct
             left outer join donation_page_tb dpt on (dpt.donation_page_id = ct.donation_page_id)
-            left outer join report_tb rt on (rt.comment_id = ct.donation_comment_id)
         where
             1 = 1
             <if test="userId != 0">
@@ -450,7 +467,59 @@
                     and t.team_name like concat('%', #{searchText}, '%')
                 </when>
             </choose>
-            limit #{pageId}, #{searchCount}
+<!--        ORDER BY dp.donation_page_id  DESC-->
+    </select>
+    <select id="getChallengeList" resultMap="ChallengeResultMap">
+        SELECT
+        cp.challenge_page_id,
+        cp.team_id,
+        cp.main_category_id,
+        cp.challenge_page_title,
+        cp.create_date,
+        cp.end_date,
+        cp.challenge_headCount,
+        cp.challenge_main_img,
+        mc.main_category_name,
+        cp.challenge_page_show,
+        t.team_name
+        FROM
+        challenge_page_tb cp
+        LEFT OUTER JOIN main_category_tb mc ON cp.main_category_id = mc.main_category_id
+        LEFT OUTER JOIN team_tb t ON cp.team_id = t.team_id
+        where
+        1 = 1
+        <if test="teamId != 0">
+            and dp.team_id = #{teamId}
+        </if>
+        <if test="donationIsShow != 0">
+            and challenge_page_show = #{donationIsShow}
+        </if>
+        <if test="isTimeOut != 0">
+            and DATEDIFF( end_date, now()) * #{isTimeOut}
+        </if>
+        <choose>
+            <when test="selectedOption == 0">
+                and (
+                cp.challenge_page_id = #{searchText}
+                or  cp.challenge_page_title like concat('%', #{searchText}, '%')
+                or  cp.challenge_page_content like concat('%', #{searchText}, '%')
+                or  t.team_name like concat('%', #{searchText}, '%')
+                )
+            </when>
+            <when test="selectedOption == 1">
+                and cp.challenge_page_id = #{searchText}
+            </when>
+            <when test="selectedOption == 2">
+                and cp.challenge_page_title like concat('%', #{searchText}, '%')
+            </when>
+            <when test="selectedOption == 3">
+                and cp.challenge_page_content like concat('%', #{searchText}, '%')
+            </when>
+            <when test="selectedOption == 5">
+                and t.team_name like concat('%', #{searchText}, '%')
+            </when>
+        </choose>
+<!--        ORDER BY cp.challenge_page_id  DESC-->
     </select>
     <select id="getTeamCount" resultType="java.lang.Integer">
         select
@@ -534,6 +603,71 @@
             </when>
             <when test="selectedOption == 4">
                 and dt.donation_tag_name like concat('%', #{searchText}, '%')
+            </when>
+            <when test="selectedOption == 5">
+                and t.team_name like concat('%', #{searchText}, '%')
+            </when>
+        </choose>
+    </select>
+    <select id="findChallengeCommentListByUserId"
+            resultType="com.projectnmt.projectnmt.dto.resp.CommentListRespDto">
+        select
+            ct.challenge_comment_id as donationCommentId,
+            ct.challenge_comment_text as commentText,
+            dpt.challenge_page_title as storyTitle,
+            dpt.challenge_page_id as donationPageId,
+            (select
+                count(rt.comment_id)
+                from report_tb rt
+            where
+                rt.is_donation = 2
+                and rt.comment_id = ct.challenge_comment_id) as reportCount
+        from
+            challenge_comment_tb ct
+            left outer join challenge_page_tb dpt on (dpt.challenge_page_id = ct.challenge_page_id)
+        where
+            1 = 1
+        <if test="userId != 0">
+            and ct.user_id = #{userId}
+        </if>
+        GROUP BY
+            ct.challenge_comment_id, ct.challenge_comment_text, dpt.challenge_page_title, dpt.challenge_page_id
+    </select>
+    <select id="getChallengeCount" resultType="java.lang.Integer">
+        SELECT
+            count(*)
+        FROM
+        challenge_page_tb cp
+        LEFT OUTER JOIN main_category_tb mc ON cp.main_category_id = mc.main_category_id
+        LEFT OUTER JOIN team_tb t ON cp.team_id = t.team_id
+        where
+        1 = 1
+        <if test="teamId != 0">
+            and dp.team_id = #{teamId}
+        </if>
+        <if test="donationIsShow != 0">
+            and challenge_page_show = #{donationIsShow}
+        </if>
+        <if test="isTimeOut != 0">
+            and DATEDIFF( end_date, now()) * #{isTimeOut}
+        </if>
+        <choose>
+            <when test="selectedOption == 0">
+                and (
+                cp.challenge_page_id = #{searchText}
+                or  cp.challenge_page_title like concat('%', #{searchText}, '%')
+                or  cp.challenge_page_content like concat('%', #{searchText}, '%')
+                or  t.team_name like concat('%', #{searchText}, '%')
+                )
+            </when>
+            <when test="selectedOption == 1">
+                and cp.challenge_page_id = #{searchText}
+            </when>
+            <when test="selectedOption == 2">
+                and cp.challenge_page_title like concat('%', #{searchText}, '%')
+            </when>
+            <when test="selectedOption == 3">
+                and cp.challenge_page_content like concat('%', #{searchText}, '%')
             </when>
             <when test="selectedOption == 5">
                 and t.team_name like concat('%', #{searchText}, '%')

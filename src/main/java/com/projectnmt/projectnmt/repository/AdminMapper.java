@@ -16,6 +16,7 @@ public interface AdminMapper {
     public List<AdminUser> findUserList(UserListRsqDto userListRsqDto);
     public AdminUser findUserByUserId(int userId);
     public List<CommentListRespDto> findCommentListByUserId(int userId);
+    public List<CommentListRespDto> findChallengeCommentListByUserId(int userId);
     public void addRole(Authority authority);
     public void deleteCommemt(int commentId);
     public void deleteReport(int commentId);
@@ -29,7 +30,9 @@ public interface AdminMapper {
     public Integer getUserCount(UserListRsqDto userListRsqDto);
     public Integer getTeamCount(AdminTeamListReqDto teamListReqDto);
     public Integer getDonationCount(AdminDonationListReqDto adminDonationListReqDto);
+    public Integer getChallengeCount(AdminDonationListReqDto adminDonationListReqDto);
     public List<Donation> getDonationList(AdminDonationListReqDto adminDonationListReqDto);
+    public List<Donation> getChallengeList(AdminDonationListReqDto adminDonationListReqDto);
     public int deleteDonation(int donationPageId);
     public void deleteCommemtByPageId(int donationPageId);
     public void deleteLikeByPageId(int donationPageId);

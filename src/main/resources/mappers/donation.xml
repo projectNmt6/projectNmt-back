@@ -154,7 +154,9 @@
         donation_page_tb dp
         LEFT OUTER JOIN main_category_tb mc ON dp.main_category_id = mc.main_category_id
         LEFT OUTER JOIN donation_tag_tb dt ON dp.donation_tag_id = dt.donation_tag_id
-        LEFT OUTER JOIN team_tb t ON dp.team_id = t.team_id;
+        LEFT OUTER JOIN team_tb t ON dp.team_id = t.team_id
+        where
+        donation_page_show  IN (-1, 1);
     </select>
 
     <select id="searchDonation" resultMap="DonationResultMap">
