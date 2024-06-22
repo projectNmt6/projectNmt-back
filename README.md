@@ -4,6 +4,29 @@
 
 # 
 
+# 기부 & 챌린지 웹 플랫폼
+
+## 개요
+
+기부 & 챌린지 웹 플랫폼은 사용자가 자신의 기부나 챌린지를 생성하고 공유할 수 있는 플랫폼입니다. 자신의 프로젝트에 후원을 받을 수 있으며, 챌린지를 통하여 응원 받을 수 있습니다.
+
+## 개발 정보
+
+### 개발 인원
+
+- 전체 4명
+
+### 개발 기간
+
+- 2023년 4월 ~ 2023년 5월
+
+### 사용 기술
+
+- **백엔드**: Java, MyBatis, MySQL
+- **프론트엔드**: React
+- **데이터베이스**: MySQL
+
+
 ![슬라이드1](https://github.com/projectNmt6/projectnmt_back/assets/100844814/a3b9b44b-7b2d-4392-8472-07e7adcfe9fe)
 ![슬라이드2](https://github.com/projectNmt6/projectnmt_back/assets/100844814/8c81d939-3453-48bf-a32b-17c61e8c9012)
 ![슬라이드3](https://github.com/projectNmt6/projectnmt_back/assets/100844814/aaccd9af-2a4a-47eb-8b20-3f2da9af7d3c)
