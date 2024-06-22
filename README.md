@@ -28,10 +28,8 @@
 
 
 ![슬라이드1](https://github.com/projectNmt6/projectnmt_back/assets/100844814/a3b9b44b-7b2d-4392-8472-07e7adcfe9fe)
-![슬라이드2](https://github.com/projectNmt6/projectnmt_back/assets/100844814/8c81d939-3453-48bf-a32b-17c61e8c9012)
 ![슬라이드3](https://github.com/projectNmt6/projectnmt_back/assets/100844814/aaccd9af-2a4a-47eb-8b20-3f2da9af7d3c)
 ![슬라이드4](https://github.com/projectNmt6/projectnmt_back/assets/100844814/5774896c-a3fe-4506-ba81-845abc602e58)
-![슬라이드5](https://github.com/projectNmt6/projectnmt_back/assets/100844814/df58942b-1ff2-438d-86ba-f215a54af1de)
 ![슬라이드6](https://github.com/projectNmt6/projectnmt_back/assets/100844814/a7012705-fcde-4331-a69e-6c5cb3e12c1b)
 ![슬라이드7](https://github.com/projectNmt6/projectnmt_back/assets/100844814/ad3be8f9-78a5-47d3-8875-fe7c10160823)
 ![슬라이드8](https://github.com/projectNmt6/projectnmt_back/assets/100844814/5c8f21df-4dd3-4637-a206-4d753c56ea08)
