@@ -49,11 +49,7 @@ Libray
 
 
 ![슬라이드1](https://github.com/projectNmt6/projectnmt_back/assets/100844814/a3b9b44b-7b2d-4392-8472-07e7adcfe9fe)
-![슬라이드3](https://github.com/projectNmt6/projectnmt_back/assets/100844814/aaccd9af-2a4a-47eb-8b20-3f2da9af7d3c)
-![슬라이드4](https://github.com/projectNmt6/projectnmt_back/assets/100844814/5774896c-a3fe-4506-ba81-845abc602e58)
-![슬라이드6](https://github.com/projectNmt6/projectnmt_back/assets/100844814/a7012705-fcde-4331-a69e-6c5cb3e12c1b)
 ![슬라이드7](https://github.com/projectNmt6/projectnmt_back/assets/100844814/ad3be8f9-78a5-47d3-8875-fe7c10160823)
-![슬라이드8](https://github.com/projectNmt6/projectnmt_back/assets/100844814/5c8f21df-4dd3-4637-a206-4d753c56ea08)
 ![슬라이드9](https://github.com/projectNmt6/projectnmt_back/assets/100844814/99409081-58d9-4ceb-8762-30c4f7ae527a)
 ![슬라이드10](https://github.com/projectNmt6/projectnmt_back/assets/100844814/58a8ede2-3216-4ddd-a985-42e01576ee8a)
 ![슬라이드11](https://github.com/projectNmt6/projectnmt_back/assets/100844814/55474f05-f551-47f4-95a7-b9602097a8a9)
