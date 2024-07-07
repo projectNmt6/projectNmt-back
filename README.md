@@ -61,6 +61,10 @@ Libray
 ![Animation11](https://github.com/projectNmt6/projectnmt_back/assets/100844814/79a801b5-3f39-410d-8d60-0e7be6a68b35)
 
 
+# ERD
+![Untitled](https://github.com/projectNmt6/projectnmt_back/assets/100844814/9959add2-f17a-4498-8671-330c5bf172dc)
+
+
 #
 
 ![슬라이드1](https://github.com/projectNmt6/projectnmt_back/assets/100844814/a3b9b44b-7b2d-4392-8472-07e7adcfe9fe)
